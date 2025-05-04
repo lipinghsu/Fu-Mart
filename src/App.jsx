@@ -26,7 +26,7 @@ function App() {
           
           
           <div className="cg-disclaimer">
-            © 2025 <a href="" target="_blank" rel="noopener noreferrer">FU-MART CORP</a>. ALL RIGHTS RESERVED. |
+            © 2025 <a href="" target="_blank" rel="noopener noreferrer">FÜ-MART CORP</a>. ALL RIGHTS RESERVED. |
             <a href="" target="_blank" rel="noopener noreferrer"> TERMS AND CONDITIONS</a> |
             <a href="" target="_blank" rel="noopener noreferrer"> PRIVACY POLICY</a> |
 

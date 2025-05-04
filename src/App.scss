@@ -63,14 +63,16 @@
   gap: 17px;
   min-width: 300px;
   max-width: 46vw;
+  margin-top: auto;
 }
 .cg-store-link {
   font-weight: 900;
   text-transform: uppercase;
   color: #000;
   text-decoration: none;
-  letter-spacing: 1.2px;
-  font-size: 1.2rem;
+  letter-spacing: 0.1px;
+  font-size: 1.4rem;
+  height: 24px;
   // margin-bottom: 6px;
 }
 .cg-rca-logo {
@@ -143,7 +145,7 @@
   max-width: 400px;
   color: #222;
   text-align: right;
-  margin-bottom: 7px;
+  // margin-bottom: 7px;
 }
 .cg-social-icons {
   display: flex;

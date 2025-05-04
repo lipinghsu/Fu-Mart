@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "fu-mart-8",
+    "fu-mart-8": "fu-mart-8"
+  },
+  "targets": {},
+  "etags": {}
+}
