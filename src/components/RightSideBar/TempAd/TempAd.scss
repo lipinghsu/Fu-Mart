@@ -1,0 +1,43 @@
+
+.temp-ad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px ;
+    margin: 16px auto;
+    // max-width: 320px;
+    background-color: #fff;
+    box-shadow: 0 0 2px 0 rgba(15, 10, 13, 0.12);
+    transition: box-shadow 0.3s;
+    
+    &:hover {
+      
+    }
+    
+    .ad-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    //   margin-bottom: 8px;
+    }
+    
+    .ad-content {
+      text-align: center;
+      
+      .ad-title {
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 0 4px;
+      }
+      
+      .ad-description {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0;
+      }
+    }
+  }
+  

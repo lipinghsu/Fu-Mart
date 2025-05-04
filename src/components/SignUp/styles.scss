@@ -1,0 +1,54 @@
+$customDarkerGray: #9b9b9b;
+$customDarkGray: #b8b8b8;
+$customLightGray: #d7d7d7;
+
+$footerHeight: 0px;
+$headerHeight: 6rem;
+$signInMargin: 4rem;
+
+// dont have an account? Sign up here
+
+.authWrapper{
+    .wrap{
+        .subtitle{
+            text-align: center;
+            font-size: 1.45rem;
+            margin-bottom: 10px;
+            
+            a, a:visited{
+                color:#008938;
+                // font-weight: 600;
+            }
+            
+         }
+
+
+        .formWrap{
+            form{
+                .terms{
+                    text-align:  center;
+                    padding: 0rem 0 0.5rem 0;
+                    font-size: 1.45rem;
+                    line-height: 1.15;
+                    display: flex;
+                    flex-direction: column;
+                    
+                    a, a:visited{
+                        color:#b8b8b8;
+                        
+                    }
+                    a:hover{
+                        
+                        color:#008938;
+                        text-decoration: underline;
+                    }
+                }
+                // .cancel:hover{
+                //     border-radius: 19px;
+                //     background-color: #e74d3c19;
+                // }
+            }
+        }
+    }
+}
+

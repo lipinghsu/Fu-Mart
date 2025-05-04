@@ -1,0 +1,405 @@
+
+.commentItem {
+    padding: 4px 0 2px 0px;
+    &:first-child{
+      border-top: 1px solid rgb(222, 227, 221);
+    }
+    // only show moreButton on hover
+    &:hover {
+      .shareContainer {
+        .moreButton {
+          display: flex;
+          img{
+            display: block !important;
+          }
+        }
+      }
+    }
+  
+    
+    @media (max-width: 840px) {
+      background-color: rgb(249, 251, 248);
+      &:first-child{
+        border: none;
+        padding-top: 0;
+      }
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+    .commentHeader {
+      justify-content: space-between;
+      margin-bottom: 6px;
+
+      @media (max-width: 840px) {
+        // padding-bottom: 8px;
+      }
+      .commentTop {
+
+        .user-date-wrap{
+          .commentUser {
+            display: inline-block;
+            font-size: 13.5px;
+            color: #333;
+            margin: 0;
+            font-weight: 600;
+            margin-bottom: 4px;
+
+            &:hover{
+              color: #000;
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+  
+          .commentDate {
+            justify-content: left;
+            font-size: 13px;
+            color: rgb(85, 80, 83) !important;
+            margin: 0;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            .commentCourse{
+              font-size: 12px;
+              height: 18px;
+              background-color: #008938;
+              color:white !important;
+
+              background-color: rgb(242, 247, 241);;
+              color:#008938 !important;
+
+
+              padding: 0 4px;
+              border-radius: 4px;
+              margin-right: 4px;
+
+              @media(max-width: 840px) {
+                background-color: rgb(237, 242, 236);
+                
+              }
+            }
+          }
+        }
+        .profileImage-wrap{
+          width: 32px;
+          height: 32px;
+          border-radius: 16px;
+          margin-right: 12px;
+          img{
+            border-radius: 16px;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        display: flex;
+        // justify-content: space-between;
+        align-items: center;
+        position: relative; 
+        width: 100%;
+        margin-bottom: 6px;
+        padding-top: 8px;
+      
+
+      
+        .commentCourse {
+          color: black !important;
+          height: 32px;
+          border-radius: 16px;
+          // width: 96px;
+          display: flex;
+          justify-content: right;
+          align-items: center;
+
+          // position: absolute; // Ensures it's centered relative to .commentTop
+          // left: 50%; // Move the element to the center of the container
+          // transform: translateX(-50%); // Shift it back by 50% of its own width for true centering
+          font-size: 14px;
+          font-weight: bold;
+          color: #333;
+          height: 14px;
+          margin: 0;
+
+        }
+
+        .ratingContainer {
+          margin-left: auto; /* Push the RatingContainer to the right */
+          margin-right: 0;
+        }
+
+      }
+      
+    }
+
+    .commentContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .commentReview {
+      font-size: 14px;
+      // margin: 0 0 4px;
+      margin: 0;
+      height: 100%;
+      color: #353133;
+      line-height: 1.25;
+      width: calc(100% - 44px);
+      margin-left: 44px;
+
+      @media (max-width: 840px) {
+        margin-bottom: 4px;
+      }
+    }
+
+    .likeDislikeShareContainer {
+      width: calc(100% - 33px) ;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      
+      gap: 1px;
+      height: 32px;
+      margin-top: 2px;
+      // padding-top: 3px;
+      // padding-bottom: 1px;
+      border-radius: 25px;
+      margin-left: 33px;
+      
+      @media (max-width: 840px) {
+        padding-top: 2px;
+        width: calc(100% - 36px);
+        margin-left: 36px;
+        gap: 8px;
+        height: 32px;
+
+        justify-content: flex-end;
+      }
+
+
+      .likeDislikeContainer {
+        display: flex;
+        justify-content: center;
+        width: 88px;
+        border-radius: 18px;
+        background-color: white;
+
+      }
+
+      .more-btn-content-wrap{
+        height: 44px;
+        width: 98px;
+
+        margin-right: 0;
+        margin-left: auto !important;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        font-weight: 500;
+        font-size: 1.5rem;
+        
+        overflow: hidden;
+        border-radius: 8px;
+        // background-color: rgb(242, 247, 241);
+        transform: translate3d(28px, 42px, 0);
+        background-color: white;
+        box-shadow: 0 0 2px 0 rgba(15, 10, 13, 0.12);
+
+        opacity: 0;
+        z-index: -300;
+        transition: opacity 0.1s ease-out;
+        
+        @media(max-width: 840px){
+          transform: translate3d(38px, 42px, 0);
+        }
+        &.active{
+          opacity: 1;
+          z-index: 10;
+        }
+
+        .more-btn-content{
+          color: #E74C3C;
+          width: 100%;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          height: 32px;
+          .more-btn-text{
+            padding-left: 6px;
+          }
+          img{
+            // transform: translateY(-2px);
+            // color: #E74C3C !important;
+            filter: invert(23%) sepia(70%) saturate(3000%) hue-rotate(359deg) brightness(85%) contrast(117%);
+            opacity: 0.85;
+            width: 16px;
+            height: 16px;
+            
+          }
+          // transition: background-color 0.05s ease-out;
+          &:hover{
+            cursor:pointer;
+            // background-color: #E7F0E550;
+            background-color: #E74C3C10;
+          }
+        }
+      }
+
+      .shareContainer {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        height: 100%;
+        border-radius: 18px;
+        height: 28px;
+
+        // only show moreButton on hover
+        .moreButton {
+          @media (max-width: 840px) {
+            
+              display: flex;
+              img{
+                display: block !important;
+              }
+          }
+          display: none;
+          img{
+            display: none;
+          }
+
+        }
+
+
+        &:last-child{
+          // background-color: red;
+          margin-left:0;
+          margin-right: 0;;
+        }
+
+        @media(max-width: 840px){
+          width: 32px;
+          height: 32px;
+          // border: 1px solid rgb(222, 227, 221);
+          // background-color: white;
+          .commentButton, .shareButton, .likeButton{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+
+            img{
+              // filter:brightness(100) !important;
+              // scale: 0.8;
+            }
+          
+          }
+        }
+
+        
+        &:hover {
+          color: #FFD20C !important;
+          background-color: #008938D8;
+          
+          @media(max-width:840px){
+            border: 1px solid #008938D8 !important;
+          }
+          .likeButton, .moreButton{
+            img{
+              // this only works on svg files
+              filter: invert(1);
+
+            }
+            .button-text{
+              color: #FFD20C;
+            }
+          }
+          .commentButton, .shareButton, .moreButtonx{
+            img{
+              // this only works on png files
+              filter:brightness(100) !important;
+              
+            }
+            .button-text{
+              color: #FFD20C;
+            }
+          }
+        }
+
+        .commentButton{
+          img{
+            margin-top: 2px;
+          }
+        }
+        .shareButton ,
+        .commentButton,
+        .likeButton,
+        .moreButton {
+          height: 100%;
+          width: 100%;
+          min-width: 28px;
+          border-radius: 14px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          // padding: 4px;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: transparent;
+          font-size: 1.25rem;
+          font-weight: 500;
+          font-family: Helvetica Neue, Helvetica, 'Helvetica Neue', Arial, 'Lucida Grande', sans-serif;
+          
+          padding: 2px 10px;
+          color: rgb(85, 80, 83) !important;
+          .button-text{
+            margin-left: 5px;
+            // color:#777;
+          }
+          @media (max-width:840px) {
+            // display: flex;
+            justify-content: center;
+            align-items: center;
+            display:flex;
+            height: 32px;
+            width: 32px;
+          }
+
+
+          img{
+            height: 18px;
+            width: 18px;
+            filter: brightness(0.4);
+            // filter: sepia(0.01);
+          }
+
+
+
+          &:hover {
+            // background-color: red;
+            // color: #00b300;
+          }
+        }
+        .moreButton{
+          padding: 0px;
+        }
+        .likeButton, .moreButton{
+          img{
+            // this only works on svg files
+            filter: invert(0.4);
+          }
+        }
+      }
+
+    }
+  }

@@ -1,0 +1,120 @@
+$num-items: 3;
+
+.signup-dropdown {
+    right: 0;
+    top: 62px;
+    position: absolute;
+
+    border-radius: 16px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px 0 rgba(15, 10, 13, 0.24);
+    font-size: 1.5rem;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    height: 0;
+    transition: height 0.15s ease-in-out;
+    transition: opacity 0.25s ease-in-out;
+
+    .light-dark-switch-wrap{
+        height: 38px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .light-dark-switch {
+            // background-color: rgb(242, 247, 241);
+            background-color: black;
+            width: 100%;
+            height: calc(100% - 4px);
+            margin: 16px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.25s ease-in;
+            
+            &.dark-mode-on {
+              .switch-button {
+                transition: transform 0.25s ease-in;
+                transform: translateX(calc(0px + 108px)); // adjust the value as needed
+              }
+            }
+            
+            .switch-button {
+              width: 28px;
+              height: 28px;
+              background-color: white;
+              border-radius: 16px;
+              transform: translateX(6px);
+              transition: transform 0.25s ease-in;
+            }
+          }
+    }
+    &.open{
+        transition: height 0.15s ease-in-out;
+        transition: opacity 0.25s ease-in-out;
+        opacity: 1;
+
+        // number of dropdown items
+        height: calc(44px * $num-items);
+    }
+
+    .dropdown-menu{
+        width: 181px;
+        .dropdown-item {
+            display: flex;
+            flex-direction: row !important;
+            align-items: center;
+            text-align: left;
+            padding: 8px 12px;
+            white-space: nowrap;
+            // transition: all 0.25s ease-out;;
+            background-color: white;
+
+            // background-color:  rgb(242, 247, 241);
+            cursor: pointer;
+            
+            
+            &:hover{
+                // transition: all 0.08s ease-out;
+                background-color:  rgb(242, 247, 241);
+                // background-color: rgb(200, 215, 207);
+                .icon-wrap{
+                    // background-color:  rgb(220, 225, 222);
+                }
+            }
+
+
+            .icon-wrap{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                width: 28px;
+                height: 28px;
+                border-radius: 14px;
+                img{
+                    filter:brightness(0);
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            a{
+                padding-left: 6px;
+                font-size: 1.5rem;
+                font-weight: 500;
+                &, &:visited{
+                    color:black;
+                }
+            }
+            
+  
+
+        }
+    }
+}

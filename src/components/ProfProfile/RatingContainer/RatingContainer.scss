@@ -1,0 +1,52 @@
+.ratingContainer {
+    .rating-wrap {
+        // background-color: red;
+        height: 32px;
+        border-radius: 16px;
+        // background-color: rgb(242, 247, 241) !important;
+        // border: 1px solid rgb(222, 227, 221);
+        // box-shadow: 0 0 2px 0 rgba(15, 10, 13, 0.12);
+        .difficultyRatingRow {
+            // margin: auto 12px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .starRating {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .stars {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    padding: 8px;
+                    border-radius: 8px;
+                    height: 20px;
+                    
+
+                    .star {
+                        font-size: 18px;
+                        color: white; /* Stars will be white */
+                        margin: 0 2px;
+                        width: 24px;
+                        height: 24px;
+                        
+                        line-height: 20px;
+                        text-align: center;
+                        border-radius: 8px;
+                        transition: background-color 0.3s ease-in-out;
+                        span{
+                            margin-bottom: 2px;;
+                        }
+                        &.filled {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

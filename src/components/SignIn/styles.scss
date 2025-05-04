@@ -1,0 +1,228 @@
+$customDarkerGray: #9b9b9b;
+$customDarkGray: #b8b8b8;
+$customLightGray: #d7d7d7;
+
+$footerHeight: 0px;
+$headerHeight: 6rem;
+$signInMargin: 4rem;
+
+.main-account{
+    // height: calc(100 * --vh - $headerHeight - $signInMargin);
+    // background-image: url('../../assets/cp.jpg');
+    // background-size: cover;
+    // background-repeat: no-repeat;
+}
+
+.authWrapper{
+    display: flex; /* Change to flexbox */
+    flex-direction: column; /* Ensure content stacks vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+     .subtitle{
+        text-align: center;
+        font-size: 1.45rem;
+        margin-bottom: 10px;
+        
+        a, a:visited{
+            &:hover{
+                text-decoration: underline;
+            }
+            color:#008938;
+            // font-weight: 600;
+        }
+        
+     }
+    .wrap{
+        width: 100%;
+        padding-top: 17.5px;
+        padding-bottom: 12.5px;
+        background: rgb(249, 251, 248);
+        border-radius: 25px;
+        box-shadow:  0.5px 3.5px 4px #eeeeee
+                , -0.5px -3.5px 4px #ffffff;
+        
+        .formWrap{
+            .errorMessage{
+                color:red;
+            }
+
+            .socialSignin{
+                padding: 5px auto;
+                display: flex;
+                flex-direction: row ;
+                justify-content: center;
+                align-items: center;
+                gap: 12px;
+                .row{
+                    
+                    .btn{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        filter:brightness(1.15);
+                        // box-shadow: 1px 1px 3px #383838,
+                        // transform: scale(1.02);
+                        &:hover{
+                            // box-shadow: 0px 0px 3px #383838;
+                            box-shadow: 0px 0px 3px #777777;
+                            
+                            transform: scale(1.025);
+        
+                        } 
+
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 19px;
+                        overflow: hidden;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .btn-google{
+                        background-color: black;
+                        padding: 7px;
+                        
+                    }
+
+                    .btn-google:hover{
+                        transform: scale(1.025);
+                    }
+        
+                    .btn-apple{
+                        background-color: white;
+                        filter: invert(1);
+                        padding: 7px;
+                    }
+        
+                    .btn-apple:hover{
+                        box-shadow: 0px 0px 3px #777777;
+                        transform: scale(1.025);
+                        filter: invert(1) brightness(1.25);    
+                    }
+        
+                    .btn-twitter{
+                        padding: 9px;
+                        filter: invert(1);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: white;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .btn-twitter:hover{
+                        transform: scale(1.02);
+                        box-shadow: 0px 0px 3px #777777;
+                        filter: invert(1); 
+                        
+                    }
+                }
+        
+            }
+
+            .or-tag{
+                align-items: center;
+                text-align: center;
+                font-weight: 700;
+                font-size: 1.4rem;
+                padding: 1rem 0;
+                // color: #{$customDarkerGray};
+                // color:rgb(180, 195, 187);
+                color:#87B57D;
+            }
+
+            .or-tag:before{
+                content: "";
+                display: inline-flex;
+                height: 0.5em;
+                vertical-align: bottom;
+                width: calc(50% - 2.15rem);
+                margin-left: -100%;
+                margin-right: 10px;
+                
+                background-color: rgb(140, 155, 147);
+                height: 1.5px;
+                margin-bottom: 5px;
+                border-radius: 0.75px;
+            }
+
+            .or-tag:after{
+                content: "";
+                display: inline-flex;
+                height: 0.5em;
+                vertical-align: bottom;
+                width: calc(50% - 2.15rem);
+                margin-right: -100%;
+                margin-left: 10px;
+
+                background-color: rgb(140, 155, 147);
+                height: 1.5px;
+                margin-bottom: 5px;
+                border-radius: 0.75px;
+            }
+        
+            .resetPassword{
+                text-align:  right;
+                padding: 0rem 0 12px 0;
+                font-size: 1.45rem;
+                a, a:visited{
+                    color: #{$customDarkGray}
+                }
+                a:hover{
+                    color: #008938;
+                    text-decoration: underline;
+                }
+            }
+            .cancel{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0rem 0rem;
+                padding-bottom: 0px;
+                height: 38px;
+                width: 100%;
+                // background-color: pink;
+                text-align: center;
+                // background-color: red;
+                h3{
+                    padding: 0;
+                }
+
+                a{
+                    // padding: 0;
+                    // margin: 0px;
+                    // width: 100%;
+                    // width: calc(100% - 138px)
+                    width: 138px;
+                    border-radius: 19px;
+                    height: 38px;
+                    // background-color: purple;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.75rem;
+                    color: #b8b8b8;
+                    font-weight: 600;
+                    // border: 1px solid #b8b8b8;
+                    
+                    &:visited{
+                        color: #b8b8b8;
+                    }
+                    &:hover{
+                        // background-color: rgb(200, 215, 207);
+                        color: #e74c3c;
+                        // background-color:white;
+                        // border: 1px solid #e74c3c;
+                    }
+                }
+
+
+            }
+            
+        }
+    }
+    
+}

@@ -1,0 +1,26 @@
+.list-item-wrap{
+    padding: 8px 16px 8px 22px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 25px;
+    margin: 0 12px 0 12px;
+    color: black !important;
+
+    &:hover{
+      cursor:pointer;
+      background-color: rgb(242, 247, 241) !important;
+    }
+
+    .img-wrap{
+      img{
+        width: 32px;
+        height: 32px;
+
+      }
+    }
+    .text-wrap{
+      margin-left: 8px;
+      font-size: 1.5rem;
+    }
+}
