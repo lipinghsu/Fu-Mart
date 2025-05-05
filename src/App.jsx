@@ -1,69 +1,109 @@
-import { useState } from 'react'
+
+import React, { useEffect, Suspense, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
+// import { checkUserSession } from './redux/User/user.actions';
+// import AdminToolbar from './components/AdminToolbar';
+
+// hoc
+// import WithAuth from './hoc/withAuth';
+// import WithAdminAuth from './hoc/withAdminAuth';
+
+// layouts
+// import MainLayout from './layouts/MainLayout';
+import HomepageLayout from './layouts/HomepageLayout';
+// import AccountLayout from './layouts/AccountLayout';
+// import CheckoutLayout from './layouts/CheckoutLayout';
+// import AboutLayout from './layouts/AboutLayout';
+// import DashBoardLayout from './layouts/DashboardLayout';
+// import AdminLayout from './layouts/AdminLayout';
+
+// pages
+import Homepage from './pages/Homepage';
+// import Search from './pages/Search';
+// import Registration from './pages/Registration';
+// import Login from './pages/Login';
+// import Recovery from './pages/Recovery';
+// import Dashboard from './pages/Dashboard';
+// import Admin from './pages/Admin';
+// import ProductDetails from './pages/ProductDetails';
+// import Cart from './pages/Cart';
+// import Payment from './pages/Payment';
+// import Order from './pages/Order';
+// import ProfProfile from './components/ProfProfile';
+// import Terms from './pages/Terms';
+// import About from './pages/About';
+
+// import SearchResults from './components/SearchResults';
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import fumartLogo from './assets/fumart-1.png'
+
 import './App.scss'
 
+
 function App() {
-  return (
-    <div className="cg-root">
-      <header className="cg-header">
-        <h1>FÜ-MART</h1>
-      </header>
-      <main className="cg-main">
-        <div className='logo-container'>
-        <img
-          src={fumartLogo}
-        />
-        </div>
 
-      </main>
-      <footer className="cg-footer">
-        <div className="cg-footer-left">
-          {/* <a className="cg-store-link" href="http://store.fumart.com/" target="_blank" rel="noopener noreferrer">STORE</a> */}
-          
-          <a className="cg-store-link" href="http://store.fumart.com/" target="_blank" rel="noopener noreferrer">COMING SOON</a>
-          
-          
-          <div className="cg-disclaimer">
-            © 2025 <a href="" target="_blank" rel="noopener noreferrer">FÜ-MART CORP</a>. ALL RIGHTS RESERVED. |
-            <a href="" target="_blank" rel="noopener noreferrer"> TERMS AND CONDITIONS</a> |
-            <a href="" target="_blank" rel="noopener noreferrer"> PRIVACY POLICY</a> |
-
-            <a href="" target="_blank" rel="noopener noreferrer"> SEND US FEEDBACK</a>
-          </div>
-        </div>
-        <div className="cg-footer-right">
-          <form className="cg-newsletter" onSubmit={e => { e.preventDefault(); window.alert('Thank you for signing up!'); }}>
-            <label htmlFor="cg-email" className="sr-only">Email Address</label>
-            <input
-              id="cg-email"
-              type="email"
-              className="cg-email-input"
-              placeholder="Email Address"
-              required
-              aria-label="Email Address"
-            />
-            <button className="cg-join-btn" type="submit">JOIN</button>
-          </form>
-          <div className="cg-signup-disclaimer">
-            By connecting, you agree to receive news and updates from Fü-mart.
-          </div>
-          {/* <div className="cg-social-icons">
-            <a href="https://www.instagram.com/donaldglover/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <img src="/instagram.svg" alt="Instagram" />
-            </a>
-            <a href="https://www.tiktok.com/@donaldglover" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <img src="/tiktok.svg" alt="TikTok" />
-            </a>
-            <a href="https://www.facebook.com/donaldglover/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <img src="/facebook.svg" alt="Facebook" />
-            </a>
-          </div> */}
-        </div>
-      </footer>
-    </div>
-  );
+  return(
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HomepageLayout>
+            <Homepage />
+          </HomepageLayout>
+        }
+      />
+      {/* <Route path="/registration" render={() => (
+        <AccountLayout>
+          <Registration />
+        </AccountLayout>
+      )} />
+      <Route path="/login" render={() => (
+        <AccountLayout>
+          <Login />
+        </AccountLayout>
+      )} />
+      <Route path="/recovery" render={() => (
+        <AccountLayout>
+          <Recovery />
+        </AccountLayout>
+      )} />
+      <Route path="/terms" render={() => (
+        <AccountLayout>
+          <Terms />
+        </AccountLayout>
+      )} />
+      <Route path="/about" render={() => (
+        <AboutLayout>
+          <About />
+        </AboutLayout>
+      )} />
+      <Route path="/search" render={() => (
+        <MainLayout>
+          <SearchResults />
+        </MainLayout>
+      )} />
+      <Route path="/dashboard" render={() => (
+        <WithAuth>
+          <DashBoardLayout>
+            <Dashboard />
+          </DashBoardLayout>
+        </WithAuth>
+      )} />
+      <Route path="/admin" render={() => (
+        <WithAdminAuth>
+          <MainLayout>
+            <AdminLayout>
+              <Admin />
+            </AdminLayout>
+          </MainLayout>
+        </WithAdminAuth> */}
+      {/* )} /> */}
+    </Routes>
+  )
+ 
 }
 
 export default App;

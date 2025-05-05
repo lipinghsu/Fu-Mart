@@ -1,0 +1,14 @@
+{
+    "Shop": "線上商店",
+    "Cart": "購物車",
+    "Account": "帳號",
+    "Log out": "登出",
+    "Sign up": "註冊",
+    "Log in": "登入",
+    "SHOP": "線上商店",
+    "CART": "購物車 ({{count}})",
+    "ACCOUNT": "帳號",
+    "LOG OUT": "登出",
+    "SIGN UP": "註冊",
+    "LOG IN": "登入"
+}

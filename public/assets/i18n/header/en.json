@@ -1,0 +1,12 @@
+{
+    "Shop": "Shop",
+    "Cart": "Cart",
+    "Cart": "Cart ({{count}})",
+    "Account": "Account",
+    "Log out": "Log out",
+    "SHOP": "SHOP",
+    "CART": "CART",
+    "CART": "CART ({{count}})",
+    "ACCOUNT": "ACCOUNT",
+    "LOG OUT": "LOG OUT"
+}
