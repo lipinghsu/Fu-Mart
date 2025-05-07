@@ -1,0 +1,59 @@
+{
+    "termsTitle": "服務條款",
+    "privacyTitle": "隱私權政策",
+    "lastUpdated": "最後更新日期：2025年5月5日",
+    "terms": {
+      "section1Title": "介紹",
+      "section1Text": "歡迎來到 Fü-Mart！本服務條款說明了使用我們網站和服務的規則與條件。當您存取本網站時，即表示您完全接受本條款。",
+      "section2Title": "智慧財產權",
+      "section2Text": "除非另有說明，Fü-Mart 及/或其授權人擁有本網站上所有資料的智慧財產權。所有權利均予保留。",
+      "section3Title": "限制事項",
+      "section3Intro": "您不得從事以下行為：",
+      "section3List": [
+        "在任何其他媒體發布網站內容。",
+        "銷售、再授權及/或商業化任何網站內容。",
+        "未經許可公開表演或展示任何網站內容。",
+        "以任何可能損害本網站的方式使用本網站。"
+      ],
+      "section4Title": "您的內容",
+      "section4Text": "「您的內容」 指您在本網站上選擇展示的任何文字、圖片或其他資料。展示時即表示您授權 Fü-Mart 非專屬、全球性的使用、重製及編輯之權利。",
+      "section5Title": "免責聲明",
+      "section5Text": "本網站按 「現況」 提供，Fü-Mart 對網站不作任何明示或暗示的陳述或保證。",
+      "section6Title": "責任限制",
+      "section6Text": "Fü-Mart 及其員工在任何情況下均不對因您使用本網站而產生或與之相關的任何事項負責。",
+      "section7Title": "條款修改",
+      "section7Text": "Fü-Mart 有權隨時修改本條款，您應定期查閱以了解最新內容。"
+    },
+    "privacy": {
+      "section1Title": "介紹",
+      "section1Text": "Fü-Mart 致力於保護您的隱私。本隱私權政策說明我們如何收集、使用及保護您的資訊。",
+      "section2Title": "我們收集的資訊",
+      "section2Intro": "我們可能收集以下資訊：",
+      "section2List": [
+        "個人識別資訊（姓名、電子郵件地址等）。",
+        "使用資料（造訪頁面、停留時間等）。",
+        "Cookies 及追蹤技術。"
+      ],
+      "section3Title": "我們如何使用您的資訊",
+      "section3Intro": "您的資料可能用於以下目的：",
+      "section3List": [
+        "提供及維護我們的服務。",
+        "發送促銷通訊和電子報（經您同意）。",
+        "改善網站功能及使用體驗。",
+        "遵守法律義務。"
+      ],
+      "section4Title": "Cookies",
+      "section4Text": "我們的網站使用 Cookies 來提升您的體驗。您可以透過瀏覽器設定選擇接受或拒絕 Cookies。",
+      "section5Title": "第三方服務",
+      "section5Text": "我們可能會使用第三方服務進行分析、行銷及付款處理，這些第三方必須確保您的資料安全且保密。",
+      "section6Title": "資料安全",
+      "section6Text": "我們會採取合理的安全措施來保護您的個人資料，但網路傳輸無法保證百分之百安全。",
+      "section7Title": "您的權利",
+      "section7Text": "您有權存取、更新或刪除您的個人資料。如需操作，請與我們聯繫。",
+      "section8Title": "政策變更",
+      "section8Text": "Fü-Mart 可能會不時更新本隱私權政策，任何變更都會發布在本頁面，建議您定期查閱。",
+      "section9Title": "聯絡我們",
+      "section9Text": "若您對本隱私權政策有任何疑問，請聯繫 fumart@yahoo.com.tw。"
+    }
+  }
+  

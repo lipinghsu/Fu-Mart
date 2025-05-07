@@ -1,7 +1,9 @@
 {
-
-    "Cancel": "Cancel",
-    "Email": "Email",
-    "Password": "Password",
-    ".": "."
+  "title": "FÜ-MART",
+  "subtitle": "Taiwan’s dopest convenience store",
+  "comingSoon": "COMING SOON",
+  "login": "Log In",
+  "signup": "Sign Up",
+  "logout": "Log Out",
+  "loggedOut": "You have been logged out."
 }

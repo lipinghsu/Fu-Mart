@@ -1,0 +1,253 @@
+.cg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  margin-top: 24px;
+  margin-bottom: 2px;
+  color: #000;
+  animation: floatDown 0.6s ease-out;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .cg-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &.center-align {
+      margin-top: 4px;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      align-items: center;
+    }
+  }
+
+  .cg-sub-title {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #BBB;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+.cg-header-right {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 700px) {
+    flex-direction: row;
+    transform: translateY(-20px);
+  }
+
+  .header-auth-buttons {
+    display: flex;
+    align-items: center;
+
+    .separator {
+      display: none;
+      font-size: 1rem;
+      color: #888;
+      user-select: none;
+    }
+
+    @media (max-width: 700px) {
+      gap: 4px;
+
+      .separator {
+        display: inline;
+      }
+    }
+  }
+
+  .user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .user-name {
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      margin-right: 8px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+
+      &:hover {
+        border-color: #b22b2b;
+        background: #fafafa;
+      }
+    }
+
+    .user-dropdown {
+      position: absolute;
+      top: calc(100% + 0px);
+      right: 8px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid rgba(178, 43, 43, 0.2);
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-16px);
+      pointer-events: none;
+      // min-width: 180px;
+      
+      flex-direction: column;
+      z-index: 10;
+      padding: 0px 4px;
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+      .header-btn {
+        width: 100%;
+        text-align: right;
+        // padding: 12px 16px;
+        font-size: 0.9rem;
+        background: transparent;
+        border: none;
+        font-family: inherit;
+        cursor: pointer;
+        // transition: background-color 0.25s ease, color 0.25s ease;
+
+        &:hover {
+          background-color: #ff2323;
+          color: #fff;
+          // font-weight: bold;
+        }
+      }
+    }
+
+    // 👇 This ensures BOTH user-name and dropdown keep it open
+    &:hover .user-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 30;
+    }
+  }
+}
+
+}
+
+.cg-header h1 {
+  font-family: "Cal Sans", sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+  height: auto;
+
+  &:hover {
+    color: #e20023;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 2rem;
+  }
+}
+
+.header-btn {
+  font-family: inherit;
+  background: transparent;
+  color: #000;
+  border: none;
+  font-weight: 700;
+  padding: 7px 12px;
+  height: 36px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.15s;
+
+  &.log-in,
+  &.log-out {
+    font-weight: normal;
+  }
+
+  &.sign-up,
+  &.log-in,
+  &.log-out {
+    &:hover {
+      background-color: #e20023;
+      color: #000;
+    }
+  }
+
+  @media (max-width: 700px) {
+    color: #b22b2b !important;
+    padding: 7px 4px !important;
+    font-size: 0.85rem;
+    &.sign-up,
+    &.log-in,
+    &.log-out {
+      font-weight: normal;
+    }
+
+    &:hover {
+      background-color: transparent !important;
+      color: #e20023 !important;
+    }
+  }
+}
+
+/* Dark Mode */
+.dark-mode {
+  .cg-sub-title {
+    color: #BBB;
+  }
+
+  .header-btn {
+    color: #f7f7f7 !important;
+
+    &.sign-up,
+    &.log-in,
+    &.log-out {
+      &:hover {
+        background: #ff4c4c;
+        color: #fff;
+      }
+
+      @media (max-width: 700px) {
+        color: #b22b2b !important;
+
+        &:hover {
+          background-color: transparent !important;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
+  .separator {
+    color: #BBB;
+  }
+
+  .cg-header-right {
+    .user-menu {
+      .user-dropdown {
+        background: #222;
+        border-color: #444;
+
+        .header-btn {
+          color: #f7f7f7;
+          &:hover {
+            background: #ff4c4c;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

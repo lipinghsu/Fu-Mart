@@ -1,0 +1,23 @@
+{
+    "loginTitle": "Fü-Mart 로그인",
+    "loginSubtitle": "최신 상품을 찾아보세요",
+    "emailPlaceholder": "이메일",
+    "passwordPlaceholder": "비밀번호",
+    "logIn": "로그인",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "signUp": "회원가입",
+    "signupTitle": "Fü-Mart 회원가입",
+    "signupSubtitle": "회원가입하고 쇼핑을 시작하세요",
+    "namePlaceholder": "이름",
+    "confirmPasswordPlaceholder": "비밀번호 확인",
+    "alreadyHaveAccount": "이미 계정이 있으신가요?",
+    "resetTitle": "비밀번호 재설정",
+    "resetSubtitle": "비밀번호 재설정 링크를 이메일로 받으세요",
+    "sendReset": "재설정 링크 보내기",
+    "rememberPassword": "비밀번호를 기억하셨나요?",
+    "loggingIn": "로그인 중...",
+    "signingUp": "가입 중...",
+    "sending": "보내는 중...",
+    "dontHaveAnAccount": "아직 계정이 없으신가요?"
+  }
+  

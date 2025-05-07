@@ -1,0 +1,231 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 16px;
+}
+
+.login-card {
+  background: #fff;
+  padding: 36px 36px 44px 36px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  animation: floatUp 0.5s ease-out;
+
+  .login-logo {
+    max-width: 120px;
+    margin-bottom: 8px;
+  }
+
+  .login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .login-subtitle {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0px;
+    margin-bottom: 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input,
+    textarea {
+      padding: 14px 12px;
+      margin-bottom: 16px;
+      font-size: 0.85rem !important;
+      border: 1px solid #BBB;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.2s;
+
+      &:hover {
+        border-color: #b22b2b;
+      }
+    }
+
+    textarea {
+      resize: none;
+      min-height: 100px;
+    }
+
+    input[type="file"] {
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+
+    .image-previews {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      gap: 12px;
+      margin-bottom: 16px;
+
+      .image-preview {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease;
+        &:hover .cancel-wrapper {
+          opacity: 1;
+        }
+        .image-wrapper {
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid #e2002320;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        &:hover {
+          
+        }
+      }
+    }
+
+    button {
+      padding: 14px;
+      background: #b22b2b;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background: #e20023;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* Dark Mode */
+.dark-mode {
+  .login-page {
+    background: #000;
+  }
+  .login-card {
+    background: #111;
+    color: #f7f7f7;
+
+    .login-subtitle {
+      color: #aaa;
+    }
+
+    input,
+    textarea {
+      background: #222;
+      color: #f7f7f7;
+      border: 1px solid #444;
+      &:focus {
+        border-color: #ff4c4c;
+      }
+    }
+
+    button {
+      background: #ff4c4c;
+      &:hover {
+        background: #ff2323;
+      }
+    }
+
+    .image-previews .image-preview .image-wrapper {
+      // border: 2px solid #ff4c4c;
+    }
+  }
+}
+.cancel-wrapper {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffffffcc;
+  &:hover {
+    background-color: #e20023;
+    .cancel-button{
+      color:white;
+    }
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  .cancel-button {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    // background: #b22b2b;
+    color: black;
+    border: none;
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+
+    &:hover {
+      // background: #e20023;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(10px);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

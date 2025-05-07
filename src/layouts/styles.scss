@@ -28,7 +28,10 @@ $ButtonHeight: 49px;
 }
 
 .flex-wrapper-main-layout{
-    .main{
+    height: 100vh;
+    // background-color: red;
+    .main-layout-wrap{
+        height: 100%;
         // margin-top: 60px;
     }
     .button {

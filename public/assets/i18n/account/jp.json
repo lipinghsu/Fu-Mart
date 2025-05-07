@@ -1,0 +1,22 @@
+{
+  "loginTitle": "Fü-Mart にログイン",
+  "loginSubtitle": "最新の商品を見つけよう",
+  "emailPlaceholder": "メールアドレス",
+  "passwordPlaceholder": "パスワード",
+  "logIn": "ログイン",
+  "forgotPassword": "パスワードをお忘れですか？",
+  "signUp": "新規登録",
+  "signupTitle": "Fü-Mart に新規登録",
+  "signupSubtitle": "メンバー登録してショッピングを始めよう",
+  "namePlaceholder": "氏名",
+  "confirmPasswordPlaceholder": "パスワード確認",
+  "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+  "resetTitle": "パスワードをリセット",
+  "resetSubtitle": "メールアドレスを入力してリセット手順を受け取ってください",
+  "sendReset": "リセットリンクを送信",
+  "rememberPassword": "パスワードを思い出しましたか？",
+  "loggingIn": "ログイン中...",
+  "signingUp": "登録中...",
+  "sending": "送信中...",
+  "dontHaveAnAccount": "アカウントをお持ちではありませんか？"
+}

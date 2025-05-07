@@ -1,0 +1,22 @@
+{
+    "loginTitle": "Log in to Fü-Mart",
+    "loginSubtitle": "Discover the freshest products",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "logIn": "Log In",
+    "forgotPassword": "Forgot your password?",
+    "signUp": "Sign Up",
+    "signupTitle": "Sign Up for Fü-Mart",
+    "signupSubtitle": "Create your account to start shopping",
+    "namePlaceholder": "Full Name",
+    "confirmPasswordPlaceholder": "Confirm Password",
+    "alreadyHaveAccount": "Already have an account?",
+    "resetTitle": "Reset your password",
+    "resetSubtitle": "Enter your email to receive password reset instructions",
+    "sendReset": "Send Reset Link",
+    "rememberPassword": "Remembered your password?",
+    "loggingIn": "Logging in...",
+    "signingUp": "Signing up...",
+    "sending": "Sending...",
+    "dontHaveAnAccount": "Don't have an account?"
+  }

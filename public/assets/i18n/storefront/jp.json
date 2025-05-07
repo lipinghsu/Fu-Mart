@@ -1,0 +1,12 @@
+{
+  "title": "商品一覧",
+  "searchPlaceholder": "Fü-Mart を検索",
+  "sortBy": "並び替え",
+  "lowHigh": "価格 ↑",
+  "highLow": "価格 ↓",
+  "aToZ": "名前 A → Z",
+  "zToA": "名前 Z → A",
+  "allCategory": "すべて",
+  "add": "追加",
+  "addToCart": "カートに追加"
+}

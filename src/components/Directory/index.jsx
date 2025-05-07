@@ -1,61 +1,91 @@
-import React, { useState, useEffect, useRef } from 'react';
-import fumartLogo from './../../assets/fumart-1.png';
-import './styles.scss';
+import React, { useState, useRef, useEffect } from 'react';
+import fumartLogo from './../../assets/fumart-t-bg.png';
+import { useTranslation } from 'react-i18next';
+import Header from './../Header';
+import SearchBar from './../SearchBar';
+import CgFooter from './../Footer'; 
 
-const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => { 
-  return (  
+const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('preferredTheme');
+    return savedTheme === 'dark';
+  });
+  const { t } = useTranslation(['home', 'common']);
+  const [rotation, setRotation] = useState(0);
+
+  // Detect dark mode + language (same as before)
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    const systemLang = navigator.language || navigator.userLanguage;
+
+    if (!savedLanguage) {
+      let langToSet = 'en';
+      if (systemLang.startsWith('zh')) {
+        langToSet = 'zh-TW';
+      } else if (systemLang.startsWith('ja')) {
+        langToSet = 'jp';
+      } else if (systemLang.startsWith('ko')) {
+        langToSet = 'kr';
+      }
+      document.documentElement.setAttribute('lang', langToSet);
+      localStorage.setItem('preferredLanguage', langToSet);
+    } else {
+      document.documentElement.setAttribute('lang', savedLanguage);
+    }
+
+    const savedTheme = localStorage.getItem('preferredTheme');
+    if (!savedTheme) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(prefersDark);
+      document.documentElement.classList.toggle('dark-mode', prefersDark);
+      localStorage.setItem('preferredTheme', prefersDark ? 'dark' : 'light');
+    } else {
+      const isDark = savedTheme === 'dark';
+      setIsDarkMode(isDark);
+      document.documentElement.classList.toggle('dark-mode', isDark);
+    }
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotation((prev) => prev + 540);
+    }, 38000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    document.documentElement.classList.toggle('dark-mode', newMode);
+    localStorage.setItem('preferredTheme', newMode ? 'dark' : 'light');
+  };
+
+  return (
     <div className="cg-root">
-      <header className="cg-header">
-        <h1>FÜ-MART</h1>
-        <div className='cg-sub-title'>福爾摩沙島最屌的便利商店</div>
-      </header>
+      <Header 
+        title={t('title')} 
+        homepageHeader={true}
+      />
       <main className="cg-main">
-        <div className='logo-container'>
-        <img
-          src={fumartLogo}
+        <div
+          className="logo-container"
+          style={{
+            transform: `rotate(${rotation}deg)`,
+            transition: 'transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
+          }}
+        >
+          <img src={fumartLogo} alt="Fü-Mart Logo" />
+        </div>
+        <SearchBar
+          placeholder="Search for products..."
+          onSearch={(query) => {
+            console.log('Searching for:', query);
+          }}
         />
-        </div>
-
       </main>
-      <footer className="cg-footer">
-        <div className="cg-footer-left">
-          {/* <a className="cg-store-link" href="http://store.fumart.com/" target="_blank" rel="noopener noreferrer">STORE</a> */}
-          
-          <a className="cg-store-link" href="http://store.fumart.com/" target="_blank" rel="noopener noreferrer">COMING SOON</a>
-          
-          
-          <div className="cg-disclaimer">
-            © 2025 <a href="" target="_blank" rel="noopener noreferrer" className='fu-mart-text'>FÜ-MART</a> | ALL RIGHTS RESERVED
-          </div>
-          <div className="cg-disclaimer">
-            <a href="" target="_blank" rel="noopener noreferrer"> TERMS AND CONDITIONS</a> |
-            <a href="" target="_blank" rel="noopener noreferrer"> PRIVACY POLICY</a> |
-
-            <a href="" target="_blank" rel="noopener noreferrer"> SEND US FEEDBACK</a>
-          </div>
-          
-        </div>
-        <div className="cg-footer-right">
-          <form className="cg-newsletter" onSubmit={e => { e.preventDefault(); window.alert('Thank you for signing up!'); }}>
-            <label htmlFor="cg-email" className="sr-only">Email Address</label>
-            <input
-              id="cg-email"
-              type="email"
-              className="cg-email-input"
-              placeholder="Email Address"
-              required
-              aria-label="Email Address"
-            />
-            <button className="cg-join-btn" type="submit">JOIN</button>
-          </form>
-          <div className="cg-signup-disclaimer">
-            By connecting, you agree to receive news and updates from Fü-Mart.
-          </div>
-        </div>
-      </footer>
+      <CgFooter isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
     </div>
   );
-
 };
 
 export default Directory;
