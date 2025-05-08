@@ -61,17 +61,17 @@ const SignUp = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
+    <div className="signup-page">
+      <div className="signup-card">
         <img
           src={fumartLogo}
           alt="Fü-Mart Logo"
-          className="login-logo"
+          className="signup-logo"
           style={{ cursor: 'pointer' }}
           onClick={() => navigate('/')}
         />
-        <div className="login-title">{t('signupTitle')}</div>
-        <p className="login-subtitle">{t('signupSubtitle')}</p>
+        <div className="signup-title">{t('signupTitle')}</div>
+        <p className="signup-subtitle">{t('signupSubtitle')}</p>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

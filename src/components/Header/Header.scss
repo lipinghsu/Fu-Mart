@@ -13,6 +13,7 @@
     text-align: center;
     gap: 12px;
     margin-top: 24px;
+    height: 60px;
   }
 
   .cg-header-left {
@@ -181,7 +182,7 @@
   &.log-out {
     &:hover {
       background-color: #e20023;
-      color: #000;
+      color: #fff;
     }
   }
 

@@ -1,10 +1,9 @@
-// FeedbackModal.jsx
 import React, { useState } from 'react';
-import './PopupModal.scss'; // optional: if you want to keep modal-specific styles separate
-import { firestore } from '../../firebase/utils'; // 👈 make sure to import
+import './FeedbackModal.scss';
+import { firestore } from '../../firebase/utils';
 
 
-const PopupModal = ({ onClose }) => {
+const FeedbackModal = ({ onClose }) => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -58,4 +57,4 @@ const PopupModal = ({ onClose }) => {
   );
 };
 
-export default PopupModal;
+export default FeedbackModal;

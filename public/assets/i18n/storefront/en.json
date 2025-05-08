@@ -8,5 +8,17 @@
     "zToA": "Z → A",
     "allCategory": "All",
     "add": "Add",
-    "addToCart": "Add to Cart"
-  }
+    "addToCart": "Add to Cart",
+    "youMayAlsoLike": "You Might Also Like",
+    "noSuggestions": "No suggestions available",
+    "description": "Description",
+    "noDescription": "No description available",
+    "buyNow": "Buy Now",
+    "customQuantity": "Custom (10+)",
+    "productDisclaimerPart1": "Product details, packaging, and information shown may not always reflect the most up-to-date or complete details. Please refer to the physical product for the most accurate information.",
+    "productDisclaimerPart2": "Note: Actual weight and price may vary depending on seasonal or other factors; listed prices are estimates provided for reference only. For additional details, contact the manufacturer or retailer.",
+    "learnMore": "Learn more",
+    "qualityGuaranteed": "Quality Guaranteed",
+    "qualityPromise": "Every order comes with our quality promise"
+  
+}

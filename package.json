@@ -12,6 +12,7 @@
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "firebase": "^11.6.1",
+    "firebase-admin": "^13.3.0",
     "i18next": "^25.0.2",
     "i18next-browser-languagedetector": "^8.1.0",
     "i18next-http-backend": "^3.0.2",

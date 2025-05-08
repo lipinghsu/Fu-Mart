@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-import FeedbackModal from '../PopupModal';
+import FeedbackModal from '../FeedbackModal';
 
 const Footer = ({ isDarkMode, toggleDarkMode }) => {
   const [email, setEmail] = useState('');
@@ -67,7 +67,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
       <footer className="cg-footer">
         <div className="cg-footer-left">
           <a className="cg-store-link" href="/storefront">
-            {t('store')}
+            {location.pathname === '/storefront' ? t('welcome') : t('store')}
           </a>
           <div className="cg-disclaimer">
             © 2025{' '}

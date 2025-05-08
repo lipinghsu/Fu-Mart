@@ -112,6 +112,7 @@ body{
   border:none;
   cursor: pointer;
   font-weight: 500;
+
 }
 
 .lang-dropdown {
@@ -126,8 +127,8 @@ body{
   overflow: hidden;  
   max-height: 0;     
   opacity: 0;
-  transform: translateY(16px);
-  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
+  
+  transition: max-height 0s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
 
 
   div {
@@ -135,7 +136,7 @@ body{
     height: 0;
     line-height: 0;
     overflow: hidden;
-    transition: padding 0.3s ease-out, height 0.3s ease-out, line-height 0.3s ease-out;
+    transition: padding 0.3s ease-out, height 0.1s ease-out, line-height 0.3s ease-out;
     &:hover {
       background-color:#ff2323;
       color:#f7f7f7;
@@ -145,11 +146,12 @@ body{
 }
 
 .lang-dropdown.open {
-  max-height: 500px;  // big enough to show all options
+  max-height: 500px;
   opacity: 1;
   transform: translateY(-4px);
 
   div {
+    cursor: pointer;
     height: auto;
     line-height: 1.4;
     padding: 12px 12px;
@@ -383,6 +385,7 @@ body{
   .cg-store-link:hover,
   .cg-disclaimer a:hover {
     color: #ff4c4c;
+    
   }
 
   .cg-email-input {
@@ -394,6 +397,7 @@ body{
   .lang-dropdown {
     background: #222;
     border-color: #444;
+    cursor: pointer;
     div {
       color: #f7f7f7;
       &:hover {

@@ -8,5 +8,16 @@
   "zToA": "名前 Z → A",
   "allCategory": "すべて",
   "add": "追加",
-  "addToCart": "カートに追加"
+  "youMayAlsoLike": "あなたにおすすめ",
+  "noSuggestions": "推奨商品はありません",
+  "description": "商品説明",
+  "noDescription": "商品説明はありません",
+  "addToCart": "かごに追加",
+  "buyNow": "今すぐ買う",
+  "customQuantity": "カスタム数量（10以上）",
+  "productDisclaimerPart1": "製品の詳細、パッケージ、表示情報は、最新または完全な情報を反映していない場合があります。正確な情報については実際の製品をご確認ください。",
+  "productDisclaimerPart2": "注意：実際の重量や価格は季節やその他の要因によって変動する場合があります。表示されている価格はあくまで参考値です。詳細についてはメーカーまたは販売店にお問い合わせください。",
+  "learnMore": "詳細はこちら",
+  "qualityGuaranteed": "品質保証",
+  "qualityPromise": "すべてのご注文に品質保証が付いています"
 }

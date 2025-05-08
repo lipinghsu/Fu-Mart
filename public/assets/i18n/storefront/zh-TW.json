@@ -8,5 +8,17 @@
     "zToA": "名稱 Z → A",
     "allCategory": "全部",
     "add": "加入",
-    "addToCart": "加入購物車"
+    "addToCart": "加入購物車",
+    "youMayAlsoLike": "您可能也喜歡",
+    "noSuggestions": "沒有推薦商品",
+    "description": "商品描述",
+    "noDescription": "沒有提供商品描述",
+    "addToCart": "加入購物車",
+    "buyNow": "立即購買",
+    "customQuantity": "自訂數量（10 以上）",
+    "productDisclaimerPart1": "產品詳細資訊、包裝與顯示內容可能未必反映最新或最完整的資訊。請以實際產品為準，以獲取最準確的資料。",
+    "productDisclaimerPart2": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。欲了解更多詳情，請聯繫製造商或零售商。",
+    "learnMore": "了解更多",
+    "qualityGuaranteed": "品質保證",
+    "qualityPromise": "每筆訂單都附帶我們的品質承諾"
   }

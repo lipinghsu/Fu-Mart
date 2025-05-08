@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './../Header';
 import SearchBar from './../SearchBar';
 import CgFooter from './../Footer'; 
+import PopupModal from './PopupModal'; // <- new import
 
 const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -12,8 +13,8 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
   });
   const { t } = useTranslation(['home', 'common']);
   const [rotation, setRotation] = useState(0);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
-  // Detect dark mode + language (same as before)
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferredLanguage');
     const systemLang = navigator.language || navigator.userLanguage;
@@ -44,6 +45,13 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
       setIsDarkMode(isDark);
       document.documentElement.classList.toggle('dark-mode', isDark);
     }
+
+    // Show signup modal after 5 seconds
+    const timer = setTimeout(() => {
+      // setShowSignupModal(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -84,6 +92,14 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
         />
       </main>
       <CgFooter isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+
+      {showSignupModal && (
+        <PopupModal onClose={() => setShowSignupModal(false)}>
+          <div className="signup-offer">
+            
+          </div>
+        </PopupModal>
+      )}
     </div>
   );
 };

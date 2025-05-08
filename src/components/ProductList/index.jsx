@@ -3,8 +3,9 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 import Header from '../Header';
 import Footer from '../Footer';
+import ProductCard from '../ProductCard'; 
+import ProductModal from './ProductModal';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
 import './ProductList.scss';
 
 const ProductList = () => {
@@ -20,10 +21,23 @@ const ProductList = () => {
   const [sortOption, setSortOption] = useState('default');
   const [filterText, setFilterText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Provide fallback if translation system isn’t ready yet
   const allCategoryLabel = ready ? t('allCategory') : 'All';
 
+  // disable scrolling if modal is active
+  useEffect(() => {
+    if (selectedProduct) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedProduct]);
+
+  
   useEffect(() => {
     if (!selectedCategory && ready) {
       setSelectedCategory(allCategoryLabel);
@@ -65,7 +79,7 @@ const ProductList = () => {
   const filteredProducts = products
     .filter((product) =>
       (product.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      product.subtitle.toLowerCase().includes(filterText.toLowerCase())) &&
+        product.subtitle.toLowerCase().includes(filterText.toLowerCase())) &&
       (selectedCategory === allCategoryLabel || product.category === selectedCategory)
     )
     .sort((a, b) => {
@@ -78,8 +92,7 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
-      {/* //<Header title={t('title')} homepageHeader={true} /> */}
-      <Header title={"FÜ-MART"} homepageHeader={true} /> 
+      <Header title={"FÜ-MART"} homepageHeader={true} />
 
       <div className="filter-sort-header">
         <div className="controls">
@@ -108,15 +121,16 @@ const ProductList = () => {
 
       <div className="category-tabs">
         {categories.map((category) => (
-          <button
-            key={category}
-            className={`category-tab ${
-              selectedCategory === category ? 'active' : ''
-            }`}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </button>
+          <div className="category-tab-wrapper" key={category}>
+            <button
+              className={`category-tab ${
+                selectedCategory === category ? 'active' : ''
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
+          </div>
         ))}
       </div>
 
@@ -135,30 +149,26 @@ const ProductList = () => {
               </div>
             ))
           : filteredProducts.map((product) => (
-              <div key={product.id} className="product-card loaded">
-                {product.images && product.images[0] && (
-                  <div className="product-image-wrap">
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="product-image"
-                    />
-                  </div>
-                )}
-                <div className="product-info">
-                  <div className='product-name'>{product.name}</div>
-                  <p className="subtitle">{product.subtitle}</p>
-                  <p className="price">
-                    <span>${product.price.toFixed(2)}</span>
-                  </p>
-                </div>
-                <button className="add-to-cart-btn">
-                  <span className="text-default">{t('add')}</span>
-                  <span className="text-hover">{t('addToCart')}</span>
-                </button>
-              </div>
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClick={setSelectedProduct}
+                isDarkMode={isDarkMode}
+                t={t}
+              />
             ))}
       </div>
+
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onAddToCart={(product, qty) => console.log('Add to cart:', product, qty)}
+          onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
+          onSelectSuggested={(product) => setSelectedProduct(product)} // 👈 ADD THIS
+          isDarkMode={isDarkMode}
+        />
+      )}
 
       <Footer isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
     </div>
