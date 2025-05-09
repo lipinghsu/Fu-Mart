@@ -15,7 +15,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
 
   const languageLabels = {
     en: 'English',
-    'zh-TW': '繁體中文',
+    'zh-TW': '中文 [臺灣]',
     jp: '日本語',
     kr: '한국어',
   };
@@ -100,7 +100,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
             <div className={`lang-dropdown ${isLangDropdownOpen ? 'open' : ''}`}>
               <div onClick={() => handleLanguageChange('jp')}>日本語</div>
               <div onClick={() => handleLanguageChange('kr')}>한국어</div>
-              <div onClick={() => handleLanguageChange('zh-TW')}>繁體中文</div>
+              <div onClick={() => handleLanguageChange('zh-TW')}>中文 [臺灣]</div>
               <div onClick={() => handleLanguageChange('en')}>English</div>
             </div>
           </div>

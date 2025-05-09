@@ -38,13 +38,14 @@
   
   .feedback-modal textarea {
     font-family: inherit;
-    padding: 12px;
-    border: 1px solid #181818;
+    padding: 16px;
+    border: none;
+    background-color: #f8f8f8;
     font-size: 0.9rem;
-    border-radius: 4px;
+    border-radius: 12px;
     resize: vertical;
     min-height: 160px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -52,6 +53,7 @@
     transition: border-color 0.2s;
   
     &:focus {
+      background-color: #f4f4f4;
     //   border-color: #ff4c4c;
     }
   }
@@ -62,15 +64,15 @@
     align-items: center;
     font-family: inherit;
     background: #fff;
-    color: black;
-    border: 1px solid #b22b2b;
+    border: 2px solid #232323;
+    color: #232323;
     font-weight: 700;
-    padding: 7px 28px;
-    height: 38px;
+    padding: 12px;
+    // height: 44px;
     font-size: 0.85rem;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 4px;
     transition: background-color 0.15s, border-color 0.15s;
     width: 100%;
   }
@@ -79,7 +81,6 @@
     background-color: #ff4c4c;
     border-color: #ff4c4c;
     color: #fff;
-    
   }
   
   .feedback-modal .close-btn {
@@ -102,7 +103,7 @@
   .dark-mode {
     .feedback-modal {
       background: #181818;
-      color: #f7f7f7;
+      color: #e8e8e8;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75);
     }
   
@@ -112,8 +113,8 @@
   
     .feedback-modal textarea {
       background: transparent;
-      color: #f7f7f7;
-      border-color: #f7f7f7;
+      color: #e8e8e8;
+      border-color: #e8e8e8;
   
       &:focus {
         // border-color: #b22b2b;
@@ -122,7 +123,7 @@
   
     .feedback-modal button[type="submit"] {
       background: transparent;
-      color: #f7f7f7;
+      color: #e8e8e8;
       border: 1px solid #b22b2b;
       width: 100%;
       &:hover {
@@ -133,7 +134,7 @@
     }
   
     .feedback-modal .close-btn {
-      color: #f7f7f7;
+      color: #e8e8e8;
   
       &:hover {
         color: #ff4c4c;

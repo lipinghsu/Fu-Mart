@@ -1,11 +1,15 @@
 {
   "title": "商品一覧",
   "searchPlaceholder": "Fü-Mart を検索",
+
   "sortBy": "並び替え",
-  "lowHigh": "価格 ↑",
-  "highLow": "価格 ↓",
-  "aToZ": "名前 A → Z",
-  "zToA": "名前 Z → A",
+  "bestMatch": "関連順",
+  "newArrivals": "新着商品",
+  "lowHigh": "価格が安い順",
+  "highLow": "価格が高い順",
+  "aToZ": "名前：AからZ",
+  "zToA": "名前：ZからA",
+
   "allCategory": "すべて",
   "add": "追加",
   "youMayAlsoLike": "あなたにおすすめ",
@@ -19,5 +23,5 @@
   "productDisclaimerPart2": "注意：実際の重量や価格は季節やその他の要因によって変動する場合があります。表示されている価格はあくまで参考値です。詳細についてはメーカーまたは販売店にお問い合わせください。",
   "learnMore": "詳細はこちら",
   "qualityGuaranteed": "品質保証",
-  "qualityPromise": "すべてのご注文に品質保証が付いています"
+  "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています"
 }

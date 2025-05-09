@@ -9,10 +9,13 @@
 }
 
 .login-card {
-  background: #fff;
+  background: #fcfcfc;
+  // background: #ffffff;
+  
   padding: 36px 36px 44px 36px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.14);
+
   width: 100%;
   max-width: 400px;
   text-align: center;
@@ -122,14 +125,14 @@
   }
   .login-card {
     background: #111;
-    color: #f5f5f5;
+    color: #f2f2f3;
 
     .login-subtitle {
       color: #aaa;
     }
     input {
       background: #222;
-      color: #f5f5f5;
+      color: #f2f2f3;
       border: 1px solid #444;
       &:focus {
         border-color: #ff4c4c;

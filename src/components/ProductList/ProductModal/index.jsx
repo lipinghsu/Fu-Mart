@@ -9,7 +9,6 @@ import fumartLogo from '../../../assets/fumart-m-t-bg.png';
 
 const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode }) => {
   const { t } = useTranslation(['storefront']);
-
   if (!product) return null;
 
   const [quantity, setQuantity] = useState(1);
@@ -17,7 +16,6 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [mainImage, setMainImage] = useState(product.images?.[0]);
   const [activeThumbnail, setActiveThumbnail] = useState(product.images?.[0]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(true);
-  const [isProductLoading, setIsProductLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [suggestedProducts, setSuggestedProducts] = useState([]);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
@@ -25,7 +23,9 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [isZooming, setIsZooming] = useState(false);
 
   const modalRef = useRef(null);
-  
+  const dropdownRef = useRef(null);
+  const suggestionsRef = useRef(null);
+
   const handleMouseMove = (e) => {
     if (!hasMouseMoved) setHasMouseMoved(true);
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
@@ -46,12 +46,21 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     setActiveThumbnail(product.images?.[0]);
     fetchSuggestedProducts();
     if (modalRef.current) {
-      // Wait for next paint to ensure DOM updates
       requestAnimationFrame(() => {
         modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
   }, [product]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const fetchSuggestedProducts = async () => {
     try {
@@ -68,7 +77,12 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
           suggestions.push({ id: doc.id, ...data });
         }
       });
-      setSuggestedProducts(suggestions);
+      // Shuffle the array randomly
+      const shuffled = suggestions.sort(() => 0.5 - Math.random());
+
+      // Pick first 8
+      setSuggestedProducts(shuffled.slice(0, 8));
+      // setSuggestedProducts(suggestions);
     } catch (error) {
       console.error('Error fetching suggested products:', error);
     } finally {
@@ -93,9 +107,9 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
         className={`product-modal styled-modal ${isDarkMode ? 'dark' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="close-button" onClick={handleOverlayClick}>
+        <div className="close-button" onClick={handleOverlayClick}>
           <img src={closeImage} alt="close" />
-        </button>
+        </div>
 
         <div className="modal-content styled-content">
           <div className="left styled-left">
@@ -105,126 +119,105 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              {isProductLoading ? (
-                <div className="skeleton-image" />
-              ) : (
-                <img
-                  src={mainImage}
-                  alt={product.name}
-                  className={`main-image ${isZooming && hasMouseMoved ? 'zooming' : ''}`}
-                  style={{ transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%` }}
-                />
-              )}
+              <img
+                src={mainImage}
+                alt={product.name}
+                className={`main-image ${isZooming && hasMouseMoved ? 'zooming' : ''}`}
+                style={{ transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%` }}
+              />
             </div>
-
           </div>
 
           <div className="right styled-right" style={{ width: '100%' }}>
-            <div className="name-title-wrap">
-                <h2 className="product-name">{product.name}</h2>
-                <div className="subtitle">{product.subtitle}</div>
-            </div>
-
             <div className="button-wrap">
               <div className='btn-inner-wrap-top'>
-                  <div className="price">${product.price?.toFixed(2)} USD</div>
-                  <div className="thumbnail-row">
-                  {!isProductLoading && product.images?.map((img, idx) => (
-                    <div className="thumbnail-container" key={idx}>
+                <div className="name-title-wrap">
+                  <h2 className="product-name">{product.name}</h2>
+                  <div className="price">${product.price?.toFixed(2)} <span className='currency'>USD</span></div>
+                </div>
+                <div className="subtitle">{product.subtitle}</div>
+                <div className="thumbnail-row">
+                  {product.images?.map((img, idx) => (
+                    <div className="thumbnail-wrapper" key={idx}>
+                      <div className="thumbnail-container">
                       <img
                         src={img}
-                        alt={`${product.name} thumb ${idx + 1}`}
+                        alt={`Thumbnail`}
                         className={`thumbnail ${activeThumbnail === img ? 'active' : ''}`}
-                        onMouseEnter={() => setMainImage(img)}
-                        onMouseLeave={() => setMainImage(activeThumbnail)}
                         onClick={() => {
-                          setMainImage(img);
-                          setActiveThumbnail(img);
+                          setMainImage(img);        
+                          setActiveThumbnail(img);  
                         }}
                       />
+                      </div>
                       <div className={`thumbnail-bar ${activeThumbnail === img ? 'active' : ''}`} />
                     </div>
                   ))}
-                  </div>
-                  <div className="quantity-control">
-                    <div className="quantity-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                      {quantity}
-                      <span className="arrow">▼</span>
-                    </div>
-                    {dropdownOpen && (
-                      <div className="quantity-dropdown">
-                        {[...Array(9)].map((_, i) => (
-                          <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
-                            {i + 1}
-                          </div>
-                        ))}
-                        <div className="option" onClick={() => handleSelectQuantity(10)}>
-                          {t('customQuantity')}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="button-group">
-                    <button className="add-to-cart" onClick={() => onAddToCart(product, quantity)}>
-                      {t('addToCart')}
-                    </button>
-                    <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
-                      {t('buyNow')}
-                    </button>
-                  </div>
-
                 </div>
-                <div className='btn-inner-wrap-bot'>
-                  <div className='top-text'>
-                    <div className='text-img-wrap'>
-                      <div className='img-wrap'>
-                        <img src={fumartLogo} />
-                      </div>
-                      <div className='qualityGuaranteed'>
-                      {t('qualityGuaranteed')}
-                      </div>
-                      
-                    </div>
-
+                <div className="quantity-control" ref={dropdownRef}>
+                  <div className="quantity-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    {quantity}
+                    <span className="arrow">▼</span>
                   </div>
-                  <div className='qualityPromise'>
-                      {t('qualityPromise')}
+                  <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
+                      <div  className="option block"/>
+                    {[...Array(9)].map((_, i) => (
+                      <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
+                        {i + 1}
+                      </div>
+                    ))}
+                    <div className="option" onClick={() => handleSelectQuantity(10)}>
+                      {t('customQuantity')}
+                    </div>
                   </div>
                 </div>
-
+                <div className="button-group">
+                  <button className="add-to-cart" onClick={() => onAddToCart(product, quantity)}>
+                    {t('addToCart')}
+                  </button>
+                  <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+                    {t('buyNow')}
+                  </button>
+                </div>
               </div>
-
+              <div className='btn-inner-wrap-bot'>
+                <div className='top-text'>
+                  <div className='text-img-wrap'>
+                    <div className='img-wrap'>
+                      <img src={fumartLogo} alt="logo" />
+                    </div>
+                    <div className='qualityGuaranteed'>{t('qualityGuaranteed')}</div>
+                  </div>
+                </div>
+                <div className='qualityPromise'>{t('qualityPromise')}</div>
+              </div>
             </div>
-              
+          </div>
         </div>
 
         <div className="suggestions styled-suggestions">
           <div className="suggestion-title">
             <h2>{t('youMayAlsoLike')}</h2>
           </div>
-          <div className="suggested-items horizontal-scroll">
-            {loadingSuggestions ? (
-              Array.from({ length: 4 }).map((_, idx) => (
-                <div className="suggested-item skeleton" key={`skeleton-${idx}`}>
-                  <div className="skeleton-box" />
-                </div>
-              ))
-            ) : suggestedProducts.length > 0 ? (
+          <div className="suggested-items horizontal-scroll"
+                ref={suggestionsRef}
+          >
+            {suggestedProducts.length > 0 ? (
               suggestedProducts.map((item) => (
                 <div className="suggested-item" key={item.id}>
-                  <ProductCard
-                    product={item}
-                    onClick={async () => {
-                      setIsProductLoading(true);
-                      await onSelectSuggested(item);
-                      if (modalRef.current) {
-                        modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                      setIsProductLoading(false);
-                    }}
-                    t={t}
-                  />
+                <ProductCard
+                  product={item}
+                  onClick={async () => {
+                    await onSelectSuggested(item);
+                    if (modalRef.current) {
+                      modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    if (suggestionsRef.current) {
+                      suggestionsRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+                    }
+                  }}
+                  t={t}
+                />
                 </div>
               ))
             ) : (

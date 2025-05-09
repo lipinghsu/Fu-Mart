@@ -4,19 +4,20 @@ import { auth, firestore } from '../../firebase/utils';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
+import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
+import barIcon from '../../assets/bagIcon.png';
 import './Header.scss';
 
 const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false }) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
-  const [userRole, setUserRole] = useState(null); // 🚨 Get role to check if admin
+  const [userRole, setUserRole] = useState(null);
   const { t } = useTranslation(['common']);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
-        // Fetch role from Firestore
         const userDoc = await getDoc(doc(firestore, 'users', user.uid));
         if (userDoc.exists()) {
           const data = userDoc.data();
@@ -24,6 +25,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
         }
       }
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -31,7 +33,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
     try {
       await signOut(auth);
       navigate('/');
-      window.location.reload(); // 💥 Refresh after logout
+      window.location.reload();
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -40,9 +42,9 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
   return (
     <header className="cg-header">
       <div className={`cg-header-left ${comingSoonPage ? 'center-align' : ''}`}>
-        <h1 onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-          {title}
-        </h1>
+        <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <img src={fumartTextLogo}/>
+        </div>
         <div className="cg-sub-title">{subtitle}</div>
       </div>
 
@@ -57,6 +59,9 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
               <button className="header-btn sign-up" onClick={() => navigate('/signup')}>
                 {t('signup')}
               </button>
+              <div className="shopping-bag">
+                <img src={barIcon}/>
+              </div>
             </div>
           ) : (
             <div className="user-menu">

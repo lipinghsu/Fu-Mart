@@ -1,3 +1,4 @@
+
 .cg-header {
   display: flex;
   justify-content: space-between;
@@ -7,26 +8,52 @@
   margin-bottom: 2px;
   color: #000;
   animation: floatDown 0.6s ease-out;
-
-  @media (max-width: 700px) {
+  @media (max-width: 870px) {
+  
+    padding: 0 12px 0 36px;
+  }
+  @media (max-width: 520px) {
     flex-direction: column;
     text-align: center;
     gap: 12px;
     margin-top: 24px;
     height: 60px;
+    
   }
+
 
   .cg-header-left {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
+    .cg-sub-title{
+      padding-top:8px;
+    }
+
+    .logo-container{
+      width: 160px;
+      opacity: 0.85;
+      
+      @media (max-width: 520px) { 
+        width: 178px;
+      }
+      &:hover{
+        filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+        opacity: 1;
+      }
+      img{
+        width: 100%;
+        height: 100%;
+      }
+
+    }
     &.center-align {
       margin-top: 4px;
       align-items: center;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 520px) {
       align-items: center;
     }
   }
@@ -42,12 +69,41 @@
   display: flex;
   align-items: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 520px) {
     flex-direction: row;
     transform: translateY(-20px);
   }
 
   .header-auth-buttons {
+    gap: 4px;
+    .shopping-bag{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 12px;  
+      background-color: #f4f4f4;
+      border-radius: 24px;
+      opacity: 0.87;
+      cursor: pointer;
+      @media (max-width: 520px) {
+          display: none;
+          
+      }
+
+      &:hover{
+        background-color: #e4e4e4;
+      }
+      .bag-count{
+        // padding-left: 4px;
+
+      }
+      img{
+        width: 100%;
+        height: 100%;
+        
+        
+      }
+    }
     display: flex;
     align-items: center;
 
@@ -56,9 +112,10 @@
       font-size: 1rem;
       color: #888;
       user-select: none;
+      transform: translateY(-1.5px);
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 520px) {
       gap: 4px;
 
       .separator {
@@ -121,7 +178,7 @@
 
         &:hover {
           background-color: #ff2323;
-          color: #fff;
+          // color: #fff;
           // font-weight: bold;
         }
       }
@@ -152,7 +209,7 @@
     color: #e20023;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 520px) {
     font-size: 2rem;
   }
 }
@@ -169,8 +226,8 @@
   text-transform: uppercase;
   width: fit-content;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background-color 0.15s;
+  border-radius: 12px;
+  // transition: background-color 0.15s;
 
   &.log-in,
   &.log-out {
@@ -181,12 +238,12 @@
   &.log-in,
   &.log-out {
     &:hover {
-      background-color: #e20023;
-      color: #fff;
+      background-color: #e20023bb;
+      // color: #fff;
     }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 520px) {
     color: #b22b2b !important;
     padding: 7px 4px !important;
     font-size: 0.85rem;
@@ -208,29 +265,49 @@
   .cg-sub-title {
     color: #BBB;
   }
-
+  .cg-header{
+    .cg-header-left{
+      .logo-container{
+        filter: invert(1);
+        &:hover{
+          filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+        }
+      }
+    }
+  }
   .header-btn {
-    color: #f7f7f7 !important;
+    color: #f2f2f3 !important;
 
     &.sign-up,
     &.log-in,
     &.log-out {
       &:hover {
-        background: #ff4c4c;
-        color: #fff;
       }
 
-      @media (max-width: 700px) {
+      @media (max-width: 520px) {
         color: #b22b2b !important;
 
         &:hover {
           background-color: transparent !important;
-          color: #fff !important;
+          color: #ff4c4c !important;
         }
       }
     }
   }
+  .header-auth-buttons{
+    .shopping-bag{
+      background-color: #282828 !important;
+      &:hover{
+        background-color: #383838 !important;
+      }
+      .bag-count{
 
+      }
+      img{
+        filter:invert(1);
+      }
+    }
+  }
   .separator {
     color: #BBB;
   }
@@ -242,10 +319,10 @@
         border-color: #444;
 
         .header-btn {
-          color: #f7f7f7;
+          // color: #e8e8e8;
           &:hover {
-            background: #ff4c4c;
-            color: #fff;
+            // background: #ff4c4c;
+            // color: #fff;
           }
         }
       }

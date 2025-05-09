@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 import Header from '../Header';
@@ -6,11 +6,13 @@ import Footer from '../Footer';
 import ProductCard from '../ProductCard'; 
 import ProductModal from './ProductModal';
 import { useTranslation } from 'react-i18next';
+import sortIcon from '../../assets/sortIcon.png'
+import fumartLogo from '../../assets/fumart-m-red-bg.png'
 import './ProductList.scss';
 
 const ProductList = () => {
   const { t, ready } = useTranslation(['storefront', 'common']);
-
+  const dropdownRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -22,9 +24,24 @@ const ProductList = () => {
   const [filterText, setFilterText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const allCategoryLabel = ready ? t('allCategory') : 'All';
 
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   // disable scrolling if modal is active
   useEffect(() => {
     if (selectedProduct) {
@@ -36,6 +53,22 @@ const ProductList = () => {
       document.body.style.overflow = '';
     };
   }, [selectedProduct]);
+
+  const handleSortSelect = (value) => {
+    setSortOption(value);
+    setDropdownOpen(false);
+  };
+  
+  const getSortLabel = (option, t) => {
+    switch (option) {
+      case 'new-arrivals': return t('newArrivals');
+      case 'price-asc': return t('lowHigh');
+      case 'price-desc': return t('highLow');
+      case 'name-asc': return t('aToZ');
+      case 'name-desc': return t('zToA');
+      default: return t('bestMatch');
+    }
+  };
 
   
   useEffect(() => {
@@ -87,8 +120,13 @@ const ProductList = () => {
       if (sortOption === 'price-desc') return b.price - a.price;
       if (sortOption === 'name-asc') return a.name.localeCompare(b.name);
       if (sortOption === 'name-desc') return b.name.localeCompare(a.name);
+      if (sortOption === 'new-arrivals') {
+        const dateA = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(a.createdAt);
+        const dateB = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+        return dateB - dateA; // newest first
+      }
       return 0;
-    });
+    })
 
   return (
     <div className="product-list">
@@ -103,37 +141,53 @@ const ProductList = () => {
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
             />
-          </div>
-          <div className="sort-dropdown">
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-            >
-              <option value="default">{t('sortBy')}</option>
-              <option value="price-asc">{t('lowHigh')}</option>
-              <option value="price-desc">{t('highLow')}</option>
-              <option value="name-asc">{t('aToZ')}</option>
-              <option value="name-desc">{t('zToA')}</option>
-            </select>
+            <div className='logo-btn'>
+              <img src={fumartLogo}/>
+            </div>
           </div>
         </div>
       </div>
+      <div className="category-sort-wrapper">
+        <div className="category-tabs">
+          {categories.map((category) => (
+            <div className="category-tab-wrapper" key={category}>
+              <button
+                className={`category-tab ${
+                  selectedCategory === category ? 'active' : ''
+                }`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            </div>
+          ))}
+        </div>
 
-      <div className="category-tabs">
-        {categories.map((category) => (
-          <div className="category-tab-wrapper" key={category}>
-            <button
-              className={`category-tab ${
-                selectedCategory === category ? 'active' : ''
-              }`}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category}
-            </button>
+        <div className="sort-control" ref={dropdownRef}>
+        <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
+          <span className="sort-label">{getSortLabel(sortOption, t)}</span>
+          <span className="sort-icon-container">
+            <img src={sortIcon} />
+          </span>
+        </div>
+          
+          <div className={`sort-dropdown ${dropdownOpen ? 'open' : ''}`}>
+            <div  className="option block"/>
+            <div className="option" onClick={() => handleSortSelect('default')}>
+              {t('bestMatch')}
+            </div>
+            <div className="option" onClick={() => handleSortSelect('new-arrivals')}>
+              {t('newArrivals')}
+            </div>
+            <div className="option" onClick={() => handleSortSelect('price-asc')}>
+              {t('lowHigh')}
+            </div>
+            <div className="option" onClick={() => handleSortSelect('price-desc')}>
+              {t('highLow')}
+            </div>
           </div>
-        ))}
+        </div>
       </div>
-
       <div className="product-grid">
         {loading
           ? Array.from({ length: 6 }).map((_, idx) => (

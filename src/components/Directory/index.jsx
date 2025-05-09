@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './../Header';
 import SearchBar from './../SearchBar';
 import CgFooter from './../Footer'; 
-import PopupModal from './PopupModal'; // <- new import
+import PopupModal from './PopupModal'; 
 
 const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -78,8 +78,7 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
         <div
           className="logo-container"
           style={{
-            transform: `rotate(${rotation}deg)`,
-            transition: 'transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
+            transform: `rotate(${rotation}deg)`
           }}
         >
           <img src={fumartLogo} alt="Fü-Mart Logo" />

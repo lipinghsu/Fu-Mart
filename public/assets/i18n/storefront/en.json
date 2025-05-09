@@ -1,11 +1,15 @@
 {
     "title": "Browse Products",
     "searchPlaceholder": "Search Fü-Mart",
-    "sortBy": "Sort",
-    "lowHigh": "Price ↑",
-    "highLow": "Price ↓",
-    "aToZ": "A → Z",
+    
+    "sortBy": "Sort By",
+    "bestMatch": "Best Match",
+    "newArrivals": "New Arrivals",
+    "lowHigh": "Price Low to High",
+    "highLow": "Price High to Low",
+    "aToZ": "",
     "zToA": "Z → A",
+
     "allCategory": "All",
     "add": "Add",
     "addToCart": "Add to Cart",
@@ -19,6 +23,6 @@
     "productDisclaimerPart2": "Note: Actual weight and price may vary depending on seasonal or other factors; listed prices are estimates provided for reference only. For additional details, contact the manufacturer or retailer.",
     "learnMore": "Learn more",
     "qualityGuaranteed": "Quality Guaranteed",
-    "qualityPromise": "Every order comes with our quality promise"
+    "qualityPromise": "Every order comes with Fü-Mart's quality promise"
   
 }
