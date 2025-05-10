@@ -46,7 +46,7 @@ const FeedbackModal = ({ onClose }) => {
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Share your feedback or air out a problem"
+            placeholder="Share your feedback..."
             rows="5"
             required
           />

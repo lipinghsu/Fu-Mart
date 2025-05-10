@@ -66,9 +66,20 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
     <>
       <footer className="cg-footer">
         <div className="cg-footer-left">
-          <a className="cg-store-link" href="/storefront">
-            {location.pathname === '/storefront' ? t('welcome') : t('store')}
-          </a>
+        <a
+  className="cg-store-link"
+  href="/storefront"
+  onClick={(e) => {
+    if (location.pathname === '/storefront') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // else: let it navigate to /storefront
+  }}
+>
+  {location.pathname === '/storefront' ? t('welcome') : t('store')}
+</a>
+
           <div className="cg-disclaimer">
             © 2025{' '}
             <a href="/" className="fu-mart-text">

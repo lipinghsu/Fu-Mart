@@ -1,9 +1,9 @@
 {
-    "Shopping Cart": "장바구니",
-    "Check Out": "결제하기",
-    "Continue Shopping": "쇼핑 계속하기",
-    "CONTINUE SHOPPING": "쇼핑 계속하기",
-    "Subtotal": "소계",
-    "Shipping & taxes are calculated at checkout.": "배송비 및 세금은 결제 시 계산됩니다.",
-    "Your cart is currently empty.": "장바구니가 비어 있습니다."
-}
+    "shoppingBag": "쇼핑백",
+    "close": "닫기",
+    "emptyMessage": "쇼핑백이 비어 있어요",
+    "unitPrice": "단가",
+    "total": "합계",
+    "grandTotal": "총금액",
+    "proceedToCheckout": "결제하러가기"
+  }

@@ -4,7 +4,7 @@
   "comingSoon": "기대해주세요",
   "allRightsReserved": "판권소유",
   "terms": "이용약관",
-  "privacy": "개인정보처리방침",
+  "privacy": "개인정보",
   "feedback": "피드백",
   "language": "언어",
   "switchLanguage": "언어를 변경 중: {{lng}}",
@@ -23,5 +23,9 @@
   "light": "라이트모드",
   "dark": "다크모드",
   "store": "스토어입장",
-  "welcome": "어서오세요"
+  "welcome": "어서오세요",
+  "login": "계정로긴",
+  "signup": "회원가입",
+  "logout": "로그아웃",
+  "loggedOut": "로그아웃되었습니다."
 }

@@ -11,7 +11,7 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
     const savedTheme = localStorage.getItem('preferredTheme');
     return savedTheme === 'dark';
   });
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['home']);
   const [rotation, setRotation] = useState(0);
   const [showSignupModal, setShowSignupModal] = useState(false);
 
@@ -72,6 +72,7 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
     <div className="cg-root">
       <Header 
         title={t('title')} 
+        subtitle={""} 
         homepageHeader={true}
       />
       <main className="cg-main">

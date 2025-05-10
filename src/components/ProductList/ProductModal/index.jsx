@@ -155,10 +155,15 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                   ))}
                 </div>
                 <div className="quantity-control" ref={dropdownRef}>
-                  <div className="quantity-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                    {quantity}
-                    <span className="arrow">▼</span>
-                  </div>
+                <div
+                  className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  {quantity}
+                  <span className="arrow"><span>▼</span></span>
+                </div>
+                
+
                   <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
                       <div  className="option block"/>
                     {[...Array(9)].map((_, i) => (

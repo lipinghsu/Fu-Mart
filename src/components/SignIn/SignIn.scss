@@ -3,14 +3,14 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f8f8f6;;
+  background-color:#f8f8f6;;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 16px;
 }
 
 .login-card {
-  background: #fcfcfc;
-  // background: #ffffff;
+  background-color:#fcfcfc;
+  // background-color:#ffffff;
   
   padding: 36px 36px 44px 36px;
   border-radius: 12px;
@@ -59,27 +59,27 @@
       // transition: border 0.05s ease-out;
 
       &:hover {
-        border-color: #b22b2b;
+        border-color: #b22b3b;
       }
     }
 
     button {
       padding: 14px;
-      background: #b22b2b;
+      background-color:#b22b3b;
       color: #fff;
       font-size: 1rem;
       font-weight: bold;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color .3s;
       display: flex;
       justify-content: center;
       align-items: center; // ensures spinner is centered
       min-height: 48px;    // ensures height is consistent
 
       &:hover {
-        background: #e20023;
+        background-color:#e20023;
       }
     }
     .fgpw, .fgpw:visited{
@@ -101,7 +101,7 @@
     color: #888;
 
     a {
-      color: #b22b2b;
+      color: #b22b3b;
       text-decoration: none;
       font-weight: 600;
 
@@ -121,17 +121,17 @@
 /* Optional dark mode adjustments */
 .dark-mode {
   .login-page {
-    background: #000;
+    background-color:#000;
   }
   .login-card {
-    background: #111;
+    background-color:#111;
     color: #f2f2f3;
 
     .login-subtitle {
       color: #aaa;
     }
     input {
-      background: #222;
+      background-color:#222;
       color: #f2f2f3;
       border: 1px solid #444;
       &:focus {
@@ -139,9 +139,9 @@
       }
     }
     button {
-      background: #ff4c4c;
+      background-color:#ff4c4c;
       &:hover {
-        background: #ff2323;
+        background-color:#ff2323;
       }
     }
     .login-links a {

@@ -9,14 +9,7 @@ const HomepageLayout = (props) => {
 
     return (
         <div className=''>
-            {/* <Header 
-                {...props} 
-                showSignupDropdown={showSignupDropdown} 
-                setShowSignupDropdown={setShowSignupDropdown} 
-                homepageHeader={true}
-            /> */}
             {React.cloneElement(props.children, { showSignupDropdown, setShowSignupDropdown })}
-            {/* <Footer /> */}
         </div>
     );
 };

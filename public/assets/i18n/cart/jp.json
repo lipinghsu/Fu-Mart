@@ -1,10 +1,9 @@
 {
-    "Shopping Cart": "ショッピングカート",
-    "Check Out": "チェックアウト",
-    "Continue Shopping": "買い物を続ける",
-    "CONTINUE SHOPPING": "買い物を続ける",
-    "Subtotal": "小計",
-    "Shipping & taxes are calculated at checkout.": "送料及び税金はレジにて計算されます。",
-    "Your cart is currently empty.": "現在、カート内に商品はありません。"
-  }
-  
+  "shoppingBag": "ショッピングバッグ",
+  "close": "閉じる",
+  "emptyMessage": "バッグに商品は入っていません",
+  "unitPrice": "単価",
+  "total": "合計",
+  "grandTotal": "総額",
+  "proceedToCheckout": "お会計へ進む"
+}

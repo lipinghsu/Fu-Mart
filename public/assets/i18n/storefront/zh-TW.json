@@ -4,15 +4,15 @@
 
     "sortBy": "排序",
     "bestMatch": "最相關",
-    "newArrivals": "最新產品",
+    "newArrivals": "最新商品",
     "lowHigh": "價格低到高",
     "highLow": "價格高到低",
     "aToZ": "名稱：Ａ到Ｚ",
     "zToA": "名稱：Ｚ到Ａ",
-    
-
     "allCategory": "全部",
     "add": "加入",
+    "buy": "購買",
+
     "addToCart": "加入購物車",
     "youMayAlsoLike": "你可能也喜歡",
     "noSuggestions": "沒有推薦商品",
@@ -25,7 +25,8 @@
     "productDisclaimerPart2": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。欲了解更多詳情，請聯繫製造商或零售商。",
     "learnMore": "了解更多",
     "qualityGuaranteed": "品質保證",
-    "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾"
+    "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
+    "welcome": "歡迎光臨"
   }
 
   

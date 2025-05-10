@@ -1,0 +1,9 @@
+{
+    "shoppingBag": "Shopping Bag",
+    "close": "Close",
+    "emptyMessage": "Your bag is empty.",
+    "unitPrice": "Unit Price",
+    "total": "Total",
+    "grandTotal": "Grand Total",
+    "proceedToCheckout": "Proceed to Checkout"
+  }

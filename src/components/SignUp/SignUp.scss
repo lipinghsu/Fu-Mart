@@ -3,13 +3,13 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f8f8f6;
+  background-color:#f8f8f6;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 16px;
 }
 
 .signup-card {
-  background: #fcfcfc;
+  background-color:#fcfcfc;
   padding: 36px 36px 44px 36px;
   border-radius: 12px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.14);
@@ -57,23 +57,23 @@
       // transition: border 0s ease-in;
 
       &:hover {
-        border-color: #b22b2b;
+        border-color: #b22b3b;
       }
     }
 
     button {
       padding: 14px;
-      background: #b22b2b;
+      background-color:#b22b3b;
       color: #fff;
       font-size: 1rem;
       font-weight: bold;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color .3s;
 
       &:hover {
-        background: #e20023;
+        background-color:#e20023;
       }
     }
   }
@@ -93,7 +93,7 @@
       color: #888;
     }
     a {
-      color: #b22b2b;
+      color: #b22b3b;
       text-decoration: none;
       font-weight: 600;
 
@@ -113,17 +113,17 @@
 /* Optional dark mode adjustments */
 .dark-mode {
   .signup-page {
-    background: #000;
+    background-color:#000;
   }
   .signup-card {
-    background: #111;
+    background-color:#111;
     color: #f2f2f3;
 
     .signup-subtitle {
       color: #aaa;
     }
     input {
-      background: #222;
+      background-color:#222;
       color: #f2f2f3;
       border: 1px solid #444;
       &:focus {
@@ -131,9 +131,9 @@
       }
     }
     button {
-      background: #ff4c4c;
+      background-color:#ff4c4c;
       &:hover {
-        background: #ff2323;
+        background-color:#ff2323;
       }
     }
     .login-links a {

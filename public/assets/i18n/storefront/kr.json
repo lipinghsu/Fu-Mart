@@ -3,16 +3,17 @@
     "searchPlaceholder": "Fü-Mart 검색",
 
     "sortBy": "정렬",
-    "bestMatch": "관련도순",
-    "newArrivals": "신상품",
-    "lowHigh": "낮은 가격순",
-    "highLow": "높은 가격순",
+    "bestMatch": "관련순",
+    "newArrivals": "최신순",
+    "lowHigh": "낮은가격순",
+    "highLow": "높은가격순",
     "aToZ": "이름: A~Z",
     "zToA": "이름: Z~A",
 
     "allCategory": "전체",
-    "add": "추가",
-    "addToCart": "장바구니에 추가",
+    "add": "담기",
+    "buy": "구매",
+    "addToCart": "장바구니 담기",
     "youMayAlsoLike": "당신이 좋아할 수도 있어요",
     "noSuggestions": "추천 상품이 없습니다",
     "description": "상품 설명",
@@ -24,6 +25,7 @@
     "productDisclaimerPart2": "참고: 실제 중량과 가격은 계절 또는 기타 요인에 따라 달라질 수 있으며, 표시된 가격은 참고용 추정치입니다. 추가 정보는 제조업체 또는 판매자에게 문의하십시오.",
     "learnMore": "자세히 보기",
     "qualityGuaranteed": "품질 보장",
-    "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다"
+    "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다",
+    "welcome": "어서 오세요"
   }
   

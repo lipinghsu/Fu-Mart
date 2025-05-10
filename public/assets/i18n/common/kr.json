@@ -3,9 +3,5 @@
     "Close": "닫기",
     "Email": "이메일",
     "Password": "비밀번호",
-    "Size": "사이즈",
-    "login": "로그인",
-    "signup": "회원가입",
-    "logout": "로그아웃",
-    "loggedOut": "로그아웃되었습니다."
+    "Size": "사이즈"
 }

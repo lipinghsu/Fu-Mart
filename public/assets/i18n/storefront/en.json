@@ -12,6 +12,7 @@
 
     "allCategory": "All",
     "add": "Add",
+    "buy": "Buy",
     "addToCart": "Add to Cart",
     "youMayAlsoLike": "You Might Also Like",
     "noSuggestions": "No suggestions available",
@@ -23,6 +24,7 @@
     "productDisclaimerPart2": "Note: Actual weight and price may vary depending on seasonal or other factors; listed prices are estimates provided for reference only. For additional details, contact the manufacturer or retailer.",
     "learnMore": "Learn more",
     "qualityGuaranteed": "Quality Guaranteed",
-    "qualityPromise": "Every order comes with Fü-Mart's quality promise"
+    "qualityPromise": "Every order comes with Fü-Mart's quality promise",
+    "welcome": "Welcome In"
   
 }

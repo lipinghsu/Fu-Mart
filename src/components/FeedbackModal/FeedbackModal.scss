@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.55);
+    background-color:rgba(0, 0, 0, 0.55);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@
   }
   
   .feedback-modal {
-    background: #ffffff;
+    background-color:#ffffff;
     padding: 24px 28px;
     border-radius: 8px;
     width: 90%;
@@ -33,7 +33,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #b22b2b;
+    color: #b22b3b;
   }
   
   .feedback-modal textarea {
@@ -53,7 +53,7 @@
     transition: border-color 0.2s;
   
     &:focus {
-      background-color: #f4f4f4;
+      background-color: #f2f2f3;
     //   border-color: #ff4c4c;
     }
   }
@@ -63,7 +63,7 @@
     justify-content: center;
     align-items: center;
     font-family: inherit;
-    background: #fff;
+    background-color:#fff;
     border: 2px solid #232323;
     color: #232323;
     font-weight: 700;
@@ -73,7 +73,7 @@
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.15s, border-color 0.15s;
+    transition: background-color .15s, border-color 0.15s;
     width: 100%;
   }
   
@@ -87,7 +87,7 @@
     position: absolute;
     top: 22px;
     right: 28px;
-    background: none;
+    background-color:none;
     border: none;
     font-size: 24px;
     color: #999;
@@ -95,15 +95,15 @@
     padding: 0;
   
     &:hover {
-      color: #b22b2b;
+      color: #b22b3b;
     }
   }
   
   /* Dark Mode */
   .dark-mode {
     .feedback-modal {
-      background: #181818;
-      color: #e8e8e8;
+      background-color:#181818;
+      color: #e2e2e3;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75);
     }
   
@@ -112,29 +112,29 @@
     }
   
     .feedback-modal textarea {
-      background: transparent;
-      color: #e8e8e8;
-      border-color: #e8e8e8;
+      background-color:#070710;
+      color: #e2e2e3;
+      border-color: #e2e2e3;
   
       &:focus {
-        // border-color: #b22b2b;
+        // border-color: #b22b3b;
       }
     }
   
     .feedback-modal button[type="submit"] {
-      background: transparent;
-      color: #e8e8e8;
-      border: 1px solid #b22b2b;
+      background-color:transparent;
+      color: #e2e2e3;
+      border: 1px solid #b22b3b;
       width: 100%;
       &:hover {
-        background: #ff4c4c;
+        background-color:#ff4c4c;
         border-color: #ff4c4c;
         color: #fff;
       }
     }
   
     .feedback-modal .close-btn {
-      color: #e8e8e8;
+      color: #e2e2e3;
   
       &:hover {
         color: #ff4c4c;

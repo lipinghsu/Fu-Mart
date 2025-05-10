@@ -6,7 +6,7 @@ import Footer from '../Footer';
 import ProductCard from '../ProductCard'; 
 import ProductModal from './ProductModal';
 import { useTranslation } from 'react-i18next';
-import sortIcon from '../../assets/sortIcon.png'
+import sortIcon from '../../assets/arrowIcon.png'
 import fumartLogo from '../../assets/fumart-m-red-bg.png'
 import './ProductList.scss';
 
@@ -130,8 +130,9 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
-      <Header title={"FÜ-MART"} homepageHeader={true} />
-
+      <Header subtitle={t('welcome')} 
+              homepageHeader={true}
+      />
       <div className="filter-sort-header">
         <div className="controls">
           <div className="filter-input">
@@ -166,7 +167,7 @@ const ProductList = () => {
         <div className="sort-control" ref={dropdownRef}>
         <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
           <span className="sort-label">{getSortLabel(sortOption, t)}</span>
-          <span className="sort-icon-container">
+          <span className={`sort-icon-container ${dropdownOpen ? 'open' : ''}`}>
             <img src={sortIcon} />
           </span>
         </div>
