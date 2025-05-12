@@ -14,8 +14,10 @@ import Privacy from './pages/Privacy';
 import Admin from './pages/Admin';
 import Shop from './pages/Shop';
 
+
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
+import CartSync from './components/CartSync';
 
 import './App.scss';
 import i18n from './i18n';
@@ -51,7 +53,9 @@ function App() {
   }, [location]);
 
   return (
-    <Routes>
+    <>
+      <CartSync /> 
+      <Routes>
       <Route
         path="/"
         element={
@@ -125,6 +129,8 @@ function App() {
         }
       />
     </Routes>
+    </>
+    
   );
 }
 

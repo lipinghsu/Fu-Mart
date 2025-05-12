@@ -79,6 +79,11 @@ const ComingSoon = () => {
 
     return (
         <div className="products">
+            <Header 
+                title={t('title')} 
+                subtitle={t('cs-subtitle')} 
+                comingSoonPage={true}
+            />
             <div className="corner-decoration top-left">
                 <img src={cornerImg} alt="Corner" />
             </div>
@@ -92,11 +97,7 @@ const ComingSoon = () => {
                 <img src={cornerImg} alt="Corner" />
             </div>
 
-            <Header 
-                title={t('title')} 
-                subtitle={t('cs-subtitle')} 
-                comingSoonPage={true}
-            />
+
             <div className="coming-soon-wrap">
                 <div className="coming-soon-wrap-top">
                 <div className="coming-soon outline top-text">{t('comingSoon')}</div>

@@ -6,8 +6,8 @@ import Footer from '../Footer';
 import ProductCard from '../ProductCard'; 
 import ProductModal from './ProductModal';
 import { useTranslation } from 'react-i18next';
-import sortIcon from '../../assets/arrowIcon.png'
-import fumartLogo from '../../assets/fumart-m-red-bg.png'
+import sortIcon from '../../assets/arrowIcon.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './ProductList.scss';
 
 const ProductList = () => {
@@ -15,19 +15,15 @@ const ProductList = () => {
   const dropdownRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('preferredTheme');
-    return savedTheme === 'dark';
-  });
-
-  const [sortOption, setSortOption] = useState('default');
+  const [sortOption, setSortOption] = useState('new-arrivals');
   const [filterText, setFilterText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [subcategoriesMap, setSubcategoriesMap] = useState({});
+  const [hoveredCategory, setHoveredCategory] = useState(null);
 
   const allCategoryLabel = ready ? t('allCategory') : 'All';
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,14 +31,10 @@ const ProductList = () => {
         setDropdownOpen(false);
       }
     };
-  
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  
-  // disable scrolling if modal is active
+
   useEffect(() => {
     if (selectedProduct) {
       document.body.style.overflow = 'hidden';
@@ -54,23 +46,6 @@ const ProductList = () => {
     };
   }, [selectedProduct]);
 
-  const handleSortSelect = (value) => {
-    setSortOption(value);
-    setDropdownOpen(false);
-  };
-  
-  const getSortLabel = (option, t) => {
-    switch (option) {
-      case 'new-arrivals': return t('newArrivals');
-      case 'price-asc': return t('lowHigh');
-      case 'price-desc': return t('highLow');
-      case 'name-asc': return t('aToZ');
-      case 'name-desc': return t('zToA');
-      default: return t('bestMatch');
-    }
-  };
-
-  
   useEffect(() => {
     if (!selectedCategory && ready) {
       setSelectedCategory(allCategoryLabel);
@@ -78,15 +53,8 @@ const ProductList = () => {
   }, [ready, allCategoryLabel, selectedCategory]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark-mode', isDarkMode);
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    document.documentElement.classList.toggle('dark-mode', newMode);
-    localStorage.setItem('preferredTheme', newMode ? 'dark' : 'light');
-  };
+    document.documentElement.classList.toggle('dark-mode', localStorage.getItem('preferredTheme') === 'dark');
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -97,6 +65,16 @@ const ProductList = () => {
           ...doc.data()
         }));
         setProducts(items);
+
+        // Extract subcategories
+        const map = {};
+        for (const item of items) {
+          if (!map[item.category]) map[item.category] = new Set();
+          if (item.subcategory) map[item.category].add(item.subcategory);
+        }
+        const formatted = Object.fromEntries(Object.entries(map).map(([k, v]) => [k, Array.from(v)]));
+        setSubcategoriesMap(formatted);
+
       } catch (err) {
         console.error('Error fetching products:', err);
       } finally {
@@ -106,6 +84,28 @@ const ProductList = () => {
 
     fetchProducts();
   }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = localStorage.getItem('preferredTheme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('preferredTheme', newMode);
+    document.documentElement.classList.toggle('dark-mode', newMode === 'dark');
+  };
+
+  const handleSortSelect = (value) => {
+    setSortOption(value);
+    setDropdownOpen(false);
+  };
+
+  const getSortLabel = (option) => {
+    switch (option) {
+      case 'new-arrivals': return t('newArrivals');
+      case 'price-asc': return t('lowHigh');
+      case 'price-desc': return t('highLow');
+      case 'name-asc': return t('aToZ');
+      case 'name-desc': return t('zToA');
+      default: return t('newArrivals');
+    }
+  };
 
   const categories = [allCategoryLabel, ...new Set(products.map((p) => p.category))];
 
@@ -123,16 +123,14 @@ const ProductList = () => {
       if (sortOption === 'new-arrivals') {
         const dateA = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(a.createdAt);
         const dateB = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
-        return dateB - dateA; // newest first
+        return dateB - dateA;
       }
       return 0;
-    })
+    });
 
   return (
     <div className="product-list">
-      <Header subtitle={t('welcome')} 
-              homepageHeader={true}
-      />
+      <Header homepageHeader={true} />
       <div className="filter-sort-header">
         <div className="controls">
           <div className="filter-input">
@@ -143,40 +141,47 @@ const ProductList = () => {
               onChange={(e) => setFilterText(e.target.value)}
             />
             <div className='logo-btn'>
-              <img src={fumartLogo}/>
+              <img src={fumartLogo} />
             </div>
           </div>
         </div>
       </div>
+
       <div className="category-sort-wrapper">
         <div className="category-tabs">
           {categories.map((category) => (
-            <div className="category-tab-wrapper" key={category}>
-              <button
-                className={`category-tab ${
-                  selectedCategory === category ? 'active' : ''
-                }`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </button>
+            <div
+              className="category-tab-wrapper"
+              key={category}
+              onMouseEnter={() => setHoveredCategory(category)}
+              onMouseLeave={() => setHoveredCategory(null)}
+            >
+            <button
+              className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {t(category)}
+            </button>
+              {hoveredCategory === category && subcategoriesMap[category]?.length > 0 && (
+                <div className="subcategory-dropdown">
+                  {subcategoriesMap[category].map((sub) => (
+                    <div className="subcategory-item" key={sub}>{sub}</div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
 
         <div className="sort-control" ref={dropdownRef}>
-        <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-          <span className="sort-label">{getSortLabel(sortOption, t)}</span>
-          <span className={`sort-icon-container ${dropdownOpen ? 'open' : ''}`}>
-            <img src={sortIcon} />
-          </span>
-        </div>
-          
+          <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
+            <span className="sort-label">{getSortLabel(sortOption)}</span>
+            <span className={`sort-icon-container ${dropdownOpen ? 'open' : ''}`}>
+              <img src={sortIcon} />
+            </span>
+          </div>
           <div className={`sort-dropdown ${dropdownOpen ? 'open' : ''}`}>
-            <div  className="option block"/>
-            <div className="option" onClick={() => handleSortSelect('default')}>
-              {t('bestMatch')}
-            </div>
+            <div className="option block" />
             <div className="option" onClick={() => handleSortSelect('new-arrivals')}>
               {t('newArrivals')}
             </div>
@@ -189,6 +194,7 @@ const ProductList = () => {
           </div>
         </div>
       </div>
+
       <div className="product-grid">
         {loading
           ? Array.from({ length: 6 }).map((_, idx) => (
@@ -204,13 +210,15 @@ const ProductList = () => {
               </div>
             ))
           : filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onClick={setSelectedProduct}
-                isDarkMode={isDarkMode}
-                t={t}
-              />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onClick={(e, type) => {
+                setSelectedProduct(product);
+              }}
+              isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
+              t={t}
+            />
             ))}
       </div>
 
@@ -220,12 +228,12 @@ const ProductList = () => {
           onClose={() => setSelectedProduct(null)}
           onAddToCart={(product, qty) => console.log('Add to cart:', product, qty)}
           onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
-          onSelectSuggested={(product) => setSelectedProduct(product)} // 👈 ADD THIS
-          isDarkMode={isDarkMode}
+          onSelectSuggested={(product) => setSelectedProduct(product)}
+          isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
         />
       )}
 
-      <Footer isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <Footer isDarkMode={localStorage.getItem('preferredTheme') === 'dark'} toggleDarkMode={toggleDarkMode} />
     </div>
   );
 };

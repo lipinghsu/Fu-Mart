@@ -1,0 +1,237 @@
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Auto-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+// Regular Geologica (Normal Style)
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+// Geologica Cursive (Italic Style)
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica_Cursive-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('./assets/fonts/Geologica/static/Geologica-Black.ttf') format('truetype');
+  font-weight: 900;
+}
+

@@ -3,17 +3,63 @@ import fumartLogo from './../../assets/fumart-t-bg.png';
 import { useTranslation } from 'react-i18next';
 import Header from './../Header';
 import SearchBar from './../SearchBar';
-import CgFooter from './../Footer'; 
-import PopupModal from './PopupModal'; 
+import CgFooter from './../Footer';
+import JoinUsModal from './JoinUsModal';
+import ProductCard from './../ProductCard';
+import topSectionImage from './../../assets/lunarnewyear-stall.png'
+import './Directory.scss';
+import LatestProducts from './LatestProducts'; 
+
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { firestore } from '../../firebase/utils';
+
+let hasShownJoinModalThisSession = false;
 
 const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('preferredTheme');
     return savedTheme === 'dark';
   });
-  const { t } = useTranslation(['home']);
+
+  const { t } = useTranslation(['home', 'storefront']);
   const [rotation, setRotation] = useState(0);
   const [showSignupModal, setShowSignupModal] = useState(false);
+  const [latestProducts, setLatestProducts] = useState([]);
+  const suggestionsRef = useRef(null);
+
+  const fetchLatestProducts = async () => {
+    try {
+      const q = query(
+        collection(firestore, 'products'),
+        orderBy('createdAt', 'desc'),
+        limit(10)
+      );
+      const querySnapshot = await getDocs(q);
+      const products = [];
+      querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+      });
+      setLatestProducts(products);
+    } catch (error) {
+      console.error('Error fetching latest products:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchLatestProducts();
+
+    const lastShown = localStorage.getItem('joinUsLastShown');
+    const now = Date.now();
+    const oneDay = 1000; // Adjust to 24hr for production
+
+    if (!hasShownJoinModalThisSession && (!lastShown || now - parseInt(lastShown, 10) > oneDay)) {
+      hasShownJoinModalThisSession = true;
+      setTimeout(() => {
+        setShowSignupModal(true);
+      }, 4870);
+    }
+  }, []);
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferredLanguage');
@@ -45,20 +91,16 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
       setIsDarkMode(isDark);
       document.documentElement.classList.toggle('dark-mode', isDark);
     }
-
-    // Show signup modal after 5 seconds
-    const timer = setTimeout(() => {
-      // setShowSignupModal(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRotation((prev) => prev + 540);
-    }, 38000);
-    return () => clearInterval(interval);
+    // Simulate fetching latest products from backend
+    const mockData = [
+      { id: '1', name: 'New Shirt', price: 25 },
+      { id: '2', name: 'Cool Hat', price: 18 },
+      { id: '3', name: 'Trendy Jacket', price: 60 },
+    ];
+    setLatestProducts(mockData);
   }, []);
 
   const toggleDarkMode = () => {
@@ -70,36 +112,53 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
 
   return (
     <div className="cg-root">
-      <Header 
-        title={t('title')} 
-        subtitle={""} 
+      <div className='directory'>
+      <Header
+        title={t('title')}
         homepageHeader={true}
+        hasSearchBar={true}
       />
-      <main className="cg-main">
-        <div
-          className="logo-container"
-          style={{
-            transform: `rotate(${rotation}deg)`
-          }}
-        >
-          <img src={fumartLogo} alt="Fü-Mart Logo" />
+      <div className="cg-main">
+        <div className='top-section'>
+          <div className='top-section-text-wrap'>
+            歡迎光臨
+          </div>
+          <div className='top-section-img-wrap'>
+            <img src={topSectionImage} />
+          </div>
         </div>
-        <SearchBar
-          placeholder="Search for products..."
-          onSearch={(query) => {
-            console.log('Searching for:', query);
-          }}
-        />
-      </main>
-      <CgFooter isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-
-      {showSignupModal && (
-        <PopupModal onClose={() => setShowSignupModal(false)}>
-          <div className="signup-offer">
+        <LatestProducts />
+{/* 
+        <div className="signup-section">
+          <div className="signup-left">
+            <h2>{t('home:signupTitle', 'Join Us Today!')}</h2>
+            <p>{t('home:signupDesc', 'Get access to exclusive deals and product launches.')}</p>
+            <div className="signup-buttons">
+              <button className="primary-btn" onClick={() => setShowSignupModal(true)}>
+                {t('home:signupNow', 'Sign Up')}
+              </button>
+              <button className="secondary-btn" onClick={() => setShowSignupModal(true)}>
+                {t('home:learnMore', 'Learn More')}
+              </button>
+            </div>
+          </div>
+          <div className="signup-right">
+            <div className='signup-section-img-wrap'>
+              <img src={fumartLogo} alt="Join Us" />
+            </div>
             
           </div>
-        </PopupModal>
+        </div> */}
+
+      </div>
+      <CgFooter isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      {showSignupModal && (
+        <JoinUsModal onClose={() => setShowSignupModal(false)}>
+          <div className="signup-offer"></div>
+        </JoinUsModal>
       )}
+      </div>
+
     </div>
   );
 };

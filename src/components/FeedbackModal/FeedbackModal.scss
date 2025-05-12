@@ -1,144 +1,263 @@
+// FeedbackModal.scss
 .feedback-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color:rgba(0, 0, 0, 0.55);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: floatIn 0.3s ease-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 2, 5, 0.65);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
   }
-  
+
   .feedback-modal {
-    background-color:#ffffff;
-    padding: 24px 28px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    animation: floatDown 0.3s ease-out;
+    position: fixed;
+    bottom: 24px;
+    transform-origin: bottom;
+    width: calc(100% - 32px);
+    max-width: 640px;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 24px;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  
-  .feedback-modal h2 {
-    font-size: 1.4rem;
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #b22b3b;
-  }
-  
-  .feedback-modal textarea {
-    font-family: inherit;
-    padding: 16px;
-    border: none;
-    background-color: #f8f8f8;
-    font-size: 0.9rem;
-    border-radius: 12px;
-    resize: vertical;
-    min-height: 160px;
-    margin-bottom: 12px;
-    width: 100%;
-    box-sizing: border-box;
-    outline: none;
-    resize: none;
-    transition: border-color 0.2s;
-  
-    &:focus {
+    opacity: 0;
+    pointer-events: none;
+
+    &.opening {
+      animation: feedbackModalOpen 0.8s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+      pointer-events: auto;
+    }
+
+    &.closing {
+      animation: feedbackModalClose 0.6s cubic-bezier(0.55, 0, 0.55, 1) forwards;
+      pointer-events: none;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .close-btn {
+        background-color: none;
+        border: none;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #121213;
+        margin-bottom: 8px;
+
+        &:hover {
+          background-color: #010b3d;
+          color: #f2f2f3;
+        }
+      }
+    }
+
+    .feedback-form-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feedback-form {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      border: 1px solid #cccccc88;
       background-color: #f2f2f3;
-    //   border-color: #ff4c4c;
+      box-shadow: 0.5px 1px 2px rgb(8, 8, 8, 0.23);
+      border-radius: 24px;
+      padding-right: 12px;
+      
+    }
+
+    .feedback-textarea {
+      flex: 1;
+      resize: none;
+
+      border: none;
+      font-size: 1rem;
+      background: transparent;
+      color: #000;
+      height: auto;
+      min-height: 48px;
+      line-height: 1.4;
+      // background-color: #f2f2f3;
+      border-radius: 24px 0 0 24px;
+      outline: none;
+      overflow-y: auto;
+      
+      padding: 12px;
+      padding-left: 20px;
+      box-sizing: border-box;
+      margin: 0 12px 0 0;
+      
+      // border: 1px solid #e2022311;
+      
+
+      &::placeholder {
+        transform: translateY(2px);
+        color: #888;
+      }
+    }
+
+    .submit-btn,
+    .cancel-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
+      padding: 0;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.03s ease-out;
+      box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+      overflow: hidden;
+    }
+
+    .submit-btn {
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:hover {
+        filter: brightness(107%);
+      }
+    }
+
+    .cancel-btn {
+      background-color: #000;
+
+      img {
+        filter: invert(1);
+        width: 60%;
+        height: 60%;
+      }
+
+      &:hover img {
+        filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+      }
     }
   }
-  
-  .feedback-modal button[type="submit"] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: inherit;
-    background-color:#fff;
-    border: 2px solid #232323;
-    color: #232323;
-    font-weight: 700;
-    padding: 12px;
-    // height: 44px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color .15s, border-color 0.15s;
-    width: 100%;
-  }
-  
-  .feedback-modal button[type="submit"]:hover {
-    background-color: #ff4c4c;
-    border-color: #ff4c4c;
-    color: #fff;
-  }
-  
-  .feedback-modal .close-btn {
-    position: absolute;
-    top: 22px;
-    right: 28px;
-    background-color:none;
-    border: none;
-    font-size: 24px;
-    color: #999;
-    cursor: pointer;
-    padding: 0;
-  
-    &:hover {
-      color: #b22b3b;
-    }
-  }
-  
-  /* Dark Mode */
-  .dark-mode {
+}
+
+.dark-mode {
+  .feedback-modal-overlay {
+    background-color: rgba(8, 8, 8, 0.75);
+
     .feedback-modal {
-      background-color:#181818;
-      color: #e2e2e3;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75);
-    }
-  
-    .feedback-modal h2 {
-      color: #ff4c4c;
-    }
-  
-    .feedback-modal textarea {
-      background-color:#070710;
-      color: #e2e2e3;
-      border-color: #e2e2e3;
-  
-      &:focus {
-        // border-color: #b22b3b;
+      
+      .header-row {
+        .close-btn {
+          color: #f2f2f3;
+
+          &:hover {
+            background-color: #121213;
+            color: #fff;
+          }
+        }
       }
-    }
-  
-    .feedback-modal button[type="submit"] {
-      background-color:transparent;
-      color: #e2e2e3;
-      border: 1px solid #b22b3b;
-      width: 100%;
-      &:hover {
-        background-color:#ff4c4c;
-        border-color: #ff4c4c;
-        color: #fff;
+
+      .feedback-form {
+        background-color: #2a2a2a;
+        border: 1px solid #33333388;
+        box-shadow: 0.5px 1px 2px rgba(223, 223, 223, 0.23) !important;
       }
-    }
-  
-    .feedback-modal .close-btn {
-      color: #e2e2e3;
-  
-      &:hover {
-        color: #ff4c4c;
+
+      .feedback-textarea {
+        background-color: #2a2a2a;
+        color: #f2f2f2;
+        // box-shadow: 0.5px 1px 2px rgba(223, 223, 223, 0.23) !important;
+
+        &::placeholder {
+          color: #888;
+        }
+      }
+
+      .submit-btn {
+        background-color: #28a739;
+
+        &:hover {
+          filter: brightness(115%);
+        }
+      }
+
+      .cancel-btn {
+        background-color: #1a1a1a;
+
+        img {
+          filter: invert(1);
+        }
+
+        &:hover img {
+          filter: invert(75%) sepia(85%) saturate(3200%) hue-rotate(1deg) brightness(90%) contrast(120%);
+        }
       }
     }
   }
-  
+}
+
+@keyframes feedbackModalOpen {
+  0% {
+    transform: translateY(100%) scaleY(0);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(0) scaleY(1.15);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(0) scaleY(0.9);
+  }
+  85% {
+    transform: translateY(0) scaleY(1.05);
+  }
+  92% {
+    transform: translateY(0) scaleY(0.98);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes feedbackModalClose {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(0) scaleY(1.1);
+  }
+  60% {
+    transform: translateY(100%) scaleY(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) scaleY(0);
+    opacity: 1;
+  }
+}

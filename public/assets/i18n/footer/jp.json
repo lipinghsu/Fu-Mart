@@ -1,11 +1,25 @@
 {
-    "LOCATION": "位置",
-    "SOCIAL": "ソーシャルメディア",
-    "INFORMATION": "情報",
-    "Instagram": "インスタグラム",
-    "About": "会社概要",
-    "JOIN OUR NEWSLETTER": "ニュースレターに登録する",
-    "Terms & Privacy": "利用規約とプライバシー",
-    "TERMS & PRIVACY": "利用規約とプライバシー"
+  "title": "FÜ-MART",
+  "subtitle": "フォルモサで一番ヒップなコンビニ",
+  "comingSoon": "近日公開",
+  "allRightsReserved": "全著作権所有",
+  "terms": "利用規約",
+  "privacy": "プライバシー",
+  "feedback": "フィードバック",
+  "language": "言語",
+  "switchLanguage": "言語を変更中：{{lng}}",
+  "emailLabel": "メールアドレス",
+  "emailPlaceholder": "メールアドレス",
+  "emailAria": "メールアドレス",
+  "join": "登録",
+  "joining": "登録中...",
+  "signupDisclaimer": "登録することで、Fü-Martのニュースと最新情報を受け取ることに同意したことになります",
+  "newsletterSuccess": "ニュースレターに登録されました。",
+  "newsletterError": "エラーが発生しました。再度お試しください。",
+  "enterValidEmail": "有効なメールアドレスを入力してください。",
+  "light": "ライトモード",
+  "dark": "ダークモード",
+  "welcome": "ホワンイン グアンリン",
+  "store": "お店に入る"
   }
   

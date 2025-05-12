@@ -9,16 +9,16 @@
   "highLow": "価格が高い順",
   "aToZ": "名前：AからZ",
   "zToA": "名前：ZからA",
+  
   "buy": "購入",
-
   "allCategory": "すべて",
-  "add": "追加",
   "youMayAlsoLike": "あなたにおすすめ",
   "noSuggestions": "推奨商品はありません",
   "description": "商品説明",
   "noDescription": "商品説明はありません",
   "add": "追加",
   "addToCart": "かごに追加",
+  "addToBag": "バッグに追加",
   "buyNow": "今すぐ買う",
   "customQuantity": "カスタム数量（10以上）",
   "productDisclaimerPart1": "製品の詳細、パッケージ、表示情報は、最新または完全な情報を反映していない場合があります。正確な情報については実際の製品をご確認ください。",
@@ -26,5 +26,8 @@
   "learnMore": "詳細はこちら",
   "qualityGuaranteed": "品質保証",
   "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています",
-  "welcome": "いらっしゃいませ"
+  "welcome": "ホワンイン グアンリン",
+  "Beverages": "飲み物",
+  "Snacks": "お菓子"
+
 }

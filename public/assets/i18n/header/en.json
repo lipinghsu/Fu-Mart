@@ -8,5 +8,7 @@
     "CART": "CART",
     "CART": "CART ({{count}})",
     "ACCOUNT": "ACCOUNT",
-    "LOG OUT": "LOG OUT"
+    "LOG OUT": "LOG OUT",
+    "login": "Log In",
+    "signup": "Sign Up"
 }

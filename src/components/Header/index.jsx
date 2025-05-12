@@ -6,11 +6,14 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
-import bagIcon from '../../assets/bagIcon-filled2.png';
-import './Header.scss';
+// import bagIcon from '../../assets/bagIcon-filled2.png';
+import bagIcon from '../../assets/bagIcon-tw.png';
 import ShoppingBag from '../ShoppingBag';
+import SearchBar from '../SearchBar';
 
-const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false }) => {
+import './Header.scss';
+
+const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false ,hasSearchBar = false}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
@@ -18,17 +21,13 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
   const [scrolled, setScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 520);
-  
+  const [blink, setBlink] = useState(false);
+  const { t } = useTranslation('header');
+
   const totalItemCount = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
-
-  const [blink, setBlink] = useState(false);
-
-  const { t } = useTranslation('home');
-
-
-
+  
   useEffect(() => {
     setBlink(true);
   
@@ -94,6 +93,12 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
             <div className="cg-sub-title">{subtitle}</div>
           )}
         </div>
+        {(hasSearchBar) && 
+          <div className="cg-header-searchbar">
+            <SearchBar />
+          </div>
+        }
+
 
         {homepageHeader && (
           <div className="cg-header-right">
@@ -104,7 +109,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
                 </button>
                 <span className="separator">|</span>
 
-                {location.pathname === '/storefront' && isSmallScreen && (
+                {/* {location.pathname === '/storefront' && isSmallScreen && (
                   <>
                     <button
                       className={`header-btn welcome-text ${scrolled ? 'scrolled' : ''}`}
@@ -114,7 +119,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
                     </button>
                     <span className="separator">|</span>
                   </>
-                )}
+                )} */}
 
                 <button className="header-btn sign-up" onClick={() => navigate('/signup')}>
                   {t('signup')}
@@ -126,7 +131,10 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
                   <div className={`bag-img-wrap ${blink ? 'blinking' : ''}`}>
                     <img src={bagIcon} alt="Shopping Bag" />
                   </div>
-                  <span className="bag-count">{totalItemCount}</span>
+                  <span className={`bag-count ${totalItemCount > 0 ? 'active' : ''}`}>
+                    {totalItemCount} 
+                  </span>
+                  
                 </div>
               </div>
             ) : (
@@ -148,7 +156,10 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
                   <div className={`bag-img-wrap ${blink ? 'blinking' : ''}`}>
                     <img src={bagIcon} alt="Shopping Bag" />
                   </div>
-                  <span className="bag-count">{totalItemCount}</span>
+                  <span className={`bag-count ${totalItemCount > 0 ? 'active' : ''}`}>
+                    {totalItemCount} 
+                  </span>
+                  
                 </div>
               </div>
             )}

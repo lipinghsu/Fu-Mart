@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
@@ -18,6 +18,7 @@ import {
 import i18n from '../../i18n';
 import './SearchBar.scss';
 import closeImage from '../../assets/closeImage2.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import '../../App.scss';
 
 const SearchBar = () => {
@@ -26,6 +27,7 @@ const SearchBar = () => {
   const [topSearches, setTopSearches] = useState([]);
   const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
+  const inputRef = useRef(null); // 👉 ref for input
 
   const getMetadata = () => ({
     userAgent: navigator.userAgent,
@@ -53,13 +55,15 @@ const SearchBar = () => {
   });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const fetchTopSearches = async () => {
       try {
         const searchTermsRef = collection(firestore, 'searchTerms');
         const q = firestoreQuery(
           searchTermsRef,
           orderBy('count', 'desc'),
-          limit(10) // top 10 searches
+          limit(10)
         );
         const querySnapshot = await getDocs(q);
         const terms = querySnapshot.docs.map(doc => ({
@@ -73,6 +77,10 @@ const SearchBar = () => {
     };
 
     fetchTopSearches();
+  }, []);
+
+  useEffect(() => {
+    inputRef.current?.focus(); // 👉 focus on mount
   }, []);
 
   const handleSearch = async (e, customTerm = null) => {
@@ -111,7 +119,6 @@ const SearchBar = () => {
     navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
   };
 
-  // Filter top searches based on current query for suggestions
   const filteredSuggestions = query
     ? topSearches.filter(item =>
         item.term.toLowerCase().includes(query.toLowerCase())
@@ -120,15 +127,19 @@ const SearchBar = () => {
 
   return (
     <div className="cg-searchbar-container">
+
       <form className="cg-searchbar" onSubmit={handleSearch}>
+        <div className='logo-wrap'>
+          <img src={fumartLogo}/>
+        </div>
         <input
+          ref={inputRef}
           type="text"
           className="cg-search-input"
           placeholder={t('searchPlaceholder') || 'Search In-Store Products'}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
-          onBlur={() => setTimeout(() => setFocused(false), 200)}
         />
         <div className='cg-claer-btn-container'>
           <div
@@ -139,16 +150,14 @@ const SearchBar = () => {
           >
             <img src={closeImage} />
           </div>
-
         </div>
-
-
-        <button type="submit" className="cg-search-btn">
+        {/* <div type="submit" className="cg-search-btn">
           {t('search') || 'Search'}
-        </button>
+        </div> */}
       </form>
 
-      {/* {focused && (
+      {/* 
+      {focused && (
         <div className="top-searches">
           <p>{t('popularSearches') || 'Suggestions:'}</p>
           <div className="top-searches-list">
@@ -167,7 +176,8 @@ const SearchBar = () => {
             )}
           </div>
         </div>
-      )} */}
+      )}
+      */}
     </div>
   );
 };

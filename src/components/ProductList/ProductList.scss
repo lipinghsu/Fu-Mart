@@ -18,6 +18,7 @@
       gap: 12px;
       align-items: center;
       border-radius: 24px;
+      
 
       .filter-input {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.13);
@@ -34,7 +35,7 @@
           border: 1px solid #ddd !important;
         }
         &:focus {
-          border-color: #e20023;
+          border-color: #e5341d;
           outline: none;
         }
 
@@ -49,7 +50,7 @@
           img {
             width: 100%;
             height: 100%;
-            opacity: 0.85;
+            opacity: 0.9;
 
             &:hover {
               opacity: 1;
@@ -126,7 +127,7 @@
           
           background-color: #020203 !important;
           color: #fff;
-          // border-color: #e20023;
+          // border-color: #e5341d;
           font-weight: 600;
         }
       }
@@ -136,16 +137,16 @@
       position: relative;
       width: fit-content;
       z-index: 2;
+      margin-left: 12px;
 
       .sort-button {
         width: fit-content;
         padding: 8px 16px;
-        border: 1px solid #ccc;
+        border: 1px solid #c2c2c3;
         border-radius: 24px;
         font-size: 0.9rem;
         background-color: #f8f8f8;
         cursor: pointer;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -227,7 +228,7 @@
           transition: all 0.02s ease-out;
           // background-color: #f8f8f8;
           &:hover {
-            background-color:#f2f2f3;
+            background: #f2f2f3;
           }
         }
       }
@@ -245,7 +246,7 @@
   .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 16px;
     padding: 24px 32px;
     width: 100%;
     box-sizing: border-box;
@@ -362,7 +363,7 @@
         &.active {
           background-color: #f2f2f3 !important;
           color: #020203;
-          // border-color: #e20023;
+          // border-color: #e5341d;
           font-weight: 600;
         }
       }
@@ -370,7 +371,7 @@
   }
 
   .product-list {
-    background-color:#000;
+    background: #000;
     color: #f2f2f3;
 
     h2 {
@@ -378,7 +379,10 @@
     }
 
     .product-card {
-      background-color:#000;
+      background: #000;
+      &:hover{
+        background-color: #010b3d;
+      }
 
       .product-info {
         .product-name {
@@ -400,17 +404,17 @@
 /* Skeleton state */
 .skeleton {
   animation: pulse 1.2s infinite ease-in-out;
-  background-color:#f0f0f0;
+  background: #f0f0f0;
 
   .skeleton-image {
     width: 100%;
     height: 300px;
-    background-color:#ddd;
+    background: #ddd;
     border-radius: 12px;
   }
 
   .skeleton-text {
-    background-color:#e0e0e0;
+    background: #e0e0e0;
     border-radius: 4px;
     margin: 8px 0;
 
@@ -463,4 +467,109 @@
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+
+
+
+:root.dark-mode {
+  .product-list {
+    background-color: #000;
+    color: #f2f2f3;
+
+    .filter-sort-header {
+      background-color: #000;
+      border-bottom: 1px solid #333;
+
+      .controls {
+        .filter-input {
+          background-color: #272720;
+          box-shadow: 0 1px 1px rgba(255, 255, 255, 0.13);
+
+          input {
+            background-color: #272720 !important;
+            color: #f2f2f3 !important;
+          }
+
+          .logo-btn img {
+            filter: brightness(0.9);
+          }
+        }
+      }
+    }
+
+    .category-sort-wrapper {
+      background-color: #000;
+      border-bottom: 1px solid #333;
+
+      .category-tabs {
+        .category-tab {
+          background-color: #1a1a1a;
+          color: #f2f2f3;
+
+          &:hover {
+            background-color: #333;
+          }
+
+          &.active {
+            background-color: #f2f2f3 !important;
+            color: #020203;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .sort-control {
+        .sort-button {
+          background-color: #1a1a1a;
+          border-color: #444;
+
+          img {
+            filter: invert(1);
+          }
+        }
+
+        .sort-dropdown {
+          background-color: #171720;
+          box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.13);
+
+          .option:hover {
+            background-color: #272730;
+          }
+
+          .sort-icon-container img {
+            filter: invert(1);
+          }
+        }
+      }
+    }
+
+    h2 {
+      color: #f2f2f3;
+    }
+
+    .product-grid {
+      .product-card {
+        background-color: #000;
+
+        &:hover {
+          background-color: #010b3d;
+        }
+
+        .product-info {
+          .product-name {
+            color: #f2f2f3;
+          }
+
+          .subtitle {
+            color: #aaa;
+          }
+
+          p {
+            color: #ddd;
+          }
+        }
+      }
+    }
+  }
 }

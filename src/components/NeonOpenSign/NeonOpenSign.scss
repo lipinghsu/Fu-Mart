@@ -1,0 +1,75 @@
+@keyframes neonFlicker {
+  0%, 12%, 14.5%, 18%, 20%, 38%, 39%, 41%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px #ff1d1d88,
+      0 0 16px #ff1d1d88,
+      0 0 24px #ff1d1d88;
+  }
+  13%, 19%, 40% {
+    opacity: 0.25;
+    text-shadow:
+      0 0 1px #ff1d1d88,
+      0 0 3px #ff1d1d88;
+  }
+  15%, 22%, 36% {
+    opacity: 0.6;
+    text-shadow:
+      0 0 4px #ff1d1d88,
+      0 0 8px #ff1d1d88;
+  }
+}
+
+.neon-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.5);
+}
+
+.neon-box {
+  position: relative;
+  padding: 12px;
+  border: 6px solid #0000ff88;
+  border-radius: 12px;
+  box-shadow:
+    0 0 10px #00f,
+    0 0 20px #00f,
+    0 0 30px #00f,
+    0 0 20px #00f inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(128px + 24px);
+  height: calc(24px + 24px);
+
+}
+
+.neon-outline,
+.neon-glow {
+  position: absolute;
+  font-size: 44px;
+  font-weight: 900;
+  font-family: 'Arial Black', sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 2.8px #ff1d1d;
+  text-stroke: 2.8px #ff1d1d;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.neon-outline {
+  z-index: 2;
+}
+
+.neon-glow {
+  z-index: 1;
+  opacity: 0.85;
+  text-shadow:
+      0 0 4px #ff1d1d77,
+      0 0 8px #ff1d1d77;
+  animation: neonFlicker 2.7s infinite steps(1), neonPulse 4s infinite ease-in-out;
+}

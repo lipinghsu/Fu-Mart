@@ -10,15 +10,15 @@
     "aToZ": "名稱：Ａ到Ｚ",
     "zToA": "名稱：Ｚ到Ａ",
     "allCategory": "全部",
+    
     "add": "加入",
     "buy": "購買",
-
+    "addToBag": "放入購物袋",
     "addToCart": "加入購物車",
     "youMayAlsoLike": "你可能也喜歡",
     "noSuggestions": "沒有推薦商品",
     "description": "商品描述",
     "noDescription": "沒有提供商品描述",
-    "addToCart": "加入購物車",
     "buyNow": "立即購買",
     "customQuantity": "自訂數量（10 以上）",
     "productDisclaimerPart1": "產品詳細資訊、包裝與顯示內容可能未必反映最新或最完整的資訊。請以實際產品為準，以獲取最準確的資料。",
@@ -26,7 +26,10 @@
     "learnMore": "了解更多",
     "qualityGuaranteed": "品質保證",
     "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
-    "welcome": "歡迎光臨"
+    "welcome": "歡迎光臨",
+    "Beverages": "飲料",
+    "Snacks": "零食"
+
   }
 
   

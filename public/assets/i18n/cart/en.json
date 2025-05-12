@@ -1,9 +1,10 @@
 {
     "shoppingBag": "Shopping Bag",
     "close": "Close",
-    "emptyMessage": "Your bag is empty.",
+    "emptyMessage": "There are no items in the shopping bag",
     "unitPrice": "Unit Price",
     "total": "Total",
     "grandTotal": "Grand Total",
-    "proceedToCheckout": "Proceed to Checkout"
+    "proceedToCheckout": "Go to Checkout",
+    "usd": "USD"
   }

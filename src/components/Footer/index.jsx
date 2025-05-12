@@ -1,17 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import FeedbackModal from '../FeedbackModal';
+import LanguageDropdown from './LanguageDropdown';
+import './Footer.scss'
 
 const Footer = ({ isDarkMode, toggleDarkMode }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-  const langDropdownRef = useRef(null);
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['footer']);
+  const location = useLocation();
 
   const languageLabels = {
     en: 'English',
@@ -24,21 +26,9 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
     i18n.changeLanguage(lang);
     document.documentElement.setAttribute('lang', lang);
     localStorage.setItem('preferredLanguage', lang);
-    setIsLangDropdownOpen(false);
+    setIsLanguageDropdownOpen(false);
     window.location.reload();
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
-        setIsLangDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
@@ -67,18 +57,18 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
       <footer className="cg-footer">
         <div className="cg-footer-left">
         <a
-  className="cg-store-link"
-  href="/storefront"
-  onClick={(e) => {
-    if (location.pathname === '/storefront') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    // else: let it navigate to /storefront
-  }}
->
-  {location.pathname === '/storefront' ? t('welcome') : t('store')}
-</a>
+          className={`cg-store-link ${location.pathname === '/storefront' ? 'active' : ''}`}
+          href="/storefront"
+          onClick={(e) => {
+            if (location.pathname === '/storefront') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
+          {location.pathname === '/storefront' ? t('welcome') : t('store')}
+        </a>
+
 
           <div className="cg-disclaimer">
             © 2025{' '}
@@ -87,40 +77,55 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
             </a>{' '}
             | {t('allRightsReserved')}
           </div>
-          <div className="cg-disclaimer lang-selector-wrap" ref={langDropdownRef}>
+          {/* {isFeedbackOpen ? "isFeedbackOpen" : "!isFeedbackOpen"} */}
+          <div className="cg-disclaimer lang-selector-wrap">
             <Link to="/terms">{t('terms')}</Link> |{' '}
             <Link to="/privacy">{t('privacy')}</Link> |{' '}
-            <a className="feedback-link" onClick={(e) => {
-              e.preventDefault();
-              setIsFeedbackOpen(true);
-            }}>
+            <a
+              className="feedback-link"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsFeedbackOpen(true);
+              }}
+            >
               {t('feedback')}
-            </a>{' '}|{' '}
-            <a className="lang-button" onClick={(e) => {
-              e.preventDefault();
-              setIsLangDropdownOpen(!isLangDropdownOpen);
-            }}>
-              {languageLabels[i18n.language] || languageLabels[0] || 'Language'}
-            </a>{' '}|{' '}
-            <a className="dark-mode-toggle" onClick={(e) => {
-              e.preventDefault();
-              toggleDarkMode();
-            }}>
+            </a>{' '}
+            |{' '}
+            <a
+              className="lang-button"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+              }}
+            >
+              {languageLabels[i18n.language] || 'Language'}
+            </a>{' '}
+            |{' '}
+            <a
+              className="dark-mode-toggle"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleDarkMode();
+              }}
+            >
               {isDarkMode ? t('dark') : t('light')}
             </a>
-            <div className={`lang-dropdown ${isLangDropdownOpen ? 'open' : ''}`}>
-              <div onClick={() => handleLanguageChange('jp')}>日本語</div>
-              <div onClick={() => handleLanguageChange('kr')}>한국어</div>
-              <div onClick={() => handleLanguageChange('zh-TW')}>中文 [臺灣]</div>
-              <div onClick={() => handleLanguageChange('en')}>English</div>
-            </div>
+
+            <LanguageDropdown
+              isOpen={isLanguageDropdownOpen}
+              onClose={() => setIsLanguageDropdownOpen(false)}
+              onSelect={(lang) => {
+                handleLanguageChange(lang);
+                setIsLanguageDropdownOpen(false); // optional: close after selection
+              }}
+            />
           </div>
+          {/* lang-button always set it to open */}
+          {/* {isLanguageDropdownOpen ? 'open' : "close"}  */}
         </div>
+
         <div className="cg-footer-right">
           <form className="cg-newsletter" onSubmit={handleNewsletterSubmit}>
-            <label htmlFor="cg-email" className="sr-only">
-              {t('emailLabel')}
-            </label>
             <input
               id="cg-email"
               type="email"
@@ -139,7 +144,9 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
           <div className="cg-signup-disclaimer">{t('signupDisclaimer')}</div>
         </div>
       </footer>
-      {isFeedbackOpen && <FeedbackModal onClose={() => setIsFeedbackOpen(false)} />}
+      {/* {isFeedbackOpen ? "isFeedbackOpen" : "!isFeedbackOpen"} */}
+      <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
+        
     </>
   );
 };

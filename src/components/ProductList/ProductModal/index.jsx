@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/cartSlice';
 import { useTranslation } from 'react-i18next';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
@@ -8,6 +10,7 @@ import closeImage from '../../../assets/closeImage.png';
 import fumartLogo from '../../../assets/fumart-m-t-bg.png';
 
 const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation(['storefront']);
   if (!product) return null;
 
@@ -25,6 +28,18 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const modalRef = useRef(null);
   const dropdownRef = useRef(null);
   const suggestionsRef = useRef(null);
+
+  const handleAddToCart = () => {
+    const safeProduct = {
+      ...product,
+      createdAt: product.createdAt?.toDate
+        ? product.createdAt.toDate().toISOString()
+        : product.createdAt,
+      addedQuantity: quantity  // 👈 selected by user, not stock!
+    };
+    dispatch(addToCart(safeProduct));
+  };
+
 
   const handleMouseMove = (e) => {
     if (!hasMouseMoved) setHasMouseMoved(true);
@@ -73,16 +88,12 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
       const suggestions = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (data.id !== product.id) {
+        if (doc.id !== product.id && doc.id !== product?.id) {
           suggestions.push({ id: doc.id, ...data });
         }
       });
-      // Shuffle the array randomly
       const shuffled = suggestions.sort(() => 0.5 - Math.random());
-
-      // Pick first 8
       setSuggestedProducts(shuffled.slice(0, 8));
-      // setSuggestedProducts(suggestions);
     } catch (error) {
       console.error('Error fetching suggested products:', error);
     } finally {
@@ -128,7 +139,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
             </div>
           </div>
 
-          <div className="right styled-right" style={{ width: '100%' }}>
+          <div className="right styled-right">
             <div className="button-wrap">
               <div className='btn-inner-wrap-top'>
                 <div className="name-title-wrap">
@@ -140,32 +151,32 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                   {product.images?.map((img, idx) => (
                     <div className="thumbnail-wrapper" key={idx}>
                       <div className="thumbnail-container">
-                      <img
-                        src={img}
-                        alt={`Thumbnail`}
-                        className={`thumbnail ${activeThumbnail === img ? 'active' : ''}`}
-                        onClick={() => {
-                          setMainImage(img);        
-                          setActiveThumbnail(img);  
-                        }}
-                      />
+                        <img
+                          src={img}
+                          alt={`Thumbnail`}
+                          className={`thumbnail ${activeThumbnail === img ? 'active' : ''}`}
+                          onClick={() => {
+                            setMainImage(img);
+                            setActiveThumbnail(img);
+                          }}
+                          onMouseEnter={() => setMainImage(img)}
+                          onMouseLeave={() => setMainImage(activeThumbnail)}
+                        />
                       </div>
                       <div className={`thumbnail-bar ${activeThumbnail === img ? 'active' : ''}`} />
                     </div>
                   ))}
                 </div>
                 <div className="quantity-control" ref={dropdownRef}>
-                <div
-                  className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                >
-                  {quantity}
-                  <span className="arrow"><span>▼</span></span>
-                </div>
-                
-
+                  <div
+                    className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    {quantity}
+                    <span className="arrow">▼</span>
+                  </div>
                   <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
-                      <div  className="option block"/>
+                    <div className="option block" />
                     {[...Array(9)].map((_, i) => (
                       <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
                         {i + 1}
@@ -177,8 +188,8 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                   </div>
                 </div>
                 <div className="button-group">
-                  <button className="add-to-cart" onClick={() => onAddToCart(product, quantity)}>
-                    {t('addToCart')}
+                  <button className="add-to-cart" onClick={handleAddToCart}>
+                    {t('addToBag')}
                   </button>
                   <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
                     {t('buyNow')}
@@ -204,25 +215,19 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
           <div className="suggestion-title">
             <h2>{t('youMayAlsoLike')}</h2>
           </div>
-          <div className="suggested-items horizontal-scroll"
-                ref={suggestionsRef}
-          >
+          <div className="suggested-items horizontal-scroll" ref={suggestionsRef}>
             {suggestedProducts.length > 0 ? (
               suggestedProducts.map((item) => (
                 <div className="suggested-item" key={item.id}>
-                <ProductCard
-                  product={item}
-                  onClick={async () => {
-                    await onSelectSuggested(item);
-                    if (modalRef.current) {
-                      modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                    if (suggestionsRef.current) {
-                      suggestionsRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-                    }
-                  }}
-                  t={t}
-                />
+                  <ProductCard
+                    product={item}
+                    onClick={async () => {
+                      await onSelectSuggested(item);
+                      modalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                      suggestionsRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
+                    }}
+                    t={t}
+                  />
                 </div>
               ))
             ) : (

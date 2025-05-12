@@ -11,6 +11,9 @@
     position: relative;
     // background-color: red;
     .cg-header{
+        .cg-header-left{
+            width: 100%;
+        }
         // color:red;
         @media (max-width: 900px) {
             margin-top: 32px;

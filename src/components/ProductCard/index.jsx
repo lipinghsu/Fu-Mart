@@ -6,9 +6,15 @@ import './ProductCard.scss';
 const ProductCard = ({ product, onClick, t, isDarkMode }) => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = (e) => {
-    e.stopPropagation(); // prevent triggering the onClick of the card
-    dispatch(addToCart(product));
+  const handleAddToCart = () => {
+    const safeProduct = {
+      ...product,
+      createdAt: product.createdAt?.toDate
+        ? product.createdAt.toDate().toISOString()
+        : product.createdAt,
+    };
+
+    dispatch(addToCart(safeProduct));
   };
 
   return (
@@ -27,10 +33,12 @@ const ProductCard = ({ product, onClick, t, isDarkMode }) => {
       </div>
       <button className="add-to-cart-btn" onClick={handleAddToCart}>
         <span className="text-default">{t('buy')}</span>
-        <span className="text-hover">{t('addToCart')}</span>
+        <span className="text-hover">{t('addToBag')}</span>
       </button>
     </div>
   );
 };
 
 export default ProductCard;
+
+
