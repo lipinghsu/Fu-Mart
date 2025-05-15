@@ -55,18 +55,19 @@ const JoinUsModal = ({ onClose, children }) => {
     }, 600); // match the closing animation
   };
 
-  // Show modal only if not shown in the last 24 hours
-  // useEffect(() => {
-  //   const lastShown = localStorage.getItem('joinUsLastShown');
-  //   const now = Date.now();
-  //   const numHours = 24; // (24 = a day)
-  //   // if (!lastShown || now - parseInt(lastShown, 10) > numHours * 60 * 60 * 1000) {
-  //   if (!lastShown || now - parseInt(lastShown, 10) > 1000) {
-  //     setIsClosing(false); // show modal
-  //   } else {
-  //     onClose();
-  //   }
-  // }, [onClose]);
+  useEffect(() => {
+    const lastShown = localStorage.getItem('joinUsLastShown');
+    const now = Date.now();
+    const hours = 1;
+    const oneDayInMs = hours * 60 * 60 * 1000;
+
+    if (!lastShown || now - parseInt(lastShown, 10) > oneDayInMs) {
+      localStorage.setItem('joinUsLastShown', now.toString());
+      setIsClosing(false); // show modal
+    } else {
+      onClose(); // hide modal if already shown recently
+    }
+  }, [onClose]);
 
   return (
     <div className="popup-modal-overlay" onClick={handleClose}>

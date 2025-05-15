@@ -10,5 +10,8 @@
     "ACCOUNT": "계정",
     "LOG OUT": "로그아웃",
     "SIGN UP": "회원가입",
-    "LOG IN": "로그인"
+    "LOG IN": "로그인",
+    "login": "계정로긴",
+    "signup": "회원가입",
+    "logout": "로그아웃"
 }

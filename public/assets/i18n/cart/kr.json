@@ -1,10 +1,12 @@
 {
-    "shoppingBag": "쇼핑백",
-    "close": "닫기",
-    "emptyMessage": "장바구니에 상품이 없습니다",
-    "unitPrice": "단가",
-    "total": "합계",
-    "grandTotal": "총금액",
-    "proceedToCheckout": "결제하러가기",
-    "usd": "달러"
-  }
+  "shoppingBag": "쇼핑백",
+  "close": "닫기",
+  "emptyMessage": "장바구니에 상품이 없습니다",
+  "unitPrice": "단가",
+  "total": "합계",
+  "grandTotal": "총금액",
+  "proceedToCheckout": "결제하러가기",
+  "usd": "달러",
+  "confirmClear": "쇼핑백을 비우시겠습니까?",
+  "confirmRemove": "이 항목을 삭제하시겠습니까?"
+}

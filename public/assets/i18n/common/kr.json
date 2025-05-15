@@ -5,5 +5,7 @@
     "Password": "비밀번호",
     "Size": "사이즈",
     "close": "닫기",
-    "language": "언어"
+    "language": "언어",
+    "confirm": "확인",
+    "cancel": "취소"
 }

@@ -6,5 +6,7 @@
   "total": "合計",
   "grandTotal": "総額",
   "proceedToCheckout": "お会計へ進む",
-  "usd": "米ドル"
+  "usd": "米ドル",
+  "confirmClear": "ショッピングバッグを空にしてもよろしいですか？",
+  "confirmRemove": "この商品を削除してもよろしいですか？"
 }

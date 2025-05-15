@@ -6,7 +6,10 @@ import SearchBar from './../SearchBar';
 import CgFooter from './../Footer';
 import JoinUsModal from './JoinUsModal';
 import ProductCard from './../ProductCard';
-import topSectionImage from './../../assets/lunarnewyear-stall.png'
+import topSectionImage from './../../assets/fu.png'
+// import topSectionImage from './../../assets/fumart-m-red-bg.png'
+import signUpImage from './../../assets/MingGuoPosters/signup-image.png'
+import signUpImageB from './../../assets/MingGuoPosters/signup-image-1.png'
 import './Directory.scss';
 import LatestProducts from './LatestProducts'; 
 
@@ -119,36 +122,49 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
         hasSearchBar={true}
       />
       <div className="cg-main">
+        
         <div className='top-section'>
-          <div className='top-section-text-wrap'>
+          {/* <div className='top-section-text-wrap'>
             歡迎光臨
-          </div>
+          </div> */}
           <div className='top-section-img-wrap'>
             <img src={topSectionImage} />
           </div>
         </div>
+        
         <LatestProducts />
-{/* 
+
         <div className="signup-section">
-          <div className="signup-left">
-            <h2>{t('home:signupTitle', 'Join Us Today!')}</h2>
-            <p>{t('home:signupDesc', 'Get access to exclusive deals and product launches.')}</p>
-            <div className="signup-buttons">
-              <button className="primary-btn" onClick={() => setShowSignupModal(true)}>
-                {t('home:signupNow', 'Sign Up')}
-              </button>
-              <button className="secondary-btn" onClick={() => setShowSignupModal(true)}>
-                {t('home:learnMore', 'Learn More')}
-              </button>
+          <div className="signup-section-wrap">
+            <div className="signup-left">
+              <div className='signup-section-img-wrap'>
+                <img src={signUpImageB} alt="Join Us" />
+              </div>
+            </div>
+            <div className="signup-right">
+              <div className='signup-title'>
+                {t('home:signupTitle', 'Our goods? Not for just anyone')}
+              </div>
+              <div className='signup-text'>
+                {t(
+                  'home:signupDesc',
+                  'Sign up now for early access to limited releases and exclusive member perks.'
+                )}
+              </div>
+              <div className="signup-buttons">
+                <button className="primary-btn">
+                  {t('home:learnMore', 'Learn More').toUpperCase()}
+                </button>
+                <button
+                  className="secondary-btn"
+                  onClick={() => window.location.href = '/signup'}
+                >
+                  {t('home:signupNow', 'Sign Up').toUpperCase()}
+                </button>
+              </div>
             </div>
           </div>
-          <div className="signup-right">
-            <div className='signup-section-img-wrap'>
-              <img src={fumartLogo} alt="Join Us" />
-            </div>
-            
-          </div>
-        </div> */}
+        </div>
 
       </div>
       <CgFooter isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -158,7 +174,6 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
         </JoinUsModal>
       )}
       </div>
-
     </div>
   );
 };

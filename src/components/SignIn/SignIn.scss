@@ -2,46 +2,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color:#f8f8f6;;
+  min-height: 100dvh;
+  background-color: #f8f8f6;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 16px;
 }
 
 .login-card {
-  background-color:#fcfcfc;
-  // background-color:#ffffff;
-  
-  padding: 36px 36px 44px 36px;
-  border-radius: 12px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.14);
-
+  background-color: #fcfcfc;
+  padding: 24px 24px 28px;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   text-align: center;
-  animation: floatUp 0.5s ease-out;
-  
+  animation: floatUp 0.4s ease-out;
+
   .login-logo {
-    max-width: 120px;
-    margin-bottom: 8px;
+    max-width: 100px;
+    margin-bottom: 6px;
   }
 
-  h1 {
-    margin-bottom: 8px;
-    font-size: 2rem;
-    font-weight: 700;
-  }
-  .login-title{
-    font-size: 2rem;
-    font-weight: 700;
-    // margin-bottom: 32px;
+  h1,
+  .login-title {
+    margin-bottom: 4px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #111;
   }
 
   .login-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666;
-    margin-top: 0px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
+    margin-top: 0;
   }
 
   form {
@@ -49,55 +43,66 @@
     flex-direction: column;
 
     input {
-      padding: 14px 12px;
-      margin-bottom: 16px;
-      // background-color: red;
-      font-size: 0.85rem !important;
-      border: 1px solid #BBB;
-      border-radius: 6px;
-      outline: none;
-      // transition: border 0.05s ease-out;
+      padding: 10px;
+      border-radius: 10px;
+      height: 34px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      border: 1px solid #bbb;
+      background-color: #fff;
+      color: #111;
+      transition: border-color 0.2s;
 
       &:hover {
         border-color: #e5341d;
       }
+
+      &:focus {
+        border-color: #e5341d;
+        outline: none;
+      }
+    }
+
+    .fgpw,
+    .fgpw:visited {
+      text-align: right;
+      font-size: 0.8rem;
+      color: #555;
+      text-decoration: none;
+      margin: 0 0 12px;
+
+      &:hover {
+        color: #e20023;
+      }
     }
 
     button {
-      padding: 14px;
-      background-color:#e5341d;
+      background-color: #e5341d;
       color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
+      
       border: none;
-      border-radius: 6px;
+
+      padding: 12px;
+      border-radius: 12px;
+      height: 56px;
+      font-size: 1rem;
+      font-weight: 500;
+      
       cursor: pointer;
-      transition: background-color .3s;
+      transition: background-color 0.3s;
       display: flex;
       justify-content: center;
-      align-items: center; // ensures spinner is centered
-      min-height: 48px;    // ensures height is consistent
+      align-items: center;
 
       &:hover {
-        background-color:#e20023;
-      }
-    }
-    .fgpw, .fgpw:visited{
-      text-align: right;
-      font-size: 0.85rem;
-      color: #555;
-      text-decoration: none;
-      margin-bottom: 12px;
-      margin-top: -8px;
-      &:hover {
-        color: #e20023;
+        background-color: #e20023;
       }
     }
   }
 
   .login-links {
-    margin-top: 24px;
-    font-size: 0.85rem;
+    margin-top: 16px;
+    font-size: 0.8rem;
     color: #888;
 
     a {
@@ -112,82 +117,75 @@
     }
 
     span {
-      margin: 0 8px;
+      margin: 0 6px;
       color: #888;
     }
   }
 }
 
-/* Optional dark mode adjustments */
+/* 🌑 Dark Mode Styles */
 .dark-mode {
   .login-page {
-    background-color:#000;
+    background-color: #000;
   }
+
   .login-card {
-    background-color:#111;
+    background-color: #111;
     color: #f2f2f3;
+
+    h1,
+    .login-title {
+      color: #f2f2f3;
+    }
 
     .login-subtitle {
       color: #aaa;
     }
+
     input {
-      background-color:#222;
+      background-color: #222;
       color: #f2f2f3;
       border: 1px solid #444;
+
+      &:hover {
+        border-color: #ff4c4c;
+      }
+
       &:focus {
         border-color: #ff4c4c;
       }
     }
-    button {
-      background-color:#ff4c4c;
-      &:hover {
-        background-color:#ff2323;
-      }
-    }
-    .login-links a {
-      color: #BBB;
+
+    .fgpw {
+      color: #bbb;
+
       &:hover {
         color: #ff4c4c;
       }
     }
-  }
-}
 
+    button {
+      background-color: #ff4c4c;
 
-.spinner {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border: 3px solid rgba(255, 255, 255, 0.3); /* light base */
-  border-top: 3px solid #fff;                 /* highlight color */
-  border-right: 3px solid #fff;               /* extra edge for realism */
-  border-radius: 50%;
-  animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-  vertical-align: middle;
-}
+      &:hover {
+        background-color: #ff2323;
+      }
+    }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-    border-top-color: #fff;
-    border-right-color: #fff;
-    
-  }
-  25% {
-    border-top-color: #eee;
-    border-right-color: #fff;
-  }
-  50% {
-    border-top-color: #ddd;
-    border-right-color: #eee;
-  }
-  75% {
-    border-top-color: #BBB;
-    border-right-color: #ddd;
-  }
-  100% {
-    transform: rotate(360deg);
-    border-top-color: #fff;
-    border-right-color: #fff;
+    .login-links {
+      color: #aaa;
+
+      a {
+        color: #ff4c4c;
+
+        &:hover {
+          color: #ff6b6b;
+        }
+      }
+
+      span {
+        color: #888;
+      }
+    }
   }
 }

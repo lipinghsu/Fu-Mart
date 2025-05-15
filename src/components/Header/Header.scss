@@ -62,20 +62,21 @@
   }
 
   &.scrolled {
-    opacity: 0.95;
+    // opacity: 0.95;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.13);
-    padding: 8px 32px 8px 32px;
+    padding: 12px 32px 12px 32px;
+    
 
     .cg-header-left .logo-container {
       transition: all 0.25s ease-out;
-      filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+      // filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
     }
 
     @media (max-width: 870px) {
       padding: 12px 28px 8px 28px;
     }
     @media (max-width: 520px) {
-      padding: 12px 28px 0px 28px;
+      padding: 16px 28px 18px 28px;
     }
   }
 
@@ -91,9 +92,10 @@
     }
 
     .logo-container {
-      width: 178px;
+      width: 222px;
+      margin-right: 8px;
       opacity: 0.85;
-      @media (max-width: 520px) { width: 160px; }
+      @media (max-width: 520px) { width: 176px; }
 
       &:hover {
         filter: none;
@@ -101,6 +103,7 @@
       }
 
       img {
+        filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
         width: 100%;
         height: auto;
       }
@@ -120,21 +123,28 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    padding: 0 16px 0 24px;
+    padding: 0 20px 0 24px;
     // background-color: red;
 
 
     @media (max-width: 870px) {
-      margin-top: 8px;
-      // order: 3;
+      // margin-top: 8px;
+      
       width: 100%;
       
       // justify-content: center;
     }
+    @media (max-width: 620px) {
+
+      order: 3;
+      // width: calc(100% - 24px - 16px);
+    }
 
     @media (max-width: 520px) {
-      margin-top: 12px;
+      // margin-top: 12px;
       padding: 0px;
+      margin-bottom: 8px;
+      // order: 3;
       // width: calc(100% - 24px - 16px);
     }
     .cg-searchbar-container{
@@ -163,6 +173,11 @@
       display: flex;
       align-items: center;
 
+      &.hidden-mobile {
+        display: none !important;
+      }
+
+
       .shopping-bag {
         display: flex;
         flex-direction: row;
@@ -170,7 +185,7 @@
         padding: 10px 14px;
         background-color: #f2f2f3;
         border-radius: 24px;
-        margin-left: 4px;
+        margin-left: 8px;
         cursor: pointer;
 
         &.blinking {
@@ -409,3 +424,93 @@
 .dark-mode .cg-header.scrolled .cg-header-left .logo-container img {
   filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
 }
+@media (max-width: 520px) {
+  .floating-cart-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+
+    // background-color: #f2f2f3dd;
+    border-radius: 50%;
+    // box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    transform: scale(0.85);
+    transition: top 0.1s ease, background-color 0.05s ease;
+
+    .bag-img-wrap {
+      width: 24px;
+      height: 24px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        filter: brightness(100%);
+      }
+    }
+
+    .bag-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #fff;
+      color: #28a739;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 12px;
+      box-shadow: 0 0 2px rgba(0,0,0,0.25);
+    }
+
+    &.blinking {
+      animation: blinkCartButton 1s ease;
+
+      .bag-img-wrap img {
+        animation: blinkCartContent 1s ease;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .floating-menu-btn {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+
+    // background-color: #f2f2f3dd;
+    border-radius: 50%;
+    // box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: top 0.1s ease, background-color 0.05s ease;
+    transform: scale(0.85);
+    .side-menu-icon-wrap {
+      width: 24px;
+      height: 24px;
+      // padding: 8px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        
+
+      }
+    }
+
+    &:hover {
+      // background-color: #dedede;
+    }
+  }
+}
+
+
+// side menu button needs to be hidden when productModal is opened

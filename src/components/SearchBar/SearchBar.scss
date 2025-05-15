@@ -1,6 +1,7 @@
 .cg-searchbar-container {
   position: relative;
   // background-color: red;
+  transition: all 0.2s ease-out !important;
 
   .logo-wrap {
     flex: 0 0 auto; // prevent shrinking
@@ -8,15 +9,26 @@
     width: 32px;
     border-radius: 16px;
     margin-left: 12px;
+    background-color: rgba(217,45,23,255);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      width: 80%;
+      height: 80%;
+    }
+    &.mobile{
+      background-color: transparent;
+      padding: 8px;
+      margin-left: 0px;
+    }
+    &.expanded{
+        img{
+          width: 100%;
+          height: 100%;
+        }
     }
   }
   @media (max-width: 580px) {
@@ -38,7 +50,8 @@
     box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.33);
     position: relative;
     overflow: hidden;
-    
+
+
   }
 
   .cg-search-input {
@@ -54,12 +67,17 @@
     border-radius: 0;
     transition: border-color 0.2s ease;
     -webkit-font-smoothing: antialiased;
-    
+    @media (max-width: 520px) {
+      padding: 0;
+      display: none;
+    }
     // background-color: red;
-
+    &::placeholder{
+      color:#727273;
+    }
   }
 
-  .cg-claer-btn-container {
+  .cg-clear-btn-container {
     width: 40px;
     display: flex;
     justify-content: center;
@@ -98,38 +116,7 @@
     }
   }
 
-  .cg-search-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: inherit;
-    background-color: transparent;
-    border: none;
-    // border-left: 1px solid #ccc;
-    font-weight: 600;
-    // padding: 7px 16px;
-    margin-right: 6px;
-    border-radius: 12px;
-    height: calc(100% - 12px);
-    // height: 100%;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.03s ease-out;
-    width: 86px;
-    
-    background-color: #222223;
-    color: #f3f2f2;
-    
-    box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
-    // background-color: red;
-    // margin: 4px !important;
 
-    &:hover {
-      background-color: #424243;
-      // color: #28a739;
-    }
-  }
 
   @media (max-width: 900px) {
     .cg-searchbar {
@@ -180,6 +167,106 @@
       .no-suggestions {
         font-style: italic;
         color: #bbb;
+      }
+    }
+  }
+
+  .cg-collapse-search-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: inherit;
+    border: none;
+    font-weight: 600;
+  
+    border-radius: 16px;
+    height: calc(100% - 12px);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.03s ease-out;
+    width: fit-content;
+    
+    
+    // background-color: #222223;
+    // color: #f3f2f2;
+    // box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
+
+    // padding: 8px;
+    margin-left: 12px;
+
+    &:hover {
+      // background-color: #424243;
+    }
+
+    .search-icon-wrap{
+      height: 24px;
+      width: 24px;
+      padding: 12px;
+      background-color: #02020320;
+      border-radius: 24px !important;
+      overflow: hidden;
+      &:hover {
+        background-color: #02020330;
+      }
+
+      img{
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+.cg-searchbar-container.mobile {
+  // box-sizing: border-box;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 56px;
+  height: 56px;
+  
+  // background-color: #ff000087;
+  border-radius: 28px;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  // overflow: hidden;
+
+  form {
+    display: flex;
+    align-items: center;
+  }
+
+  // input,
+  // .cg-clear-btn-container,
+  // .cg-search-btn {
+  //   display: none;
+  // }
+
+  .cg-searchbar{
+    height: 48px;
+    border-radius: 24px;
+    padding: 0;
+    .logo-wrap{
+      // background-color: red;
+      &.expanded{
+        padding: 0;
+        margin: 8px;
+        img{
+
+        }
+      }
+      .cg-search-input{
+        padding: 0;
+        display: none;
+        width: 100%;
+        // padding-right: 12px;
       }
     }
   }

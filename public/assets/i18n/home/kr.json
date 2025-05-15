@@ -12,7 +12,7 @@
   "loggedOut": "로그아웃되었습니다.",
 
   "joinTitle": "지금 가입하고 20% 할인 받기",
-  "joinDesc": "지금 회원가입하면 첫 구매에 20% 할인! 신상품 정보와 회원 전용 혜택도 가장 먼저 받아보세요.",
+  "joinDesc": "지금 회원가입하면 첫 구매에 20% 할인! 신상품 정보와 회원 전용 혜택도 가장 먼저 받아보세요",
   "joinDescB": "언제든지 구독 해지 가능",
   "emailPlaceholder": "이메일 주소 입력",
   "subscribe": "구독하기",
@@ -22,7 +22,7 @@
 
   "latestProducts": "신상품",
 
-      "allCategory": "전체",
+    "allCategory": "전체",
     "add": "담기",
     "buy": "구매",
     "addToCart": "장바구니 담기",
@@ -40,5 +40,10 @@
     "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다",
     "welcome": "환영광림",
     "Beverages": "음료",
-    "Snacks": "스낵"
+    "Snacks": "스낵",
+
+    "signupTitle": "Fü-Mart의 기준",
+    "signupDesc": "엄마가 안 사면, Fü-Mart도 안 팔아요",
+    "signupNow": "지금 가입",
+    "learnMore": "자세히 보기"
 }

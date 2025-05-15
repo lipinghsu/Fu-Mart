@@ -11,7 +11,7 @@
   "loggedOut": "ログアウトしました。",
 
   "joinTitle": "今すぐ登録して20%OFFをゲット",
-  "joinDesc": "今すぐ会員登録すると、初回購入が20%OFF！新商品や会員限定のお得情報もいち早くゲットできます。",
+  "joinDesc": "今すぐ会員登録すると、初回購入が20%OFF！新商品や会員限定のお得情報もいち早くゲットできます",
   "joinDescB": "いつでも配信停止できます",
   "emailPlaceholder": "メールアドレスを入力",
   "subscribe": "登録する",
@@ -38,5 +38,11 @@
   "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています",
   "welcome": "ホワンイン グアンリン",
   "Beverages": "飲み物",
-  "Snacks": "お菓子"
+  "Snacks": "お菓子",
+  "signupTitle": "Fü-Martの基準",
+  "signupDesc": "阿嬤ちゃんが買わないなら、Fü-Martも売らない",
+  "signupNow": "今すぐ登録",
+  "learnMore": "詳しく見る"
+
+
 }

@@ -148,9 +148,7 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
       {confirmType && (
         <ConfirmDialog
           message={
-            confirmType === 'clear'
-              ? 'Are you sure you want to clear your shopping bag?'
-              : 'Are you sure you want to remove this item?'
+            t(confirmType === 'clear' ? 'confirmClear' : 'confirmRemove')
           }
           onConfirm={handleConfirm}
           onCancel={handleCancel}

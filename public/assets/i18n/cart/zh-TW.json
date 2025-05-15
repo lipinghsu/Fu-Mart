@@ -6,5 +6,7 @@
   "total": "總計",
   "grandTotal": "總金額",
   "proceedToCheckout": "前往結帳",
-  "usd": "美元"
+  "usd": "美元",
+  "confirmClear": "確定要清空購物袋嗎？",
+  "confirmRemove": "確定要移除這項商品嗎？"
 }
