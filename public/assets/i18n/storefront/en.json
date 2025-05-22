@@ -13,11 +13,13 @@
     "allCategory": "All",
     "add": "Add",
     "buy": "Buy",
+    
     "addToCart": "Add to Cart",
     "youMayAlsoLike": "You Might Also Like",
     "noSuggestions": "No suggestions available",
     "description": "Description",
     "noDescription": "No description available",
+    "quantity": "Quantity",
     "addToBag": "Add to Bag",
     "buyNow": "Buy Now",
     "customQuantity": "Custom (10+)",
@@ -26,6 +28,8 @@
     "learnMore": "Learn more",
     "qualityGuaranteed": "Quality Guaranteed",
     "qualityPromise": "Every order comes with Fü-Mart's quality promise",
-    "welcome": "HuanYing GuangLin"
+    "welcome": "HuanYing GuangLin",
+    "inBag": "in bag",
+    "updateQuantity": "Update Quantity"
   
 }

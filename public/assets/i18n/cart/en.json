@@ -6,5 +6,6 @@
     "total": "Total",
     "grandTotal": "Grand Total",
     "proceedToCheckout": "Go to Checkout",
-    "usd": "USD"
+    "usd": "USD",
+    "confirmRemove": "Are you sure you want to remove this item?"
   }

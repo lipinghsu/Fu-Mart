@@ -1,4 +1,4 @@
-@import './assets/fonts/fonts.scss';
+// @import './assets/fonts/fonts.scss';
 
 body{
   background-color: var(--background-color);
@@ -48,11 +48,12 @@ html, body {
   display: flex;
   flex-direction: column;
   background-color:#fff;
-  font-family: 'Geologica', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      max-width: 100dvw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  
+  max-width: 100dvw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

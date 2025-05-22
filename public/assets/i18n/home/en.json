@@ -1,6 +1,6 @@
 {
   "joinTitle": "Join Us for 20% Off",
-  "joinDesc": "Join us today to receive 20% off your first order and be the first to know about new in-store products and subscriber-only offers.",
+  "joinDesc": "Join us today to receive 20% off your first order and be the first to know about our new in-store products and subscriber-only offers.",
   "joinDescB": "unsubscribe anytime",
   "emailPlaceholder": "Enter your email",
   "subscribe": "Subscribe",
@@ -21,6 +21,7 @@
   "noSuggestions": "No suggestions available",
   "description": "Description",
   "noDescription": "No description available",
+  "quantity": "Quantity",
   "addToBag": "Add to Bag",
   "buyNow": "Buy Now",
   "customQuantity": "Custom (10+)",

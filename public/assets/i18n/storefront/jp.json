@@ -17,6 +17,7 @@
   "description": "商品説明",
   "noDescription": "商品説明はありません",
   "add": "追加",
+  "quantity": "数量",
   "addToCart": "かごに追加",
   "addToBag": "バッグに追加",
   "buyNow": "今すぐ買う",
@@ -28,6 +29,8 @@
   "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています",
   "welcome": "ホワンイン グアンリン",
   "Beverages": "飲み物",
-  "Snacks": "お菓子"
+  "Snacks": "お菓子",
+  "inBag": "バッグ内",
+  "updateQuantity": "数量を更新"
 
 }

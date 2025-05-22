@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/cartSlice';
 import { useTranslation } from 'react-i18next';
 import { collection, query, where, getDocs } from 'firebase/firestore';
@@ -12,7 +12,13 @@ import fumartLogo from '../../../assets/fumart-m-t-bg.png';
 const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation(['storefront']);
+  const cartItems = useSelector(state => state.cart.items);
+
   if (!product) return null;
+
+  const modalRef = useRef(null);
+  const dropdownRef = useRef(null);
+  const suggestionsRef = useRef(null);
 
   const [quantity, setQuantity] = useState(1);
   const [fadeIn, setFadeIn] = useState(false);
@@ -25,9 +31,23 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [hasMouseMoved, setHasMouseMoved] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
 
-  const modalRef = useRef(null);
-  const dropdownRef = useRef(null);
-  const suggestionsRef = useRef(null);
+  const cartItem = cartItems.find(item => item.id === product.id);
+  const currentCartQuantity = cartItem?.quantity || 0;
+
+  useEffect(() => {
+    setQuantity(currentCartQuantity > 0 ? currentCartQuantity : 1);
+  }, [currentCartQuantity, product.id]);
+
+  const handleUpdateQuantity = () => {
+    const updatedProduct = {
+      ...product,
+      createdAt: product.createdAt?.toDate
+        ? product.createdAt.toDate().toISOString()
+        : product.createdAt,
+      quantity // Set the final quantity directly
+    };
+    dispatch({ type: 'cart/updateItemQuantity', payload: updatedProduct });
+  };
 
   const handleAddToCart = () => {
     const safeProduct = {
@@ -35,11 +55,10 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
       createdAt: product.createdAt?.toDate
         ? product.createdAt.toDate().toISOString()
         : product.createdAt,
-      addedQuantity: quantity  // 👈 selected by user, not stock!
+      addedQuantity: quantity
     };
     dispatch(addToCart(safeProduct));
   };
-
 
   const handleMouseMove = (e) => {
     if (!hasMouseMoved) setHasMouseMoved(true);
@@ -111,6 +130,8 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     setDropdownOpen(false);
   };
 
+  const showUpdateButton = currentCartQuantity > 0 && quantity !== currentCartQuantity;
+
   return (
     <div className={`product-modal-overlay ${fadeIn ? 'fade-in' : 'fade-out'}`} onClick={handleOverlayClick}>
       <div
@@ -167,34 +188,51 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                     </div>
                   ))}
                 </div>
-                <div className="quantity-control" ref={dropdownRef}>
-                  <div
-                    className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                  >
-                    {quantity}
-                    <span className="arrow">▼</span>
-                  </div>
-                  <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
-                    <div className="option block" />
-                    {[...Array(9)].map((_, i) => (
-                      <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
-                        {i + 1}
-                      </div>
-                    ))}
-                    <div className="option" onClick={() => handleSelectQuantity(10)}>
-                      {t('customQuantity')}
-                    </div>
-                  </div>
-                </div>
-                <div className="button-group">
-                  <button className="add-to-cart" onClick={handleAddToCart}>
-                    {t('addToBag')}
-                  </button>
-                  <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
-                    {t('buyNow')}
-                  </button>
-                </div>
+<div className="quantity-control" ref={dropdownRef}>
+          <div
+            className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <span className='selected-quantity'>
+              {`${t('quantity')}: ${quantity}`}
+              {currentCartQuantity > 0 && ` (${t('inBag')}: ${currentCartQuantity})`}
+            </span>
+            <span className="arrow">▼</span>
+          </div>
+          <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
+            <div className="option block" />
+            {[...Array(9)].map((_, i) => (
+              <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
+                {i + 1}
+              </div>
+            ))}
+            <div className="option" onClick={() => handleSelectQuantity(10)}>
+              {t('customQuantity')}
+            </div>
+          </div>
+        </div>
+
+        {cartItem ? (
+          showUpdateButton && (
+            <div className="button-group">
+              <button className="add-to-cart" onClick={handleUpdateQuantity}>
+                {t('updateQuantity')}
+              </button>
+              <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+                {t('buyNow')}
+              </button>
+            </div>
+          )
+        ) : (
+          <div className="button-group">
+            <button className="add-to-cart" onClick={handleAddToCart}>
+              {t('addToBag')}
+            </button>
+            <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+              {t('buyNow')}
+            </button>
+          </div>
+        )}
               </div>
               <div className='btn-inner-wrap-bot'>
                 <div className='top-text'>
@@ -216,7 +254,13 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
             <h2>{t('youMayAlsoLike')}</h2>
           </div>
           <div className="suggested-items horizontal-scroll" ref={suggestionsRef}>
-            {suggestedProducts.length > 0 ? (
+            {loadingSuggestions ? (
+              Array.from({ length: 8 }).map((_, i) => (
+                <div className="suggested-item skeleton" key={i}>
+                  <div className="skeleton-box" />
+                </div>
+              ))
+            ) : suggestedProducts.length > 0 ? (
               suggestedProducts.map((item) => (
                 <div className="suggested-item" key={item.id}>
                   <ProductCard

@@ -83,6 +83,7 @@ const ComingSoon = () => {
                 title={t('title')} 
                 subtitle={t('cs-subtitle')} 
                 comingSoonPage={true}
+                hideMobileButtons = {true}
             />
             <div className="corner-decoration top-left">
                 <img src={cornerImg} alt="Corner" />

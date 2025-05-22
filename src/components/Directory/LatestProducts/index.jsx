@@ -51,7 +51,7 @@ const LatestProducts = ({ onSelectProduct }) => {
   return (
     <div className="latest-products styled-suggestions">
       <div className="suggestion-title">
-        <h2>{t('latestProducts')}</h2>
+        <div>{t('latestProducts')}</div>
       </div>
       <div className="suggested-items horizontal-scroll" ref={suggestionsRef}>
         {loading
@@ -67,7 +67,7 @@ const LatestProducts = ({ onSelectProduct }) => {
                   product={item}
                   onClick={() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    onSelectProduct?.(item);
+                    setSelectedProduct(item);
                   }}
                   t={t}
                 />
@@ -79,6 +79,10 @@ const LatestProducts = ({ onSelectProduct }) => {
         <ProductModal
           product={selectedProduct}
           onClose={() => setSelectedProduct(null)}
+          onAddToCart={(product, qty) => console.log('Add to cart:', product, qty)}
+          onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
+          onSelectSuggested={(product) => setSelectedProduct(product)}
+          isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
         />
       )}
     </div>

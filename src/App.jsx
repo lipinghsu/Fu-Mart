@@ -13,6 +13,7 @@ import Recovery from './pages/Recovery';
 import Privacy from './pages/Privacy';
 import Admin from './pages/Admin';
 import Shop from './pages/Shop';
+import Payment from './pages/Payment';
 
 
 import WithAdminAuth from './hoc/WithAdminAuth';
@@ -125,6 +126,14 @@ function App() {
         element={
           <MainLayout>
             <Admin />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <MainLayout>
+            <Payment />
           </MainLayout>
         }
       />

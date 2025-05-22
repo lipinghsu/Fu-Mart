@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import './SignIn.scss';
 
 const SignIn = () => {
-  
   const { t } = useTranslation(['account', 'common']);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,6 +61,7 @@ const SignIn = () => {
         <p className="login-subtitle">{t('loginSubtitle')}</p>
         <form onSubmit={handleSubmit}>
           <input
+            className="account-input first"
             type="email"
             placeholder={t('emailPlaceholder')}
             value={email}
@@ -69,7 +69,9 @@ const SignIn = () => {
             required
             disabled={loading}
           />
+          
           <input
+            className="account-input last"
             type="password"
             placeholder={t('passwordPlaceholder')}
             value={password}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -8,13 +9,14 @@ import {
   clearCart
 } from '../../redux/cartSlice';
 import closeImage from './../../assets/closeImage.png';
-import ConfirmDialog from '../ConfirmDialog'; // Adjust path if needed
+import ConfirmDialog from '../ConfirmDialog'; 
 import './ShoppingBag.scss';
 
 const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const { t } = useTranslation('cart');
   const cartItems = useSelector((state) => state.cart.items);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const totalAmount = cartItems.reduce(
@@ -25,7 +27,7 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const [drawerState, setDrawerState] = useState('closed');
 
   // Confirm dialog states
-  const [confirmType, setConfirmType] = useState(null); // 'clear' | 'remove'
+  const [confirmType, setConfirmType] = useState(null);
   const [targetItemId, setTargetItemId] = useState(null);
 
   useEffect(() => {
@@ -131,7 +133,13 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
               >
                 {t('clearBag') || 'Clear Bag'}
               </button> */}
-              <button className="checkout-btn">
+              <button
+                className="checkout-btn"
+                onClick={() => {
+                  setIsCartOpen(false); // optional: close cart first
+                  navigate('/checkout'); // replace with your actual checkout route
+                }}
+              >
                 <span>{t('proceedToCheckout')}</span>
                 <span>${totalAmount.toFixed(2)}</span>
               </button>

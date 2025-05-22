@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
 import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
-import bagIcon from '../../assets/bagIcon-tw.png';
+import bagIcon from '../../assets/bagIcon-filled.png';
 
 import ShoppingBag from '../ShoppingBag';
 import SideMenu from '../SideMenu';
@@ -16,7 +16,7 @@ import MobileButtons from '../MobileButtons';
 
 import './Header.scss';
 
-const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false ,hasSearchBar = false }) => {
+const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
@@ -159,6 +159,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
         setIsCartOpen={setIsCartOpen}
         setIsSideMenuOpen={setIsSideMenuOpen}
         blink={blink}
+        hideMobileButtons = {hideMobileButtons}
       />
 
       <SideMenu

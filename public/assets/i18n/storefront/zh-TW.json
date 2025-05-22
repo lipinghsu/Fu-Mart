@@ -13,6 +13,7 @@
     
     "add": "加入",
     "buy": "購買",
+    "quantity": "數量",
     "addToBag": "放入購物袋",
     "addToCart": "加入購物車",
     "youMayAlsoLike": "你可能也喜歡",
@@ -28,7 +29,9 @@
     "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
     "welcome": "歡迎光臨",
     "Beverages": "飲料",
-    "Snacks": "零食"
+    "Snacks": "零食",
+    "inBag": "購物袋中",
+    "updateQuantity": "更新數量"
 
   }
 

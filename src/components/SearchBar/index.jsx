@@ -86,7 +86,6 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
     'Search by Flavor',
     'Uncover Hidden Gems',
     'Grandma-Approved Picks',
-    'Find Popular Treasures',
     'Get Your Favorite Snacks'
   ];
 

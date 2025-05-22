@@ -10,17 +10,29 @@
 
 .signup-card {
   background-color: #fcfcfc;
-  padding: 24px 24px 28px;
+  padding: 24px;
+  margin: auto 32px;
   border-radius: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid #e2e2e3;
+  box-shadow: 0.5px 1px 2px rgba(0, 0, 0, 0.12);
   width: 100%;
   max-width: 380px;
   text-align: center;
   animation: floatUp 0.4s ease-out;
 
-  .signup-logo {
-    max-width: 100px;
-    margin-bottom: 6px;
+  .signup-logo-wrap {
+    width: 100px;
+    height: 100px;
+    // border-radius: 44px;
+    // margin-bottom: 12px;
+    margin: 0px auto 6px auto;
+    
+    // background-color: #e5341d;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 
   h1,
@@ -32,7 +44,7 @@
   }
 
   .signup-subtitle {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     font-size: 0.85rem;
     color: #666;
     margin-bottom: 16px;
@@ -40,6 +52,9 @@
   }
 
   form {
+    // border: 1px solid #e2e2e3;
+    // box-shadow: 0.5px 1px 2px rgba(0, 0, 0, 0.08);
+    // padding: 24px;
     display: flex;
     flex-direction: column;
 
@@ -49,18 +64,61 @@
       height: 34px;
       margin-bottom: 10px;
       font-size: 0.85rem;
-      border: 1px solid #bbb;
-      background-color: #fff;
+      border: 1px solid #c8c8c6;
+      background-color: #f8f8f6;
       color: #111;
       transition: border-color 0.2s;
 
+      &.first{
+        // background-color: black !important;
+        border-radius: 12px 12px 0px 0;
+        margin-bottom: 0;
+
+      }
+      &.mid{
+        // border-top: none;
+        // border-bottom: none;
+        
+        margin: 0;
+        border-radius: 0;
+        &.A{
+          transform: translateY(-1px);
+          // background-color: red;
+        }
+        &.B{
+          transform: translateY(-2px);
+          // background-color: red;
+        }
+      }
+      &.last{
+        transform: translateY(-3px);
+        // border-top: 0px;
+        // background-color: black !important;
+        border-radius: 0px 0px 12px 12px;
+        margin-bottom: 16px;
+        // &:hover{
+        //   border: 1px solid #e5341d !important;
+        // }
+        
+      }
+
+      &.mid{
+        // border-top: none;
+        // border-bottom: none;
+        transform: translateY(-1px);
+        margin: 0;
+        border-radius: 0;
+      }
+
       &:hover {
         border-color: #e5341d;
+        z-index: 1000;
       }
 
       &:focus {
         border-color: #e5341d;
         outline: none;
+        z-index: 1001;
       }
     }
 
@@ -127,6 +185,8 @@
   .signup-card {
     background-color: #111;
     color: #f2f2f3;
+    border: 1px solid #323233;
+    box-shadow: 0.5px 1px 2px rgba(250, 250, 250, 0.13);
 
     h1,
     .signup-title {

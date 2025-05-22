@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100dvh;
-  background-color:rgba(44, 44, 44, 0.87);
+  background-color:rgba(8, 8, 8, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,11 +97,16 @@
           }
           .quantity-control{
             color:black !important;
+            
             .quantity-button {
               background-color: #323233 !important;
               color:#f2f2f3;
+              // justify-content: center;
+              // align-items: center;
+              
+
               span{
-                color:#f2f2f3 !important;
+                color:#f2f2f3;
               }
               
               &:hover{
@@ -157,8 +162,9 @@
   }
   .close-button {
     position: sticky;
-    top: calc(env(safe-area-inset-top, 0px) + 8px);
-    left: calc(env(safe-area-inset-left, 0px) + 16px);
+    top: calc(env(safe-area-inset-top, 0px) + 0px);
+    left: calc(env(safe-area-inset-left, 0px) + 0px);
+    // transform: translate(-4px, -px);
     width: 32px !important;
     height: 32px !important;
     min-width: 32px !important;
@@ -199,7 +205,7 @@
   .modal-content {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    padding: 32px 16px 0px;
+    padding: 0px 16px 0px;
     gap: 24px;
     
     @media (max-width: 870px) {
@@ -383,6 +389,11 @@
               &:hover{
                 background-color: #e2e2e3;
               }
+
+              .selected-quantity{
+                // width: 100%;
+                margin: 0px auto;
+              }
              
               .arrow {
                 display: inline-flex;
@@ -407,17 +418,13 @@
                 width: 16px;
                 height: 16px;
                 border-radius: 50%;
-                background-color: #e5341d; /* or any color you want */
-                
+                background-color: #e5341d;
+                color:transparent !important;
                 transform: scale(1);
                 span{
-                  display: none;;
                 }
               }
 
-              &.active .arrow span {
-                color: transparent; /* hide the ▼ character */
-              }
             }
             
             .quantity-dropdown {
@@ -443,7 +450,7 @@
               transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.1s ease-out;
               &.open {
                 
-                max-height: 200px;
+                max-height: 192px;
                 opacity: 1;
                 pointer-events: auto;
                 transform: translateY(0px);
@@ -601,7 +608,7 @@
       }
       h2 {
         margin: 0;
-        font-size: 24px;
+        font-size: 1.4rem;
         line-height: 28px;
         --ids-typography-name: web/title;
       }
@@ -656,12 +663,10 @@
       
 
       .suggested-item {
-        // background-color: red !important;
         .product-card{
           background-color: #f8f8f8;
           width: 256px !important;
           &:hover {
-            // box-shadow: none;
             background-color: #173b7a14;
           }
           .product-image-wrap {
@@ -688,7 +693,7 @@
           font-weight: 700;
           font-variation-settings: "wght" 600, "opsz" 8;
           --ids-typography-name: mobile/bodyEmphasized;
-          color: rgb(52, 53, 58);
+          color: #222223;
           font-size: 1rem;
           line-height: 20px;
           --ids-typography-name: web/bodyEmphasized;
@@ -764,5 +769,38 @@
     border-radius: 50%;
       transform: scale(5);
     
+  }
+}
+
+
+.suggested-item.skeleton {
+  min-width: 256px;
+  height: 360px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+
+  .skeleton-box {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 25%,
+      #e6e6e6 50%,
+      #f0f0f0 75%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.2s ease-in-out infinite;
+    border-radius: 12px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400% 0;
+  }
+  100% {
+    background-position: 400% 0;
   }
 }

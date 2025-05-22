@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import fumartLogo from '../../assets/fumart-m-t-bg.png';
 import './SignUp.scss';
-import { auth, firestore } from '../../firebase/utils'; // ✅ make sure firestore is exported here
+import { auth, firestore } from '../../firebase/utils';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore'; // ✅ import Firestore functions
+import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -63,18 +63,22 @@ const SignUp = () => {
   return (
     <div className="signup-page">
       <div className="signup-card">
-        <img
-          src={fumartLogo}
-          alt="Fü-Mart Logo"
-          className="signup-logo"
-          style={{ cursor: 'pointer' }}
-          onClick={() => navigate('/')}
-        />
+        <div className="signup-logo-wrap">
+          <img
+            src={fumartLogo}
+            alt="Fü-Mart Logo"
+            className="signup-logo"
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          />
+        </div>
+
         <div className="signup-title">{t('signupTitle')}</div>
         <p className="signup-subtitle">{t('signupSubtitle')}</p>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            className="account-input first"
             placeholder={t('namePlaceholder')}
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -83,6 +87,7 @@ const SignUp = () => {
           />
           <input
             type="email"
+            className="account-input mid A"
             placeholder={t('emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -91,6 +96,7 @@ const SignUp = () => {
           />
           <input
             type="password"
+            className="account-input mid B"
             placeholder={t('passwordPlaceholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -99,6 +105,7 @@ const SignUp = () => {
           />
           <input
             type="password"
+            className="account-input last"
             placeholder={t('confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

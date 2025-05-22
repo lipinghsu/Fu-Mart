@@ -1,6 +1,6 @@
 import React from 'react';
 import './MobileButtons.scss';
-import bagIcon from '../../assets/bagIcon-tw.png';
+import bagIcon from '../../assets/bagIcon-filled.png';
 import sideMenuIcon from '../../assets/side-menu-icon.png';
 import SearchBar from '../SearchBar';
 
@@ -11,9 +11,10 @@ const MobileButtons = ({
   totalItemCount,
   setIsCartOpen,
   setIsSideMenuOpen,
-  blink
+  blink,
+  hideMobileButtons
 }) => {
-  if (!isSmallScreen) return null;
+  if (!isSmallScreen || hideMobileButtons) return null;
 
   return (
     <div className="mobile-buttons-container">

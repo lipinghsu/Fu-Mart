@@ -12,6 +12,8 @@
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@reduxjs/toolkit": "^2.8.1",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@stripe/stripe-js": "^7.3.0",
     "firebase": "^11.6.1",
     "firebase-admin": "^13.3.0",
     "i18next": "^25.0.2",

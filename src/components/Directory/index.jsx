@@ -6,10 +6,11 @@ import SearchBar from './../SearchBar';
 import CgFooter from './../Footer';
 import JoinUsModal from './JoinUsModal';
 import ProductCard from './../ProductCard';
+// import topSectionImage from './../../assets/MingGuoPosters/fumart-poster.png'
+
 import topSectionImage from './../../assets/fu.png'
-// import topSectionImage from './../../assets/fumart-m-red-bg.png'
-import signUpImage from './../../assets/MingGuoPosters/signup-image.png'
-import signUpImageB from './../../assets/MingGuoPosters/signup-image-1.png'
+// import signUpImage from './../../assets/MingGuoPosters/signup-image.png'
+import signUpImageB from './../../assets/MingGuoPosters/fumart-poster.png'
 import './Directory.scss';
 import LatestProducts from './LatestProducts'; 
 
@@ -29,6 +30,36 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [latestProducts, setLatestProducts] = useState([]);
   const suggestionsRef = useRef(null);
+
+  //slide in effect
+  const signupLeftRef = useRef(null);
+  const signupRightRef = useRef(null);
+  const [isSignupRightVisible, setIsSignupRightVisible] = useState(false);
+  const [isSignupLeftVisible, setIsSignupLeftVisible] = useState(false);
+  useEffect(() => {
+    const leftObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsSignupLeftVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    const rightObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsSignupRightVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (signupLeftRef.current) leftObserver.observe(signupLeftRef.current);
+    if (signupRightRef.current) rightObserver.observe(signupRightRef.current);
+
+    return () => {
+      if (signupLeftRef.current) leftObserver.unobserve(signupLeftRef.current);
+      if (signupRightRef.current) rightObserver.unobserve(signupRightRef.current);
+    };
+  }, []);
+
 
   const fetchLatestProducts = async () => {
     try {
@@ -136,12 +167,18 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
 
         <div className="signup-section">
           <div className="signup-section-wrap">
-            <div className="signup-left">
+            <div
+              className={`signup-left ${isSignupLeftVisible ? 'slide-in' : 'slide-out'}`}
+              ref={signupLeftRef}
+            >
               <div className='signup-section-img-wrap'>
                 <img src={signUpImageB} alt="Join Us" />
               </div>
             </div>
-            <div className="signup-right">
+            <div
+              className={`signup-right ${isSignupRightVisible ? 'slide-in' : 'slide-out'}`}
+              ref={signupRightRef}
+            >
               <div className='signup-title'>
                 {t('home:signupTitle', 'Our goods? Not for just anyone')}
               </div>

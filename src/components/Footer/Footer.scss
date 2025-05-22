@@ -19,11 +19,15 @@
   .cg-signup-disclaimer {
     color: #e2e2e3;
     text-decoration: none;
+    
   }
   .cg-store-link{
     color: #28a739;
   }
   .cg-footer-left{
+    @media (max-width: 520px) {
+      margin-bottom: 8px;
+    }
     .cg-disclaimer {
         font-size: 0.8rem;
         color: #f8f8f8;
@@ -31,6 +35,12 @@
         letter-spacing: 0.03em;
         text-transform: uppercase;
         font-weight: 400;
+        a{
+          cursor: pointer;
+          &:hover{
+            color: #e5341d;
+          }
+        }
         .fu-mart-text{
             font-weight: 600;
         }

@@ -52,6 +52,7 @@ const RecoverPassword = () => {
         <p className="login-subtitle">{t('resetSubtitle')}</p>
         <form onSubmit={handleSubmit}>
           <input
+            className="account-input reset"
             type="email"
             placeholder={t('emailPlaceholder')}
             value={email}
@@ -60,7 +61,7 @@ const RecoverPassword = () => {
             disabled={loading}
           />
           <button type="submit" disabled={loading}>
-            {loading ? <div className="spinner"></div> : t('logIn')}
+            {loading ? <div className="spinner"></div> : t('sendReset')}
           </button>
         </form>
         <div className="login-links">
