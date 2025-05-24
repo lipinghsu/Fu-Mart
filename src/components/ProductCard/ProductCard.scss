@@ -12,9 +12,9 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #010B3D09;
+    background-color: #173b7a14;
     box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.23);
-    .add-to-cart-btn{
+    .add-to-bag-btn{
       background-color: #e5341d;
       color: #f2f2f3  !important;
     }
@@ -24,6 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 8px;
 
     .product-image {
       padding: 16px 12px 12px 12px;
@@ -60,7 +61,7 @@
     }
   }
 
-  .add-to-cart-btn {
+  .add-to-bag-btn {
     position: absolute;
     bottom: 20px;
     right: 16px;
@@ -119,45 +120,6 @@
     }
   }
 
-  &.dark {
-
-    // .add-to-cart-btn{
-    //   background-color:#f2f2f3 !important;
-    //   color:#222223 !important;
-    // }
-    &:hover {
-      background-color: #010728 !important ;
-      box-shadow: 0 0.5px 2px rgba(88, 88, 88, 0.88) !important;
-      .add-to-cart-btn{
-        background-color: #e5341d;
-        
-        &:hover{
-          background-color: #e5341d;
-          // color: #e2e2e3 !important;
-        }
-      }
-        
-    }
-
-    .add-to-cart-btn{
-      background-color: #d2d2d3 !important;
-      color: #121213 !important; 
-    }
-    .product-info {
-      .product-name {
-        color: #f2f2f3;
-      }
-
-      .subtitle {
-        color: #bbb;
-      }
-
-      .price {
-        color: #e5e5e5;
-      }
-    }
-
-  }
 }
 
 .spinner-svg {
@@ -191,4 +153,69 @@
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -124;
   }
+}
+
+.product-card.dark {
+
+  .add-to-bag-btn {
+    background-color: #d2d2d3;
+    color: #222223;
+  }
+
+  &:hover {
+    background-color: #010728;
+    box-shadow: 0 0.5px 2px rgba(88, 88, 88, 0.88);
+
+    .add-to-bag-btn {
+      background-color: #e5341d;
+    }
+  }
+
+  .product-info {
+    .product-name {
+      color: #f2f2f3;
+    }
+
+    .subtitle {
+      color: #bbb;
+    }
+
+    .price {
+      color: #e5e5e5;
+    }
+  }
+}
+
+.dark-mode{
+
+.product-card {
+
+  .add-to-bag-btn {
+    background-color: #d2d2d3;
+    color: #222223;
+  }
+
+  &:hover {
+    background-color: #010728;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.88);
+
+    .add-to-bag-btn {
+      background-color: #e5341d;
+    }
+  }
+
+  .product-info {
+    .product-name {
+      color: #f2f2f3;
+    }
+
+    .subtitle {
+      color: #bbb;
+    }
+
+    .price {
+      color: #e5e5e5;
+    }
+  }
+}
 }

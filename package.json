@@ -15,7 +15,7 @@
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.0",
     "firebase": "^11.6.1",
-    "firebase-admin": "^13.3.0",
+    "firebase-admin": "^13.4.0",
     "i18next": "^25.0.2",
     "i18next-browser-languagedetector": "^8.1.0",
     "i18next-http-backend": "^3.0.2",
@@ -38,5 +38,18 @@
     "globals": "^16.0.0",
     "sass-embedded": "^1.87.0",
     "vite": "^6.3.5"
-  }
+  },
+  "description": "A modern online marketplace designed for a seamless shopping experience.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lipinghsu/fu-mart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lipinghsu/fu-mart/issues"
+  },
+  "homepage": "https://github.com/lipinghsu/fu-mart#readme"
 }

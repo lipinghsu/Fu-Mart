@@ -31,7 +31,9 @@
     "Beverages": "음료",
     "Snacks": "스낵",
 
-    "inBag": "장바구니에 있음",
-    "updateQuantity": "수량 업데이트"
+    "inBag": "개 장바구니에 담김",
+    "updateQuantity": "수량 업데이트",
+    "removeFromBag": "장바구니에서 제거",
+    "addedToBag": "장바구니에 추가됐습니다!"
   }
   

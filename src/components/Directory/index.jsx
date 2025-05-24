@@ -5,8 +5,9 @@ import Header from './../Header';
 import SearchBar from './../SearchBar';
 import CgFooter from './../Footer';
 import JoinUsModal from './JoinUsModal';
-import ProductCard from './../ProductCard';
-// import topSectionImage from './../../assets/MingGuoPosters/fumart-poster.png'
+import ProductCard from './../ProductCard'
+import cornerImg from '../../assets/corner-image.jpg'; ;
+// import topSectionBackgroundImage from './../../assets/MingGuoPosters/lunarnewyear-stall.png'
 
 import topSectionImage from './../../assets/fu.png'
 // import signUpImage from './../../assets/MingGuoPosters/signup-image.png'
@@ -19,17 +20,15 @@ import { firestore } from '../../firebase/utils';
 
 let hasShownJoinModalThisSession = false;
 
-const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
+const Directory = ({}) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('preferredTheme');
     return savedTheme === 'dark';
   });
 
   const { t } = useTranslation(['home', 'storefront']);
-  const [rotation, setRotation] = useState(0);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [latestProducts, setLatestProducts] = useState([]);
-  const suggestionsRef = useRef(null);
 
   //slide in effect
   const signupLeftRef = useRef(null);
@@ -78,7 +77,6 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
       console.error('Error fetching latest products:', error);
     }
   };
-
 
   useEffect(() => {
     fetchLatestProducts();
@@ -155,9 +153,6 @@ const Directory = ({ showSignupDropdown, setShowSignupDropdown }) => {
       <div className="cg-main">
         
         <div className='top-section'>
-          {/* <div className='top-section-text-wrap'>
-            歡迎光臨
-          </div> */}
           <div className='top-section-img-wrap'>
             <img src={topSectionImage} />
           </div>

@@ -22,7 +22,8 @@ const ProductList = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [subcategoriesMap, setSubcategoriesMap] = useState({});
   const [hoveredCategory, setHoveredCategory] = useState(null);
-
+  const [selectedSubCategory, setSelectedSubCategory] = useState('');
+  const [isHoveringCategoryArea, setIsHoveringCategoryArea] = useState(false);
   const allCategoryLabel = ready ? t('allCategory') : 'All';
 
   useEffect(() => {
@@ -66,14 +67,30 @@ const ProductList = () => {
         }));
         setProducts(items);
 
-        // Extract subcategories
-        const map = {};
+        // Create category map: [category => Set of subcategories]
+        const categoryMap = new Map();
+
         for (const item of items) {
-          if (!map[item.category]) map[item.category] = new Set();
-          if (item.subcategory) map[item.category].add(item.subcategory);
+          const category = item.category;
+          const subCategory = item.subCategory;
+
+          if (!category || !subCategory) continue;
+
+          if (!categoryMap.has(category)) {
+            categoryMap.set(category, new Set());
+          }
+          categoryMap.get(category).add(subCategory);
         }
-        const formatted = Object.fromEntries(Object.entries(map).map(([k, v]) => [k, Array.from(v)]));
-        setSubcategoriesMap(formatted);
+
+        // Convert Map to plain object for React state
+        const plainObject = {};
+        for (const [key, valueSet] of categoryMap.entries()) {
+          plainObject[key] = Array.from(valueSet);
+        }
+
+        console.log('Subcategories Map:', plainObject); // Debug output
+        setSubcategoriesMap(plainObject);
+
 
       } catch (err) {
         console.error('Error fetching products:', err);
@@ -81,7 +98,8 @@ const ProductList = () => {
         setLoading(false);
       }
     };
-
+    // create a category map, [key:category, value: set of subcategories]
+    // category and subCategory is a field in the document
     fetchProducts();
   }, []);
 
@@ -95,6 +113,12 @@ const ProductList = () => {
     setSortOption(value);
     setDropdownOpen(false);
   };
+
+  useEffect(() => {
+  if (selectedCategory === allCategoryLabel) {
+    setSelectedSubCategory('');
+  }
+}, [selectedCategory]);
 
   const getSortLabel = (option) => {
     switch (option) {
@@ -112,8 +136,9 @@ const ProductList = () => {
   const filteredProducts = products
     .filter((product) =>
       (product.name.toLowerCase().includes(filterText.toLowerCase()) ||
-        product.subtitle.toLowerCase().includes(filterText.toLowerCase())) &&
-      (selectedCategory === allCategoryLabel || product.category === selectedCategory)
+      product.subtitle.toLowerCase().includes(filterText.toLowerCase())) &&
+      (selectedCategory === allCategoryLabel || product.category === selectedCategory) &&
+      (!selectedSubCategory || product.subCategory === selectedSubCategory)
     )
     .sort((a, b) => {
       if (sortOption === 'price-asc') return a.price - b.price;
@@ -130,8 +155,11 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
-      <Header homepageHeader={true} />
-      <div className="filter-sort-header">
+      <Header 
+        homepageHeader={true}
+        hasSearchBar={true} 
+      />
+      {/* <div className="filter-sort-header">
         <div className="controls">
           <div className="filter-input">
             <input
@@ -145,33 +173,64 @@ const ProductList = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="category-sort-wrapper">
-        <div className="category-tabs">
-          {categories.map((category) => (
+      <div
+        className="category-sort-wrapper"
+        onMouseEnter={() => setIsHoveringCategoryArea(true)}
+        onMouseLeave={() => {
+          setIsHoveringCategoryArea(false);
+          setHoveredCategory(null);
+        }}
+      >
+<div className="category-tabs">
+  {categories.map((category) => (
+    <div
+      className="category-tab-wrapper"
+      key={category}
+      onMouseEnter={() => setHoveredCategory(category)}
+    >
+      <button
+        className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
+        onClick={() => {
+          setSelectedCategory(category);
+          setSelectedSubCategory('');
+        }}
+        onMouseEnter={() => setHoveredCategory(category)}
+      >
+        <span>
+          {t(category)}
+        </span>
+        
+      </button>
+
+      {hoveredCategory === category &&
+        subcategoriesMap[category]?.length > 0 &&
+        isHoveringCategoryArea && (
+          <div className="subcategory-dropdown">
+            {subcategoriesMap[category]
+            .sort((a, b) => a.localeCompare(b))
+            .map((sub) => (
             <div
-              className="category-tab-wrapper"
-              key={category}
-              onMouseEnter={() => setHoveredCategory(category)}
-              onMouseLeave={() => setHoveredCategory(null)}
+              className="subcategory-item"
+              key={sub}
+              onClick={() => {
+                setSelectedSubCategory(sub);
+                setSelectedCategory(category);
+                setHoveredCategory(null);              
+                setIsHoveringCategoryArea(false);      
+              }}
             >
-            <button
-              className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {t(category)}
-            </button>
-              {hoveredCategory === category && subcategoriesMap[category]?.length > 0 && (
-                <div className="subcategory-dropdown">
-                  {subcategoriesMap[category].map((sub) => (
-                    <div className="subcategory-item" key={sub}>{sub}</div>
-                  ))}
-                </div>
-              )}
+              {t(sub)}
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
+      )}
+    </div>
+  ))}
+</div>
+
+
 
         <div className="sort-control" ref={dropdownRef}>
           <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>

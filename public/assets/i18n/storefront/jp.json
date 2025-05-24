@@ -30,7 +30,9 @@
   "welcome": "ホワンイン グアンリン",
   "Beverages": "飲み物",
   "Snacks": "お菓子",
-  "inBag": "バッグ内",
-  "updateQuantity": "数量を更新"
+  "inBag": "個 バッグ内",
+  "updateQuantity": "数量を更新",
+  "removeFromBag": "バッグから削除",
+  "addedToBag": "バッグに追加しました！"
 
 }

@@ -234,48 +234,7 @@
         }
     }
     
-    .details{
-        // border: 1px solid black;
-        display: block;
-        width: 100%;
-        padding: 16px;
-        overflow: hidden;
-
-        ul{
-            // border: 1px solid black;
-            margin: 0px auto;
-            padding-left: 0;
-            li{
-                display: block;
-                width: 100%;
-                list-style-type: none;
-                text-align: center;
-
-                margin: 0 0 0.5rem;
-                padding-bottom: 2px;
-                a{
-                    color:black;
-                }
-                .name{
-                    // text-transform: uppercase;
-                    // font-weight: 400;
-                    text-transform: capitalize;
-                    font-weight: 800;
-                    font-size: 1.6rem;
-                }
-                .price{
-                    font-size: 1.5rem;
-                    font-weight: 400;
-                }
-            }
-        }
-    }
-
     
-    
-}
-.product:hover img{
-    // transition: 3s ease-in-out;
 }
 
 @keyframes floatUp {
@@ -295,10 +254,6 @@
       }
 }
 
-.products {
-    
-    /* ... your existing styles ... */
-}
 
 
 :root.dark-mode .products {
@@ -307,12 +262,6 @@
 
     .cg-header {
         color: #f2f2f3;
-    }
-
-    .coming-soon {
-        // If you want to invert the solid look
-
-        // color: #ff6b6b; 
     }
 
     .outline {

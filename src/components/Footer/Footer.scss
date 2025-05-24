@@ -21,12 +21,32 @@
     text-decoration: none;
     
   }
-  .cg-store-link{
-    color: #28a739;
+  .cg-store-link {
+    font-weight: bolder !important;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none;
+    letter-spacing: -0.4px;
+    font-size: 1.4rem;
+    height: 24px;
+    width: fit-content;
+    // margin-bottom: 4px;
+    color:#30C544;
+    
+    &:hover{
+      color: #4AD35D;
+    }
+    &.active{
+      // color:#28a739;
+      &:hover{
+      
+    }
+      
+    }
   }
   .cg-footer-left{
     @media (max-width: 520px) {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     .cg-disclaimer {
         font-size: 0.8rem;
@@ -35,6 +55,9 @@
         letter-spacing: 0.03em;
         text-transform: uppercase;
         font-weight: 400;
+        &.top{
+          padding-top: 4px;
+        }
         a{
           cursor: pointer;
           &:hover{

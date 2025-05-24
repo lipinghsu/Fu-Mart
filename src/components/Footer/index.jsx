@@ -70,7 +70,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
         </a>
 
 
-          <div className="cg-disclaimer">
+          <div className="cg-disclaimer top">
             © 2025{' '}
             <a href="/" className="fu-mart-text">
               FÜ-MART

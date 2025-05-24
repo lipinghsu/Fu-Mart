@@ -27,6 +27,7 @@ i18n
       'terms',
       'comingsoon',
       'storefront',
+      'checkout'
     ],
     defaultNS: 'common', // set a default, typically 'common' or 'home'
 

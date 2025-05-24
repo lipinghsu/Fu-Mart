@@ -59,32 +59,7 @@ html, body {
 
 
 
-.cg-store-link {
-  font-weight: bolder !important;
-  text-transform: uppercase;
-  color: #000;
-  text-decoration: none;
-  letter-spacing: -0.4px;
-  font-size: 1.4rem;
-  height: 24px;
-  width: fit-content;
-  margin-bottom: 8px;
-  // color:#e20023;
-  color:#28a739;
-  text-shadow: 0 0 0.5px currentColor;
-  // font-weight: bolder !important;
-  
-  &:hover{
-    color:#28a739;
-  }
-  &.active{
-    color:#28a739;
-    &:hover{
-    
-  }
-    color: #30a544;
-  }
-}
+
 
 
 

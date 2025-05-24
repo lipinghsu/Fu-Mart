@@ -20,7 +20,6 @@ import './SearchBar.scss';
 import closeImage from '../../assets/closeImage2.png';
 import FumartLogo from '../../assets/fumart-m-red-bg.png';
 import SearchSwitchIcon from '../../assets/search-switch-icon.png';
-// import SearchSwitchIcon from '../../assets/search-icon.png';
 import SearchOffIcon from '../../assets/search-off-icon.png';
 import '../../App.scss';
 

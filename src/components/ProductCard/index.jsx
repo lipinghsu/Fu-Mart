@@ -31,7 +31,7 @@ const ProductCard = ({ product, onClick, t, isDarkMode }) => {
           <span>${product.price.toFixed(2)}</span>
         </p>
       </div>
-      <button className="add-to-cart-btn" onClick={handleAddToCart}>
+      <button className="add-to-bag-btn" onClick={handleAddToCart}>
         <span className="text-default">{t('buy')}</span>
         <span className="text-hover">{t('addToBag')}</span>
       </button>

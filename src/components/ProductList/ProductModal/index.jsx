@@ -30,7 +30,9 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [hasMouseMoved, setHasMouseMoved] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
 
+  
   const cartItem = cartItems.find(item => item.id === product.id);
   const currentCartQuantity = cartItem?.quantity || 0;
 
@@ -58,6 +60,9 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
       addedQuantity: quantity
     };
     dispatch(addToCart(safeProduct));
+
+    setShowAddedMessage(true);
+    setTimeout(() => setShowAddedMessage(false), 2000); // 提示顯示 2 秒
   };
 
   const handleMouseMove = (e) => {
@@ -188,51 +193,75 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                     </div>
                   ))}
                 </div>
-<div className="quantity-control" ref={dropdownRef}>
-          <div
-            className={`quantity-button ${dropdownOpen ? 'active' : ''}`}
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            <span className='selected-quantity'>
-              {`${t('quantity')}: ${quantity}`}
-              {currentCartQuantity > 0 && ` (${t('inBag')}: ${currentCartQuantity})`}
-            </span>
-            <span className="arrow">▼</span>
-          </div>
-          <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
-            <div className="option block" />
-            {[...Array(9)].map((_, i) => (
-              <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
-                {i + 1}
-              </div>
-            ))}
-            <div className="option" onClick={() => handleSelectQuantity(10)}>
-              {t('customQuantity')}
-            </div>
-          </div>
-        </div>
+                <div className="quantity-control" ref={dropdownRef}>
+                  <div
+                    className={`quantity-button ${dropdownOpen ? 'active' : ''} ${
+                      currentCartQuantity > 0
+                        ? quantity !== currentCartQuantity
+                          ? 'quantity-changed'
+                          : 'in-bag'
+                        : ''
+                    }`}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    <span className='selected-quantity'>
+                      
+                      {(currentCartQuantity > 0) && (quantity === currentCartQuantity) ?  `${currentCartQuantity} ${t('inBag')}`: `${t('quantity')}: ${quantity}`}
+                      {/* {currentCartQuantity > 0 && ` (${t('inBag')}: ${currentCartQuantity})`} */}
+                    </span>
+                    <span className="arrow">▼</span>
+                  </div>
+                  <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
+                    <div className="option block" />
+                    {[...Array(9)].map((_, i) => (
+                      <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
+                        {i + 1}
+                      </div>
+                    ))}
+                    <div className="option" onClick={() => handleSelectQuantity(10)}>
+                      {t('customQuantity')}
+                    </div>
+                    {currentCartQuantity > 0 && (
+                      <div
+                        className="option remove-option"
+                        onClick={() => {
+                          dispatch({ type: 'cart/removeItem', payload: product.id });
+                          setQuantity(1);
+                          setDropdownOpen(false);
+                        }}
+                      >
+                         {t('removeFromBag') || 'Remove from Bag'}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {showAddedMessage && (
+                  <div className="added-message">
+                     {t('addedToBag')}
+                  </div>
+                )}
 
-        {cartItem ? (
-          showUpdateButton && (
-            <div className="button-group">
-              <button className="add-to-cart" onClick={handleUpdateQuantity}>
-                {t('updateQuantity')}
-              </button>
-              <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
-                {t('buyNow')}
-              </button>
-            </div>
-          )
-        ) : (
-          <div className="button-group">
-            <button className="add-to-cart" onClick={handleAddToCart}>
-              {t('addToBag')}
-            </button>
-            <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
-              {t('buyNow')}
-            </button>
-          </div>
-        )}
+                {cartItem ? (
+                  showUpdateButton && (
+                    <div className="button-group">
+                      <button className="add-to-bag" onClick={handleUpdateQuantity}>
+                        {t('updateQuantity')}
+                      </button>
+                      <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+                        {t('buyNow')}
+                      </button>
+                    </div>
+                  )
+                ) : (
+                  <div className="button-group">
+                    <button className="add-to-bag" onClick={handleAddToCart}>
+                      {t('addToBag')}
+                    </button>
+                    <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+                      {t('buyNow')}
+                    </button>
+                  </div>
+                )}
               </div>
               <div className='btn-inner-wrap-bot'>
                 <div className='top-text'>

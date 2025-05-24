@@ -30,6 +30,7 @@
     "qualityPromise": "Every order comes with Fü-Mart's quality promise",
     "welcome": "HuanYing GuangLin",
     "inBag": "in bag",
-    "updateQuantity": "Update Quantity"
-  
+    "updateQuantity": "Update Quantity",
+    "removeFromBag": "Remove from Bag",
+    "addedToBag": "Added to bag!"
 }
