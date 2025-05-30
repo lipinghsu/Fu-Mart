@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice';
 import './ProductCard.scss';
 
-const ProductCard = ({ product, onClick, t, isDarkMode }) => {
+const ProductCard = ({ product, onClick, t }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
@@ -18,7 +18,7 @@ const ProductCard = ({ product, onClick, t, isDarkMode }) => {
   };
 
   return (
-    <div className={`product-card loaded ${isDarkMode ? 'dark' : ''}`} onClick={() => onClick(product)}>
+    <div className={`product-card loaded`} onClick={() => onClick(product)}>
       {product.images?.[0] && (
         <div className="product-image-wrap">
           <img src={product.images[0]} alt={product.name} className="product-image" />

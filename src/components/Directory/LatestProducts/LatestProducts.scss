@@ -20,7 +20,7 @@
       font-size: 1.6rem;
       line-height: 28px;
       font-weight: bolder;
-      letter-spacing: -1px;
+      letter-spacing: -0.3px;
       @media (max-width: 520px) {
         font-size: 1.4rem;
       }
@@ -78,7 +78,7 @@
     .suggested-items {
       .suggested-item {
         .product-card {
-          background-color: #121213;
+          background-color: #181818;
 
           &:hover {
             background-color: #010728;

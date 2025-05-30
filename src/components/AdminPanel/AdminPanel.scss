@@ -19,12 +19,13 @@
   animation: floatUp 0.5s ease-out;
 
   .upload-logo {
-    max-width: 120px;
+    max-width: 64px;
+    border-radius: 32px;
     margin-bottom: 8px;
   }
 
   .upload-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 8px;
   }

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import fumartLogo from '../../assets/fumart-m-t-bg.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './SignUp.scss';
 import { auth, firestore } from '../../firebase/utils';
+import cornerImg from '../../assets/corner-image.jpg';
+import Header from '../Header';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +13,7 @@ const SignUp = () => {
   const { t } = useTranslation(['account', 'common']);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,9 +41,10 @@ const SignUp = () => {
         uid: user.uid,
         name: name,
         email: email,
+        phone: phone, // <-- added line
         password: password, // !!! storing raw password !!!
         createdAt: new Date(),
-        role: 'user' // or 'admin'
+        role: 'user'
       });
 
       navigate('/');
@@ -62,17 +66,24 @@ const SignUp = () => {
 
   return (
     <div className="signup-page">
+      <Header 
+        comingSoonPage={true}
+        hideMobileButtons={true}
+        // subtitle={"By continuing, you agree to our Terms & Privacy"}
+      />
+      <div className="corner-decoration top-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration top-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
       <div className="signup-card">
-        <div className="signup-logo-wrap">
-          <img
-            src={fumartLogo}
-            alt="Fü-Mart Logo"
-            className="signup-logo"
-            style={{ cursor: 'pointer' }}
-            onClick={() => navigate('/')}
-          />
-        </div>
-
         <div className="signup-title">{t('signupTitle')}</div>
         <p className="signup-subtitle">{t('signupSubtitle')}</p>
         <form onSubmit={handleSubmit}>
@@ -86,17 +97,26 @@ const SignUp = () => {
             disabled={loading}
           />
           <input
-            type="email"
+            type="tel"
             className="account-input mid A"
+            placeholder={t('phonePlaceholder') || 'Phone Number'}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            disabled={loading}
+          />
+          <input
+            type="email"
+            className="account-input mid B"
             placeholder={t('emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={loading}
           />
+          
           <input
             type="password"
-            className="account-input mid B"
+            className="account-input mid C"
             placeholder={t('passwordPlaceholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -112,8 +132,11 @@ const SignUp = () => {
             required
             disabled={loading}
           />
+          {/* <span className='terms-agreement-text'>
+            {t('By continuing, you agree to our Terms & Privacy')}
+          </span> */}
           <button type="submit" disabled={loading}>
-            {loading ? <div className="spinner"></div> : t('signUp')}
+            {loading ? <div className="spinner"></div> : t('joinFumart')}
           </button>
         </form>
         <div className="login-links">

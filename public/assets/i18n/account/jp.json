@@ -1,13 +1,14 @@
 {
-  "loginTitle": "Fü-Mart にログイン",
-  "loginSubtitle": "最新の商品を見つけよう",
+  "loginTitle": "ログイン",
+  "loginSubtitle": "福罵へようこそ。臺湾のコンビニです",
   "emailPlaceholder": "メールアドレス",
+  "phonePlaceholder": "電話番号（任意）",
   "passwordPlaceholder": "パスワード",
   "logIn": "ログイン",
   "forgotPassword": "パスワードをお忘れですか？",
   "signUp": "新規登録",
-  "signupTitle": "Fü-Mart に新規登録",
-  "signupSubtitle": "メンバー登録してショッピングを始めよう",
+  "signupTitle": "新規登録",
+  "signupSubtitle": "あなたの登録が臺湾のコンビニ改革の第一歩です",
   "namePlaceholder": "氏名",
   "confirmPasswordPlaceholder": "パスワード確認",
   "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
@@ -18,5 +19,6 @@
   "loggingIn": "ログイン中...",
   "signingUp": "登録中...",
   "sending": "送信中...",
-  "dontHaveAnAccount": "アカウントをお持ちではありませんか？"
+  "dontHaveAnAccount": "アカウントをお持ちではありませんか？",
+  "joinFumart": "Fü-Martに参加する"
 }

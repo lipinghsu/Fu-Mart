@@ -33,6 +33,7 @@
   "inBag": "個 バッグ内",
   "updateQuantity": "数量を更新",
   "removeFromBag": "バッグから削除",
-  "addedToBag": "バッグに追加しました！"
+  "addedToBag": "バッグに追加しました",
+  "updatedQuantity": "数量が更新されました"
 
 }

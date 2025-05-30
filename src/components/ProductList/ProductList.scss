@@ -423,36 +423,6 @@
       }
     }
   }
-
-  .product-list {
-    background: #000;
-    color: #f2f2f3;
-
-    h2 {
-      color: #f2f2f3;
-    }
-
-    .product-card {
-      background: #000;
-      &:hover{
-        background-color: #010b3d;
-      }
-
-      .product-info {
-        .product-name {
-          color: #f2f2f3;
-        }
-
-        .subtitle {
-          color: #aaa;
-        }
-
-        p {
-          color: #ddd;
-        }
-      }
-    }
-  }
 }
 
 /* Skeleton state */
@@ -660,15 +630,15 @@
 
         .product-info {
           .product-name {
-            color: #f2f2f3;
+            color: #e2e2e3;
           }
 
           .subtitle {
-            color: #aaa;
+            color: #b2b2b3;
           }
 
           p {
-            color: #ddd;
+            color: #f2f2f3;
           }
         }
       }

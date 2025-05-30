@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import HomepageLayout from './layouts/HomepageLayout';
 import AccountLayout from './layouts/AccountLayout';
 import MainLayout from './layouts/MainLayout';
+import LegalLayout from './layouts/LegalLayout';
 
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -14,8 +15,7 @@ import Privacy from './pages/Privacy';
 import Admin from './pages/Admin';
 import Shop from './pages/Shop';
 import Payment from './pages/Payment';
-
-
+import About from './pages/About';
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
 import CartSync from './components/CartSync';
@@ -90,19 +90,27 @@ function App() {
         }
       />
       <Route
+        path="/about"
+        element={
+          <LegalLayout>
+            <About />
+          </LegalLayout>
+        }
+      />
+      <Route
         path="/terms"
         element={
-          <AccountLayout>
+          <LegalLayout>
             <Terms />
-          </AccountLayout>
+          </LegalLayout>
         }
       />
       <Route
         path="/privacy"
         element={
-          <AccountLayout>
+          <LegalLayout>
             <Privacy />
-          </AccountLayout>
+          </LegalLayout>
         }
       />
       <Route

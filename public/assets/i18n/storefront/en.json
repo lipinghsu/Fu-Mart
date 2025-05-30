@@ -32,5 +32,6 @@
     "inBag": "in bag",
     "updateQuantity": "Update Quantity",
     "removeFromBag": "Remove from Bag",
-    "addedToBag": "Added to bag!"
+    "addedToBag": "Added to Bag",
+    "updatedQuantity": "Quantity Updated"
 }

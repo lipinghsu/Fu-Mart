@@ -45,15 +45,14 @@
   top: 0;
   z-index: 100;
   background-color: #fff;
-  transition: all 0.25s ease-out;
+  transition: all 0.15s ease-out;
   width: 100%;
   max-width: 100vw;
   box-sizing: border-box;
-  // overflow-x: hidden;
 
   @media (max-width: 870px) {
     padding: 8px 16px 8px 16px;
-    // background-color: red;
+  
   }
   @media (max-width: 520px) {
     flex-direction: column;
@@ -88,17 +87,19 @@
 
     .cg-sub-title {
       display: block;
-      // padding-top: 8px;
+      padding-top: 4px;
+      margin: 0 auto;
     }
 
     .logo-container {
-      width: 222px;
+      width: 218px;
       margin-right: 8px;
-      opacity: 0.85;
+      opacity: 0.87;
       transform: translateY(-3px);
       @media (max-width: 520px) { 
         width: 176px; 
         transform: none;
+        margin:0;
       }
 
       &:hover {
@@ -191,6 +192,7 @@
         border-radius: 24px;
         margin-left: 8px;
         cursor: pointer;
+        box-shadow: 0 0.5px 1px rgba(88, 88, 88, 0.2);
         
 
         &.blinking {
@@ -333,14 +335,16 @@
 
 .header-btn {
   font-family: inherit;
-  background-color:transparent;
-  color: #000;
+  background-color: transparent;
+  color: #020203;
   border: none;
   font-weight: 700;
   padding: 7px 12px;
   height: 36px;
   font-size: 0.95rem;
-  text-transform: uppercase;
+  // min-width: 84px;
+  // text-transform: uppercase;
+  // letter-spacing: -0.2px;
   width: fit-content;
   cursor: pointer;
   border-radius: 12px;
@@ -400,6 +404,8 @@
   .header-auth-buttons .shopping-bag,
   .user-menu .shopping-bag {
     background-color: #383838 !important;
+    box-shadow: 0 0.5px 1px rgba(250, 250, 250, 0.18) !important;
+    
     .bag-count{
       color: #f2f2f3;
     }

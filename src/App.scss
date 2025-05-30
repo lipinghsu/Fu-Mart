@@ -7,13 +7,12 @@ body{
   
   div{
     // background-color: #000;
-
-  
   }
 }
 
 :root {
   --background-color: #ffffff;
+  
   // max-width: 1180px;
 }
 
@@ -21,18 +20,6 @@ body{
   
   --background-color: #000000;
 }
-
-// html, body {
-//   // light mode background, includes safe area
-//   background-color: #fff; 
-// }
-
-// // dark mode background, includes safe area
-// html.dark-mode, body.dark-mode {
-//   background-color: #000; 
-// }
-
-
 
 html, body {
   height: 100%;
@@ -52,17 +39,9 @@ html, body {
   
   max-width: 100dvw;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
 }
-
-
-
-
-
-
-
-
 
 .lang-selector-wrap {
   position: relative;
@@ -74,14 +53,7 @@ html, body {
   border:none;
   cursor: pointer;
   font-weight: 500;
-
 }
-
-
-
-
-
-
 
 .cg-signup-disclaimer {
   font-size: 0.8rem;
@@ -189,16 +161,9 @@ html, body {
     background-color:#000000;
     color: #e2e2e3;
   }
-  
-  .cg-searchbar {
-    background-color: #e2e2e3;
-  }
-  
 
 
   .cg-join-btn{
-    // background-color: #000;
-    // color:white;
     border: 2px solid white;
     &:hover{
       background-color: #ff4c4c;
@@ -209,7 +174,6 @@ html, body {
   .cg-email-input {
     background-color:transparent;
     color: #e2e2e3 !important;
-    // border-bottom: 1px solid #e2e2e3;
   }
 
   .dark-mode-toggle {

@@ -184,7 +184,10 @@ const Directory = ({}) => {
                 )}
               </div>
               <div className="signup-buttons">
-                <button className="primary-btn">
+                <button
+                  className="primary-btn"
+                  onClick={() => window.location.href = '/about'}
+                >
                   {t('home:learnMore', 'Learn More').toUpperCase()}
                 </button>
                 <button

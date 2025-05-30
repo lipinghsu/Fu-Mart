@@ -7,7 +7,6 @@ import ProductCard from '../ProductCard';
 import ProductModal from './ProductModal';
 import { useTranslation } from 'react-i18next';
 import sortIcon from '../../assets/arrowIcon.png';
-import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './ProductList.scss';
 
 const ProductList = () => {
@@ -98,8 +97,6 @@ const ProductList = () => {
         setLoading(false);
       }
     };
-    // create a category map, [key:category, value: set of subcategories]
-    // category and subCategory is a field in the document
     fetchProducts();
   }, []);
 
@@ -183,54 +180,53 @@ const ProductList = () => {
           setHoveredCategory(null);
         }}
       >
-<div className="category-tabs">
-  {categories.map((category) => (
-    <div
-      className="category-tab-wrapper"
-      key={category}
-      onMouseEnter={() => setHoveredCategory(category)}
-    >
-      <button
-        className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
-        onClick={() => {
-          setSelectedCategory(category);
-          setSelectedSubCategory('');
-        }}
-        onMouseEnter={() => setHoveredCategory(category)}
-      >
-        <span>
-          {t(category)}
-        </span>
-        
-      </button>
-
-      {hoveredCategory === category &&
-        subcategoriesMap[category]?.length > 0 &&
-        isHoveringCategoryArea && (
-          <div className="subcategory-dropdown">
-            {subcategoriesMap[category]
-            .sort((a, b) => a.localeCompare(b))
-            .map((sub) => (
+        <div className="category-tabs">
+          {categories.map((category) => (
             <div
-              className="subcategory-item"
-              key={sub}
-              onClick={() => {
-                setSelectedSubCategory(sub);
-                setSelectedCategory(category);
-                setHoveredCategory(null);              
-                setIsHoveringCategoryArea(false);      
-              }}
+              className="category-tab-wrapper"
+              key={category}
+              onMouseEnter={() => setHoveredCategory(category)}
             >
-              {t(sub)}
+              <button
+                className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setSelectedSubCategory('');
+                  setHoveredCategory(null);              
+                  // setIsHoveringCategoryArea(false);    
+                }}
+                onMouseEnter={() => setHoveredCategory(category)}
+              >
+                <span>
+                  {t(category)}
+                </span>
+              </button>
+
+              {hoveredCategory === category &&
+                subcategoriesMap[category]?.length > 0 &&
+                isHoveringCategoryArea && (
+                  <div className="subcategory-dropdown">
+                    {subcategoriesMap[category]
+                    .sort((a, b) => a.localeCompare(b))
+                    .map((sub) => (
+                    <div
+                      className="subcategory-item"
+                      key={sub}
+                      onClick={() => {
+                        setSelectedSubCategory(sub);
+                        setSelectedCategory(category);
+                        setHoveredCategory(null);              
+                        setIsHoveringCategoryArea(false);      
+                      }}
+                    >
+                      {t(sub)}
+                    </div>
+                    ))}
+                  </div>
+              )}
             </div>
-            ))}
-          </div>
-      )}
-    </div>
-  ))}
-</div>
-
-
+          ))}
+        </div>
 
         <div className="sort-control" ref={dropdownRef}>
           <div className="sort-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
@@ -275,7 +271,6 @@ const ProductList = () => {
               onClick={(e, type) => {
                 setSelectedProduct(product);
               }}
-              isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
               t={t}
             />
             ))}

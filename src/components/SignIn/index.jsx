@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import fumartLogo from '../../assets/fumart-m-t-bg.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import { auth } from '../../firebase/utils';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import cornerImg from '../../assets/corner-image.jpg';
+import Header from '../Header';
 import './SignIn.scss';
 
 const SignIn = () => {
@@ -12,6 +14,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,14 +52,23 @@ const SignIn = () => {
 
   return (
     <div className="login-page">
-      <div className="login-card">
-      <img
-        src={fumartLogo}
-        alt="Fü-Mart Logo"
-        className="login-logo"
-        style={{ cursor: 'pointer' }}
-        onClick={() => navigate('/')}
+      <Header 
+        comingSoonPage={true}
+        hideMobileButtons = {true}
       />
+      <div className="corner-decoration top-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration top-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="login-card">
         <div className="login-title">{t('loginTitle')}</div>
         <p className="login-subtitle">{t('loginSubtitle')}</p>
         <form onSubmit={handleSubmit}>

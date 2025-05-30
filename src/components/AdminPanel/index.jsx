@@ -3,7 +3,7 @@ import { firestore, storage } from '../../firebase/utils';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
-import fumartLogo from '../../assets/fumart-m-t-bg.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './AdminPanel.scss';
 
 const AdminPanel = () => {

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import fumartLogo from '../../assets/fumart-m-t-bg.png';
+import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './RecoverPassword.scss';
+import Header from '../Header';
+import cornerImg from '../../assets/corner-image.jpg';
 import { auth } from '../../firebase/utils';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -40,14 +42,23 @@ const RecoverPassword = () => {
 
   return (
     <div className="login-page">
-      <div className="login-card">
-      <img
-        src={fumartLogo}
-        alt="Fü-Mart Logo"
-        className="login-logo"
-        style={{ cursor: 'pointer' }}
-        onClick={() => navigate('/')}
+      <Header 
+        comingSoonPage={true}
+        hideMobileButtons = {true}
       />
+      <div className="corner-decoration top-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration top-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-left">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="corner-decoration bottom-right">
+          <img src={cornerImg} alt="Corner" />
+      </div>
+      <div className="login-card">
         <div className="login-title">{t('resetTitle')}</div>
         <p className="login-subtitle">{t('resetSubtitle')}</p>
         <form onSubmit={handleSubmit}>

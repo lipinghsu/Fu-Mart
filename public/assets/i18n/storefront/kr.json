@@ -34,6 +34,7 @@
     "inBag": "개 장바구니에 담김",
     "updateQuantity": "수량 업데이트",
     "removeFromBag": "장바구니에서 제거",
-    "addedToBag": "장바구니에 추가됐습니다!"
+    "addedToBag": "장바구니에 추가됐습니다",
+    "updatedQuantity": "수량이 업데이트되었습니다"
   }
   

@@ -31,8 +31,9 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [hasMouseMoved, setHasMouseMoved] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
+  const [showUpdatedMessage, setShowUpdatedMessage] = useState(false);
+  const [thumbnailsLoading, setThumbnailsLoading] = useState(true);
 
-  
   const cartItem = cartItems.find(item => item.id === product.id);
   const currentCartQuantity = cartItem?.quantity || 0;
 
@@ -40,15 +41,31 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     setQuantity(currentCartQuantity > 0 ? currentCartQuantity : 1);
   }, [currentCartQuantity, product.id]);
 
+  useEffect(() => {
+    setMainImage(product.images?.[0]);
+    setActiveThumbnail(product.images?.[0]);
+    fetchSuggestedProducts();
+    setFadeIn(true);
+    const timer = setTimeout(() => setThumbnailsLoading(false), 500);
+    if (modalRef.current) {
+      requestAnimationFrame(() => {
+        modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+    return () => clearTimeout(timer);
+  }, [product]);
+
   const handleUpdateQuantity = () => {
     const updatedProduct = {
       ...product,
       createdAt: product.createdAt?.toDate
         ? product.createdAt.toDate().toISOString()
         : product.createdAt,
-      quantity // Set the final quantity directly
+      quantity
     };
     dispatch({ type: 'cart/updateItemQuantity', payload: updatedProduct });
+    setShowUpdatedMessage(true);
+    setTimeout(() => setShowUpdatedMessage(false), 2000);
   };
 
   const handleAddToCart = () => {
@@ -60,9 +77,8 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
       addedQuantity: quantity
     };
     dispatch(addToCart(safeProduct));
-
     setShowAddedMessage(true);
-    setTimeout(() => setShowAddedMessage(false), 2000); // 提示顯示 2 秒
+    setTimeout(() => setShowAddedMessage(false), 2000);
   };
 
   const handleMouseMove = (e) => {
@@ -78,18 +94,6 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     setIsZooming(false);
     setHasMouseMoved(false);
   };
-
-  useEffect(() => {
-    setFadeIn(true);
-    setMainImage(product.images?.[0]);
-    setActiveThumbnail(product.images?.[0]);
-    fetchSuggestedProducts();
-    if (modalRef.current) {
-      requestAnimationFrame(() => {
-        modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }, [product]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -112,7 +116,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
       const suggestions = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (doc.id !== product.id && doc.id !== product?.id) {
+        if (doc.id !== product.id) {
           suggestions.push({ id: doc.id, ...data });
         }
       });
@@ -174,24 +178,30 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                 </div>
                 <div className="subtitle">{product.subtitle}</div>
                 <div className="thumbnail-row">
-                  {product.images?.map((img, idx) => (
-                    <div className="thumbnail-wrapper" key={idx}>
-                      <div className="thumbnail-container">
-                        <img
-                          src={img}
-                          alt={`Thumbnail`}
-                          className={`thumbnail ${activeThumbnail === img ? 'active' : ''}`}
-                          onClick={() => {
-                            setMainImage(img);
-                            setActiveThumbnail(img);
-                          }}
-                          onMouseEnter={() => setMainImage(img)}
-                          onMouseLeave={() => setMainImage(activeThumbnail)}
-                        />
-                      </div>
-                      <div className={`thumbnail-bar ${activeThumbnail === img ? 'active' : ''}`} />
-                    </div>
-                  ))}
+                  {thumbnailsLoading
+                    ? Array.from({ length: product.images.length }).map((_, idx) => (
+                        <div className="thumbnail-wrapper skeleton" key={idx}>
+                          <div className="thumbnail-container skeleton-box" />
+                        </div>
+                      ))
+                    : product.images?.map((img, idx) => (
+                        <div className="thumbnail-wrapper" key={idx}>
+                          <div className="thumbnail-container">
+                            <img
+                              src={img}
+                              // alt={`Thumbnail`}
+                              className={`thumbnail ${activeThumbnail === img ? 'active' : ''}`}
+                              onClick={() => {
+                                setMainImage(img);
+                                setActiveThumbnail(img);
+                              }}
+                              onMouseEnter={() => setMainImage(img)}
+                              onMouseLeave={() => setMainImage(activeThumbnail)}
+                            />
+                          </div>
+                          <div className={`thumbnail-bar ${activeThumbnail === img ? 'active' : ''}`} />
+                        </div>
+                      ))}
                 </div>
                 <div className="quantity-control" ref={dropdownRef}>
                   <div
@@ -214,8 +224,13 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                   <div className={`quantity-dropdown ${dropdownOpen ? 'open' : ''}`}>
                     <div className="option block" />
                     {[...Array(9)].map((_, i) => (
-                      <div key={i + 1} className="option" onClick={() => handleSelectQuantity(i + 1)}>
-                        {i + 1}
+                      <div
+                        key={i + 1}
+                        className={`option ${currentCartQuantity === i + 1 ? 'selected-option' : ''}`}
+                        onClick={() => handleSelectQuantity(i + 1)}
+                      >
+                        <span>{i + 1}</span>
+                        {currentCartQuantity === i + 1 && <span className="check-mark">・</span>}
                       </div>
                     ))}
                     <div className="option" onClick={() => handleSelectQuantity(10)}>
@@ -235,11 +250,18 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                     )}
                   </div>
                 </div>
-                {showAddedMessage && (
-                  <div className="added-message">
-                     {t('addedToBag')}
-                  </div>
-                )}
+                <div className={`message-container ${showAddedMessage || showUpdatedMessage ? 'expanded' : ''}`}>
+                  {showUpdatedMessage && (
+                    <div className="added-message">
+                      <span>{t('updatedQuantity') || 'Quantity updated!'}</span>
+                    </div>
+                  )}
+                  {showAddedMessage && (
+                    <div className="added-message">
+                      <span>{t('addedToBag')}</span>
+                    </div>
+                  )}
+                </div>
 
                 {cartItem ? (
                   showUpdateButton && (

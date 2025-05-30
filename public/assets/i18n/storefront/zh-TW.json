@@ -33,7 +33,8 @@
     "inBag": "個 在購物袋內",
     "updateQuantity": "更新數量",
     "removeFromBag": "從購物袋移除",
-    "addedToBag": "已加入購物袋！"
+    "addedToBag": "已加入購物袋",
+    "updatedQuantity": "數量已更新"
 
   }
 

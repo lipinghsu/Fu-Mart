@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import closeImage from './../../assets/closeImage.png';
+import fumartLogo from './../../assets/fumart-m-red-bg.png';
 import './SideMenu.scss';
 
 const SideMenu = ({ isOpen, onClose, searchExpanded }) => {
@@ -31,7 +32,12 @@ const SideMenu = ({ isOpen, onClose, searchExpanded }) => {
     <>
       <div className={`side-menu-drawer ${drawerState}`}>
         <div className={`side-menu-header ${scrolled ? 'scrolled' : ''}`}>
-          <h2>{t('menu')}</h2>
+          <h2>
+            <img src={fumartLogo}/>
+            <span>
+              {t('Fü-Mart')}
+            </span>
+          </h2>
           <div className="close-btn" onClick={onClose}>
             <img src={closeImage} alt={t('close')} />
           </div>
@@ -44,6 +50,9 @@ const SideMenu = ({ isOpen, onClose, searchExpanded }) => {
           <span className="separator">|</span>
           <button className="header-btn sign-up" onClick={() => { navigate('/signup'); onClose(); }}>
             {t('signup')}
+          </button>
+          <button className="header-btn about-us" onClick={() => { navigate('/about'); onClose(); }}>
+            {t('aboutus')}
           </button>
         </div>
       </div>
