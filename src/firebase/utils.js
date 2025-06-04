@@ -17,7 +17,7 @@ export const storage = getStorage(app);
 export const auth = getAuth();
 export const firestore = firebase.firestore();
 
-export const handleUserProfile = async({ userAuth, addtionalData }) =>{
+export const handleUserProfile = async({ userAuth, additionalData }) =>{
     if(!userAuth){
         return;
     }
@@ -38,7 +38,7 @@ export const handleUserProfile = async({ userAuth, addtionalData }) =>{
                 email,
                 createdDate: timestamp,
                 userRoles,
-                ...addtionalData
+                ...additionalData
             });
         } catch(err){
 
