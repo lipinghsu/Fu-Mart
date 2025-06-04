@@ -8,9 +8,9 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firestore } from "./../../firebase/utils";
 import { v4 } from "uuid";
 
-export function* getSnapshotFromUserAuth(user, addtionalData={}){
+export function* getSnapshotFromUserAuth(user, additionalData={}){
     try{
-        const userRef = yield call(handleUserProfile, { userAuth: user, addtionalData });
+        const userRef = yield call(handleUserProfile, { userAuth: user, additionalData });
         const snapshot = yield userRef.get();
         yield put(
             signInSuccess({
@@ -33,8 +33,8 @@ export function* signUpUser({ payload: { firstName, lastName, email, password, c
     }
     try{
         const { user } = yield createUserWithEmailAndPassword(getAuth(), email, password);
-        const addtionalData = {firstName, lastName};
-        yield getSnapshotFromUserAuth(user, addtionalData);
+        const additionalData = {firstName, lastName};
+        yield getSnapshotFromUserAuth(user, additionalData);
         
     } catch(error){
         // const errorCode = error.code;
