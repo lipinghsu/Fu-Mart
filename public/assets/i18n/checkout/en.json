@@ -27,5 +27,8 @@
   "discount": "Discount",
   "total": "Total",
   "couponApplied": "\"{{code}}\" applied. You saved {{percent}}%!",
-  "invalidCoupon": "Invalid coupon code."
+  "invalidCoupon": "Invalid coupon code.",
+  "login": "Log In",  
+  "signup": "Sign Up",
+  "login-text" : "To complete your purchase, please sign in or create an account. We’ll email your receipt and order details."
 }

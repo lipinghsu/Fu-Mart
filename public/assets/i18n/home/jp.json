@@ -6,7 +6,7 @@
   "store": "ストアへ進む",
   "welcome": "ようこそ",
   "login": "ログイン",
-  "signup": "新規登録",
+  "signup": "会員登録",
   "logout": "ログアウト",
   "loggedOut": "ログアウトしました。",
 
@@ -18,6 +18,8 @@
   "joinNote": "*セール品は対象外です",
   "joinTitlePrefix": "今すぐ登録して全品",
   "joinTitlePercent": "20%OFF",
+
+  
 
   "latestProducts": "新商品",
   "buy": "購入",
@@ -38,12 +40,15 @@
   "qualityGuaranteed": "品質保証",
   "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています",
   "welcome": "ホワンイン グアンリン",
-  "Beverages": "飲み物",
-  "Snacks": "お菓子",
+
   "signupTitle": "Fü-Martの基準",
   "signupDesc": "ママが買わないなら、Fü-Martも売らない",
   "signupNow": "今すぐ登録",
-  "learnMore": "詳しく見る"
+  "learnMore": "詳しく見る",
 
-
+  "Search In-Store Products": "店内商品の検索",
+  "Browse Treats From Asia": "アジアのお菓子をチェック",
+  "Search by Flavor": "フレーバーで探す",
+  "Uncover Hidden Gems": "隠れた名品を発見",
+  "Get Your Favorite Snacks": "お気に入りのおやつをゲット"
 }

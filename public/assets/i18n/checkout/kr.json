@@ -19,7 +19,7 @@
   "continueShopping": "쇼핑 계속하기",
   "confirmPurchase": "구매 확정",
   "orderDetails": "주문 상세",
-  "emptyBag": "장바구니가 비어 있습니다.",
+  "emptyBag": "쇼핑백가 비어 있습니다.",
   "couponCode": "쿠폰 코드",
   "apply": "사용",
   "subtotal": "소계",
@@ -27,5 +27,8 @@
   "discount": "할인",
   "total": "총합",
   "couponApplied": "\"{{code}}\" 쿠폰이 사용되었습니다. {{percent}}% 절약되었습니다!",
-  "invalidCoupon": "유효하지 않은 쿠폰 코드입니다."
+  "invalidCoupon": "유효하지 않은 쿠폰 코드입니다.",
+  "login-text": "거래를 완료하시려면 먼저 로그인하거나 회원가입을 해주세요. 영수증과 주문 내역은 고객님의 이메일로 발송됩니다.",
+  "login": "계정로긴",
+  "signup": "회원가입"
 }

@@ -1,6 +1,6 @@
 {
   "joinTitle": "Join Us for 20% Off",
-  "joinDesc": "Join us today to receive 20% off your first order and be the first to know about our new in-store products and subscriber-only offers.",
+  "joinDesc": "Join us today to receive 20% off your first order and be the first  to get exclusives on new products, merch, events, news and more.",
   "joinDescB": "unsubscribe anytime",
   "emailPlaceholder": "Enter your email",
   "subscribe": "Subscribe",
@@ -27,7 +27,7 @@
   "customQuantity": "Custom (10+)",
   "productDisclaimerPart1": "Product details, packaging, and information shown may not always reflect the most up-to-date or complete details. Please refer to the physical product for the most accurate information.",
   "productDisclaimerPart2": "Note: Actual weight and price may vary depending on seasonal or other factors; listed prices are estimates provided for reference only. For additional details, contact the manufacturer or retailer.",
-  "learnMore": "Learn more",
+  "learnMore": "Learn More",
   "qualityGuaranteed": "Quality Guaranteed",
   "qualityPromise": "Every order comes with Fü-Mart's quality promise",
   "welcome": "HuanYing GuangLin",
@@ -35,6 +35,5 @@
   
   "signupTitle": "Fü-Mart Standards",
   "signupDesc": "If grandma wouldn’t buy it, then Fü-Mart wouldn’t sell it.",
-  "signupNow": "Sign Up",
-  "learnMore": "Learn More"
+  "signupNow": "Sign Up"
 }

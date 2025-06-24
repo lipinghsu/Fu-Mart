@@ -4,33 +4,6 @@ import { Navigate } from 'react-router-dom';
 const WithAdminAuth = ({ children }) => {
   const userRole = localStorage.getItem('role')?.toLowerCase().trim();
   console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);  
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);  
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);  
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
-  console.log('userRole in storage:', userRole);
   if (userRole !== 'admin') {
     return <Navigate to="/login" replace />;
   }

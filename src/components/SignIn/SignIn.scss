@@ -74,7 +74,7 @@
       border: 1px solid #b2b2b3;
       background-color: #f8f8f6;
       color: #121213;
-      transition: border-color 0.02s ease-out;
+      transition: border-color 0.05s ease-out;
       // font-size: 16px;
       &:-webkit-autofill {  
         -webkit-box-shadow: 0 0 0 1000px none inset !important; // background color
@@ -93,7 +93,7 @@
       }
 
       &.reset {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
       }
 
       &:hover {

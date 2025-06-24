@@ -12,6 +12,7 @@ import cornerImg from '../../assets/corner-image.jpg'; ;
 import topSectionImage from './../../assets/fu.png'
 // import signUpImage from './../../assets/MingGuoPosters/signup-image.png'
 import signUpImageB from './../../assets/MingGuoPosters/fumart-poster.png'
+// import signUpImageB from './../../assets/fumart-poster3.png'
 import './Directory.scss';
 import LatestProducts from './LatestProducts'; 
 
@@ -35,6 +36,7 @@ const Directory = ({}) => {
   const signupRightRef = useRef(null);
   const [isSignupRightVisible, setIsSignupRightVisible] = useState(false);
   const [isSignupLeftVisible, setIsSignupLeftVisible] = useState(false);
+
   useEffect(() => {
     const leftObserver = new IntersectionObserver(
       ([entry]) => {
@@ -58,7 +60,6 @@ const Directory = ({}) => {
       if (signupRightRef.current) rightObserver.unobserve(signupRightRef.current);
     };
   }, []);
-
 
   const fetchLatestProducts = async () => {
     try {
@@ -142,12 +143,25 @@ const Directory = ({}) => {
     localStorage.setItem('preferredTheme', newMode ? 'dark' : 'light');
   };
 
+  // Disable background scrolling whenever the JoinUsModal is open
+  useEffect(() => {
+    if (showSignupModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Clean up on unmount
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showSignupModal]);
   return (
     <div className="cg-root">
       <div className='directory'>
       <Header
         title={t('title')}
-        homepageHeader={true}
+        mainPageHeader={true}
         hasSearchBar={true}
       />
       <div className="cg-main">

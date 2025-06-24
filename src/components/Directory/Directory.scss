@@ -25,9 +25,9 @@
       .top-section {
         position: relative;
         width: 100%;
-        height: 50vh;
+        height: 490px;
         min-height: 200px;
-        max-height: 380px;
+        // max-height: 468px;
         // margin-top: 6px;
         overflow: hidden;
         box-sizing: border-box;
@@ -36,19 +36,26 @@
         align-items: center;
         background-color: rgb(0, 0, 0);
         
-        background: url('./../../assets/top-section-bg3-2.jpg') center center / cover no-repeat;
-        // background-size: auto; 
+        background: url('./../../assets/top-section-bg-june5.jpg') bottom center / cover no-repeat;
+        
         // background-position: top center;
+        filter:brightness(1.15);
+        background-size: 100% auto;
+
+        @media (max-width: 1840px) {
+          background-size: 1840px auto;
+          
+        }
+
         @media (max-width: 520px) {
           margin-top: 0;
           max-width: calc(100% - 24px);
+          height: 760px;
           background-size: auto; 
-          // background: url('./../../assets/top-section-bg3.jpg') center center / 100% no-repeat;
-          // max-width: 100vw;
-          // max-height: 100vw;
-          // background-color: white;
+          
           img{
-            // filter:invert(1);
+
+            
           }
           
         }
@@ -67,7 +74,7 @@
           opacity: 0;
           animation: fadeIn 0.5s ease-out forwards;
           // animation-delay: 0.2s; // optional slight delay
-
+          
 
           @media (max-width: 520px) {
             max-width: calc(100% - 24px);
@@ -75,19 +82,25 @@
           }
 
           img {
-            max-width: calc(100% - 64px);
-            max-height: calc(100% - 64px);
+            max-width: calc(100% - 128px);
+            max-height: calc(100% - 128px);
             object-fit: contain;
             object-position: center center;
             display: block;
-            background-color: white;
+            
+            
+
             border-radius: 50%;
             animation: colorChange 0.5s ease-out forwards;
+            
             // animation-delay: 0.2s; // optional slight delay
-
+            display: none;
             @media (max-width: 520px) {
+              // display: flex;
               max-width: calc(66vw);
               max-height: calc(66vw);
+              background-color: #fffffff8;
+              filter: invert(0) !important;
             }
           }
         }
@@ -96,15 +109,16 @@
       .latest-products {
         box-sizing: border-box;
         width: 100%;
-        padding: 16px 32px 0 32px;
+        padding: 8px 32px 0 32px;
 
         @media (max-width: 870px) {
           padding: 0 12px;
         }
 
         .suggested-items {
+          
           .product-card {
-            box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
+            box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.23);
             border-radius: 12px;
             background-color: #f8f8f8f8;
             transition: all 0.03s ease-out;
@@ -114,12 +128,9 @@
             //   }
             // }
 
-
-
-
             &:hover {
               box-shadow: 0 1px 2.5px rgba(8, 8, 8, 0.32);
-              background-color: #173b7a14;
+              background-color: #173b7a18;
             }
           }
         }
@@ -130,12 +141,13 @@
         box-sizing: border-box;
         justify-content: space-between;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 16px;
         margin-bottom: 32px;
         background-color: rgb(0, 0, 0);
         padding: 32px;
         width: 100%;
         transition: box-shadow 0.25s ease;
+        // background-color: red;
         @media (max-width: 520px) {
           margin-bottom: 0;
         }
@@ -147,6 +159,9 @@
         }
 
         .signup-section-wrap {
+          background-color: rgb(0, 0, 0);
+          // padding: 36px;
+          // border-radius: 16px;
           display: flex;
           box-sizing: border-box;
           justify-content: center;
@@ -319,6 +334,8 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              border-radius: 16px;
+              // overflow: hidden;
 
               @media (max-width: 870px) {
                 max-width: 75vw;
@@ -328,7 +345,7 @@
                 width: 100%;
                 height: auto;
                 object-fit: contain;
-                filter: brightness(93%);
+                // filter: brightness(93%);
                 display: block;
               }
             }
@@ -351,30 +368,38 @@
     }
     .directory {
       .cg-main {
+        background-color: #121213 !important;
         .top-section {
-          
           
           .top-section-img-wrap {
             // background-color: white !important;
             // background-color: red !important;
             img {
-              filter: invert(1);
+              filter: invert(1) !important;
               // background-color: rgb(217, 45, 23) !important;
             }
           }
         }
         .latest-products{
-          .product-card{
+          background-color: #121213 !important;
+          .suggested-item{
+            // background-color: red !important;
+            .product-card{
+            background-color: black   !important;
+            box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.23);
             // .add-to-bag-btn{
             //   background-color: #f2f2f3;
             //   color:#020203;
-              // &:hover{
-              //   background-color: #e5341d !important;
-              // }
+            
+              &:hover{
+                background-color: #010b37 !important;
+              }
             // }
           }
-        }
+          }
 
+        }
+        
         .signup-section {
           background-color: black !important;
           color: #f2f2f2 !important;
@@ -417,7 +442,9 @@
   }
   100% {
     opacity: 1;
-    background-color: #fff;
+    // filter: invert(1);
+    background-color: #ffffff;
+    // background: url('./../../assets/top-section-bg-june3.jpg') center center / cover no-repeat;
     transform: translateY(0);
     // transform: rotate(500deg);
   }

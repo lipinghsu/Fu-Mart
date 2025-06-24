@@ -1,6 +1,7 @@
 .cg-searchbar-container {
   position: relative;
-  
+  // margin-left: 0;
+  // margin-right: auto;
   transition: all 0.2s ease-out !important;
 
   .logo-wrap {
@@ -78,49 +79,92 @@
       color:#727273;
     }
   }
-
-  .cg-clear-btn-container {
-    width: 40px;
+  .cg-search-btn-container{
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .cg-clear-btn {
-    background-color: #e2e2e3;
+    // background-color: pink;
+    width: 64px;
+    height: 100%;
+    // margin-right: 8px;
+    // border-radius: 12px;
+    // background-color: #424243;
+    // box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.23);
+    
     cursor: pointer;
-    margin-right: 16px;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-
-    img {
-      filter: brightness(0);
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
-    }
-
-    &:hover {
-      background-color: #e02203;
+    &.active{
+      background-color: #0000000b;
       img{
-        filter: brightness(100%);
+        filter: invert(0);
       }
       
     }
-
-    &.visible {
-      opacity: 1;
-      visibility: visible;
+    &:hover{
+      background-color: #010b37;
+      img{
+        filter: invert(1) !important;
+      }
     }
+    .cg-search-btn{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img{
+        // filter: invert(0.25);
+        width: 40%;
+        height: 40%;
+      }
+    }
+
   }
+
+  .cg-clear-btn-container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: red;
+    .cg-clear-btn {
+      background-color: #0000000b;
+      cursor: pointer;
+      margin-right: 16px;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+
+      img {
+        filter: brightness(0);
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+      }
+
+      &:hover {
+        background-color: #e02203;
+        img{
+          filter: brightness(100%);
+        }
+        
+      }
+
+      &.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+  }
+
 
 
 

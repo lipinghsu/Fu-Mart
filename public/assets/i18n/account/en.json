@@ -1,6 +1,6 @@
 {
     "loginTitle": "Log In",
-    "loginSubtitle": "Welcome to Taiwan’s new convenience store",
+    "loginSubtitle": "Start collecting Fü-Mart points",
     "emailPlaceholder": "Email",
     "phonePlaceholder": "Phone Number (optional)",
     "passwordPlaceholder": "Password",
@@ -8,7 +8,7 @@
     "forgotPassword": "Forgot your password?",
     "signUp": "Sign Up",
     "signupTitle": "Sign Up",
-    "signupSubtitle": "Join the change in Taiwan's convenience stores",
+    "signupSubtitle": "Join Fü-Mart now",
     "namePlaceholder": "Full Name",
     "confirmPasswordPlaceholder": "Confirm Password",
     "alreadyHaveAccount": "Already have an account?",

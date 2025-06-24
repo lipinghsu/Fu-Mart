@@ -1,7 +1,7 @@
 {
   "shoppingBag": "쇼핑백",
   "close": "닫기",
-  "emptyMessage": "장바구니에 상품이 없습니다",
+  "emptyMessage": "쇼핑백에 상품이 없습니다",
   "unitPrice": "단가",
   "total": "합계",
   "grandTotal": "총금액",

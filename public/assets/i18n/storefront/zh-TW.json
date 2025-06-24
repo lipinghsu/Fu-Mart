@@ -28,13 +28,59 @@
     "qualityGuaranteed": "品質保證",
     "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
     "welcome": "歡迎光臨",
+    
     "Beverages": "飲料",
+    "Carbonated Drinks": "碳酸飲料",
+    "Coffee": "咖啡",
+    "Juices": "果汁",
+    "Milk & Flavored Milk": "牛奶與調味牛乳",
+    "Sports Drinks": "運動飲料",
+    "Tea": "茶",
+    "Herbal Drinks": "草本飲料",
+    "Water": "水",
+    "Sparkling Water": "氣泡水",
+
     "Snacks": "零食",
-    "inBag": "個 在購物袋內",
+    "Chips": "洋芋片",
+    "Puffs": "泡芙",
+    "Savory Snacks": "鹹味點心",
+    "Rice Crackers": "米菓與仙貝",
+    "Corn Puffs": "玉米脆條",
+
+    "Seasonings": "調味料",
+    "Soup Base": "湯底",
+    "Spices": "香料",
+    "Sauces & Pastes": "醬類",
+
+    "Pasta & Noodles": "麵食類",
+    "Instant Noodles & Ramen": "泡麵",
+    "Chocolate & Candy": "巧克力與糖果",
+    "Spam": "午餐肉",
+    "Cooking Oils": "食用油",
+    "Plant-Based Milk": "植物奶",
+    "Kids Snacks": "兒童點心",
+
+    "Chocolate": "巧克力",
+  
+    "Canned Goods": "罐頭食品",
+    "Cooking Sauces": "烹飪用醬料",
+    "Canned Fruit": "水果罐頭",
+
+    "Spreads & Syrups": "抹醬與糖漿",
+    "Chocolate Spreads": "巧克力醬",
+    "Chocolate Syrup": "巧克力糖漿",
+
+    "Health": "健康保健",
+    "Cough & Cold": "咳嗽感冒藥",
+
+    "inBag": "個在購物袋內",
     "updateQuantity": "更新數量",
     "removeFromBag": "從購物袋移除",
     "addedToBag": "已加入購物袋",
-    "updatedQuantity": "數量已更新"
+    "updatedQuantity": "數量已更新",
+
+    "Skincare": "護膚保養",
+    "Sunscreen": "防曬"
 
   }
 

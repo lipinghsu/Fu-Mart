@@ -2,17 +2,23 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/cartSlice';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
 import ProductCard from '../../ProductCard';
 import './ProductModal.scss';
 import closeImage from '../../../assets/closeImage.png';
 import fumartLogo from '../../../assets/fumart-m-t-bg.png';
+import fumartTextLogo from '../../../assets/fumart-text-logo-bombarda.png';
+import arrowIcon from '../../../assets/arrowIcon2.png';
+import arrowIcon2 from '../../../assets/arrowIcon600-128px.png';
 
-const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode }) => {
+const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode, allProducts, setSelectedProduct }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation(['storefront']);
   const cartItems = useSelector(state => state.cart.items);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   if (!product) return null;
 
@@ -33,9 +39,56 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const [showAddedMessage, setShowAddedMessage] = useState(false);
   const [showUpdatedMessage, setShowUpdatedMessage] = useState(false);
   const [thumbnailsLoading, setThumbnailsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 870);
 
   const cartItem = cartItems.find(item => item.id === product.id);
   const currentCartQuantity = cartItem?.quantity || 0;
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 870);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  function getYouTubeEmbedUrl(url) {
+    if (!url) return '';
+
+    // Extract video ID from URL
+    const regExp = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?/]+)/;
+    const match = url.match(regExp);
+
+    const videoId = match ? match[1] : null;
+    if (!videoId) return '';
+
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!allProducts || !product) return;
+
+      const currentIndex = allProducts.findIndex((p) => p.id === product.id);
+
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        setSelectedProduct(allProducts[currentIndex - 1]);
+      } else if (e.key === 'ArrowRight' && currentIndex < allProducts.length - 1) {
+        setSelectedProduct(allProducts[currentIndex + 1]);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [product, allProducts]);
+
+
+  // useEffect(() => {
+  //   navigate(
+  //     `${location.pathname}?product=${product.id}`,
+  //     { replace: true }
+  //   );
+  // }, [product.id, location.pathname, navigate]);
 
   useEffect(() => {
     setQuantity(currentCartQuantity > 0 ? currentCartQuantity : 1);
@@ -113,15 +166,28 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
         where('category', '==', product.category)
       );
       const querySnapshot = await getDocs(q);
-      const suggestions = [];
+
+      const allSuggestions = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (doc.id !== product.id) {
-          suggestions.push({ id: doc.id, ...data });
+          allSuggestions.push({ id: doc.id, ...data });
         }
       });
-      const shuffled = suggestions.sort(() => 0.5 - Math.random());
-      setSuggestedProducts(shuffled.slice(0, 8));
+
+      const sameSub = allSuggestions.filter(
+        (item) => item.subCategory === product.subCategory
+      );
+      const diffSub = allSuggestions.filter(
+        (item) => item.subCategory !== product.subCategory
+      );
+
+      const shuffleArray = (arr) => arr.sort(() => 0.5 - Math.random());
+      const shuffledSameSub = shuffleArray(sameSub);
+      const shuffledDiffSub = shuffleArray(diffSub);
+
+      const combined = [...shuffledSameSub, ...shuffledDiffSub].slice(0, 8);
+      setSuggestedProducts(combined);
     } catch (error) {
       console.error('Error fetching suggested products:', error);
     } finally {
@@ -131,7 +197,10 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
 
   const handleOverlayClick = () => {
     setFadeIn(false);
-    setTimeout(onClose, 200);
+    setTimeout(() => {
+      navigate(location.pathname, { replace: true });
+      onClose();
+    }, 200);
   };
 
   const handleSelectQuantity = (value) => {
@@ -148,7 +217,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
         className={`product-modal styled-modal ${isDarkMode ? 'dark' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="close-button" onClick={handleOverlayClick}>
+        <div className="close-button-modal" onClick={handleOverlayClick}>
           <img src={closeImage} alt="close" />
         </div>
 
@@ -174,7 +243,15 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
               <div className='btn-inner-wrap-top'>
                 <div className="name-title-wrap">
                   <h2 className="product-name">{product.name}</h2>
-                  <div className="price">${product.price?.toFixed(2)} <span className='currency'>USD</span></div>
+                  {/* {product.stockQuantity < 5 && (
+                    <div className="low-stock-label">
+                      {t('lowInStock')}
+                    </div>
+                  )} */}
+                  <div className="price-wrap">
+                    <span className='price'>${product.price?.toFixed(2)} </span>
+                    <span className='currency'>USD</span>
+                  </div>
                 </div>
                 <div className="subtitle">{product.subtitle}</div>
                 <div className="thumbnail-row">
@@ -230,7 +307,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                         onClick={() => handleSelectQuantity(i + 1)}
                       >
                         <span>{i + 1}</span>
-                        {currentCartQuantity === i + 1 && <span className="check-mark">・</span>}
+                        {currentCartQuantity === i + 1 && <div className="check-mark"></div>}
                       </div>
                     ))}
                     <div className="option" onClick={() => handleSelectQuantity(10)}>
@@ -330,13 +407,28 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
             )}
           </div>
         </div>
-
         <div className="product-description">
           <div className="description-title">
             <h2>{t('description')}</h2>
           </div>
           <p>{product.description || t('noDescription')}</p>
+
+          {/* Embed YouTube video if mediaLink exists */}
+          {product.mediaLink && (
+            <div className="video-wrapper" style={{ marginTop: '1rem' }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src={getYouTubeEmbedUrl(product.mediaLink)}
+                title="Product Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          )}
         </div>
+
 
         <div className="product-disclaimer">
           <p>{t('productDisclaimerPart1')}</p>
@@ -350,6 +442,51 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
           </p>
         </div>
       </div>
+      {/* <div className='arrow-buttons-wrap'> */}
+      {allProducts && (() => {
+        const currentIndex = allProducts.findIndex(p => p.id === product.id);
+
+        return (
+          <div className='arrow-buttons-wrap'
+          {...(isMobile && { onClick: (e) => e.stopPropagation() })}
+          >
+          <div className="close-button" onClick={handleOverlayClick}>
+            <img src={closeImage} alt="close" />
+          </div>
+            {currentIndex > 0 && (
+              <button
+                className="arrow-button left"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedProduct(allProducts[currentIndex - 1]);
+                }}
+              >
+              <img src={isMobile ? arrowIcon2 : arrowIcon} />
+
+                
+              </button>
+            )}
+            {isMobile &&
+              <div className='bot-logo-wrapper'>
+                <img src={fumartTextLogo} alt="logo" />
+              </div>}
+
+            {currentIndex < allProducts.length - 1 && (
+              <button
+                className="arrow-button right"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedProduct(allProducts[currentIndex + 1]);
+                }}
+              >
+                <img src={isMobile ? arrowIcon2 : arrowIcon} />
+
+              </button>
+            )}
+          </div>
+        );
+      })()}
+      {/* </div> */}
     </div>
   );
 };

@@ -18,6 +18,8 @@ import {
 import i18n from '../../i18n';
 import './SearchBar.scss';
 import closeImage from '../../assets/closeImage2.png';
+import searchIcon from '../../assets/arrowIcon4.png';
+
 import FumartLogo from '../../assets/fumart-m-red-bg.png';
 import SearchSwitchIcon from '../../assets/search-switch-icon.png';
 import SearchOffIcon from '../../assets/search-off-icon.png';
@@ -80,12 +82,11 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
   });
 
   const phrases = [
-    'Search In-Store Products',
-    'Browse Treats From Asia',
-    'Search by Flavor',
-    'Uncover Hidden Gems',
-    'Grandma-Approved Picks',
-    'Get Your Favorite Snacks'
+    t("Search In-Store Products"),
+    t("Browse Treats From Asia"),
+    t("Search by Flavor"),
+    t("Uncover Hidden Gems"),
+    t("Get Your Favorite Snacks")
   ];
 
   const [placeholder, setPlaceholder] = useState('');
@@ -211,7 +212,13 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
       }}
     >
       <form className="cg-searchbar" onSubmit={handleSearch}>
+        {isSmallScreen && !isExpanded &&
+          <div className='text'>
+            搜尋
+        </div>}
+
         <div className={`logo-wrap ${isSmallScreen ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}>
+          
           <img src={(isExpanded || !isSmallScreen) ? FumartLogo : SearchSwitchIcon} />
         </div>
         <input
@@ -233,6 +240,18 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
               aria-label="Clear search"
             >
               <img src={closeImage} />
+            </div>
+          </div>
+        )}
+        {(!isSmallScreen && query) && (
+          <div className={`cg-search-btn-container ${query ? 'active' : ''}`}>
+            <div
+              type="button"
+              className={`cg-search-btn ${query ? 'active' : ''}`}
+              onClick={() => handleSearch()}
+              aria-label="Search"
+            >
+              <img src={searchIcon} />
             </div>
           </div>
         )}

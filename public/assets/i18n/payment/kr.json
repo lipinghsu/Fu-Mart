@@ -1,5 +1,5 @@
 {
-    "Cart": "장바구니",
+    "Cart": "쇼핑백",
     "Information": "고객 정보",
     "Contact Information": "연락처",
     "Shipping": "배송",
@@ -16,7 +16,7 @@
     "ZIP code": "우편번호",
     "Country/Region": "국가/지역",
     "Shipping Address": "배송 주소",
-    "Return to cart": "장바구니로 돌아가기",
+    "Return to cart": "쇼핑백로 돌아가기",
     "Next": "다음",
     "Email me with news and offers": "뉴스 및 할인 정보 메일 수신",
     "Order Summary": "주문 요약",

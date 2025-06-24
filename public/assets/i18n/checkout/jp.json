@@ -27,5 +27,8 @@
   "discount": "割引",
   "total": "合計",
   "couponApplied": "「{{code}}」が使用されました。{{percent}}%の割引！",
-  "invalidCoupon": "無効なクーポンコードです。"
+  "invalidCoupon": "無効なクーポンコードです。",
+  "login-text" : "取引手続きを完了するには、まずログインまたはアカウント登録を行ってください。領収書と注文明細をメールでお送りします。",
+  "login": "ログイン",
+  "signup": "会員登録"
 }

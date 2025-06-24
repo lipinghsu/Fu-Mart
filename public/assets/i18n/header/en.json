@@ -10,5 +10,13 @@
     "ACCOUNT": "ACCOUNT",
     "LOG OUT": "LOG OUT",
     "login": "Log in",
-    "signup": "Sign up"
+    "signup": "Sign up",
+
+    "myShop": "My Shop",
+    "sellNow": "Sell Now",
+    "purchases": "Purchases",
+    "settings": "Settings",
+    "help": "Help",
+    "currency": "Currency",
+    "logout": "Logout"
 }

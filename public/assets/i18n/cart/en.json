@@ -1,7 +1,7 @@
 {
     "shoppingBag": "Shopping Bag",
     "close": "Close",
-    "emptyMessage": "There are no items in the shopping bag",
+    "emptyMessage": "There's nothing in your shopping bag",
     "unitPrice": "Unit Price",
     "total": "Total",
     "grandTotal": "Grand Total",

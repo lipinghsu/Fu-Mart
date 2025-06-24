@@ -1,34 +1,24 @@
-const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json'); // Replace with your path
+import { getFirestore, collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+const db = getFirestore();
 
-const db = admin.firestore();
+async function addMediaLinkToAllProducts() {
+  const productsRef = collection(db, 'products');
+  const snapshot = await getDocs(productsRef);
 
-const addMissingSubCategory = async () => {
-  const snapshot = await db.collection('products').get();
-
-  const batch = db.batch();
-  let batchCounter = 0;
-
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-
-    if (!data.hasOwnProperty('subCategory')) {
-      const docRef = db.collection('products').doc(doc.id);
-      batch.update(docRef, { subCategory: 'miscellaneous' }); // <-- Customize default value
-      batchCounter++;
+  const updates = snapshot.docs.map(async (docSnap) => {
+    const data = docSnap.data();
+    if (!('mediaLink' in data)) {
+      const productRef = doc(db, 'products', docSnap.id);
+      await updateDoc(productRef, {
+        mediaLink: "" // or some default like "https://example.com"
+      });
+      console.log(`Updated ${docSnap.id}`);
     }
   });
 
-  if (batchCounter > 0) {
-    await batch.commit();
-    console.log(`${batchCounter} documents updated with 'subCategory'.`);
-  } else {
-    console.log('All documents already have the "subCategory" field.');
-  }
-};
+  await Promise.all(updates);
+  console.log('✅ All missing mediaLink fields added.');
+}
 
-addMissingSubCategory().catch(console.error);
+addMediaLinkToAllProducts().catch(console.error);

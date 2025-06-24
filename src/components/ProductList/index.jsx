@@ -153,7 +153,7 @@ const ProductList = () => {
   return (
     <div className="product-list">
       <Header 
-        homepageHeader={true}
+        mainPageHeader={true}
         hasSearchBar={true} 
       />
       {/* <div className="filter-sort-header">
@@ -252,7 +252,7 @@ const ProductList = () => {
 
       <div className="product-grid">
         {loading
-          ? Array.from({ length: 6 }).map((_, idx) => (
+          ? Array.from({ length: 15 }).map((_, idx) => (
               <div key={idx} className="product-card skeleton">
                 <div className="product-image-wrap">
                   <div className="skeleton-image"></div>
@@ -264,16 +264,18 @@ const ProductList = () => {
                 </div>
               </div>
             ))
-          : filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onClick={(e, type) => {
-                setSelectedProduct(product);
-              }}
-              t={t}
-            />
-            ))}
+          : filteredProducts
+            .filter((product) => !product.hidden)
+            .map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClick={(e, type) => {
+                  setSelectedProduct(product);
+                }}
+                t={t}
+              />
+        ))}
       </div>
 
       {selectedProduct && (
@@ -284,6 +286,8 @@ const ProductList = () => {
           onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
           onSelectSuggested={(product) => setSelectedProduct(product)}
           isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
+          allProducts={filteredProducts}  // <- pass this
+          setSelectedProduct={setSelectedProduct}  // <- pass this too
         />
       )}
 

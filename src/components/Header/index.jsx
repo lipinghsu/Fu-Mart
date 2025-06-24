@@ -9,14 +9,20 @@ import { useTranslation } from 'react-i18next';
 import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
 import bagIcon from '../../assets/bagIcon-filled.png';
 
+
+
 import ShoppingBag from '../ShoppingBag';
 import SideMenu from '../SideMenu';
 import SearchBar from '../SearchBar';
 import MobileButtons from '../MobileButtons';
+import CurrencySwitcher from './CurrencySwitcher';
 
 import './Header.scss';
 
-const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false}) => {
+const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false}) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => setShowDropdown(prev => !prev);
   const navigate = useNavigate();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
@@ -27,12 +33,24 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 520);
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [blink, setBlink] = useState(false);
-
   const { t } = useTranslation('header');
+  const [selectedCurrency, setSelectedCurrency] = useState(() => localStorage.getItem('preferredCurrency') || 'USD');
+
 
   const totalItemCount = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
+
+  // close user-dropdown menu if user clicks outside of the div
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.user-dropdown-wrapper')) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     setBlink(true);
@@ -82,7 +100,6 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
   return (
     <>
       <header className={`cg-header ${scrolled ? 'scrolled' : ''}`}>
-        {userRole}
         <div className={`cg-header-left ${comingSoonPage ? 'center-align' : ''}`}>
           <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <img src={fumartTextLogo} alt="Logo" />
@@ -98,7 +115,7 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
           </div>
         )}
 
-        {homepageHeader && (
+        {mainPageHeader && (
           <div className="cg-header-right">
             {!currentUser ? (
               <div className={`header-auth-buttons ${isSmallScreen ? 'hidden-mobile' : ''}`}>
@@ -123,19 +140,42 @@ const Header = ({ title, subtitle, homepageHeader = false, comingSoonPage = fals
               </div>
             ) : (
               <div className="user-menu">
-                <span className="user-name">
-                  {currentUser.displayName || currentUser.email}
-                </span>
-                <div className="user-dropdown">
-                  {userRole === 'admin' && (
-                    <button className="header-btn admin-panel-btn" onClick={() => navigate('/admin')}>
-                      {t('adminPanel') || 'Admin Panel'}
-                    </button>
+                <div className="user-dropdown-wrapper">
+                  <div className="user-name" onClick={toggleDropdown}>
+                    {/* {currentUser.displayName || currentUser.email} */}
+                    Account
+                  </div>
+
+                  {showDropdown && (
+                    <div className="user-dropdown">
+                      <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>
+                        {/* {t('myShop') || 'My Shop'} */}
+                        @username
+                      </button>
+                      <button className="user-dropdown-btn" onClick={() => navigate('/admin')}>
+                        {t('sellNow') || 'Sell Now'}
+                      </button>
+                      <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>
+                        {t('purchases') || 'Purchases'}
+                      </button>
+                      <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>
+                        {t('settings') || 'Settings'}
+                      </button>
+                      <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>
+                        {t('help') || 'Help'}
+                      </button>
+                      <CurrencySwitcher
+                        selectedCurrency={selectedCurrency}
+                        setSelectedCurrency={setSelectedCurrency}
+                        t={t}
+                      />
+                      <button className="user-dropdown-btn log-out" onClick={handleLogout}>
+                        {t('logout')}
+                      </button>
+                    </div>
                   )}
-                  <button className="header-btn log-out" onClick={handleLogout}>
-                    {t('logout')}
-                  </button>
                 </div>
+
                 <div className={`shopping-bag ${blink ? 'blinking' : ''}`} onClick={() => setIsCartOpen(true)}>
                   <div className={`bag-img-wrap ${blink ? 'blinking' : ''}`}>
                     <img src={bagIcon} alt="Shopping Bag" />

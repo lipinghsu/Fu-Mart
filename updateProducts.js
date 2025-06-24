@@ -1,40 +1,69 @@
-import admin from 'firebase-admin';
+/**
+ * removeQuantity.js
+ *
+ * Deletes the `quantity` field from every document
+ * in the "products" collection.
+ *
+ * Usage: `node removeQuantity.js`
+ */
 
+import admin from 'firebase-admin';
+import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Resolve __dirname (ESM)
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Load and parse the service account JSON
+const serviceAccountPath = join(__dirname, 'serviceAccountKey.json');
+const rawServiceAccount = await fs.readFile(serviceAccountPath, 'utf8');
+const serviceAccount = JSON.parse(rawServiceAccount);
+
+// Initialize Firebase Admin SDK
 admin.initializeApp({
-  credential: admin.credential.applicationDefault()
+  credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
 
-async function updateAllProducts() {
-  const snapshot = await db.collection('products').get();
+async function removeQuantityField() {
+  try {
+    // 1. Fetch all documents in the "products" collection
+    const productsSnapshot = await db.collection('products').get();
+    const allDocs = productsSnapshot.docs;
+    console.log(`Found ${allDocs.length} product documents.`);
 
-  const updates = snapshot.docs.map(async (doc) => {
-    const data = doc.data();
+    if (allDocs.length === 0) {
+      console.log('No products found. Nothing to update.');
+      return;
+    }
 
-    const updatedData = {
-      quantity: data.quantity || 0,
-      sizeLabel: data.sizeLabel || '',
-      productFeature: data.productFeature || [],
-      sku: data.sku || '',
-      tags: data.tags || [],
-      weight: data.weight || '',
-      dimensions: data.dimensions || '',
-      priceDiscount: data.priceDiscount || 0,
-      isOnSale: data.isOnSale || false,
-      rating: data.rating || 0,
-      reviewCount: data.reviewCount || 0,
-      expirationDate: data.expirationDate || '',
-      origin: data.origin || '',
-      ingredients: data.ingredients || [],
-      instructions: data.instructions || ''
-    };
+    // 2. Firestore batch write limit is 500 writes per batch
+    const BATCH_SIZE = 500;
+    let batchCount = 0;
 
-    return doc.ref.update(updatedData);
-  });
+    // 3. Iterate in chunks of 500
+    for (let i = 0; i < allDocs.length; i += BATCH_SIZE) {
+      const batch = db.batch();
+      const chunk = allDocs.slice(i, i + BATCH_SIZE);
 
-  await Promise.all(updates);
-  console.log('All products updated successfully!');
+      chunk.forEach(doc => {
+        // Stage deletion of `quantity` field
+        batch.update(doc.ref, { quantity: admin.firestore.FieldValue.delete() });
+      });
+
+      // Commit the batch
+      await batch.commit();
+      batchCount++;
+      console.log(`✔ Committed batch ${batchCount} (${chunk.length} documents)`);
+    }
+
+    console.log('✅ All `quantity` fields have been removed from products.');
+  } catch (error) {
+    console.error('Error removing `quantity` fields:', error);
+  }
 }
 
-updateAllProducts().catch(console.error);
+// Execute the function
+removeQuantityField();

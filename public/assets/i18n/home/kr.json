@@ -26,7 +26,7 @@
   "add": "담기",
   "buy": "구매",
   "quantity": "수량",
-  "addToCart": "장바구니 담기",
+  "addToCart": "쇼핑백 담기",
   "addToBag": "쇼핑백에 담기",
   "youMayAlsoLike": "당신이 좋아할 수도 있어요",
   "noSuggestions": "추천 상품이 없습니다",
@@ -40,11 +40,19 @@
   "qualityGuaranteed": "품질 보장",
   "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다",
   "welcome": "환영광림",
-  "Beverages": "음료",
-  "Snacks": "스낵",
+
+  "Soup Base": "수프베이스",
+  "Seasonings": "양념",
 
   "signupTitle": "Fü-Mart의 기준",
   "signupDesc": "엄마가 안 사면, Fü-Mart도 안 팔아요",
   "signupNow": "지금 가입",
-  "learnMore": "자세히 보기"
+  "learnMore": "자세히 보기",
+
+  "Search In-Store Products": "매장 상품 검색",
+  "Browse Treats From Asia": "아시아 간식 둘러보기",
+  "Search by Flavor": "맛으로 검색하기",
+  "Uncover Hidden Gems": "숨겨진 보물 찾기",
+  "Get Your Favorite Snacks": "좋아하는 간식 가져가기"
+
 }

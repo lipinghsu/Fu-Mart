@@ -1,10 +1,11 @@
 import React from "react";
-// import SearchResults from "../../components/SearchResults";
+import SearchResult from "../../components/SearchResult";
 
 const Search = ({ }) => {
+    const searchQuery = new URLSearchParams(location.search).get('term') || '';
     return (
         <div className="searchPage">
-            <SearchResults />
+            <SearchResult searchQuery={searchQuery}/>
         </div>
     );
 };

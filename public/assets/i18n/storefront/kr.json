@@ -13,7 +13,7 @@
     "allCategory": "전체",
     "add": "담기",
     "buy": "구매",
-    "addToCart": "장바구니 담기",
+    "addToCart": "쇼핑백 담기",
     "quantity": "수량",
     "addToBag": "쇼핑백에 담기",
     "youMayAlsoLike": "당신이 좋아할 수도 있어요",
@@ -28,13 +28,60 @@
     "qualityGuaranteed": "품질 보장",
     "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다",
     "welcome": "환영광림",
-    "Beverages": "음료",
-    "Snacks": "스낵",
 
-    "inBag": "개 장바구니에 담김",
+    "Beverages": "음료",
+    "Carbonated Drinks": "탄산음료",
+    "Coffee": "커피",
+    "Juices": "주스",
+    "Milk & Flavored Milk": "우유 및 맛 우유",
+    "Sports Drinks": "스포츠 음료",
+    "Tea": "차",
+    "Herbal Drinks": "초본차",
+    "Water": "물",
+    "Sparkling Water": "탄산수",
+
+    "Snacks": "스낵",
+    "Chips": "칩",
+    "Puffs": "퍼프",
+    "Savory Snacks": "짭짤한 간식",
+    "Rice Crackers": "쌀과자 / 센베이",
+    "Corn Puffs": "콘스낵",
+
+    "Seasonings": "양념",
+    "Soup Base": "수프베이스",
+    "Spices": "향신료",
+    "Sauces & Pastes": "소스 / 페이스트",
+    
+
+
+    "Chocolate": "초콜릿",
+    "Chocolate & Candy": "초콜릿 & 캔디",
+    "Spam": "스팸",
+    "Cooking Oils": "식용유",
+    "Plant-Based Milk": "식물성 우유",
+    "Kids Snacks": "어린이 간식",
+    
+    "Pasta & Noodles": "면류",
+    "Instant Noodles & Ramen": "컵라면",
+
+    "Canned Goods": "통조림 식품",
+    "Cooking Sauces": "요리용 소스",
+    "Canned Fruit": "과일 통조림",
+
+    "Spreads & Syrups": "스프레드 및 시럽",
+    "Chocolate Spreads": "초콜릿 스프레드",
+    "Chocolate Syrup": "초콜릿 시럽",
+    
+    "Health": "건강",
+    "Cough & Cold": "기침 / 감기",
+
+    "Skincare": "스킨케어",
+    "Sunscreen": "자외선 차단제",
+
+    "inBag": "개 쇼핑백에 담김",
     "updateQuantity": "수량 업데이트",
-    "removeFromBag": "장바구니에서 제거",
-    "addedToBag": "장바구니에 추가됐습니다",
+    "removeFromBag": "쇼핑백에서 제거",
+    "addedToBag": "쇼핑백에 추가됐습니다",
     "updatedQuantity": "수량이 업데이트되었습니다"
   }
   

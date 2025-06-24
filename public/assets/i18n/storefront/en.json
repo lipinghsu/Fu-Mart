@@ -25,7 +25,7 @@
     "customQuantity": "Custom (10+)",
     "productDisclaimerPart1": "Product details, packaging, and information shown may not always reflect the most up-to-date or complete details. Please refer to the physical product for the most accurate information.",
     "productDisclaimerPart2": "Note: Actual weight and price may vary depending on seasonal or other factors; listed prices are estimates provided for reference only. For additional details, contact the manufacturer or retailer.",
-    "learnMore": "Learn more",
+    "learnMore": "Learn More",
     "qualityGuaranteed": "Quality Guaranteed",
     "qualityPromise": "Every order comes with Fü-Mart's quality promise",
     "welcome": "HuanYing GuangLin",
@@ -33,5 +33,6 @@
     "updateQuantity": "Update Quantity",
     "removeFromBag": "Remove from Bag",
     "addedToBag": "Added to Bag",
-    "updatedQuantity": "Quantity Updated"
+    "updatedQuantity": "Quantity Updated",
+    "searchResultsFor": "results for"
 }

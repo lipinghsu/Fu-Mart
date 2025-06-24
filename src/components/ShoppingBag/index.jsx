@@ -1,3 +1,4 @@
+// src/components/ShoppingBag/ShoppingBag.jsx
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -14,21 +15,29 @@ import './ShoppingBag.scss';
 
 const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const { t } = useTranslation('cart');
-  const cartItems = useSelector((state) => state.cart.items);
-  const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  // 1) Safely select currentUser (fallback to null if state.auth is missing)
+  const currentUser = useSelector((state) => state.auth?.user || null);
+
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const [scrolled, setScrolled] = useState(false);
+  const [drawerState, setDrawerState] = useState('closed');
+
+  // Confirm dialog state
+  const [confirmType, setConfirmType] = useState(null);
+  const [targetItemId, setTargetItemId] = useState(null);
+
+  const totalItemCount = cartItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-  const [drawerState, setDrawerState] = useState('closed');
-
-  // Confirm dialog states
-  const [confirmType, setConfirmType] = useState(null);
-  const [targetItemId, setTargetItemId] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +75,13 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
     <>
       <div className={`cart-drawer ${drawerState}`}>
         <div className={`cart-drawer-header ${scrolled ? 'scrolled' : ''}`}>
-          <h2>{t('shoppingBag')}</h2>
+          <h2>
+            {t('shoppingBag')}
+            {/* Uncomment to show count:
+            {totalItemCount > 0 && (
+              <span className="item-count"> ({totalItemCount})</span>
+            )} */}
+          </h2>
           <div className="close-btn" onClick={() => setIsCartOpen(false)}>
             <img src={closeImage} alt={t('close')} />
           </div>
@@ -127,17 +142,26 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
         <div className="cart-drawer-footer">
           {cartItems.length > 0 && (
             <>
-              {/* <button
+              {/* Uncomment for a “Clear Bag” button:
+              <button
                 className="clear-cart-btn"
                 onClick={() => setConfirmType('clear')}
               >
                 {t('clearBag') || 'Clear Bag'}
-              </button> */}
+              </button>
+              */}
               <button
                 className="checkout-btn"
                 onClick={() => {
-                  setIsCartOpen(false); // optional: close cart first
-                  navigate('/checkout'); // replace with your actual checkout route
+                  setIsCartOpen(false);
+
+                  // 2) If user is not logged in, redirect to /signin; else /checkout
+                  // if (!currentUser) {
+                  //   navigate('/login');
+                  // } else {
+                  //   navigate('/checkout');
+                  // }
+                  navigate('/checkout');
                 }}
               >
                 <span>{t('proceedToCheckout')}</span>

@@ -1,17 +1,25 @@
 {
     "Shop": "온라인 상점",
-    "Cart": "장바구니",
+    "Cart": "쇼핑백",
     "Account": "계정",
     "Log out": "로그아웃",
     "Sign up": "회원가입",
     "Log in": "로그인",
     "SHOP": "온라인 상점",
-    "CART": "장바구니 ({{count}})",
+    "CART": "쇼핑백 ({{count}})",
     "ACCOUNT": "계정",
     "LOG OUT": "로그아웃",
     "SIGN UP": "회원가입",
     "LOG IN": "로그인",
     "login": "계정로긴",
     "signup": "회원가입",
+    "logout": "로그아웃",
+    
+    "myShop": "내 상점",
+    "sellNow": "지금 판매",
+    "purchases": "구매내역",
+    "settings": "설정",
+    "help": "도움말",
     "logout": "로그아웃"
+
 }

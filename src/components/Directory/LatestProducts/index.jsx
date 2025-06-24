@@ -1,3 +1,6 @@
+// LatestProducts.jsx (no changes needed for JSX structure)
+// The existing conditional rendering already displays a .product-card-skeleton when `loading = true`
+
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
@@ -12,6 +15,7 @@ const LatestProducts = ({ onSelectProduct }) => {
   const [loading, setLoading] = useState(true);
   const suggestionsRef = useRef(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const latestVisibleProducts = latestProducts.filter((product) => !product.hidden);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -57,16 +61,21 @@ const LatestProducts = ({ onSelectProduct }) => {
         {loading
           ? Array.from({ length: 8 }).map((_, index) => (
               <div className="suggested-item" key={index}>
-                <div className="product-card-skeleton" />
+                <div className="product-card-skeleton">
+                  <div className="skeleton-image" />
+                  <div className="skeleton-text title" />
+                  <div className="skeleton-text sub-title" />
+                  <div className="skeleton-text price" />
+                </div>
               </div>
             ))
           : latestProducts.length > 0
-          ? latestProducts.map((item) => (
+          ? latestProducts.filter((product) => !product.hidden).map((item) => (
               <div className="suggested-item" key={item.id}>
                 <ProductCard
                   product={item}
                   onClick={() => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // window.scrollTo({ top: 0, behavior: 'smooth' });
                     setSelectedProduct(item);
                   }}
                   t={t}
@@ -83,6 +92,8 @@ const LatestProducts = ({ onSelectProduct }) => {
           onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
           onSelectSuggested={(product) => setSelectedProduct(product)}
           isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
+          allProducts={latestVisibleProducts}
+          setSelectedProduct={setSelectedProduct} // ← ADD THIS LINE
         />
       )}
     </div>

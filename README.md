@@ -22,3 +22,8 @@ A modern online marketplace designed for a seamless shopping experience.
    ```bash
    git clone https://github.com/lipinghsu/fu-mart.git
    cd fu-mart
+   npm install
+   npm run dev
+   ```
+
+2. The application uses Vite and runs on `http://localhost:5173` by default.

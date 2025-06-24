@@ -1,6 +1,6 @@
 {
     "loginTitle": "로그인",
-    "loginSubtitle": "대만의 편의점, 福罵에 오신 것을 환영합니다",
+    "loginSubtitle": "Fü-Mart 포인트를 모으기 시작하세요",
     "emailPlaceholder": "이메일",
     "phonePlaceholder": "전화번호 (선택사항)",
     "passwordPlaceholder": "비밀번호",
@@ -8,7 +8,7 @@
     "forgotPassword": "비밀번호를 잊으셨나요?",
     "signUp": "회원가입",
     "signupTitle": "회원가입",
-    "signupSubtitle": "당신의 가입이 대만 편의점 변화의 시작입니다",
+    "signupSubtitle": "지금 Fü-Mart에 가입하세요",
     "namePlaceholder": "이름",
     "confirmPasswordPlaceholder": "비밀번호 확인",
     "alreadyHaveAccount": "이미 계정이 있으신가요?",

@@ -16,6 +16,8 @@ import Admin from './pages/Admin';
 import Shop from './pages/Shop';
 import Payment from './pages/Payment';
 import About from './pages/About';
+import Search from './pages/Search';
+
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
 import CartSync from './components/CartSync';
@@ -117,6 +119,15 @@ function App() {
         path="/search"
         element={
           <MainLayout>
+            <Search/>
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/ComingSoon"
+        element={
+          <MainLayout>
             <ComingSoon />
           </MainLayout>
         }
@@ -145,6 +156,7 @@ function App() {
           </MainLayout>
         }
       />
+      
     </Routes>
     </>
     
