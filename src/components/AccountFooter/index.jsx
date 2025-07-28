@@ -17,7 +17,7 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
 
   const languageLabels = {
     en: 'English',
-    'zh-TW': '中文 [臺灣]',
+    'zh-TW': '中文 (臺灣)',
     jp: '日本語',
     kr: '한국어',
   };

@@ -99,7 +99,7 @@
         top: 100%;
         right: 0;
         background-color: #fff;
-        border: 1px solid #ddd;
+        // border: 1px solid #ddd;
         border-radius: 0 0 8px 8px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         margin-top: 2px;
@@ -214,6 +214,7 @@
 
   .category-sort-wrapper {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 12px 32px;
@@ -369,8 +370,11 @@
         opacity: 0;
         transform: translateY(-16px);
         transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.5s ease-out;
+        scrollbar-width: none;
+        width: 100%;
 
         &.open {
+          transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.1s ease-out;
           max-height: 200px;
           opacity: 1;
           pointer-events: auto;
@@ -379,7 +383,11 @@
 
         .block {
           height: 4px;
-          pointer-events: none;
+          &:hover{
+            background-color: inherit !important;
+            pointer-events: none;
+            cursor: default;
+          }
         }
 
         .option {
@@ -473,6 +481,14 @@
 
 
 :root.dark-mode {
+  .category-sort-wrapper{
+    border-top: 1px solid #424243;
+    border-bottom: 1px solid #424243;
+  }
+  
+  .subcategory-dropdown{
+    border-bottom: 1px solid #424243 !important;
+  }
   .search-result-page {
     background-color: #000;
     color: #f2f2f3;
@@ -483,7 +499,7 @@
       // transition: background-color 0.2s;
 
       &:hover {
-        background-color: #010b3d;
+        background-color: #010b3d !important;
       }
 
       .product-info {
@@ -498,6 +514,24 @@
         p {
           color: #ddd;
         }
+      }
+    }
+
+    .subcategory-item {
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding: 12px 32px;
+      width: 100%;
+      cursor: pointer;
+      color: #d2d2d3 !important;
+      background-color: #020203;
+      opacity: 0;
+      animation: fadeInItem 0.3s ease-out forwards;
+      transition: background-color 0.05s ease-out;
+
+      &:hover {
+        background-color: #010b3d;
+        color: #fff !important;
       }
     }
 

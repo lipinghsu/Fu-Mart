@@ -13,7 +13,8 @@
     "allCategory": "All",
     "add": "Add",
     "buy": "Buy",
-    
+     "exploreCategoryAisle": "Explore the",
+     "aisle": " Aisle",
     "addToCart": "Add to Cart",
     "youMayAlsoLike": "You Might Also Like",
     "noSuggestions": "No suggestions available",
@@ -34,5 +35,7 @@
     "removeFromBag": "Remove from Bag",
     "addedToBag": "Added to Bag",
     "updatedQuantity": "Quantity Updated",
-    "searchResultsFor": "results for"
+    
+    "searchResultsFor": "{{length}} result for “{{searchQuery}}”",
+    "searchResultsFor_plural": "{{length}} results for “{{searchQuery}}”"
 }

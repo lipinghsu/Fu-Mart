@@ -20,9 +20,12 @@ import './SearchBar.scss';
 import closeImage from '../../assets/closeImage2.png';
 import searchIcon from '../../assets/arrowIcon4.png';
 
-import FumartLogo from '../../assets/fumart-m-red-bg.png';
+import FumartLogo from '../../assets/fumart-m-t-bg.png';
 import SearchSwitchIcon from '../../assets/search-switch-icon.png';
 import SearchOffIcon from '../../assets/search-off-icon.png';
+import arrowImage from '../../assets/arrowIcon2.png';
+import searchIcon2 from '../../assets/search-icon2-800.png';
+
 import '../../App.scss';
 
 const SearchBar = ({ isExpanded, setIsExpanded }) => {
@@ -34,6 +37,97 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
   const inputRef = useRef(null); 
   const [showCursor, setShowCursor] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 520);
+  const [matchedProducts, setMatchedProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const escapeRegex = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+
+  useEffect(() => {
+  const handleFocus = () => setFocused(true);
+  const handleBlur = () => {
+    setTimeout(() => {
+      setFocused(false);
+    }, 100); // allow click to register
+  };
+
+  const input = inputRef.current;
+  input?.addEventListener('focus', handleFocus);
+  input?.addEventListener('blur', handleBlur);
+
+  return () => {
+    input?.removeEventListener('focus', handleFocus);
+    input?.removeEventListener('blur', handleBlur);
+  };
+}, []);
+
+  // Highlight each word in the query separately
+  const highlightMatches = (text = '', query = '') => {
+    if (!query.trim()) return text;
+    // split query into unique terms
+    const terms = [...new Set(query.trim().split(/\s+/))].map(escapeRegex);
+    // build a regex matching any one of them
+    const re = new RegExp(`(${terms.join('|')})`, 'iu');
+    // split text on those terms, keeping the matches
+    const parts = text.split(re);
+    return parts.map((part, idx) =>
+      idx % 2 === 1
+        ? <strong key={idx}>{part}</strong>
+        : <span key={idx}>{part}</span>
+    );
+  };
+
+  useEffect(() => {
+    if (!isExpanded) {
+      setQuery('');
+    }
+  }, [isExpanded]);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setMatchedProducts([]);
+      return;
+    }
+    const fetchAllProducts = async () => {
+      try {
+        const snapshot = await getDocs(collection(firestore, 'products'));
+        const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllProducts(products);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    };
+
+    fetchAllProducts();
+
+    const lowerQuery = query.toLowerCase();
+    const queryWords = lowerQuery.split(/\s+/).filter(Boolean);
+
+    const exactMatches = allProducts.filter(p =>
+      !p.hidden &&
+      (p.name?.toLowerCase().includes(lowerQuery) ||
+      p.subtitle?.toLowerCase().includes(lowerQuery))
+    );
+
+    const partialMatches = allProducts
+      .filter(p => {
+        if (p.hidden || exactMatches.includes(p)) return false;
+        const textWords = `${p.name} ${p.subtitle}`.toLowerCase().split(/\s+/);
+        return queryWords.some(word =>
+          textWords.includes(word)
+        );
+      })
+      .map(p => {
+        const textWords = `${p.name} ${p.subtitle}`.toLowerCase().split(/\s+/);
+        const matchCount = queryWords.filter(word =>
+          textWords.includes(word)
+        ).length;
+        return { product: p, matchCount };
+      })
+      .sort((a, b) => b.matchCount - a.matchCount)
+      .map(item => item.product);
+
+      setMatchedProducts([...exactMatches, ...partialMatches].slice(0, 7));
+  }, [query, allProducts]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,7 +178,7 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
   const phrases = [
     t("Search In-Store Products"),
     t("Browse Treats From Asia"),
-    t("Search by Flavor"),
+    t("Search by Flavor or Origin"),
     t("Uncover Hidden Gems"),
     t("Get Your Favorite Snacks")
   ];
@@ -93,6 +187,47 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+useEffect(() => {
+  const totalItems = matchedProducts.length + (query.trim() ? 1 : 0);
+
+  const handleKeyDown = (e) => {
+    if (!query.trim()) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(prev => (prev + 1) % totalItems);
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(prev => (prev - 1 + totalItems) % totalItems);
+        break;
+
+      case 'Enter':
+        e.preventDefault();
+        // 1) If a product is highlighted, go there
+        if (selectedIndex >= 0 && selectedIndex < matchedProducts.length) {
+          navigate(`/product/${matchedProducts[selectedIndex].id}`);
+        }
+        // 2) Otherwise, always trigger a search
+        else {
+          handleSearch(e);
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const inputEl = inputRef.current;
+  inputEl?.addEventListener('keydown', handleKeyDown);
+  return () => inputEl?.removeEventListener('keydown', handleKeyDown);
+}, [matchedProducts, selectedIndex, query]);
+
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -194,19 +329,13 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
     } catch (error) {
       console.error('Error logging search term:', error);
     }
-
+    setQuery('');
     navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
   };
 
-  const filteredSuggestions = query
-    ? topSearches.filter(item =>
-        item.term.toLowerCase().includes(query.toLowerCase())
-      )
-    : topSearches;
-
   return (
     <div
-      className={`cg-searchbar-container ${isSmallScreen ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}
+      className={`cg-searchbar-container ${isSmallScreen ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''} ${query ? 'active' : ''}`}
       onClick={() => {
         if (isSmallScreen && !isExpanded) setIsExpanded(true);
       }}
@@ -219,7 +348,7 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
 
         <div className={`logo-wrap ${isSmallScreen ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}>
           
-          <img src={(isExpanded || !isSmallScreen) ? FumartLogo : SearchSwitchIcon} />
+          <img src={(isExpanded || !isSmallScreen) ? FumartLogo : FumartLogo} />
         </div>
         <input
           ref={inputRef}
@@ -268,7 +397,61 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
           
         </div>
       )}
-    </div>
+      
+
+      <div className={`top-searches suggestion-dropdown ${(query && focused) ? 'active' : ''}`}>
+        <div className="top-searches-list">
+          {matchedProducts.map((product, index) => (
+            <div
+              key={product.id}
+              className={`top-search-product${selectedIndex === index ? ' selected' : ''} active`}
+              onMouseEnter={() => setSelectedIndex(index)}
+              onClick={() => navigate(`/product/${product.id}`)}
+            >
+              <img
+                src={product.images?.[0]}
+                alt={product.name}
+                className="product-thumbnail"
+              />
+              <div className='product-details'>
+                <span className='product-name'>
+                  {highlightMatches(product.name, query)}
+                </span>
+                <span className='product-price'>
+                  {/* ${product.price.toFixed(2)} USD */}
+                  {highlightMatches(product.subtitle, query)}
+                </span>                  
+              </div>
+              <div className='arrow-image-wrap'>
+                <img
+                  src={arrowImage}
+                  alt="go"
+                  className="product-arrow-image"
+                />
+              </div>
+            </div>
+          ))}
+
+          {/* “Search for…” always visible when there's a query */}
+          <div
+            key="search-for"
+            className={`top-search-product search-for active${
+              selectedIndex === matchedProducts.length ? ' selected' : ''
+            }`}
+            onMouseEnter={() => setSelectedIndex(matchedProducts.length)}
+            onClick={() => handleSearch()}
+          >
+            <img src={searchIcon2} alt="search" className="product-thumbnail" />
+            <div className='product-details search-for'>
+              {t('searchFor', { query })}
+            </div>
+            <div className='arrow-image-wrap'>
+              <img src={arrowImage} alt="go" className="product-arrow-image" />
+            </div>
+          </div>
+              </div>
+            </div>
+          </div>
   );
 };
 

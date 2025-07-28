@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './JoinUsModal.scss';
 import modalImage from '../../../assets/dragons-taipei101-view.png';
-import modalImage2 from '../../../assets/youtiao-sifu.png';
+// import modalImage2 from '../../../assets/youtiao-sifu.png';
 import fumartLogo from '../../../assets/fumart-text-logo-bombarda.png';
 import fumartLogo2 from '../../../assets/fumart-text-logo-bombarda2.png';
 import closeImage from '../../../assets/closeImage.png';
@@ -52,22 +52,34 @@ const JoinUsModal = ({ onClose, children }) => {
     setIsClosing(true);
     setTimeout(() => {
       onClose();
-    }, 600); // match the closing animation
+    }, 300); // match the closing animation
   };
+
+  // useEffect(() => {
+  //   const lastShown = localStorage.getItem('joinUsLastShown');
+  //   const now = Date.now();
+  //   const hours = 1;
+  //   const oneDayInMs = hours * 60 * 60 * 1000;
+
+  //   if (!lastShown || now - parseInt(lastShown, 10) > oneDayInMs) {
+  //     localStorage.setItem('joinUsLastShown', now.toString());
+  //     setIsClosing(false); // show modal
+  //   } else {
+  //     onClose(); // hide modal if already shown recently
+  //   }
+  // }, [onClose]);
 
   useEffect(() => {
     const lastShown = localStorage.getItem('joinUsLastShown');
     const now = Date.now();
-    const hours = 1;
-    const oneDayInMs = hours * 60 * 60 * 1000;
+    const oneHour = 60 * 60 * 1000;
 
-    if (!lastShown || now - parseInt(lastShown, 10) > oneDayInMs) {
-      localStorage.setItem('joinUsLastShown', now.toString());
+    const shouldShow = !lastShown || now - parseInt(lastShown, 10) > oneHour;
+
+    if (shouldShow) {
       setIsClosing(false); // show modal
-    } else {
-      onClose(); // hide modal if already shown recently
     }
-  }, [onClose]);
+  }, []);
 
   return (
     <div className="popup-modal-overlay" onClick={handleClose}>
@@ -109,10 +121,16 @@ const JoinUsModal = ({ onClose, children }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t('emailPlaceholder') || 'Email'}
-                  />
+                  /> 
                   <button onClick={handleSubscribe}>
                     {t('subscribe') || 'Subscribe'}
                   </button>
+                  {/* <button onClick={handleSubscribe}>
+                    {t('signIn') || ' signIn'}
+                  </button>
+                  <button onClick={handleSubscribe}>
+                    {t('joinUs') || 'Join Us'}
+                  </button> */}
                 </div>
                 <div className="popup-bottom-msg">
                   {t('joinNote') || ''}

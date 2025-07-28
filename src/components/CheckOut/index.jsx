@@ -206,6 +206,9 @@ const CheckOut = () => {
             {/* ─── Login / Sign‐Up Banner ─── */}
             {!currentUser && (
               <div className="login-banner">
+                <h3 className="login-title">
+                  Log in or sign up for Fü-Mart
+                </h3>
                 <p className="login-text">
                   {t('login-text')}
                 </p>
@@ -424,16 +427,22 @@ const CheckOut = () => {
             <>
               <div className="checkout-items">
                 {cartItems.map((item) => (
-                  <div className="checkout-item" key={item.id}>
+                  <div className="checkout-item" 
+                    key={item.id}
+                    // onClick={() => navigate(`/product/${item.id}`)}
+                  >
                     <div className="item-image">
                       <img src={item.images?.[0]} alt={item.name} />
                     </div>
                     <div className="item-details">
                       <div className="item-name">{item.name}</div>
-                      <div className="item-quantity">Qty: {item.quantity}</div>
-                      <div className="item-price">
-                        ${(item.price * item.quantity).toFixed(2)}
+                      <div className="price-row">
+                        <div className="item-quantity">${(item.price).toFixed(2)} x {item.quantity}</div>
+                        <div className="item-price">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </div>
                       </div>
+                      
                     </div>
                   </div>
                 ))}

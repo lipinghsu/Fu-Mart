@@ -11,8 +11,6 @@
 
   "latestProducts": "New Arrivals",
 
-
-
   "allCategory": "All",
   "add": "Add",
   "buy": "Buy",
@@ -32,8 +30,24 @@
   "qualityPromise": "Every order comes with Fü-Mart's quality promise",
   "welcome": "HuanYing GuangLin",
 
-  
   "signupTitle": "Fü-Mart Standards",
   "signupDesc": "If grandma wouldn’t buy it, then Fü-Mart wouldn’t sell it.",
-  "signupNow": "Sign Up"
+  "signupNow": "Sign Up",
+
+  "featuredCategories": "Featured Categories",
+  "snacks": "Snacks",
+  "beverages": "Beverages",
+  "Pasta & Noodles": "Pasta & Noodles",
+  "Canned Goods": "Canned Goods",
+  
+  "viewFumartCategory": "View Fü-Mart {{category}}",
+  "searchFor": "Search for “{{query}}”...",
+
+  "Search In-Store Products": "Search In-Store Products",
+  "Browse Treats From Asia":    "Browse Treats From Asia",
+  "Search by Flavor or Origin":  "Search by Flavor or Origin",
+  "Uncover Hidden Gems":       "Uncover Hidden Gems",
+  "Get Your Favorite Snacks":   "Get Your Favorite Snacks",
+  "Search for “{{query}}”":               "Search for “{{query}}”"
+
 }

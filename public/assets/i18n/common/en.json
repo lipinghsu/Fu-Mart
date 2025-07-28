@@ -10,5 +10,9 @@
   "language": "Language",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "aboutus": "About Us"
+  "light": "Light Mode",
+  "dark": "Dark Mode",
+  "aboutus": "About Us",    
+  "login": "Log In",
+  "signup": "Sign Up"
 }

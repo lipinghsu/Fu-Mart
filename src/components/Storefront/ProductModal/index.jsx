@@ -198,7 +198,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const handleOverlayClick = () => {
     setFadeIn(false);
     setTimeout(() => {
-      navigate(location.pathname, { replace: true });
+      navigate(`${location.pathname}${location.search}`, { replace: true });
       onClose();
     }, 200);
   };
@@ -210,6 +210,10 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
 
   const showUpdateButton = currentCartQuantity > 0 && quantity !== currentCartQuantity;
 
+  // prevent thumbnail iamges from being dragged
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.matches('img.thumbnail')) e.preventDefault();
+  });
   return (
     <div className={`product-modal-overlay ${fadeIn ? 'fade-in' : 'fade-out'}`} onClick={handleOverlayClick}>
       <div
@@ -467,7 +471,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
               </button>
             )}
             {isMobile &&
-              <div className='bot-logo-wrapper'>
+              <div className='fumart-logo-wrapper'>
                 <img src={fumartTextLogo} alt="logo" />
               </div>}
 

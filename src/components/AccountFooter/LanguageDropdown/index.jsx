@@ -15,6 +15,7 @@ const LanguageDropdown = ({ isOpen, setIsOpen, onClose, onSelect }) => {
       setHasOpened(true);
     } else if (hasOpened) {
       setClosing(true);
+      onClose();
       const timeout = setTimeout(() => setClosing(false), 600);
       return () => clearTimeout(timeout);
     }
@@ -40,7 +41,7 @@ const LanguageDropdown = ({ isOpen, setIsOpen, onClose, onSelect }) => {
   const languages = [
     { code: 'jp', label: '日本語' },
     { code: 'kr', label: '한국어' },
-    { code: 'zh-TW', label: '中文 [臺灣]' },
+    { code: 'zh-TW', label: '中文 (臺灣)' },
     { code: 'en', label: 'English' },
   ];
 

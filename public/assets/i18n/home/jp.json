@@ -48,7 +48,20 @@
 
   "Search In-Store Products": "店内商品の検索",
   "Browse Treats From Asia": "アジアのお菓子をチェック",
-  "Search by Flavor": "フレーバーで探す",
+  "Search by Flavor or Origin": "フレーバーで探す",
   "Uncover Hidden Gems": "隠れた名品を発見",
-  "Get Your Favorite Snacks": "お気に入りのおやつをゲット"
+  "Get Your Favorite Snacks": "お気に入りのおやつをゲット",
+
+  "featuredCategories": "特集カテゴリー",
+  "snacks": "スナック",
+  "beverages": "飲み物",
+  "Pasta & Noodles": "麺類",
+  "Canned Goods": "缶詰",
+
+  "viewFumartCategory": "Fü-Martの{{category}}を見る",
+  "searchFor": "“{{query}}” を検索..."
+
+
+
+
 }

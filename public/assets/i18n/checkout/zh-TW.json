@@ -28,7 +28,7 @@
   "total": "總計",
   "couponApplied": "已使用「{{code}}」，您省下了 {{percent}}%！",
   "invalidCoupon": "無效的優惠碼。",
-  "login-text": "請先登入或註冊帳號才能完成結帳，系統會自動將收據寄到您的電子信箱。",
+  "login-text": "若要繼續結帳，請先登入或註冊帳號。",
   "login": "會員登入",  
   "signup": "註冊帳號"
 }

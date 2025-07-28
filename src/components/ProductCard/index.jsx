@@ -31,7 +31,7 @@ const handleAddToCart = async () => {
     setTimeout(() => {
         setAdded(false);
       }, 1500); // show "addedToBag" for 2 seconds
-    }, 500); // spinner duration
+    }, 1000); // spinner duration
   };
 
   

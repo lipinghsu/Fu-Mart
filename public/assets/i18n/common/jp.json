@@ -8,7 +8,12 @@
     "language": "言語",
     "confirm": "確認する",
     "cancel": "キャンセル",
-    "about": "私たちについて"
+    "light": "ライトモード",
+    "dark": "ダークモード",
+    "about": "私たちについて",  
+    "login": "ログイン",
+    "signup": "会員登録",
+    "aboutus": "私たちについて"
 
   }
   

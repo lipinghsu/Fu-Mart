@@ -1,11 +1,8 @@
-// LatestProducts.jsx (no changes needed for JSX structure)
-// The existing conditional rendering already displays a .product-card-skeleton when `loading = true`
-
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
 import ProductCard from './../../ProductCard';
-import ProductModal from './../../ProductList/ProductModal';
+import ProductModal from './../../Storefront/ProductModal';
 import './LatestProducts.scss';
 import { useTranslation } from 'react-i18next';
 
@@ -13,19 +10,14 @@ const LatestProducts = ({ onSelectProduct }) => {
   const { t } = useTranslation(['home']);
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const suggestionsRef = useRef(null);
+  const latestListRef = useRef(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const latestVisibleProducts = latestProducts.filter((product) => !product.hidden);
 
   useEffect(() => {
-    if (selectedProduct) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (selectedProduct) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
   }, [selectedProduct]);
 
   useEffect(() => {
@@ -36,31 +28,31 @@ const LatestProducts = ({ onSelectProduct }) => {
           orderBy('createdAt', 'desc'),
           limit(10)
         );
-        const querySnapshot = await getDocs(q);
+        const snapshot = await getDocs(q);
         const products = [];
-        querySnapshot.forEach((doc) => {
-          products.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
         setLatestProducts(products);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching latest products:', error);
+      } catch (err) {
+        console.error('Error fetching latest products:', err);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchLatestProducts();
   }, []);
 
   return (
-    <div className="latest-products styled-suggestions">
-      <div className="suggestion-title">
+    <div className="latest-products styled-latest-products">
+      <div className="latest-products-title">
         <div>{t('latestProducts')}</div>
       </div>
-      <div className="suggested-items horizontal-scroll" ref={suggestionsRef}>
+      <div
+        className="latest-product-list horizontal-scroll"
+        ref={latestListRef}
+      >
         {loading
-          ? Array.from({ length: 8 }).map((_, index) => (
-              <div className="suggested-item" key={index}>
+          ? Array.from({ length: 8 }).map((_, idx) => (
+              <div className="latest-product-item" key={idx}>
                 <div className="product-card-skeleton">
                   <div className="skeleton-image" />
                   <div className="skeleton-text title" />
@@ -69,31 +61,26 @@ const LatestProducts = ({ onSelectProduct }) => {
                 </div>
               </div>
             ))
-          : latestProducts.length > 0
-          ? latestProducts.filter((product) => !product.hidden).map((item) => (
-              <div className="suggested-item" key={item.id}>
+          : latestVisibleProducts.map((item) => (
+              <div className="latest-product-item" key={item.id}>
                 <ProductCard
                   product={item}
-                  onClick={() => {
-                    // window.scrollTo({ top: 0, behavior: 'smooth' });
-                    setSelectedProduct(item);
-                  }}
+                  onClick={() => setSelectedProduct(item)}
                   t={t}
                 />
               </div>
-            ))
-          : null}
+            ))}
       </div>
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}
           onClose={() => setSelectedProduct(null)}
-          onAddToCart={(product, qty) => console.log('Add to cart:', product, qty)}
-          onBuyNow={(product, qty) => console.log('Buy now:', product, qty)}
-          onSelectSuggested={(product) => setSelectedProduct(product)}
+          onAddToCart={(p, q) => console.log('Add to cart:', p, q)}
+          onBuyNow={(p, q) => console.log('Buy now:', p, q)}
+          onSelectSuggested={(p) => setSelectedProduct(p)}
           isDarkMode={localStorage.getItem('preferredTheme') === 'dark'}
           allProducts={latestVisibleProducts}
-          setSelectedProduct={setSelectedProduct} // ← ADD THIS LINE
+          setSelectedProduct={setSelectedProduct}
         />
       )}
     </div>

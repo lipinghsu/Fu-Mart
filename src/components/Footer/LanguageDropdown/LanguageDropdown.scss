@@ -1,77 +1,103 @@
-@keyframes langDropdownOpen {
-  0% {
-    transform: translateY(100%) scaleY(0);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(0) scaleY(1.15);
-    opacity: 1;
-  }
-  75% {
-    transform: translateY(0) scaleY(0.9);
-  }
-  85% {
-    transform: translateY(0) scaleY(1.05);
-  }
-  92% {
-    transform: translateY(0) scaleY(0.98);
-  }
-  100% {
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
-  }
-}
+// @keyframes langDropdownOpen {
+//   0% {
+//     transform: translateY(100%) scaleY(0);
+//     opacity: 0;
+//   }
+//   60% {
+//     transform: translateY(0) scaleY(1.15);
+//     opacity: 1;
+//   }
+//   75% {
+//     transform: translateY(0) scaleY(0.9);
+//   }
+//   85% {
+//     transform: translateY(0) scaleY(1.05);
+//   }
+//   92% {
+//     transform: translateY(0) scaleY(0.98);
+//   }
+//   100% {
+//     transform: translateY(0) scaleY(1);
+//     opacity: 1;
+//   }
+// }
 
-@keyframes langDropdownClose {
-  0% {
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
-  }
-  30% {
-    transform: translateY(0) scaleY(1.1);
-  }
-  60% {
-    transform: translateY(100%) scaleY(0.6);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100%) scaleY(0);
-    opacity: 0;
-  }
-}
+// @keyframes langDropdownClose {
+//   0% {
+//     transform: translateY(0) scaleY(1);
+//     opacity: 1;
+//   }
+//   30% {
+//     transform: translateY(0) scaleY(1.1);
+//   }
+//   60% {
+//     transform: translateY(100%) scaleY(0.6);
+//     opacity: 1;
+//   }
+//   100% {
+//     transform: translateY(100%) scaleY(0);
+//     opacity: 0;
+//   }
+// }
 
 .lang-dropdown {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 160px;
+  top: 50%;
+  left: 50%;
+  bottom: auto;
+  right: auto;
+  // right: auto;
+  // transform-origin: center center;
+
+  width: 420px;
   background-color: #f2f2f3;
-  border-radius: 0px 16px 0 0;
-  box-shadow: 1px -1px 4px rgba(0, 0, 0, 0.2);
-  transform-origin: bottom;
+  // border-radius: 0px 16px 0 0;
+  border-radius: 16px;
+  box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.12);
+  // transform-origin: bottom;
   opacity: 0;
   pointer-events: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   z-index: 2001;
-  transform: translateY(100%) scaleY(0);
+  // transform: translateY(100%) scaleY(0);
+  transform: translate(-50%, -50%) scaleY(1);
   padding: 12px 0;
+  transition: transform 0.1s ease-in-out, opacity 0.2s ease-in-out;
 
   &.opening {
-    animation: langDropdownOpen 0.8s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+    // animation: langDropdownOpen 0.8s cubic-bezier(0.33, 1, 0.68, 1) forwards;
     opacity: 1;
     pointer-events: auto;
+    transform: translate(-50%, -50%) scaleY(1);
   }
 
   &.closing {
-    animation: langDropdownClose 0.6s cubic-bezier(0.55, 0, 0.55, 1) forwards;
+    // animation: langDropdownClose 0.6s cubic-bezier(0.55, 0, 0.55, 1) forwards;
     pointer-events: none;
+    // transform: translate(50%, 50%) scaleY(1);
   }
 
   @media (max-width: 520px) {
     width: 100%;
-    border-radius: 20px;
+    position: fixed;        // or absolute if you really need it
+    left: 50%;              // ← center horizontally
+    
+    transform: translateX(-50%) translateY(150%);
+    opacity: 1;
+    /* start hidden down below, centered */
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    
+    opacity: 1;
+    &.opening {
+      bottom: 0;
+      top: auto;
+      left: 50%;
+      transform: translate(-50%, 0%) scaleY(1);
+    }
+ 
+
   }
 
   .lang-dropdown-header {
@@ -90,7 +116,7 @@
     padding: 12px 16px;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #000;
+    color: #000 !important;
     cursor: pointer;
     transition: background-color 0.05s ease-out;
     margin: 4px 12px;
@@ -109,14 +135,14 @@
 
     &:hover {
       background-color: #010b3d;
-      color: #f2f2f3;
+      color: #f2f2f3 !important;
       box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
     }
 
     &.close-btn {
       background-color: #222223;
       box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
-      color: #f2f2f3;
+      color: #f2f2f3 !important;
       margin-top: 12px;
       padding: 10px 16px;
       font-weight: 700;
@@ -131,7 +157,7 @@
 .dark-mode {
   .lang-dropdown {
     background-color: #222;
-    box-shadow: 0 -4px 16px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0px 2px rgba(255, 255, 255, 0.1);
 
     .lang-dropdown-header {
       border-bottom: 1px solid #444;
@@ -142,12 +168,12 @@
     }
 
     .lang-dropdown-option {
-      color: #f2f2f3;
+      color: #f2f2f3 !important;
 
       &.active {
         background-color: #020203bb;; // same green background
-        color: #28a739;              // green text
-        box-shadow: 0 1px 2px rgba(88, 88, 88, 0.23) !important;
+        color: #28a739 !important;              // green text
+        box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
       }
 
       &:hover {
@@ -157,11 +183,11 @@
 
       &.close-btn {
         background-color: #c2c2c3 !important;
-        color: #121213;
-      &:hover {
-        background-color: #d2d2d3 !important;
-        color: #e5341d !important;
-      }
+        color: #121213 !important;
+        &:hover {
+          color: #d2d2d3 !important;
+          background-color: #e5341d !important;
+        }
       }
     }
   }

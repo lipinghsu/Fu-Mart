@@ -10,6 +10,8 @@ import {
   clearCart
 } from '../../redux/cartSlice';
 import closeImage from './../../assets/closeImage.png';
+// make sure you have a red trashcan icon at this path:
+import trashIcon from './../../assets/trashcan-red.png';
 import ConfirmDialog from '../ConfirmDialog'; 
 import './ShoppingBag.scss';
 
@@ -18,33 +20,26 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 1) Safely select currentUser (fallback to null if state.auth is missing)
-  const currentUser = useSelector((state) => state.auth?.user || null);
-
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector(state => state.cart.items);
 
   const [scrolled, setScrolled] = useState(false);
   const [drawerState, setDrawerState] = useState('closed');
 
-  // Confirm dialog state
   const [confirmType, setConfirmType] = useState(null);
   const [targetItemId, setTargetItemId] = useState(null);
 
-  const totalItemCount = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  // NEW: track dragging state
+  const [isDraggingItem, setIsDraggingItem] = useState(false);
+
   const totalAmount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -52,36 +47,46 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
       setDrawerState('opening');
     } else if (drawerState === 'opening') {
       setDrawerState('closing');
-      setTimeout(() => setDrawerState('closed'), 600);
+      setTimeout(() => setDrawerState('closed'), 300);
     }
+  }, [isCartOpen, drawerState]);
+
+  useEffect(() => {
+    document.body.style.overflow = isCartOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [isCartOpen]);
 
   const handleConfirm = () => {
     if (confirmType === 'clear') {
       dispatch(clearCart());
-    } else if (confirmType === 'remove' && targetItemId !== null) {
+    } else if (confirmType === 'remove' && targetItemId) {
       dispatch(removeItem(targetItemId));
     }
     setConfirmType(null);
     setTargetItemId(null);
   };
-
   const handleCancel = () => {
     setConfirmType(null);
     setTargetItemId(null);
+  };
+
+  const handleOverlayDrop = e => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    if (id) dispatch(removeItem(id));
+    setIsDraggingItem(false);
+  };
+
+  const handleDragLeaveOverlay = e => {
+    // if you want to hide when dragging out of overlay
+    setIsDraggingItem(false);
   };
 
   return (
     <>
       <div className={`cart-drawer ${drawerState}`}>
         <div className={`cart-drawer-header ${scrolled ? 'scrolled' : ''}`}>
-          <h2>
-            {t('shoppingBag')}
-            {/* Uncomment to show count:
-            {totalItemCount > 0 && (
-              <span className="item-count"> ({totalItemCount})</span>
-            )} */}
-          </h2>
+          <h2>{t('shoppingBag')}</h2>
           <div className="close-btn" onClick={() => setIsCartOpen(false)}>
             <img src={closeImage} alt={t('close')} />
           </div>
@@ -91,8 +96,17 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
           {cartItems.length === 0 ? (
             <p>{t('emptyMessage')}</p>
           ) : (
-            cartItems.map((item, index) => (
-              <div key={index} className="cart-item-wrapper">
+            cartItems.map(item => (
+              <div
+                key={item.id}
+                className="cart-item-wrapper"
+                draggable
+                onDragStart={e => {
+                  e.dataTransfer.setData('text/plain', item.id);
+                  setIsDraggingItem(true);
+                }}
+                onDragEnd={() => setIsDraggingItem(false)}
+              >
                 <div className="button-wrapper">
                   <div
                     className="remove-item-btn"
@@ -140,48 +154,40 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
         </div>
 
         <div className="cart-drawer-footer">
-          {cartItems.length > 0 && (
-            <>
-              {/* Uncomment for a “Clear Bag” button:
-              <button
-                className="clear-cart-btn"
-                onClick={() => setConfirmType('clear')}
-              >
-                {t('clearBag') || 'Clear Bag'}
-              </button>
-              */}
-              <button
-                className="checkout-btn"
-                onClick={() => {
-                  setIsCartOpen(false);
-
-                  // 2) If user is not logged in, redirect to /signin; else /checkout
-                  // if (!currentUser) {
-                  //   navigate('/login');
-                  // } else {
-                  //   navigate('/checkout');
-                  // }
-                  navigate('/checkout');
-                }}
-              >
-                <span>{t('proceedToCheckout')}</span>
-                <span>${totalAmount.toFixed(2)}</span>
-              </button>
-            </>
-          )}
+          <button
+            className="checkout-btn"
+            disabled={cartItems.length === 0}
+            onClick={() => {
+              if (cartItems.length > 0) {
+                setIsCartOpen(false);
+                navigate('/checkout');
+              }
+            }}
+          >
+            <span>{t('proceedToCheckout')}</span>
+            <span>${totalAmount.toFixed(2)}</span>
+          </button>
         </div>
       </div>
 
       <div
         className={`cart-overlay ${isCartOpen ? 'open' : ''}`}
         onClick={() => setIsCartOpen(false)}
-      />
+        onDragOver={e => e.preventDefault()}
+        onDrop={handleOverlayDrop}
+        onDragLeave={handleDragLeaveOverlay}
+      >
+        {isDraggingItem && (
+          <div className="trashcan-indicator">
+            {/* <img src={trashIcon} alt="Trash" /> */}
+            Remove
+          </div>
+        )}
+      </div>
 
       {confirmType && (
         <ConfirmDialog
-          message={
-            t(confirmType === 'clear' ? 'confirmClear' : 'confirmRemove')
-          }
+          message={t(confirmType === 'clear' ? 'confirmClear' : 'confirmRemove')}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />

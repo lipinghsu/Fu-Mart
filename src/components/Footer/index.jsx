@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import FeedbackModal from '../FeedbackModal';
 import LanguageDropdown from './LanguageDropdown';
-import './Footer.scss'
+import SignupSection from './SignupSection';
+import titleDecoration from './../../assets/title-dec2.jpeg';
+import taipeiText from '../../assets/taipei-text.png';
+import { useSpotify } from '../../context/SpotifyContext';
+import './Footer.scss';
 
-const Footer = ({ isDarkMode, toggleDarkMode }) => {
+const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
@@ -15,9 +19,11 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
   const { t } = useTranslation(['footer']);
   const location = useLocation();
 
+  // Obtain shared Spotify state and controls
+  const { isSpotifyOpen, toggleSpotifyOpen, isPlaying } = useSpotify();
   const languageLabels = {
     en: 'English',
-    'zh-TW': '中文 [臺灣]',
+    'zh-TW': '中文 (臺灣)',
     jp: '日本語',
     kr: '한국어',
   };
@@ -38,10 +44,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
     }
     setIsSubmitting(true);
     try {
-      await firestore.collection('newsletterSignups').add({
-        email: email,
-        timestamp: new Date(),
-      });
+      await firestore.collection('newsletterSignups').add({ email, timestamp: new Date() });
       alert("You've been added to our newsletter list.");
       setEmail('');
     } catch (err) {
@@ -52,76 +55,95 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
     }
   };
 
+  useEffect(() => {
+    const handleDragStart = (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); };
+    document.addEventListener('dragstart', handleDragStart);
+    return () => document.removeEventListener('dragstart', handleDragStart);
+  }, []);
+
   return (
     <>
+      {showFull && (
+        <>
+          <SignupSection />
+          <div className="title-dec-wrap">
+            <img src={titleDecoration} alt="decoration" />
+            <img src={titleDecoration} alt="decoration" />
+            <img src={titleDecoration} alt="decoration" />
+            <img src={titleDecoration} alt="decoration" className="bot" />
+          </div>
+        </>
+      )}
       <footer className="cg-footer">
+        <div className={`spotify-player-container ${isSpotifyOpen ? 'active' : ''}`}>
+          <div className="close-spotify-btn" aria-label="Close player" onClick={toggleSpotifyOpen} />
+          <div className="spotify-player-wrap">
+            <div id="spotify-embed" />
+          </div>
+        </div>
+
         <div className="cg-footer-left">
-        <a
-          className={`cg-store-link ${location.pathname === '/storefront' ? 'active' : ''}`}
-          href="/storefront"
-          onClick={(e) => {
-            if (location.pathname === '/storefront') {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          }}
-        >
-          {location.pathname === '/storefront' ? t('welcome') : t('store')}
-        </a>
-
-
+          <a
+            className={`cg-store-link ${location.pathname === '/storefront' ? 'active' : ''}`}
+            href="/storefront"
+            onClick={(e) => {
+              if (location.pathname === '/storefront') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+          >
+            {location.pathname === '/storefront' ? t('welcome') : t('store')}
+          </a>
           <div className="cg-disclaimer top">
             © 2025{' '}
-            <a href="/" className="fu-mart-text">
-              FÜ-MART
-            </a>{' '}
-            | {t('allRightsReserved')}
+            <a href="/" className="fu-mart-text">FÜ-MART</a> | {t('allRightsReserved')}
           </div>
-          {/* {isFeedbackOpen ? "isFeedbackOpen" : "!isFeedbackOpen"} */}
           <div className="cg-disclaimer lang-selector-wrap">
             <Link to="/terms">{t('terms')}</Link> |{' '}
             <Link to="/privacy">{t('privacy')}</Link> |{' '}
             <a
               className="feedback-link"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsFeedbackOpen(true);
-              }}
+              onClick={(e) => { e.preventDefault(); setIsFeedbackOpen(true); }}
             >
               {t('feedback')}
-            </a>{' '}
-            |{' '}
+            </a>{' '}|{' '}
             <a
               className="lang-button"
+              onMouseDown={(e) => e.stopPropagation()}
               onClick={(e) => {
                 e.preventDefault();
-                setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+                setIsLanguageDropdownOpen(prev => !prev);
               }}
             >
               {languageLabels[i18n.language] || 'Language'}
-            </a>{' '}
-            |{' '}
+            </a>{' '}|{' '}
             <a
               className="dark-mode-toggle"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleDarkMode();
-              }}
+              onClick={(e) => { e.preventDefault(); toggleDarkMode(); }}
             >
               {isDarkMode ? t('dark') : t('light')}
             </a>
-
             <LanguageDropdown
               isOpen={isLanguageDropdownOpen}
-              onClose={() => setIsLanguageDropdownOpen(false)}
-              onSelect={(lang) => {
-                handleLanguageChange(lang);
-                setIsLanguageDropdownOpen(false); // optional: close after selection
-              }}
+              setIsOpen={setIsLanguageDropdownOpen}
+              onSelect={handleLanguageChange}
             />
           </div>
-          {/* lang-button always set it to open */}
-          {/* {isLanguageDropdownOpen ? 'open' : "close"}  */}
+        </div>
+
+        <div className="cg-footer-center">
+          <a
+            className="spotify-toggle-btn"
+            onClick={(e) => { e.preventDefault(); toggleSpotifyOpen(); }}
+          >
+            <img
+              src={taipeiText}
+              alt={isPlaying ? 'Pause music' : 'Play music'}
+              className={isPlaying ? 'taipei-text active' : 'taipei-text'}
+              draggable={false}
+            />
+          </a>
         </div>
 
         <div className="cg-footer-right">
@@ -144,9 +166,7 @@ const Footer = ({ isDarkMode, toggleDarkMode }) => {
           <div className="cg-signup-disclaimer">{t('signupDisclaimer')}</div>
         </div>
       </footer>
-      {/* {isFeedbackOpen ? "isFeedbackOpen" : "!isFeedbackOpen"} */}
       <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
-        
     </>
   );
 };

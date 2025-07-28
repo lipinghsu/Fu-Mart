@@ -1,54 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n';
 import './LanguageDropdown.scss';
 
-const LanguageDropdown = ({ isOpen, setIsOpen, onClose, onSelect }) => {
+const LanguageDropdown = ({ isOpen, setIsOpen, onSelect }) => {
   const dropdownRef = useRef(null);
-  const [closing, setClosing] = useState(false);
-  const [hasOpened, setHasOpened] = useState(false);
   const { t } = useTranslation('common');
+  const currentLang = i18n.language;
 
+  // Close on outside click
   useEffect(() => {
-    if (isOpen) {
-      setClosing(false);
-      setHasOpened(true);
-    } else if (hasOpened) {
-      setClosing(true);
-      const timeout = setTimeout(() => setClosing(false), 600);
-      return () => clearTimeout(timeout);
-    }
-  }, [isOpen, hasOpened]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        if (isOpen) {
-          setClosing(true);
-          onClose();
-        }
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, onClose]);
+  }, [isOpen, setIsOpen]);
 
-  if (!isOpen && !closing) return null;
-
-  const currentLang = i18n.language;
+  if (!isOpen) return null;
 
   const languages = [
-    { code: 'jp', label: '日本語' },
-    { code: 'kr', label: '한국어' },
-    { code: 'zh-TW', label: '中文 [臺灣]' },
-    { code: 'en', label: 'English' },
+    { code: 'jp',   label: '日本語' },
+    { code: 'kr',   label: '한국어' },
+    { code: 'zh-TW',label: '中文 (臺灣)' },
+    { code: 'en',   label: 'English' },
   ];
 
   return (
-    <div
-      ref={dropdownRef}
-      className={`lang-dropdown ${isOpen ? 'opening' : ''} ${closing ? 'closing' : ''}`}
-    >
+    <div ref={dropdownRef} className={
+            `lang-dropdown ${isOpen? 'opening' : ''}`}>
       <div className="lang-dropdown-header">
         <span className="lang-dropdown-title">{t('language')}</span>
       </div>
@@ -56,19 +39,22 @@ const LanguageDropdown = ({ isOpen, setIsOpen, onClose, onSelect }) => {
       {languages.map((lang, idx) => (
         <div
           key={lang.code}
-          className={`lang-dropdown-option ${idx === 0 ? 'first' : ''} ${currentLang === lang.code ? 'active' : ''}`}
-          onClick={() => onSelect(lang.code)}
+          className={
+            `lang-dropdown-option ${idx === 0 ? 'first' : ''}` +
+            (currentLang === lang.code ? ' active' : '')
+          }
+          onClick={() => {
+            onSelect(lang.code);
+            setIsOpen(false);
+          }}
         >
-          <>{lang.label}</>
+          {lang.label}
         </div>
       ))}
 
       <div
         className="lang-dropdown-option close-btn"
-        onClick={() => {
-          setClosing(true);
-          onClose();
-        }}
+        onClick={() => setIsOpen(false)}
       >
         {t('close')}
       </div>

@@ -10,7 +10,8 @@
     "aToZ": "名稱：Ａ到Ｚ",
     "zToA": "名稱：Ｚ到Ａ",
     "allCategory": "全部",
-    
+    "exploreCategoryAisle": "探索",
+    "aisle": "區",
     "add": "加入",
     "buy": "購買",
     "quantity": "數量",
@@ -80,7 +81,9 @@
     "updatedQuantity": "數量已更新",
 
     "Skincare": "護膚保養",
-    "Sunscreen": "防曬"
+    "Sunscreen": "防曬",
+    "searchResultsFor": "{{length}} 筆搜尋結果：”{{searchQuery}}”",
+    "searchResultsFor_plural": "{{length}} 筆搜尋結果：”{{searchQuery}}”"
 
   }
 

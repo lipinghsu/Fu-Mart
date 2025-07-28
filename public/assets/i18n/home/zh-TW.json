@@ -32,22 +32,33 @@
   "noDescription": "沒有提供商品描述",
   "buyNow": "立即購買",
   "customQuantity": "自訂數量（10 以上）",
-  "productDisclaimerPart1": "產品詳細資訊、包裝與顯示內容可能未必反映最新或最完整的資訊。請以實際產品為準，以獲取最準確的資料。",
-  "productDisclaimerPart2": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。欲了解更多詳情，請聯繫製造商或零售商。",
+  "productDisclaimerPart1": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。欲了解更多詳情，請聯繫製造商或零售商。",
   "learnMore": "了解更多",
   "qualityGuaranteed": "品質保證",
   "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
   "welcome": "歡迎光臨",
 
-  "signupTitle": "Fü-Mart的標準",
-  "signupDesc": "如果你的阿嬤不會買，那麽福罵就不會賣",
+  "signupTitle": "Fü-Mart的目標",
+  "signupDesc": "連你阿嬤想要買的 福罵都想要便宜賣",
   "signupDesc2": "如果連阿嬤都不會買，那麽福瑪特就不會賣",
   "signupNow": "立即註冊",
   "learnMore": "了解更多",
 
   "Search In-Store Products": "搜尋店內商品",
   "Browse Treats From Asia": "探索來自亞洲的零食",
-  "Search by Flavor": "依口味搜尋",
-  "Uncover Hidden Gems": "探索隱藏好物",
-  "Get Your Favorite Snacks": "尋找你最愛的點心"
+  "Search by Flavor or Origin": "依口味或產地搜尋",
+  "Uncover Hidden Gems": "挖出隱藏寶藏",
+  "Get Your Favorite Snacks": "尋找你最愛的點心",
+
+  "featuredCategories": "精選分類",
+  "snacks": "零食",
+  "beverages": "飲料",
+  "Pasta & Noodles": "麵食",
+  "Canned Goods": "罐頭食品",
+  
+  "viewFumartCategory": "查看福罵{{category}}",
+  "searchFor": "搜尋 “{{query}}”...",
+
+  "searchResultsFor": "{{length}} 件搜尋結果：「{{searchQuery}}」",
+  "searchResultsFor_plural": "{{length}} 件搜尋結果：「{{searchQuery}}」"
 }

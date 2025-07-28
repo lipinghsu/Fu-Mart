@@ -17,6 +17,7 @@ import Shop from './pages/Shop';
 import Payment from './pages/Payment';
 import About from './pages/About';
 import Search from './pages/Search';
+import ProductDetails from './pages/ProductDetails';
 
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
@@ -129,6 +130,23 @@ function App() {
         element={
           <MainLayout>
             <ComingSoon />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/product"
+        element={
+          <MainLayout>
+            <ComingSoon />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/product/:id"
+        element={
+          <MainLayout>
+            <ProductDetails />
+            
           </MainLayout>
         }
       />

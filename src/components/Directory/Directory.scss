@@ -50,7 +50,8 @@
         @media (max-width: 520px) {
           margin-top: 0;
           max-width: calc(100% - 24px);
-          height: 760px;
+          // maxheight: 760px;
+          height: calc(100dvh - 60px - 50px - 32px);
           background-size: auto; 
           
           img{
@@ -81,16 +82,43 @@
             // background-color: rgb(0, 0, 0);
           }
 
+          &.slideshow {
+            position: relative;
+            width: 100% !important;
+            height: 100% !important;
+
+            img {
+              position: absolute;
+              transition: opacity 1s ease;
+              opacity: 0;
+              max-width: 100%;
+              max-height: 100%;
+              object-fit: cover;
+            }
+
+            img.active {
+              opacity: 1;
+              z-index: 1;
+            }
+
+            img.inactive {
+              opacity: 0;
+              z-index: 0;
+            }
+          }
+
           img {
             max-width: calc(100% - 128px);
             max-height: calc(100% - 128px);
             object-fit: contain;
             object-position: center center;
             display: block;
+            width: 100%;
+            height: 100%;
             
             
 
-            border-radius: 50%;
+            // border-radius: 50%;
             animation: colorChange 0.5s ease-out forwards;
             
             // animation-delay: 0.2s; // optional slight delay
@@ -99,274 +127,37 @@
               // display: flex;
               max-width: calc(66vw);
               max-height: calc(66vw);
-              background-color: #fffffff8;
-              filter: invert(0) !important;
+              // background-color: #fffffff8;
+              filter: invert(1) !important;
             }
           }
         }
       }
 
       .latest-products {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 8px 32px 0 32px;
 
-        @media (max-width: 870px) {
-          padding: 0 12px;
-        }
 
         .suggested-items {
           
-          .product-card {
-            box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.23);
-            border-radius: 12px;
-            background-color: #f8f8f8f8;
-            transition: all 0.03s ease-out;
-            // .add-to-bag-btn{
-            //   &:hover{
-            //     background-color: #e5341d;
-            //   }
-            // }
 
-            &:hover {
-              box-shadow: 0 1px 2.5px rgba(8, 8, 8, 0.32);
-              background-color: #173b7a18;
-            }
-          }
         }
       }
 
-      .signup-section {
-        display: flex;
-        box-sizing: border-box;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 16px;
-        margin-bottom: 32px;
-        background-color: rgb(0, 0, 0);
-        padding: 32px;
-        width: 100%;
-        transition: box-shadow 0.25s ease;
-        // background-color: red;
-        @media (max-width: 520px) {
-          margin-bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-          flex-direction: column;
-          padding: 24px 16px;
-          text-align: center;
-        }
-
-        .signup-section-wrap {
-          background-color: rgb(0, 0, 0);
-          // padding: 36px;
-          // border-radius: 16px;
-          display: flex;
-          box-sizing: border-box;
-          justify-content: center;
-          align-items: center;
-          margin: 0 auto;
-          width: 100%;
-          max-width: 1180px;
-          overflow-x: hidden;
-
-
-          @media (max-width: 768px) {
-            flex-direction: column;
-          }
-
-          .signup-right {
-            margin: 0 32px;
-            margin-top: auto;
-            width: 100%;
-            height: 100%;
-            padding: 0 32px;
-            display: flex;
-            box-sizing: border-box;
-            flex-direction: column;
-            justify-content: center;
-            margin-right: 0;
-            padding-right: 0;
-
-            opacity: 0;
-            transform: translateX(36px);
-            transition: opacity 0.8s ease-out, transform 0.4s ease-out;
-            
-
-            &.slide-in {
-              opacity: 1;
-              transform: translateX(0);
-            }
-
-            &.slide-out {
-              opacity: 0;
-              transform: translateX(36px);
-            }
-
-            @media (max-width: 870px) {
-              padding-top: 20px;
-              padding-bottom: 0;
-              margin-left: 0;
-              padding-left: 0;
-
-              .signup-title,
-              .signup-text {
-                text-align: center !important;
-              }
-            }
-
-            .signup-title {
-              font-size: 2rem;
-              line-height: 1;
-              letter-spacing: -1.3px;
-              color: #fff;
-              text-align: right;
-              font-weight: bolder;
-
-              @media (max-width: 520px) {
-                font-size: 1.6rem;
-              }
-            }
-
-            .signup-text {
-              text-align: right;
-              font-size: 1rem;
-              font-weight: 300;
-              letter-spacing: 0.3px;
-              margin-bottom: 24px;
-              color: #c2c2c3;
-              padding-top: 6px;
-
-              @media (max-width: 520px) {
-                font-size: 0.8rem;
-                margin-bottom: 12px;
-              }
-            }
-
-            .signup-buttons {
-              display: flex;
-              gap: 12px;
-              // flex-wrap: wrap;
-              // justify-content: flex-start;
-              
-              @media (max-width: 870px) {
-                justify-content: center;
-              }
-
-              .primary-btn,
-              .secondary-btn {
-                flex: 1;
-                min-width: 128px;
-                height: 56px;
-                padding: 12px;
-                font-size: 1rem;
-                font-weight: 600;
-                border-radius: 12px;
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-
-                &:hover {
-                  // transform: translateY(-1px);
-                }
-              }
-
-              .primary-btn {
-                border: 1px solid #e5341d;
-                background-color: transparent;
-                color: #e5341d;
-
-                &:hover {
-                  background-color: #db301a20;
-                  border: 1px solid #e5341dbb;
-                  color: #ff1e00;
-                }
-              }
-
-              .secondary-btn {
-                background-color: #e5341d;
-                color: #020203;
-
-                &:hover {
-                  background-color: #db301af0;
-                }
-              }
-            }
-          }
-
-          .signup-left {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin-left: 16px;
-            opacity: 0;
-            transform: translateX(-36px);
-            
-            transition: opacity 0.8s ease-out, transform 0.4s ease-out;
-
-
-            &.slide-in {
-              opacity: 1;
-              transform: translateX(0);
-            }
-
-            &.slide-out {
-              opacity: 0;
-              transform: translateX(-36px);
-            }
-
-            @media (max-width: 869px) {
-              margin-right: 16px;
-              justify-content: center;
-            }
-
-            @media (min-width: 870px) {
-              width: 380px;
-              flex: 0 0 auto;
-              justify-content: center;
-            }
-
-            .signup-section-img-wrap {
-              width: 100%;
-              height: auto;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border-radius: 16px;
-              // overflow: hidden;
-
-              @media (max-width: 870px) {
-                max-width: 75vw;
-              }
-
-              img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
-                // filter: brightness(93%);
-                display: block;
-              }
-            }
-          }
-        }
-      }
     }
-
-    .cg-footer {
-      margin-top: auto;
-      margin-bottom: 0;
-    }
+  
   }
 }
 
 
   .dark-mode {
+
+  
     .cg-root{
       // background-color: red !important;
+
     }
     .directory {
+
       .cg-main {
         background-color: #121213 !important;
         .top-section {
@@ -380,35 +171,10 @@
             }
           }
         }
-        .latest-products{
-          background-color: #121213 !important;
-          .suggested-item{
-            // background-color: red !important;
-            .product-card{
-            background-color: black   !important;
-            box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.23);
-            // .add-to-bag-btn{
-            //   background-color: #f2f2f3;
-            //   color:#020203;
-            
-              &:hover{
-                background-color: #010b37 !important;
-              }
-            // }
-          }
-          }
 
-        }
+
         
-        .signup-section {
-          background-color: black !important;
-          color: #f2f2f2 !important;
 
-          .secondary-btn {
-            border-color: #f2f2f2 !important;
-            color: #f2f2f2 !important;
-          }
-        }
       }
     }
   }
@@ -443,9 +209,10 @@
   100% {
     opacity: 1;
     // filter: invert(1);
-    background-color: #ffffff;
+    background-color: transparent;
     // background: url('./../../assets/top-section-bg-june3.jpg') center center / cover no-repeat;
     transform: translateY(0);
     // transform: rotate(500deg);
+    transform: scale(0.85);
   }
 }

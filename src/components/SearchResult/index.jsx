@@ -4,7 +4,7 @@ import { firestore } from '../../firebase/utils';
 import Header from '../Header';
 import Footer from '../Footer';
 import ProductCard from '../ProductCard';
-import ProductModal from '../ProductList/ProductModal';
+import ProductModal from '../Storefront/ProductModal';
 import { useTranslation } from 'react-i18next';
 import sortIcon from '../../assets/arrowIcon.png';
 import './SearchResult.scss';
@@ -19,7 +19,7 @@ const SearchResult = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState('new-arrivals');
 
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [subcategoriesMap, setSubcategoriesMap] = useState({});
@@ -59,8 +59,7 @@ const SearchResult = ({ searchQuery }) => {
     const query = searchQuery.toLowerCase();
     const matched = products.filter(p =>
       (p.name?.toLowerCase().includes(query) ||
-        p.subtitle?.toLowerCase().includes(query)) &&
-      !p.hidden
+        p.subtitle?.toLowerCase().includes(query))
     );
     setFilteredResults(matched);
 
@@ -80,11 +79,16 @@ const SearchResult = ({ searchQuery }) => {
     setSubcategoriesMap(plainMap);
   }, [searchQuery, products]);
 
-  useEffect(() => {
-    if (!selectedCategory && t) {
-      setSelectedCategory(allCategoryLabel);
-    }
-  }, [t, allCategoryLabel, selectedCategory]);
+useEffect(() => {
+  // Only set if translation is loaded AND we have filtered results
+  if (
+    selectedCategory === '' &&
+    allCategoryLabel &&
+    filteredResults.length > 0
+  ) {
+    setSelectedCategory(allCategoryLabel);
+  }
+}, [selectedCategory, allCategoryLabel, filteredResults]);
 
   useEffect(() => {
     if (selectedCategory === allCategoryLabel) {
@@ -189,20 +193,32 @@ const SearchResult = ({ searchQuery }) => {
           </div>
           <div className={`sort-dropdown ${dropdownOpen ? 'open' : ''}`}>
             <div className="option block" />
-            <div className="option" onClick={() => setSortOption('new-arrivals')}>
+            <div className="option" onClick={() => {setSortOption('new-arrivals'); setDropdownOpen(false);}}>
               {t('newArrivals')}
             </div>
-            <div className="option" onClick={() => setSortOption('price-asc')}>
+            <div className="option" onClick={() => {setSortOption('price-asc'); setDropdownOpen(false);}}>
               {t('lowHigh')}
             </div>
-            <div className="option" onClick={() => setSortOption('price-desc')}>
+            <div className="option" onClick={() => {setSortOption('price-desc'); setDropdownOpen(false);}}>
               {t('highLow')}
             </div>
           </div>
         </div>
       </div>
       <div className="search-summary">
-        <h2> {sortedFiltered.length} {t('searchResultsFor')}: “{searchQuery}”</h2>
+      <h2>
+        {sortedFiltered.length > 1 ? 
+        t('searchResultsFor_plural', {
+          length: sortedFiltered.length,
+          searchQuery
+        }) : 
+        t('searchResultsFor', {
+          length: sortedFiltered.length,
+          searchQuery
+        })
+      }
+      </h2>
+        
         {!loading && sortedFiltered.length === 0 && (
           <p>{t('noResultsFound')}</p>
         )}

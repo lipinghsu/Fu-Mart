@@ -19,7 +19,7 @@ import CurrencySwitcher from './CurrencySwitcher';
 
 import './Header.scss';
 
-const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false}) => {
+const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false, isDarkMode, toggleDarkMode}) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => setShowDropdown(prev => !prev);
@@ -206,6 +206,8 @@ const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = fals
         isOpen={isSideMenuOpen}
         onClose={() => setIsSideMenuOpen(false)}
         searchExpanded={searchExpanded}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
       />
 
       <ShoppingBag isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />

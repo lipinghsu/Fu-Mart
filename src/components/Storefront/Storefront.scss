@@ -26,7 +26,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        transition: border-color 0.2s;
+        transition: border-color 0.05s;
 
         border: 1px solid transparent !important;
         background-color: #f2f2f3;
@@ -499,8 +499,11 @@
 
 :root.dark-mode {
   .product-list {
-    background-color: #000;
+    background-color: #121213;
     color: #f2f2f3;
+    .latest-products{
+      background-color: #121213;
+    }
     .skeleton {
       background: #222 !important;
 
@@ -596,7 +599,7 @@
 
               &:hover {
                 background-color: #010b3d;
-                color: #f2f2f3;
+                color: #fff;
               }
 
               // Staggered delay
@@ -649,7 +652,7 @@
         background-color: #000;
 
         &:hover {
-          background-color: #010728;
+          background-color: #010728 !important;
           // box-shadow: 0 0px 2px rgba(0, 0, 0, 0.88) !important;
         }
 
@@ -690,5 +693,48 @@
   to {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+
+.latest-product-item.view-all-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  min-width: 240px;
+  height: 375px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.03s ease-out;
+
+  &:hover {
+    background-color: #f0f2f6;
+  }
+
+  .view-all-content {
+    padding: 16px;
+    color: #222;
+  }
+}
+
+:root.dark-mode {
+  .latest-product-item.view-all-card {
+    background-color: #1a1a1a;
+    
+    .view-all-content{
+      color: #c8c8c8 !important;
+    }
+
+    &:hover {
+      background-color: #010b37;
+      .view-all-content{
+        color: #fff !important;
+      }
+
+    }
   }
 }

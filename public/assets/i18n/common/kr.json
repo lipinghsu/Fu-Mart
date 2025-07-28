@@ -8,5 +8,9 @@
     "language": "언어",
     "confirm": "확인",
     "cancel": "취소",
-    "about": "회사 소개"
+    "light": "라이트모드",
+    "dark": "다크모드",
+    "about": "회사 소개",
+    "login": "계정로긴",
+    "signup": "회원가입"
 }

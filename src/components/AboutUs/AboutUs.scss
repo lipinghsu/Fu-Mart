@@ -6,7 +6,7 @@
   min-height: 100dvh;
   width: 100dvw;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f8f8f6;
+  background-color: #f2f2f3;
   position: relative;
 }
 
@@ -29,6 +29,7 @@
   transform: translateY(-4px);
   }
   
+  
 }
 
 .about-logo-wrap {
@@ -45,6 +46,7 @@
 }
 
 .about-title {
+  
   font-size: 24px;
   font-weight: 800;
   margin-top: 0;
@@ -63,10 +65,13 @@
 
 .about-paragraph {
   font-size: 1rem;
-  color: #424243;
+  color: #020203;
   line-height: 1.4;
   // margin-bottom: 16px;
   text-align: left;
+      @media (max-width: 520px) {
+      font-size: 0.95rem !important;
+    }
 
   strong {
     font-weight: bold;
@@ -80,6 +85,8 @@
   // margin-top: 24px;
   margin-bottom: 12px;
   text-align: center;
+
+
 }
 .about-ps{
   font-size: 0.8rem;

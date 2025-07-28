@@ -1,10 +1,10 @@
 import React from 'react';
-// import ProductCard from '../../components/ProductCard';
+import ProductDetail from '../../components/ProductDetail';
 
 const ProductDetails = ({}) => {
     return (
         <div className='productCardContainer'>
-            {/* <ProductCard /> */}
+            <ProductDetail />
         </div>
     );
 }

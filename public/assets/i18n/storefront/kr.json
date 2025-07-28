@@ -9,7 +9,8 @@
     "highLow": "높은가격순",
     "aToZ": "이름: A~Z",
     "zToA": "이름: Z~A",
-
+    "exploreCategoryAisle": "",
+    "aisle": " 코너 둘러보기",
     "allCategory": "전체",
     "add": "담기",
     "buy": "구매",
@@ -82,6 +83,8 @@
     "updateQuantity": "수량 업데이트",
     "removeFromBag": "쇼핑백에서 제거",
     "addedToBag": "쇼핑백에 추가됐습니다",
-    "updatedQuantity": "수량이 업데이트되었습니다"
+    "updatedQuantity": "수량이 업데이트되었습니다",
+    "searchResultsFor": "“{{searchQuery}}”의 검색 결과: {{length}}건",
+    "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건"
   }
   

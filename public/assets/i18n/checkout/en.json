@@ -25,10 +25,10 @@
   "subtotal": "Subtotal",
   "tax": "Tax",
   "discount": "Discount",
-  "total": "Total",
+  "total": "Order total",
   "couponApplied": "\"{{code}}\" applied. You saved {{percent}}%!",
   "invalidCoupon": "Invalid coupon code.",
   "login": "Log In",  
   "signup": "Sign Up",
-  "login-text" : "To complete your purchase, please sign in or create an account. We’ll email your receipt and order details."
+  "login-text" : "To complete your purchase, please sign in or create an account."
 }

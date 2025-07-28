@@ -51,8 +51,19 @@
 
   "Search In-Store Products": "매장 상품 검색",
   "Browse Treats From Asia": "아시아 간식 둘러보기",
-  "Search by Flavor": "맛으로 검색하기",
+  "Search by Flavor or Origin": "맛으로 검색하기",
   "Uncover Hidden Gems": "숨겨진 보물 찾기",
-  "Get Your Favorite Snacks": "좋아하는 간식 가져가기"
+  "Get Your Favorite Snacks": "좋아하는 간식 가져가기",
 
+  "featuredCategories": "추천 카테고리",
+  "snacks": "스낵",
+  "beverages": "음료",
+  "Pasta & Noodles": "면류",
+  "Canned Goods": "통조림식품",
+
+  "viewFumartCategory": "Fü-Mart {{category}} 보기",
+  "searchFor": "“{{query}}” 검색...",
+  
+  "searchResultsFor": "“{{searchQuery}}”의 검색 결과: {{length}}건",
+  "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건"
 }

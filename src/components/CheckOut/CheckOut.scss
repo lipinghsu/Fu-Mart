@@ -2,16 +2,25 @@
   margin-top: 20px;
   margin-bottom: 8px;
   padding: 16px;
-  background-color: #f8f8f8;
-  border: 1px solid #e2e2e3;
+  
   border-radius: 12px;
   // text-align: center;
+  color: white;
+  background-color: #f2f2f3;
+  
 
-  p {
+  .login-text {
     margin-top: 4px;
     margin-bottom: 16px;
-    font-size: 1rem;
-    color: #555;
+    font-size: 0.95rem;
+    color: #8b8b8b;
+    
+  }
+  .login-title{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 1.3rem !important;
+    color: #020203;
   }
 
   .login-buttons {
@@ -32,13 +41,13 @@
     height: 56px;
     padding: 12px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 12px;
     box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
-    background-color: #323233;
+    background-color: #1b1b1b;
 
     &:hover {
-      background-color: #020203;
+      background-color: #000;
     }
   }
 
@@ -54,7 +63,7 @@
     height: 56px;
     padding: 12px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 12px;
     box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
 
@@ -70,7 +79,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100dvh;
-  // background-color: #f8f8f6;
+  // background-color: #f2f2f3;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: #f8f8f8; 
 }
@@ -131,6 +140,7 @@
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.23);
   border-radius: 12px;
   max-width: 469px;
+  background-color: #fbfbfb;
   @media (max-width: 870px) {
     padding: 0;
     box-shadow: none;
@@ -176,6 +186,10 @@
   background-color: #f2f2f3;
   padding: 12px;
   border-radius: 12px;
+  &:hover{
+    background-color: #ebebeb;
+    cursor: pointer;
+  }
 }
 
 .checkout-item .item-image img {
@@ -183,6 +197,18 @@
   height: 64px;
   border-radius: 8px;
   object-fit: cover;
+}
+
+.item-details{
+  .price-row{
+    display: flex;
+    justify-content: space-between;
+    .item-price{
+      // font-weight: 500;
+      font-size: 0.95rem !important;
+
+    }
+  }
 }
 
 .checkout-item .item-details {
@@ -290,8 +316,12 @@
   outline: none;
   border-radius: 12px;
   transition: border-color 0.03s;
+  background-color: #fff;
 }
 
+.input-group label{
+  background-color: #fff !important;
+}
 .input-group input:hover,
 .input-group .StripeElement:hover {
   border-color: #28a739;
@@ -363,7 +393,7 @@
   width: 116px;
   padding: 12px;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   border: none;
   background-color: #020203;
   color: white;
@@ -387,6 +417,7 @@
   align-items: center;
   font-size: 1rem;
   font-weight: 700;
+
   &:first-child {
     border-top: 1px solid #d2d2d3;
   }
@@ -395,6 +426,11 @@
   border-top: 1px solid #d2d2d3;
   padding-top: 16px;
   margin-top: 12px;
+  font-size: 1.3rem;
+    .summary-label{
+      
+    
+  }
 }
 
 .checkout-summary.less-important {
@@ -411,7 +447,7 @@
 .checkout-buttons-row {
   display: flex;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 24px;
 
   button {
     flex: 1;
@@ -438,7 +474,7 @@
   height: 56px;
   padding: 12px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 12px; 
   box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
 }
@@ -466,7 +502,7 @@
   height: 56px;
   padding: 12px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 12px;
   box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
 }
@@ -538,6 +574,16 @@
 /* Dark Mode */
 
 .dark-mode {
+  .login-banner{
+    background-color: #2b2b2b !important;
+    border: 1px solid #727273 !important;
+    .login-text{
+      color: #a2a2a3 !important;
+    }
+    .login-title{
+      color:#f2f2f3 !important;
+    }
+  }
   .checkout-page {
     background-color: #020203;
 
@@ -546,6 +592,7 @@
       color: #f2f2f3;
 
       .checkout-right {
+        background-color: #0d0d0d !important;
         .section-title {
           color: #f2f2f3;
         }
@@ -553,9 +600,13 @@
         .checkout-items {
           .checkout-item {
             background-color: #222223;
+            &:hover{
+              background-color: #1b1b1b;
+            }
 
             .item-details {
               .item-name {
+                
                 color: #f2f2f3;
               }
               .item-quantity,
@@ -578,6 +629,9 @@
         }
       }
 
+      .input-group label{
+        background-color: #121213 !important;
+      }
       .input-group {
         input,
         .StripeElement {
