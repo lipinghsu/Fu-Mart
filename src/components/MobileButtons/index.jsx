@@ -1,7 +1,7 @@
 import React from 'react';
 import './MobileButtons.scss';
-import bagIcon from '../../assets/bagIcon-filled.png';
-import sideMenuIcon from '../../assets/side-menu-icon.png';
+import bagIcon from '../../assets/Icons/bagIcon-filled.png';
+import sideMenuIcon from '../../assets/Icons/side-menu-icon.png';
 import SearchBar from '../SearchBar';
 
 const MobileButtons = ({

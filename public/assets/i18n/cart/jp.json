@@ -8,5 +8,8 @@
   "proceedToCheckout": "お会計へ進む",
   "usd": "米ドル",
   "confirmClear": "ショッピングバッグを空にしてもよろしいですか？",
-  "confirmRemove": "この商品を削除してもよろしいですか？"
+  "confirmRemove": "この商品を削除してもよろしいですか？",
+  "item": "点",
+  "items": "点",
+  "checkoutNote": "送料と税金はチェックアウト時に計算されます"
 }

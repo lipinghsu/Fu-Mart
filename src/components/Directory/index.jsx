@@ -14,6 +14,7 @@ import Footer from './../Footer';
 import JoinUsModal from './JoinUsModal';
 import LatestProducts from './LatestProducts'; 
 import RecommendedCategories from './RecommendedCategories';
+import RecommendedProducts from './RecommendedProducts';
 
 import topSectionImage from './../../assets/fu.png';
 
@@ -91,7 +92,8 @@ const Directory = ({}) => {
               <img src={topSectionImage} alt="banner" />
             </div>
           </div>
-          <LatestProducts products={latestProducts} />
+          {/* <LatestProducts products={latestProducts} /> */}
+          <RecommendedProducts products={latestProducts} />
           <RecommendedCategories />
         </div>
         <Footer

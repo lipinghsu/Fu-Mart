@@ -1,8 +1,6 @@
-// src/pages/AboutUs.jsx
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AboutUs.scss';
-// import signature from '../../assets/signature.png';
 
 import cornerImg from '../../assets/corner-image.jpg';
 
@@ -10,47 +8,6 @@ const AboutUs = () => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
 
-// useEffect(() => {
-//   const card = cardRef.current;
-//   if (!card) return;
-
-//   const paragraphs = Array.from(card.querySelectorAll('p'));
-//   const texts = paragraphs.map(p => p.textContent);
-//   // 清空所有文字
-//   paragraphs.forEach(p => (p.textContent = ''));
-
-//   let pi = 0, ci = 0;
-//   const speed = 25;               // 每字基礎間隔(ms)
-//   const paragraphDelay = 200;     // 段落間延時(ms)
-//   const punctuationDelay = 100;
-//   const punctuationChars = new Set(['、','，', '：', '；' ]);  // 你可以再加其它標點
-
-//   function typeChar() {
-//     if (pi >= paragraphs.length) return;
-
-//     const p = paragraphs[pi];
-//     const txt = texts[pi];
-
-//     if (ci < txt.length) {
-//       const char = txt[ci];
-//       p.textContent += char;
-//       ci++;
-
-//       const delay = punctuationChars.has(char)
-//         ? punctuationDelay : '。' === char ? 100
-//         : speed;
-
-//       setTimeout(typeChar, delay);
-//     } else {
-//       // 這段打完後，進下一段
-//       pi++;
-//       ci = 0;
-//       setTimeout(typeChar, paragraphDelay);
-//     }
-//   }
-
-//   typeChar();
-// }, []);
 
 
   return (

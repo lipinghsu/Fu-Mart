@@ -8,5 +8,9 @@
   "proceedToCheckout": "前往結帳",
   "usd": "美元",
   "confirmClear": "確定要清空購物袋嗎？",
-  "confirmRemove": "確定要移除這項商品嗎？"
+  "confirmRemove": "確定要移除這項商品嗎？",
+  "item": "件商品",
+  "items": "件商品",
+
+  "checkoutNote": "運費與稅金將於結帳時計算"
 }

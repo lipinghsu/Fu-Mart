@@ -49,3 +49,53 @@ export const getCurrentUser = () => {
     );
   });
 };
+
+
+// utils/removeBg.js
+export async function removeBg(file, provider, keys) {
+  switch (provider) {
+    case "clipdrop": {
+      const fd = new FormData();
+      fd.append("image_file", file);
+      const res = await fetch("https://clipdrop-api.co/remove-background/v1", {
+        method: "POST",
+        headers: { "x-api-key": keys.CLIPDROP_KEY },
+        body: fd
+      });
+      if (!res.ok) throw new Error("ClipDrop failed");
+      const blob = await res.blob();
+      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+    }
+
+    case "photoroom": {
+      const fd = new FormData();
+      fd.append("image_file", file);
+      // optional params: background_color, format, size, crop, etc.
+      const res = await fetch("https://api.photoroom.com/v1/backgrounds/remove", {
+        method: "POST",
+        headers: { "x-api-key": keys.PHOTOROOM_KEY },
+        body: fd
+      });
+      if (!res.ok) throw new Error("Photoroom failed");
+      const blob = await res.blob();
+      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+    }
+
+    case "cutoutpro": {
+      const fd = new FormData();
+      fd.append("image_file", file);
+      // API also supports transparency, format, etc.
+      const res = await fetch("https://www.cutout.pro/api/v1/matting?mattingType=6", {
+        method: "POST",
+        headers: { "APIKEY": keys.CUTOUTPRO_KEY },
+        body: fd
+      });
+      if (!res.ok) throw new Error("Cutout.pro failed");
+      const blob = await res.blob();
+      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+    }
+
+    default:
+      throw new Error("Unknown provider");
+  }
+}

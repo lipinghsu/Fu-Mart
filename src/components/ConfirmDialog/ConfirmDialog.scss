@@ -45,10 +45,11 @@
     }
 
     .cancel-btn {
-      background-color: #e2e2e3;
+      background-color: #323233;
+      color:#f2f2f3;
 
       &:hover {
-        background-color: #d2d2d3;
+        background-color: #020203;
       }
     }
 
@@ -75,11 +76,11 @@
 
     .dialog-buttons {
       .cancel-btn {
-        background-color: #525253;
+        background-color: #121212;
         color: #f2f2f3;
 
         &:hover {
-          background-color: #4a4a4c;
+          background-color: #0b0b0b;
         }
       }
 

@@ -1,5 +1,5 @@
 {
-    "shoppingBag": "Shopping Bag",
+    "shoppingBag": "Bag",
     "close": "Close",
     "emptyMessage": "There's nothing in your shopping bag",
     "unitPrice": "Unit Price",
@@ -7,5 +7,9 @@
     "grandTotal": "Grand Total",
     "proceedToCheckout": "Go to Checkout",
     "usd": "USD",
-    "confirmRemove": "Are you sure you want to remove this item?"
+    "confirmRemove": "Are you sure you want to remove this item?",
+
+    "item": "item",
+    "items": "items",
+    "checkoutNote": "Shipping & taxes will be calculated at checkout"
   }

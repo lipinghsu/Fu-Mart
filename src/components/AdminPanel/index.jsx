@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { auth, storage, firestore, getCurrentUser } from '../../firebase/utils';
+import { auth, storage, firestore, getCurrentUser, removeBg } from '../../firebase/utils';
 import {
   collection,
   addDoc,
@@ -18,6 +18,8 @@ const AdminPanel = () => {
   const [uploading, setUploading] = useState(false);
   const [authorized, setAuthorized] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [processedImages, setProcessedImages] = useState([]);
+  const [removingBg, setRemovingBg] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -44,6 +46,67 @@ const AdminPanel = () => {
     mediaLink: '',
     images: []
   });
+
+  const handleRemoveBackgrounds = async () => {
+    // Replace these with import
+    // const API_KEY = 'hnrsWXz4Sm6cZV519fwJ98qF'; // gmail account 
+    const API_KEY = 'Hz4c9YVHEAL7QWKJRubqjdsj'; // hotmail account
+    const newImages = [];
+    setRemovingBg(true);
+
+    for (const img of formData.images) {
+      const formDataData = new FormData();
+      formDataData.append('image_file', img);
+      formDataData.append('size', 'auto');
+
+      try {
+        const res = await fetch('https://api.remove.bg/v1.0/removebg', {
+          method: 'POST',
+          headers: { 'X-Api-Key': API_KEY },
+          body: formDataData
+        });
+
+        if (!res.ok) throw new Error('Background removal failed');
+        const blob = await res.blob();
+        const fileName = `bgremoved-${img.name}`;
+        const file = new File([blob], fileName, { type: 'image/png' });
+        newImages.push(file);
+      } catch (err) {
+        console.error('Failed to remove background:', err);
+        alert('Failed to remove background for one or more images.');
+      }
+    }
+
+    setFormData((prev) => ({ ...prev, images: newImages }));
+    setRemovingBg(false);
+  };
+
+  // other background removal APIs
+
+  // const handleRemoveBackgrounds = async () => {
+  //   const PROVIDER = "clipdrop"; // "photoroom" | "cutoutpro"
+  //   const KEYS = {
+  //     CLIPDROP_KEY: process.env.REACT_APP_CLIPDROP_KEY,
+  //     PHOTOROOM_KEY: process.env.REACT_APP_PHOTOROOM_KEY,
+  //     CUTOUTPRO_KEY: process.env.REACT_APP_CUTOUTPRO_KEY
+  //   };
+
+  //   setRemovingBg(true);
+  //   try {
+  //     const processed = [];
+  //     for (const img of formData.images) {
+  //       const out = await removeBg(img, PROVIDER, KEYS);
+  //       processed.push(out);
+  //     }
+  //     setFormData(prev => ({ ...prev, images: processed }));
+  //   } catch (e) {
+  //     console.error(e);
+  //     alert("Background removal failed for one or more images.");
+  //   } finally {
+  //     setRemovingBg(false);
+  //   }
+  // };
+
 
   // 1) On mount, wait for Auth → getCurrentUser() → then fetch userDoc → check userRole
   useEffect(() => {
@@ -129,44 +192,43 @@ const AdminPanel = () => {
 
       // 2. Write a new document in Firestore under “products” collection
       //    Use “stockQuantity” instead of the old “stockQuantity” field.
-      await addDoc(collection(firestore, 'products'), {
-        name: formData.name,
-        brand: formData.brand,
-        subtitle: formData.subtitle,
-        description: formData.description,
-        price: parseFloat(formData.price),
-        category: formData.category,
-        subCategory: formData.subCategory,
-        stockQuantity: parseInt(formData.stockQuantity, 10),
-        sizeLabel: formData.sizeLabel,
-        sku: formData.sku,
-        tags: formData.tags
-          .split(',')
-          .map((t) => t.trim())
-          .filter((t) => t !== ''),
-        weight: formData.weight,
-        dimensions: formData.dimensions,
-        priceDiscount: formData.priceDiscount
-          ? parseFloat(formData.priceDiscount)
-          : 0,
-        isOnSale: formData.isOnSale,
-        rating: formData.rating ? parseFloat(formData.rating) : 0,
-        reviewCount: formData.reviewCount
-          ? parseInt(formData.reviewCount, 10)
-          : 0,
-        expirationDate: formData.expirationDate
-          ? Timestamp.fromDate(new Date(formData.expirationDate))
-          : null,
-        origin: formData.origin,
-        ingredients: formData.ingredients
-          .split(',')
-          .map((i) => i.trim())
-          .filter((i) => i !== ''),
-        instructions: formData.instructions,
-        mediaLink: formData.mediaLink,
-        images: imageUrls,
-        createdAt: Timestamp.now()
-      });
+await addDoc(collection(firestore, 'products'), {
+  name: formData.name,
+  brand: formData.brand,
+  subtitle: formData.subtitle,
+  description: formData.description,
+  price: parseFloat(formData.price),
+  category: formData.category,
+  subCategory: formData.subCategory,
+  stockQuantity: parseInt(formData.stockQuantity, 10),
+  sizeLabel: formData.sizeLabel || '',
+  sku: formData.sku || '',
+  tags: formData.tags
+    ? formData.tags.split(',').map((t) => t.trim()).filter((t) => t !== '')
+    : [],
+  weight: formData.weight || '',
+  dimensions: formData.dimensions || '',
+  priceDiscount: formData.priceDiscount
+    ? parseFloat(formData.priceDiscount)
+    : 0,
+  isOnSale: !!formData.isOnSale,
+  rating: formData.rating ? parseFloat(formData.rating) : 0,
+  reviewCount: formData.reviewCount
+    ? parseInt(formData.reviewCount, 10)
+    : 0,
+  expirationDate: formData.expirationDate
+    ? Timestamp.fromDate(new Date(formData.expirationDate))
+    : null,
+  origin: formData.origin || '',
+  ingredients: formData.ingredients
+    ? formData.ingredients.split(',').map((i) => i.trim()).filter((i) => i !== '')
+    : [],
+  instructions: formData.instructions || '',
+  mediaLink: formData.mediaLink || '',
+  images: imageUrls,
+  createdAt: Timestamp.now()
+});
+
 
       alert('Product uploaded!');
       // Reset form state and stepper
@@ -387,31 +449,54 @@ const AdminPanel = () => {
         accept="image/*"
         disabled={uploading}
       />
+      
       {formData.images.length > 0 && (
-        <div className="image-previews">
-          {formData.images.map((img, idx) => (
-            <div key={idx} className="image-preview">
-              <div className="image-wrapper">
-                <img src={URL.createObjectURL(img)} alt={`Preview ${idx}`} />
-              </div>
-              <div className="cancel-wrapper">
-                <button
-                  type="button"
-                  className="cancel-button"
-                  onClick={() => {
-                    const newImages = formData.images.filter((_, i) => i !== idx);
-                    handleChange('images', newImages);
-                  }}
-                  disabled={uploading}
-                >
-                  ✕
-                </button>
-              </div>
+        <>
+      <div className="image-previews">
+        {formData.images.map((img, idx) => (
+          <div key={idx} className="image-preview">
+            <div className="image-wrapper">
+              <img src={URL.createObjectURL(img)} alt={`Preview ${idx}`} />
             </div>
-          ))}
-        </div>
-      )}
+            <div className="cancel-wrapper">
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => {
+                  const newImages = formData.images.filter((_, i) => i !== idx);
+                  handleChange('images', newImages);
+                }}
+                disabled={uploading}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+            <button
+        type="button"
+        onClick={handleRemoveBackgrounds}
+        disabled={uploading || removingBg}
+        style={{
+          marginTop: '8px',
+          backgroundColor: '#e5341d',
+          color: '#fff',
+          padding: '14px',
+          borderRadius: '6px',
+          width: '100%',
+          fontWeight: 'bold',
+          fontSize: '1rem',
+          cursor: removingBg ? 'not-allowed' : 'pointer',
+          opacity: removingBg ? 0.6 : 1
+        }}
+      >
+        {removingBg ? 'Removing Backgrounds...' : 'Remove Backgrounds'}
+      </button>
     </>
+    )}
+  </>
   ];
 
   return (
@@ -467,10 +552,20 @@ const AdminPanel = () => {
                 Next
               </button>
             ) : (
-              <button type="submit" disabled={uploading}>
+              <button
+                className="step-control-btn"
+                type="submit"
+                disabled={uploading}
+                onClick={(e) => {
+                  // Prevent default just in case
+                  e.preventDefault();
+                  handleSubmit(e);
+                }}
+              >
                 {uploading ? 'Uploading...' : 'Upload Product'}
               </button>
             )}
+
           </div>
         </form>
       </div>

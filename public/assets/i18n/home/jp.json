@@ -3,6 +3,8 @@
   "searchPlaceholder": "店内商品を検索",
   "search": "商品を探す",
 
+  "Search": "検索",
+
   "store": "ストアへ進む",
   "welcome": "ようこそ",
   "login": "ログイン",
@@ -19,9 +21,6 @@
   "joinTitlePrefix": "今すぐ登録して全品",
   "joinTitlePercent": "20%OFF",
 
-  
-
-  "latestProducts": "新商品",
   "buy": "購入",
   "allCategory": "すべて",
   "youMayAlsoLike": "あなたにおすすめ",
@@ -52,7 +51,9 @@
   "Uncover Hidden Gems": "隠れた名品を発見",
   "Get Your Favorite Snacks": "お気に入りのおやつをゲット",
 
-  "featuredCategories": "特集カテゴリー",
+  "recommendedProducts": "注目の商品",
+  "latestProducts": "新商品",
+  "featuredCategories": "カテゴリから探す",
   "snacks": "スナック",
   "beverages": "飲み物",
   "Pasta & Noodles": "麺類",

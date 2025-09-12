@@ -4,7 +4,7 @@
   // max-width: 1440px;
   margin: 0 auto;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 24px;
   margin-bottom: 32px;
 
   .suggestion-title {
@@ -100,7 +100,7 @@
     cursor: pointer;
     min-height: 480px;
     &:hover{
-      filter: brightness(0.9);
+      filter: brightness(0.75);
     }
 
     img {

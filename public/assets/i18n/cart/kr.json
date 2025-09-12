@@ -8,5 +8,8 @@
   "proceedToCheckout": "결제하러가기",
   "usd": "달러",
   "confirmClear": "쇼핑백을 비우시겠습니까?",
-  "confirmRemove": "이 항목을 삭제하시겠습니까?"
+  "confirmRemove": "이 항목을 삭제하시겠습니까?",    
+  "item": "개",
+  "items": "개",
+  "checkoutNote": "배송비와 세금은 결제 시 계산됩니다"
 }

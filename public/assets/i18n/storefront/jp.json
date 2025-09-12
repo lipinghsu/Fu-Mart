@@ -34,7 +34,7 @@
   "Carbonated Drinks": "炭酸飲料",
   "Coffee": "コーヒー",
   "Juices": "ジュース",
-  "Milk & Flavored Milk": "牛乳とフレーバーミルク",
+  "Milk & Plant-Based Milk": "牛乳・植物性ミルク",
   "Sports Drinks": "スポーツドリンク",
   "Tea": "お茶",
   "Herbal Drinks": "ハーブドリンク",
@@ -83,7 +83,67 @@
   "updatedQuantity": "数量が更新されました",
 
   "Skincare": "スキンケア",
-  "Sunscreen": "日焼け止め"
+  "Sunscreen": "日焼け止め",
 
+  "browseByLabel": "絞り込み",
+  "category": "カテゴリ",
+  "origin": "原産地",
+  "brand": "ブランド",
+  
+  "United States": "アメリカ合衆国",
+  "Taiwan": "台湾",
+  "Mexico": "メキシコ",
+  "Japan": "日本",
+  "South Korea": "韓国",
+  "Hong Kong": "香港",
+  "Thailand": "タイ",
+  "China": "中国",
+  "Indonesia": "インドネシア",
+  "Books": "本",
+  "Beauty": "美容",
+  "Baking Supplies": "製菓材料",
 
+  "nothingMatched": "“{{searchQuery}}”に一致なし",
+  "noResultsFound": "結果が見つかりません",
+  "tryAnotherSearch": "別の検索をお試しください",
+
+  "soldOut": "売り切れ",
+
+  "notifyMe": "再入荷通知",
+  "viewAllProducts": "すべての商品を見る",
+  "allCountProducts": "{{length}} 点の店内商品",
+
+  "reviews": {
+    "title": "カスタマーレビュー",
+    "writeFor": "{{subtitle}} のレビューを書く",
+    "noReviews": "まだレビューはありません",
+    "anonymous": "匿名",
+    "verified": "認証済み購入",
+    "flavor": "フレーバー：{{flavor}}",
+    "showOriginal": "原文を表示",
+    "helpful": "参考になった",
+    "notHelpful": "参考にならなかった",
+    "more": "その他",
+    "starsLabel": "5点中{{value}}点"
+  },
+
+  "moreFromBrand": "{{brand}} の商品をもっと見る",
+  "moreFromBrandGeneric": "このブランドの商品をもっと見る",
+
+  "Instant Tea & Concentrate": "インスタントティー＆濃縮飲料",
+  "Juice": "ジュース",
+  "Non-Fiction": "ノンフィクション",
+  "Chili Oil": "ラー油",
+  "Honey": "はちみつ",
+  "Powder": "粉末",
+  "Vinegar": "酢",
+  "Canned Beans": "豆の缶詰",
+  "Canned Seafood": "シーフード缶詰",
+  "Cakes & Pastries": "ケーキ・ペストリー",
+  "Cookies & Biscuits": "クッキー・ビスケット",
+  "Popcorn": "ポップコーン",
+  "Pasta Sauce": "パスタソース",
+  "Hair Care": "ヘアケア",
+  "Herbal Candy": "ハーブキャンディー",
+  "Flour": "小麦粉"
 }

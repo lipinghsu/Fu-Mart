@@ -254,13 +254,13 @@
         max-height: 0;
         opacity: 0;
         transform: translateY(-16px);
-        transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.5s ease-out;
+        transition: max-height 0.15s ease, opacity 0.1s ease, transform 0.3s ease-out;
         scrollbar-width: none;
         width: 100%;
         
 
         &.open {
-          transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.1s ease-out;
+          transition: max-height 0.15s ease, opacity 0.1s ease, transform 0.3s ease-out;
           max-height: 200px;
           opacity: 1;
           pointer-events: auto;
@@ -581,7 +581,7 @@
             border-bottom: 1px solid #b2b2b3;
             z-index: 1000;
             overflow: hidden;
-            animation: fadeIn 0.25s ease-out both;
+            animation: fadeIn 0.1s ease-out both;
             opacity: 0;
             transform: translateY(8px);
 

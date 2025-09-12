@@ -6,12 +6,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
 import ProductCard from '../../ProductCard';
+import ReviewSection from './ReviewSection';
 import './ProductModal.scss';
-import closeImage from '../../../assets/closeImage.png';
+import closeImage from '../../../assets/Icons/closeImage.png';
 import fumartLogo from '../../../assets/fumart-m-t-bg.png';
 import fumartTextLogo from '../../../assets/fumart-text-logo-bombarda.png';
-import arrowIcon from '../../../assets/arrowIcon2.png';
-import arrowIcon2 from '../../../assets/arrowIcon600-128px.png';
+import arrowIcon from '../../../assets/Icons/arrowIcon2.png';
+import arrowIcon2 from '../../../assets/Icons/arrowIcon600-128px.png';
 
 const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggested, isDarkMode, allProducts, setSelectedProduct }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const modalRef = useRef(null);
   const dropdownRef = useRef(null);
   const suggestionsRef = useRef(null);
+
+  // refs & state for brand row
+  const brandRef = useRef(null); 
+  const [loadingBrand, setLoadingBrand] = useState(true); 
+  const [brandProducts, setBrandProducts] = useState([]); 
 
   const [quantity, setQuantity] = useState(1);
   const [fadeIn, setFadeIn] = useState(false);
@@ -44,7 +50,52 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   const cartItem = cartItems.find(item => item.id === product.id);
   const currentCartQuantity = cartItem?.quantity || 0;
 
+  // --- NEW: availability & sale ---
+  const stockQty = Number(product?.stockQuantity ?? 0);
+  const isSoldOut = stockQty <= 0;
 
+  const price = typeof product?.price === 'number' ? product.price : Number(product?.price ?? 0);
+  const discount = Number(product?.priceDiscount ?? 0); // flat amount off
+  const isOnSale = !isSoldOut && price > 0 && discount > 0;
+  const finalPrice = isOnSale ? Math.max(price - discount, 0) : price;
+  const percentOff = isOnSale && price > 0 ? Math.round((discount / price) * 100) : null;
+
+  // fetch other products by same brand
+  const fetchBrandProducts = async () => {
+    try {
+      setLoadingBrand(true);
+      if (!product?.brand) {
+        setBrandProducts([]);
+        return;
+      }
+
+      const q = query(
+        collection(firestore, 'products'),
+        where('brand', '==', product.brand)
+      );
+      const snap = await getDocs(q);
+
+      const items = [];
+      snap.forEach((doc) => {
+        const data = doc.data();
+        if (doc.id !== product.id) items.push({ id: doc.id, ...data });
+      });
+
+      // Prefer same subCategory first, then others, keep to 8 like suggestions
+      const sameSub = items.filter(i => i.subCategory === product.subCategory);
+      const diffSub = items.filter(i => i.subCategory !== product.subCategory);
+      const shuffle = (arr) => arr.sort(() => 0.5 - Math.random());
+      const combined = [...shuffle(sameSub), ...shuffle(diffSub)].slice(0, 8);
+
+      setBrandProducts(combined);
+    } catch (e) {
+      console.error('Error fetching brand products:', e);
+      setBrandProducts([]);
+    } finally {
+      setLoadingBrand(false);
+    }
+  };
+  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 870);
@@ -83,13 +134,6 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   }, [product, allProducts]);
 
 
-  // useEffect(() => {
-  //   navigate(
-  //     `${location.pathname}?product=${product.id}`,
-  //     { replace: true }
-  //   );
-  // }, [product.id, location.pathname, navigate]);
-
   useEffect(() => {
     setQuantity(currentCartQuantity > 0 ? currentCartQuantity : 1);
   }, [currentCartQuantity, product.id]);
@@ -98,6 +142,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     setMainImage(product.images?.[0]);
     setActiveThumbnail(product.images?.[0]);
     fetchSuggestedProducts();
+    fetchBrandProducts();
     setFadeIn(true);
     const timer = setTimeout(() => setThumbnailsLoading(false), 500);
     if (modalRef.current) {
@@ -107,6 +152,16 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
     }
     return () => clearTimeout(timer);
   }, [product]);
+
+  const handleNotifyRestock = () => {
+    if (typeof onNotifyRestock === 'function') {
+      onNotifyRestock(product);
+    } else {
+      // fallback: send users to a restock page
+      // navigate(`/restock?pid=${product.id}`, { replace: false });
+      navigate(`/comingsoon`, { replace: false });
+    }
+  };
 
   const handleUpdateQuantity = () => {
     const updatedProduct = {
@@ -122,6 +177,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   };
 
   const handleAddToCart = () => {
+    if (isSoldOut) return; // NEW
     const safeProduct = {
       ...product,
       createdAt: product.createdAt?.toDate
@@ -204,6 +260,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
   };
 
   const handleSelectQuantity = (value) => {
+    if (isSoldOut) return;        // NEW
     setQuantity(value);
     setDropdownOpen(false);
   };
@@ -227,18 +284,29 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
 
         <div className="modal-content styled-content">
           <div className="left styled-left">
-            <div
-              className="image-container"
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <img
-                src={mainImage}
-                alt={product.name}
-                className={`main-image ${isZooming && hasMouseMoved ? 'zooming' : ''}`}
-                style={{ transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%` }}
-              />
+            <div className="image-container" onMouseMove={handleMouseMove} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <img
+              src={mainImage}
+              alt={product.name}
+              className={`main-image ${isZooming && hasMouseMoved ? 'zooming' : ''} ${isSoldOut ? 'is-sold-out' : ''}`}
+              style={{ transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%` }}
+            />
+
+              {isSoldOut && <div className="sold-out-overlay" aria-hidden="true" />}
+
+              {/* SALE badge (top-right) — hidden when sold out */}
+              {/* {isOnSale && !isSoldOut && (
+                <div className="sale-badge" aria-hidden="true">
+                  {percentOff ? `-${percentOff}%` : (t('sale') || 'SALE')}
+                </div>
+              )} */}
+
+              {/* SOLD OUT badge (centered) */}
+              {isSoldOut && (
+                <div className="sold-out-badge center" role="status">
+                  {t('soldOut') || 'Sold Out'}
+                </div>
+              )}
             </div>
           </div>
 
@@ -252,10 +320,32 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                       {t('lowInStock')}
                     </div>
                   )} */}
-                  <div className="price-wrap">
-                    <span className='price'>${product.price?.toFixed(2)} </span>
-                    <span className='currency'>USD</span>
-                  </div>
+                <div className={`price-wrap ${isOnSale ? 'on-sale' : ''} ${isSoldOut ? 'sold-out' : ''}`}>
+                  {isSoldOut ? (
+                    <>
+                      <span className="price current soldout-label">
+                        {t('soldOut') || 'SOLD OUT'}
+                      </span>
+                      <div className='isSoldOut-wrap'>
+                        {price ? <span className="price original">${price.toFixed(2)} <span className="currency">USD</span></span> : null}
+                      </div>
+                    </>
+                  ) : isOnSale ? (
+                    <>
+                      <span className="price current">${finalPrice.toFixed(2)}</span>
+                      <div className='isOnSale-wrap'>
+                        {price ? <span className="price original">${price.toFixed(2)} <span className="currency">USD</span></span> : null}
+                      </div>
+ 
+                    </>
+                  ) : (
+                    <>
+
+                      <span className="price">{price ? `$${price.toFixed(2)}` : '--'}</span>
+                      <span className="currency">USD</span>
+                    </>
+                  )}
+                </div>
                 </div>
                 <div className="subtitle">{product.subtitle}</div>
                 <div className="thumbnail-row">
@@ -284,6 +374,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                         </div>
                       ))}
                 </div>
+                {!isSoldOut && (
                 <div className="quantity-control" ref={dropdownRef}>
                   <div
                     className={`quantity-button ${dropdownOpen ? 'active' : ''} ${
@@ -292,13 +383,15 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                           ? 'quantity-changed'
                           : 'in-bag'
                         : ''
-                    }`}
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    } ${isSoldOut ? 'disabled' : ''}`}                 // NEW
+                    onClick={() => !isSoldOut && setDropdownOpen(!dropdownOpen)}  // NEW
                   >
                     <span className='selected-quantity'>
-                      
-                      {(currentCartQuantity > 0) && (quantity === currentCartQuantity) ?  `${currentCartQuantity} ${t('inBag')}`: `${t('quantity')}: ${quantity}`}
-                      {/* {currentCartQuantity > 0 && ` (${t('inBag')}: ${currentCartQuantity})`} */}
+                      {isSoldOut
+                        ? (t('soldOut') || 'Sold Out')
+                        : ((currentCartQuantity > 0) && (quantity === currentCartQuantity)
+                            ? `${currentCartQuantity} ${t('inBag')}`
+                            : `${t('quantity')}: ${quantity}`)}
                     </span>
                     <span className="arrow">▼</span>
                   </div>
@@ -331,6 +424,7 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                     )}
                   </div>
                 </div>
+                )}
                 <div className={`message-container ${showAddedMessage || showUpdatedMessage ? 'expanded' : ''}`}>
                   {showUpdatedMessage && (
                     <div className="added-message">
@@ -344,27 +438,39 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                   )}
                 </div>
 
-                {cartItem ? (
-                  showUpdateButton && (
-                    <div className="button-group">
-                      <button className="add-to-bag" onClick={handleUpdateQuantity}>
-                        {t('updateQuantity')}
+                <div className="button-group">
+                  {isSoldOut ? (
+                    <button
+                      className="restock-btn"
+                      onClick={handleNotifyRestock}
+                      aria-label={t('notifyMe') || 'Notify Me'}
+                      title={t('notifyMe') || 'Notify Me'}
+                    >
+                      {t('notifyMe') || 'Notify Me'}
+                    </button>
+                  ) : cartItem ? (
+                    showUpdateButton ? (
+                      <>
+                        <button className="add-to-bag" onClick={handleUpdateQuantity}>
+                          {t('updateQuantity')}
+                        </button>
+                        <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
+                          {t('buyNow')}
+                        </button>
+                      </>
+                    ) : null
+                  ) : (
+                    <>
+                      <button className="add-to-bag" onClick={handleAddToCart}>
+                        {t('addToBag')}
                       </button>
                       <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
                         {t('buyNow')}
                       </button>
-                    </div>
-                  )
-                ) : (
-                  <div className="button-group">
-                    <button className="add-to-bag" onClick={handleAddToCart}>
-                      {t('addToBag')}
-                    </button>
-                    <button className="buy-now" onClick={() => onBuyNow(product, quantity)}>
-                      {t('buyNow')}
-                    </button>
-                  </div>
-                )}
+                    </>
+                  )}
+                </div>
+
               </div>
               <div className='btn-inner-wrap-bot'>
                 <div className='top-text'>
@@ -407,10 +513,66 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
                 </div>
               ))
             ) : (
-              <p>{t('noSuggestions')}</p>
+            
+            <div className="noSuggestions-wrapper">
+              <div className="no-suggestions-title">
+                {t('noSuggestionsTitle') || 'No Related Products Found'}
+              </div>
+            </div>
             )}
           </div>
         </div>
+        <ReviewSection
+          productId={product.id}
+          productName={product.name}
+          productSubtitle={product.subtitle}
+          // optional if you want a custom action:
+          // onWriteReview={() => setOpenReviewComposer(true)}
+        />
+
+        {(product.brand && (loadingBrand || brandProducts.length > 0)) && (
+          <div className="suggestions styled-suggestions brand-suggestions">
+            <div className="suggestion-title">
+              <h2>
+                {product.brand
+                  ? t('moreFromBrand', { brand: product.brand })
+                  : t('moreFromBrandGeneric')}
+              </h2>
+            </div>
+            <div className="suggested-items horizontal-scroll" ref={brandRef}>
+              {loadingBrand ? (
+                Array.from({ length: 8 }).map((_, i) => (
+                  <div className="suggested-item skeleton" key={`brand-skel-${i}`}>
+                    <div className="skeleton-box" />
+                  </div>
+                ))
+              ) : brandProducts.length > 0 ? (
+                brandProducts.map((item) => (
+                  <div className="suggested-item" key={`brand-${item.id}`}>
+                    <ProductCard
+                      product={item}
+                      onClick={async () => {
+                        await onSelectSuggested(item);
+                        modalRef.cuwrrent?.scrollTo({ top: 0, behavior: 'smooth' });
+                        brandRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
+                      }}
+                      t={t}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="noSuggestions-wrapper">
+                  <div className="no-suggestions-title">
+                    {t('noSuggestionsTitle') || 'No Related Products Found'}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+
+
         <div className="product-description">
           <div className="description-title">
             <h2>{t('description')}</h2>
@@ -439,7 +601,8 @@ const ProductModal = ({ product, onClose, onAddToCart, onBuyNow, onSelectSuggest
           <p>
             {t('productDisclaimerPart2')}{' '}
             <strong>
-              <a href="/help" style={{ textDecoration: 'underline' }}>
+              {/* <a href="/help" style={{ textDecoration: 'underline' }}> */}
+              <a href="/ComingSoon" style={{ textDecoration: 'underline' }}>
                 {t('learnMore')}
               </a>
             </strong>

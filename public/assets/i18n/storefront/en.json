@@ -17,7 +17,9 @@
      "aisle": " Aisle",
     "addToCart": "Add to Cart",
     "youMayAlsoLike": "You Might Also Like",
-    "noSuggestions": "No suggestions available",
+    "noSuggestionsTitle": "We couldn't find any similar items.",
+    "noSuggestions": "Your feedback helps us recommend better products.",
+    "sendFeedback": "Let us know what you're searching for",
     "description": "Description",
     "noDescription": "No description available",
     "quantity": "Quantity",
@@ -35,7 +37,35 @@
     "removeFromBag": "Remove from Bag",
     "addedToBag": "Added to Bag",
     "updatedQuantity": "Quantity Updated",
-    
     "searchResultsFor": "{{length}} result for “{{searchQuery}}”",
-    "searchResultsFor_plural": "{{length}} results for “{{searchQuery}}”"
+    "searchResultsFor_plural": "{{length}} results for “{{searchQuery}}”",
+    "allCountProducts": "All {{length}} in-store products",
+    
+    "soldOut": "Sold Out",
+    "browseByLabel": "Browse Products by",
+
+    "nothingMatched": "NOTHING MATCHED “{{searchQuery}}”",
+    "noResultsFound": "No Results Found",
+    "tryAnotherSearch": "Try Another Search",
+
+    "notifyMe": "Restock Notification",
+    "viewAllProducts": "View all products",
+
+    "reviews": {
+        "title": "Customer Reviews",
+        "writeFor": "Write a review for {{subtitle}}",
+        "noReviews": "This product doesn’t have any reviews yet",
+        "anonymous": "Anonymous",
+        "verified": "VERIFIED PURCHASE",
+        "flavor": "Flavor: {{flavor}}",
+        "showOriginal": "Show original",
+        "helpful": "Helpful",
+        "notHelpful": "Not helpful",
+        "more": "More",
+        "starsLabel": "{{value}} out of 5"
+    },
+    "moreFromBrand": "More from {{brand}}",
+    "moreFromBrandGeneric": "More from this brand"
+
+    
 }

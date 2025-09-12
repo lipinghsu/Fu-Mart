@@ -17,6 +17,9 @@ body{
   // max-width: 1180px;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 .dark-mode {
   
   --background-color: #000000;

@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
 import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
-import bagIcon from '../../assets/bagIcon-filled.png';
+import bagIcon from '../../assets/Icons/bagIcon-filled.png';
 
 
 
@@ -152,7 +152,7 @@ const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = fals
                         {/* {t('myShop') || 'My Shop'} */}
                         @username
                       </button>
-                      <button className="user-dropdown-btn" onClick={() => navigate('/admin')}>
+                      <button className="user-dropdown-btn sell-now" onClick={() => navigate('/admin')}>
                         {t('sellNow') || 'Sell Now'}
                       </button>
                       <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>

@@ -9,10 +9,8 @@ import {
   removeItem,
   clearCart
 } from '../../redux/cartSlice';
-import closeImage from './../../assets/closeImage.png';
-// make sure you have a red trashcan icon at this path:
-import trashIcon from './../../assets/trashcan-red.png';
-import ConfirmDialog from '../ConfirmDialog'; 
+import closeImage from './../../assets/Icons/closeImage.png';
+import ConfirmDialog from '../ConfirmDialog';
 import './ShoppingBag.scss';
 
 const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
@@ -28,8 +26,10 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const [confirmType, setConfirmType] = useState(null);
   const [targetItemId, setTargetItemId] = useState(null);
 
-  // NEW: track dragging state
   const [isDraggingItem, setIsDraggingItem] = useState(false);
+
+  // NEW: calculate total item count
+  const totalItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -78,7 +78,6 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   };
 
   const handleDragLeaveOverlay = e => {
-    // if you want to hide when dragging out of overlay
     setIsDraggingItem(false);
   };
 
@@ -86,7 +85,15 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
     <>
       <div className={`cart-drawer ${drawerState}`}>
         <div className={`cart-drawer-header ${scrolled ? 'scrolled' : ''}`}>
-          <h2>{t('shoppingBag')}</h2>
+          {/* Bag Title with Total Items */}
+          <h2 className="shopping-bag-title">
+            {t('shoppingBag')} 
+            {totalItemsCount > 0 && (
+              <span className="item-count">
+                &nbsp;({totalItemsCount} {t(totalItemsCount === 1 ? 'item' : 'items')})
+              </span>
+            )}
+          </h2>
           <div className="close-btn" onClick={() => setIsCartOpen(false)}>
             <img src={closeImage} alt={t('close')} />
           </div>
@@ -154,6 +161,14 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
         </div>
 
         <div className="cart-drawer-footer">
+          {totalItemsCount > 0 && (
+            <div
+              className="checkout-text"
+            >
+              {t('checkoutNote')}
+            </div>
+          )}
+
           <button
             className="checkout-btn"
             disabled={cartItems.length === 0}
@@ -167,6 +182,8 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
             <span>{t('proceedToCheckout')}</span>
             <span>${totalAmount.toFixed(2)}</span>
           </button>
+
+          
         </div>
       </div>
 
@@ -179,7 +196,6 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
       >
         {isDraggingItem && (
           <div className="trashcan-indicator">
-            {/* <img src={trashIcon} alt="Trash" /> */}
             Remove
           </div>
         )}

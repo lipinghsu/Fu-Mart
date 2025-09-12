@@ -149,7 +149,7 @@
             justify-content: space-between;
             align-items: center;
             height: 100%;
-            width: calc(100% - 48px);
+            width: calc(100%);
             padding: 32px 24px;
 
             .logo-image-wrap {
@@ -181,6 +181,7 @@
               font-size: 0.95rem;
               text-align: center;
               margin-top: 48px;
+              margin-bottom: 8px;
               font-weight: normal !important;
             }
 
@@ -216,6 +217,10 @@
               width: 100%;
               gap: 12px;
               margin-bottom: 16px;
+              .join-email-input{
+                height: 56px;
+                width: 100%;
+              }
 
               input {
                 width: calc(100% - 24px - 2px);
@@ -312,8 +317,8 @@
           }
 
           .right-content-wrap {
-            width: calc(100% - 32px);
-            height: calc(100dvh - 32px);
+            width: calc(100%);
+            height: calc(100dvh);
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -368,7 +373,7 @@
                 flex-direction: column;
 
                 input {
-                  width: calc(100% - 26px) !important;
+                  width: calc(100%) !important;
                 }
 
                 input,

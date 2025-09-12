@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-import closeImage from './../../assets/closeImage.png';
+import closeImage from './../../assets/Icons/closeImage.png';
 import fumartTextLogo from './../../assets/fumart-text-logo-bombarda.png';
-import fumartLogo from './../../assets/fumart-m-t-bg.png';
 import LanguageDropdown from '../Footer/LanguageDropdown';
 import './SideMenu.scss';
 

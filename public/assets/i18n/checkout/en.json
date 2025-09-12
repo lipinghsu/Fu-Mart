@@ -25,7 +25,7 @@
   "subtotal": "Subtotal",
   "tax": "Tax",
   "discount": "Discount",
-  "total": "Order total",
+  "total": "Order Total",
   "couponApplied": "\"{{code}}\" applied. You saved {{percent}}%!",
   "invalidCoupon": "Invalid coupon code.",
   "login": "Log In",  

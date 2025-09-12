@@ -3,6 +3,7 @@
   "logoAlt": "Fü-Mart 로고",
   "searchPlaceholder": "매장 내 상품 검색",
   "search": "검색",
+  "Search": "검색",
 
   "store": "스토어입장",
   "welcome": "어서오세요",
@@ -20,7 +21,6 @@
   "joinTitlePrefix": "지금 가입하고 전 상품",
   "joinTitlePercent": "20% 할인",
 
-  "latestProducts": "신상품",
 
   "allCategory": "전체",
   "add": "담기",
@@ -55,7 +55,9 @@
   "Uncover Hidden Gems": "숨겨진 보물 찾기",
   "Get Your Favorite Snacks": "좋아하는 간식 가져가기",
 
-  "featuredCategories": "추천 카테고리",
+  "recommendedProducts": "추천 상품",
+  "latestProducts": "신상품",
+  "featuredCategories": "카테고리 탐색",
   "snacks": "스낵",
   "beverages": "음료",
   "Pasta & Noodles": "면류",

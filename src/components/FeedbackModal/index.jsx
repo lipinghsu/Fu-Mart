@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './FeedbackModal.scss';
 import fumartLogo from './../../assets/fumart-m-red-bg.png';
-import closeImage from './../../assets/closeImage.png';
+import closeImage from './../../assets/Icons/closeImage.png';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
 

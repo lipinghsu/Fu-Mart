@@ -408,7 +408,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
-    padding: 24px 32px;
+    padding: 12px 32px;
     width: 100%;
     box-sizing: border-box;
 
@@ -460,23 +460,45 @@
     }
   }
 
-  .search-summary {
+.search-summary {
+  font-size: 1.3rem;
+  font-weight: 500;
+  // margin: auto;
+  width: 100%;
+  max-width: 100vw;
+  // box-sizing: border-box;
+  
+  &.center {
+    text-align: center;
+  }
+
+  &.left {
     text-align: left;
-    // margin: 32px 0 12px;
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin-left: 32px;
-
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    p {
-      color: #666;
-      font-size: 1.1rem;
+    padding-left: 32px;
+    @media (max-width: 520px) {
+      text-align: center;
+      padding: 0 12px;
+      h2{
+font-size: 1.3rem !important;
+      }
+      
     }
   }
+  
+
+  h2 {
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    margin-top: 16px;
+  }
+
+  p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
 }
 
 
@@ -549,6 +571,184 @@
         &.subtitle { background-color: #4d4d4d; }
         &.price { background-color: #3d3d3d; }
       }
+    }
+  }
+}
+
+
+.no-results-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // min-height: 40vh;
+  animation: floatUp 0.7s ease-out;
+}
+
+.no-results-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.no-results {
+  font-weight: 900;
+  font-size: 56px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 48px;
+  
+
+  @media (max-width: 580px) {
+    font-size: 9.5vw;
+  }
+
+  &.solid {
+    color: red;
+    font-weight: bold;
+    letter-spacing: -5px;
+  }
+
+  &.outline {
+    color: transparent;
+    -webkit-text-stroke: 2px red;
+    -moz-text-stroke: 2px red;
+    text-stroke: 2px red;
+    font-weight: bold;
+    letter-spacing: -5px;
+  }
+}
+
+.no-results.subtitle {
+  width: 100%;
+  margin: 20px 12px;
+  font-size: 30px;
+  text-align: right;
+  
+
+  @media (max-width: 580px) {
+    font-size: 4.2vw;
+  }
+}
+
+:root.dark-mode {
+  .no-results {
+    &.outline {
+      -webkit-text-stroke: 2px #ff6b6b;
+      -moz-text-stroke: 2px #ff6b6b;
+      text-stroke: 2px #ff6b6b;
+    }
+
+    &.subtitle {
+      // color: #ff6b6b !important;
+      color:#fff !important;
+    }
+  }
+}
+/* Pagination (before footer) */
+.pagination {
+  display: flex;
+  // flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 32px 24px 32px;
+  width: 100%;
+  .page-nav{
+    // width: 40px !important;
+  }
+  .page-nav,
+  .page-num {
+    border: none;
+    background-color: #f2f2f3;
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+    font-weight: 600;
+    height: 36px;
+    &:hover {
+      background: #020203;
+      color:#f2f2f3;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+    }
+  }
+
+  .page-list {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .page-num.active {
+    color: #f2f2f3;
+    background-color: #020203;
+    border-color: #020203;
+    font-weight: 600;
+  }
+
+  .page-ellipsis {
+    padding: 0 6px;
+    color: #666;
+    user-select: none;
+  }
+
+  @media (max-width: 870px) {
+    padding: 8px 16px 16px 16px;
+
+    .page-list {
+      gap: 6px;
+    }
+
+    .page-nav,
+    .page-num {
+      // padding: 6px 10px;
+      font-size: 0.9rem;
+    }
+  }
+}
+.results-top-anchor {
+  /* Adjust to your header height */
+  scroll-margin-top: 72px;
+
+  @media (max-width: 870px) {
+    scroll-margin-top: 56px;
+  }
+}
+
+/* Dark mode for pagination */
+:root.dark-mode {
+  .pagination {
+    .page-nav{
+      background: #383838 !important;
+    }
+    .page-nav,
+    .page-num {
+      background: #121213;
+      color: #f2f2f3;
+      border-color: #3a3a3b;
+
+      &:hover {
+        background: #f2f2f3 !important;
+        color: #020203;
+      }
+    }
+
+    .page-num.active {
+      background: #f2f2f3 !important;
+      // border-color: #010b3d;
+      color: #020203;
+    }
+
+    .page-ellipsis {
+      color: #aaa;
     }
   }
 }

@@ -2,6 +2,7 @@
   "logoAlt": "Fü-Mart 標誌",
   "searchPlaceholder": "搜尋店內商品",
   "search": "找商品",
+  "Search": "搜尋",    
 
   "store": "進入商店",
   "welcome": "歡迎光臨",
@@ -19,8 +20,7 @@
   "joinTitlePrefix": "立即加入我們",
   "joinTitlePercent": "全店八折",
   "searchPlaceholder": "搜尋店內商品",
-  
-  "latestProducts": "新商品",
+
   "add": "加入",
   "buy": "購買",
   "quantity": "數量",
@@ -50,7 +50,9 @@
   "Uncover Hidden Gems": "挖出隱藏寶藏",
   "Get Your Favorite Snacks": "尋找你最愛的點心",
 
-  "featuredCategories": "精選分類",
+  "recommendedProducts": "精選商品",
+  "latestProducts": "新商品",
+  "featuredCategories": "分類導覽",
   "snacks": "零食",
   "beverages": "飲料",
   "Pasta & Noodles": "麵食",

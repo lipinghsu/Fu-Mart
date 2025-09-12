@@ -312,7 +312,7 @@
         }
 
         .user-dropdown {
-;
+
           position: absolute;
           right: 0;
           // margin-right: 0;
@@ -328,6 +328,9 @@
           gap: 4px;
           z-index: 0; // 確保不被其他元素蓋住
           .user-dropdown-btn{
+            &.sell-now{
+              color: #28A739 !important;
+            }
   
             background-color: transparent;
             box-shadow: none;

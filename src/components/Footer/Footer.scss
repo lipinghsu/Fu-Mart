@@ -111,7 +111,7 @@
     color: #fff;
     
     &:hover{
-      color: #4AD35D !important;
+      color: #e20023 !important;
     }
     &.active{
       // color:#28a739;
@@ -138,11 +138,15 @@
         a{
           cursor: pointer;
           &:hover{
-            color: #e5341d !important; 
+            // color: #e5341d !important; 
+            text-decoration: underline;
+            color: #fff !important;
           }
         }
         .fu-mart-text{
             font-weight: 600;
+            
+            // color: #fff !important;
         }
     }
   }

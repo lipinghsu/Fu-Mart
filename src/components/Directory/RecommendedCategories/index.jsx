@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './RecommendedCategories.scss';
 
-import poster1 from './../../../assets/rec-cat-1.png';
-import poster2 from './../../../assets/rec-cat-2.png';
-import poster3 from './../../../assets/rec-cat-3.png';
-import poster7 from './../../../assets/rec-cat-7.png';
+import poster1 from './../../../assets/CrayonArt/rec-cat-1.png';
+import poster2 from './../../../assets/CrayonArt/rec-cat-2.png';
+import poster3 from './../../../assets/CrayonArt/rec-cat-3.png';
+import poster7 from './../../../assets/CrayonArt/rec-cat-7.png';
 // 
 import titleDecoration from './../../../assets/title-dec.png';
 
@@ -41,7 +41,8 @@ const RecommendedCategories = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = (filter) => {
-    navigate(`/storefront?category=${encodeURIComponent(filter)}`);
+    // navigate(`/storefront?category=${encodeURIComponent(filter)}`);
+    navigate(`/comingSoon`);
   };
 
 
@@ -128,8 +129,6 @@ useEffect(() => {
                 <div className='title-wrap'>
                   {t(category.nameKey)}
                 </div>
-                
-
               </div>
               <span className="shop-now" onClick={() => handleClick(category.filter)}>
                 {t('viewFumartCategory', { category: t(category.nameKey) })}

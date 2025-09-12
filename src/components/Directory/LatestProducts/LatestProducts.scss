@@ -1,6 +1,6 @@
 .latest-products {
   width: 100%;
-  margin-top: 24px;
+  margin-top: 32px;
   border-radius: 12px;
   box-sizing: border-box;
   padding: 8px 32px 0 32px;
@@ -37,6 +37,7 @@
     gap: 12px;
     overflow-x: auto;
     padding: 16px;
+    padding-left: 0;
 
     @media (max-width: 870px) {
       padding: 16px 0;
@@ -57,7 +58,7 @@
       .product-card {
         border-radius: 12px;
         background-color: #f8f8f8f8;
-        transition: all 0.03s ease-out;
+        transition: all 0.02s ease-out;
         width: 240px !important;
 
         &:hover {

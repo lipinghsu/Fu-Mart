@@ -99,7 +99,7 @@
   border-top: 1px solid #e2e2e3;
   background-color: rgba(8, 8, 8, 0.04);
   height: 58px;
-  width: calc(100% - 64px);
+  width: calc(100%);
   padding: 0 32px;
   display: flex;
   justify-content: left;
@@ -457,7 +457,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 32px;
+            height: 56px;
             padding: 12px;
             background-color: #28a73913;
             color: #28a739;
@@ -790,7 +790,9 @@
       .pd-price-wrap,
       .pd-subtitle {
         color: #f2f2f3 !important;
+
       }
+
       .pd-thumbnail-bar.pd-active {
         background-color: #555;
       }

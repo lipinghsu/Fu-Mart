@@ -34,7 +34,7 @@
     "Carbonated Drinks": "탄산음료",
     "Coffee": "커피",
     "Juices": "주스",
-    "Milk & Flavored Milk": "우유 및 맛 우유",
+    "Milk & Plant-Based Milk": "우유와 식물성 우유",
     "Sports Drinks": "스포츠 음료",
     "Tea": "차",
     "Herbal Drinks": "초본차",
@@ -85,6 +85,67 @@
     "addedToBag": "쇼핑백에 추가됐습니다",
     "updatedQuantity": "수량이 업데이트되었습니다",
     "searchResultsFor": "“{{searchQuery}}”의 검색 결과: {{length}}건",
-    "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건"
+    "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건",
+
+    "browseByLabel": "다음 기준으로 보기",
+    "category": "카테고리",
+    "origin": "원산지",
+    "brand": "브랜드",
+    
+    
+    "United States": "미국",
+    "Taiwan": "대만",
+    "Mexico": "멕시코",
+    "Japan": "일본",
+    "South Korea": "대한민국",
+    "Hong Kong": "홍콩",
+    "Thailand": "태국",
+    "China": "중국",
+    "Indonesia": "인도네시아",
+    "Books": "도서",
+    "Beauty": "미용",
+    "Baking Supplies": "베이킹 재료",
+
+    "nothingMatched": "“{{searchQuery}}” 일치 없음",
+    "noResultsFound": "검색 결과가 없습니다",
+    "tryAnotherSearch": "다른 검색어를 시도해 보세요",
+    "soldOut": "품절",
+
+    "notifyMe": "재입고 알림",
+    "viewAllProducts": "모든 상품 보기",
+    "allCountProducts": "{{length}} 개의 매장 내 상품",
+
+    "reviews": {
+      "title": "고객 리뷰",
+      "writeFor": "{{subtitle}} 리뷰 작성",
+      "noReviews": "아직 등록된 리뷰가 없습니다",
+      "anonymous": "익명",
+      "verified": "인증 구매",
+      "flavor": "맛: {{flavor}}",
+      "showOriginal": "원문 보기",
+      "helpful": "도움돼요",
+      "notHelpful": "도움 안 돼요",
+      "more": "더보기",
+      "starsLabel": "{{value}} / 5"
+    },
+    "moreFromBrand": "{{brand}} 더 보기",
+    "moreFromBrandGeneric": "이 브랜드 더 보기",
+
+    "Instant Tea & Concentrate": "즉석 차 & 농축액",
+    "Juice": "주스",
+    "Non-Fiction": "논픽션",
+    "Chili Oil": "고추기름",
+    "Honey": "꿀",
+    "Powder": "분말",
+    "Vinegar": "식초",
+    "Canned Beans": "콩 통조림",
+    "Canned Seafood": "해산물 통조림",
+    "Cakes & Pastries": "케이크 & 페이스트리",
+    "Cookies & Biscuits": "쿠키 & 비스킷",
+    "Popcorn": "팝콘",
+    "Pasta Sauce": "파스타 소스",
+    "Hair Care": "헤어 케어",
+    "Herbal Candy": "허브 캔디",
+    "Flour": "밀가루"
+      
   }
-  

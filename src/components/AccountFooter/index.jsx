@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
-import FeedbackModal from '../FeedbackModal';
 import LanguageDropdown from './LanguageDropdown';
 import './AccountFooter.scss'
 
 const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
-  const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const { t } = useTranslation(['footer']);
-  const location = useLocation();
 
   const languageLabels = {
     en: 'English',
@@ -28,28 +23,6 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
     localStorage.setItem('preferredLanguage', lang);
     setIsLanguageDropdownOpen(false);
     window.location.reload();
-  };
-
-  const handleNewsletterSubmit = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      alert('Please enter a valid email.');
-      return;
-    }
-    setIsSubmitting(true);
-    try {
-      await firestore.collection('newsletterSignups').add({
-        email: email,
-        timestamp: new Date(),
-      });
-      alert("You've been added to our newsletter list.");
-      setEmail('');
-    } catch (err) {
-      console.error('Error signing up:', err);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (

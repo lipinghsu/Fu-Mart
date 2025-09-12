@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './JoinUsModal.scss';
 import modalImage from '../../../assets/dragons-taipei101-view.png';
-// import modalImage2 from '../../../assets/youtiao-sifu.png';
-import fumartLogo from '../../../assets/fumart-text-logo-bombarda.png';
 import fumartLogo2 from '../../../assets/fumart-text-logo-bombarda2.png';
-import closeImage from '../../../assets/closeImage.png';
+import closeImage from '../../../assets/Icons/closeImage.png';
 
 import { useTranslation } from 'react-i18next';
 
@@ -117,6 +115,7 @@ const JoinUsModal = ({ onClose, children }) => {
                 </p>
                 <div className="popup-input-group">
                   <input
+                    className="join-email-input"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}

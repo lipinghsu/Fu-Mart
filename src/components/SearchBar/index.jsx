@@ -17,14 +17,12 @@ import {
 
 import i18n from '../../i18n';
 import './SearchBar.scss';
-import closeImage from '../../assets/closeImage2.png';
-import searchIcon from '../../assets/arrowIcon4.png';
+import closeImage from '../../assets/Icons/closeImage2.png';
+import searchIcon from '../../assets/Icons/arrowIcon4.png';
+import arrowImage from '../../assets/Icons/arrowIcon2.png';
+import searchIcon2 from '../../assets/Icons/search-icon2-800.png';
 
 import FumartLogo from '../../assets/fumart-m-t-bg.png';
-import SearchSwitchIcon from '../../assets/search-switch-icon.png';
-import SearchOffIcon from '../../assets/search-off-icon.png';
-import arrowImage from '../../assets/arrowIcon2.png';
-import searchIcon2 from '../../assets/search-icon2-800.png';
 
 import '../../App.scss';
 
@@ -66,7 +64,16 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
     // split query into unique terms
     const terms = [...new Set(query.trim().split(/\s+/))].map(escapeRegex);
     // build a regex matching any one of them
-    const re = new RegExp(`(${terms.join('|')})`, 'iu');
+    try {
+  const re = new RegExp(`(${terms.join('|')})`, 'giu');
+  const parts = text.split(re);
+  return parts.map((part, idx) =>
+    idx % 2 === 1 ? <strong key={idx}>{part}</strong> : <span key={idx}>{part}</span>
+  );
+} catch (err) {
+  console.error('Regex error:', err);
+  return text;
+}
     // split text on those terms, keeping the matches
     const parts = text.split(re);
     return parts.map((part, idx) =>
@@ -100,6 +107,7 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
     fetchAllProducts();
 
     const lowerQuery = query.toLowerCase();
+
     const queryWords = lowerQuery.split(/\s+/).filter(Boolean);
 
     const exactMatches = allProducts.filter(p =>
@@ -342,12 +350,12 @@ useEffect(() => {
     >
       <form className="cg-searchbar" onSubmit={handleSearch}>
         {isSmallScreen && !isExpanded &&
-          <div className='text'>
-            搜尋
+          <div className='text'
+          >
+            {t('Search')}
         </div>}
 
         <div className={`logo-wrap ${isSmallScreen ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}>
-          
           <img src={(isExpanded || !isSmallScreen) ? FumartLogo : FumartLogo} />
         </div>
         <input
@@ -358,14 +366,18 @@ useEffect(() => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
+          
         />
         
         {(!isSmallScreen || isExpanded) && (
           <div className='cg-clear-btn-container'>
             <div
               type="button"
-              className={`cg-clear-btn ${query ? 'visible' : ''}`}
-              onClick={() => setQuery('')}
+              className={`cg-clear-btn ${(query || isExpanded) ? 'visible' : ''}`}
+              onClick={() => {
+                setQuery('');
+                setIsExpanded(false);
+              }}
               aria-label="Clear search"
             >
               <img src={closeImage} />
@@ -385,21 +397,12 @@ useEffect(() => {
           </div>
         )}
       </form>
-      {isSmallScreen && isExpanded && (
-        <div
-          type="button"
-          className="cg-collapse-search-btn"
-          onClick={() => setIsExpanded(false)}
-        >
-          <div className='search-icon-wrap'>
-            <img src={SearchOffIcon}/>
-          </div>
-          
-        </div>
-      )}
+
       
 
-      <div className={`top-searches suggestion-dropdown ${(query && focused) ? 'active' : ''}`}>
+      <div className={`top-searches suggestion-dropdown ${(query && focused) ? 'active' : ''}`}
+        onMouseLeave={() => setSelectedIndex(-1)}
+      >
         <div className="top-searches-list">
           {matchedProducts.map((product, index) => (
             <div

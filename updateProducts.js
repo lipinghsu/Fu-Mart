@@ -1,10 +1,8 @@
 /**
- * removeQuantity.js
+ * addOriginIfMissing.js
  *
- * Deletes the `quantity` field from every document
- * in the "products" collection.
- *
- * Usage: `node removeQuantity.js`
+ * Adds the `origin` field to any product in Firestore that doesn't already have one.
+ * Usage: `node addOriginIfMissing.js`
  */
 
 import admin from 'firebase-admin';
@@ -15,55 +13,46 @@ import { dirname, join } from 'path';
 // Resolve __dirname (ESM)
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Load and parse the service account JSON
+// Load and parse service account
 const serviceAccountPath = join(__dirname, 'serviceAccountKey.json');
 const rawServiceAccount = await fs.readFile(serviceAccountPath, 'utf8');
 const serviceAccount = JSON.parse(rawServiceAccount);
 
-// Initialize Firebase Admin SDK
+// Initialize Firebase Admin
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 
 const db = admin.firestore();
 
-async function removeQuantityField() {
+async function addOriginIfMissing() {
   try {
-    // 1. Fetch all documents in the "products" collection
-    const productsSnapshot = await db.collection('products').get();
-    const allDocs = productsSnapshot.docs;
-    console.log(`Found ${allDocs.length} product documents.`);
+    const snapshot = await db.collection('products').get();
+    const products = snapshot.docs;
+    console.log(`Found ${products.length} product documents.`);
 
-    if (allDocs.length === 0) {
-      console.log('No products found. Nothing to update.');
-      return;
-    }
+    let updatedCount = 0;
 
-    // 2. Firestore batch write limit is 500 writes per batch
-    const BATCH_SIZE = 500;
-    let batchCount = 0;
-
-    // 3. Iterate in chunks of 500
-    for (let i = 0; i < allDocs.length; i += BATCH_SIZE) {
+    for (let i = 0; i < products.length; i += 500) {
       const batch = db.batch();
-      const chunk = allDocs.slice(i, i + BATCH_SIZE);
+      const chunk = products.slice(i, i + 500);
 
-      chunk.forEach(doc => {
-        // Stage deletion of `quantity` field
-        batch.update(doc.ref, { quantity: admin.firestore.FieldValue.delete() });
+      chunk.forEach((doc) => {
+        const data = doc.data();
+        if (!data.origin) {
+          batch.update(doc.ref, { origin: 'Unknown' }); // <-- Set your default value here
+          updatedCount++;
+        }
       });
 
-      // Commit the batch
       await batch.commit();
-      batchCount++;
-      console.log(`✔ Committed batch ${batchCount} (${chunk.length} documents)`);
+      console.log(`✔ Updated batch of ${chunk.length} documents`);
     }
 
-    console.log('✅ All `quantity` fields have been removed from products.');
-  } catch (error) {
-    console.error('Error removing `quantity` fields:', error);
+    console.log(`✅ Added origin to ${updatedCount} product(s).`);
+  } catch (err) {
+    console.error('❌ Error updating products:', err);
   }
 }
 
-// Execute the function
-removeQuantityField();
+addOriginIfMissing();

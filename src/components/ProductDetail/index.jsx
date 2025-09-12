@@ -9,8 +9,6 @@ import { firestore } from '../../firebase/utils';
 import ProductCard from '../ProductCard';
 import Header from '../Header';
 import Footer from '../Footer';
-import closeImage from '../../assets/closeImage.png';
-import arrowIcon from '../../assets/arrowIcon2.png';
 import fumartLogo from '../../assets/fumart-m-t-bg.png';
 import './ProductDetail.scss';
 
@@ -45,7 +43,21 @@ const ProductDetail = () => {
 
   const modalRef = useRef(null);
   const suggestionsRef = useRef(null);
-  // const showUpdateButton = currentCartQuantity > 0 && quantity !== currentCartQuantity;
+  const showUpdateButton = currentCartQuantity > 0 && quantity !== currentCartQuantity;
+
+  const handleUpdateQuantity = () => {
+  const safeProduct = {
+    ...product,
+    createdAt: product.createdAt?.toDate
+      ? product.createdAt.toDate().toISOString()
+      : product.createdAt,
+    addedQuantity: quantity
+  };
+
+  dispatch(addToCart(safeProduct));
+  setShowUpdatedMessage(true);
+  setTimeout(() => setShowUpdatedMessage(false), 2000);
+};
 
   const handleAddToCart = () => {
     const safeProduct = {

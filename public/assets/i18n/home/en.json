@@ -8,9 +8,9 @@
   "joinTitlePrefix": "Join Us for",
   "joinTitlePercent": "20% OFF",
   "searchPlaceholder": "Search In-Store Products",
-
-  "latestProducts": "New Arrivals",
-
+ 
+  "Search": "Search",  
+  
   "allCategory": "All",
   "add": "Add",
   "buy": "Buy",
@@ -34,7 +34,9 @@
   "signupDesc": "If grandma wouldn’t buy it, then Fü-Mart wouldn’t sell it.",
   "signupNow": "Sign Up",
 
-  "featuredCategories": "Featured Categories",
+  "latestProducts": "New Arrivals",
+  "recommendedProducts": "Featured Products",
+  "featuredCategories": "Categories to Explore",
   "snacks": "Snacks",
   "beverages": "Beverages",
   "Pasta & Noodles": "Pasta & Noodles",
