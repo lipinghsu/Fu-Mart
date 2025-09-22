@@ -2,7 +2,7 @@
   "loginTitle": "ログイン",
   "loginSubtitle": "Fü-Martポイントを集め始めよう",
   "emailPlaceholder": "メールアドレス",
-  "phonePlaceholder": "電話番号",
+  "usernamePlaceholder": "ユーザー名",
   "passwordPlaceholder": "パスワード",
   "logIn": "ログイン",
   "forgotPassword": "パスワードをお忘れですか？",
@@ -20,5 +20,12 @@
   "signingUp": "登録中...",
   "sending": "送信中...",
   "dontHaveAnAccount": "アカウントをお持ちではありませんか？",
-  "joinFumart": "Fü-Martに参加する"
+  "joinFumart": "Fü-Martに参加する",
+  "disclaimer": {
+    "continue": "続行すると",
+    "terms": "利用規約",
+    "and": "と",
+    "privacy": "プライバシー",
+    ".": "に同意します。"
+  }
 }

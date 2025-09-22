@@ -1,0 +1,26 @@
+{
+  "priceTitleWithWindow": "價格趨勢: {{n}}{{unit}}",
+  "priceTitle": "{{name}} 價格紀錄",
+
+  "ytdShort": "今年",
+  "allShort": "全部",
+  "unit": { "days": "天" },
+  "range": {
+    "label": "區間",
+    "1M": "1個月",
+    "3M": "3個月",
+    "6M": "6個月",
+    "YTD": "今年",
+    "1Y": "1年",
+    "ALL": "全部"
+  },
+  "rangeLabel": {
+    "pastMonth": "過去一個月",
+    "past3Months": "過去三個月",
+    "past6Months": "過去六個月",
+    "ytd": "自今年以來",
+    "pastYear": "過去一年",
+    "allTime": "所有時間"
+  },
+  "lastSold": "最近成交"
+}

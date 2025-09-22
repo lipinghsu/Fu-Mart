@@ -33,13 +33,15 @@
   border-radius: 16px;
   margin-top: 8px;
   // border: 1px solid #e2e2e3;
-  box-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.18);
   width: 420px;
   max-width: calc(100% - 24px);
   text-align: center;
   animation: floatUp 0.4s ease-out;
-  transform: translateY(-37px);
-
+  transform: translateY(-36px);
+  @media (max-width: 520px) {
+    padding: 18px;
+  }
   .login-logo {
     border-radius: 50%;
     max-width: 64px;
@@ -71,7 +73,7 @@
       border-radius: 10px;
       height: 54px;
       font-size: 0.95rem;
-      border: 1px solid #a2a2a3;
+      border: 1px solid #c8c8c8;
       background-color: #f7f7f8;
       color: #121213;
       transition: border-color 0.05s ease-out;
@@ -98,7 +100,7 @@
 
       &:hover {
         z-index: 1000;
-        border-color: #727273;
+        border-color: #a2a2a3;
         background-color: #f0f0f0;
       }
 
@@ -117,6 +119,8 @@
       color: #727273;
       text-decoration: none;
       margin: 0 0 12px;
+      width: fit-content;
+      margin-left: auto;
 
       &:hover {
         color: #e20023;
@@ -155,7 +159,7 @@
   }
 
   .login-links {
-    margin-top: 16px;
+    margin-top: 20px;
     font-size: 0.9rem;
     color: #727273;
     display: flex;
@@ -195,7 +199,7 @@
   }
 
   .login-card {
-    background-color: #1b1b1b;
+    background-color: #121213;
     border: 0.5px solid #82828322;
     color: #f2f2f3;
 
@@ -209,30 +213,25 @@
     }
 
     input {
-      background-color: #2b2b2b;
-      // background-color: (255, 255, 255, 0.75);
-      color: #d2d2d3;
-      border: 1px solid #424243;
-      &::placeholder {
-        
-        color: #d2d2d3;
-      }
+      background-color: #222;
+      color: #f2f2f3;
+      border: 1px solid #444;
       &:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #1c1c1e inset !important; // set autofill background color
-  -webkit-text-fill-color: #f2f2f3 !important; // set text color
-  transition: background-color 9999s ease-in-out 0s !important;
+        -webkit-box-shadow: 0 0 0 1000px none inset !important; // background color
+        -webkit-text-fill-color: #f2f2f3 !important; // text color
+        transition: background-color 9999s ease-in-out 0s;
       }
 
       &:hover {
+        border-color: #28A73988;
         background-color: #424243 !important;
-        border-color: #28A739;
+        // z-index: 1000;
       }
-
       &:focus {
-        border-color: #28A739;
+        border-color: #28A739 ;
+        background-color: #020203 !important;
       }
     }
-
     .fgpw {
       color: #a2a2a3;
       &:visited{
@@ -263,7 +262,7 @@
       }
 
       span {
-        color: #828283;
+        color: #727273;
       }
     }
   }
@@ -306,6 +305,7 @@
     background-color: #0b0b0b;
     border: none;
     box-shadow: none;
+    
   }
 }
 

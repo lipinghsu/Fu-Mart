@@ -7,8 +7,7 @@ import FeedbackModal from '../FeedbackModal';
 import LanguageDropdown from './LanguageDropdown';
 import SignupSection from './SignupSection';
 import titleDecoration from './../../assets/title-dec2.jpeg';
-import taipeiText from '../../assets/taipei-text.png';
-import { useSpotify } from '../../context/SpotifyContext';
+import taipeiText from '../../assets/bsts.png';
 import './Footer.scss';
 
 const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
@@ -18,12 +17,9 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const { t } = useTranslation(['footer']);
   const location = useLocation();
-
-  // Obtain shared Spotify state and controls
-  const { isSpotifyOpen, toggleSpotifyOpen, isPlaying } = useSpotify();
   const languageLabels = {
     en: 'English',
-    'zh-TW': '中文 (臺灣)',
+    'zh-TW': '繁體中文',
     jp: '日本語',
     kr: '한국어',
   };
@@ -75,12 +71,6 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
         </>
       )}
       <footer className="cg-footer">
-        <div className={`spotify-player-container ${isSpotifyOpen ? 'active' : ''}`}>
-          <div className="close-spotify-btn" aria-label="Close player" onClick={toggleSpotifyOpen} />
-          <div className="spotify-player-wrap">
-            <div id="spotify-embed" />
-          </div>
-        </div>
 
         <div className="cg-footer-left">
           <a
@@ -135,12 +125,10 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
         <div className="cg-footer-center">
           <a
             className="spotify-toggle-btn"
-            onClick={(e) => { e.preventDefault(); toggleSpotifyOpen(); }}
           >
             <img
               src={taipeiText}
-              alt={isPlaying ? 'Pause music' : 'Play music'}
-              className={isPlaying ? 'taipei-text active' : 'taipei-text'}
+              className={true ? 'taipei-text active' : 'taipei-text'}
               draggable={false}
             />
           </a>

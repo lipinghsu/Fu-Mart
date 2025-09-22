@@ -2,13 +2,13 @@
     "loginTitle": "Log In",
     "loginSubtitle": "Start collecting Fü-Mart points",
     "emailPlaceholder": "Email",
-    "phonePlaceholder": "Phone Number",
+    "usernamePlaceholder": "Username",
     "passwordPlaceholder": "Password",
     "logIn": "Log In",
     "signUp": "Sign Up",
     "forgotPassword": "Forgot your password?",
     "signupTitle": "Sign Up",
-    "signupSubtitle": "Join Fü-Mart now",
+    "signupSubtitle": "Join Taipei’s global corner store",
     "namePlaceholder": "Full Name",
     "confirmPasswordPlaceholder": "Confirm Password",
     "alreadyHaveAccount": "Already have an account?",
@@ -20,5 +20,12 @@
     "signingUp": "Signing up...",
     "sending": "Sending...",
     "dontHaveAnAccount": "Don't have an account?",
+    "disclaimer": {
+      "continue": "By continuing, you agree to our",
+      "terms": "Terms",
+      "and": "&",
+      "privacy": "Privacy",
+      ".": "."
+    },
     "joinFumart": "Join Fü-Mart"
   }

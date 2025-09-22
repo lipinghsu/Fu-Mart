@@ -111,7 +111,7 @@
     "tryAnotherSearch": "다른 검색어를 시도해 보세요",
     "soldOut": "품절",
 
-    "notifyMe": "재입고 알림",
+    "notifyMe": "상품입고 알림받기",
     "viewAllProducts": "모든 상품 보기",
     "allCountProducts": "{{length}} 개의 매장 내 상품",
 
@@ -146,6 +146,9 @@
     "Pasta Sauce": "파스타 소스",
     "Hair Care": "헤어 케어",
     "Herbal Candy": "허브 캔디",
-    "Flour": "밀가루"
+    "Flour": "밀가루",
+    "Product Related Videos": "상품 관련 영상",
+    "noBrandProductsTitle": "해당 브랜드의 다른 상품이 없습니다",
+    "noBrandProductsMsg": "현재 “{{brand}}” 브랜드의 다른 상품을 찾을 수 없습니다."
       
   }

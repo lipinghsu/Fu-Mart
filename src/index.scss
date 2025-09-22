@@ -9,7 +9,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  --kb-offset: 0px
 }
 
 body {
@@ -17,6 +17,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: red !important;
+  
 }
 
 html{

@@ -2,7 +2,7 @@
     "loginTitle": "로그인",
     "loginSubtitle": "Fü-Mart 포인트를 모으기 시작하세요",
     "emailPlaceholder": "이메일",
-    "phonePlaceholder": "전화번호",
+    "usernamePlaceholder": "사용자명",
     "passwordPlaceholder": "비밀번호",
     "logIn": "로그인",
     "forgotPassword": "비밀번호를 잊으셨나요?",
@@ -20,6 +20,13 @@
     "signingUp": "가입 중...",
     "sending": "보내는 중...",
     "dontHaveAnAccount": "아직 계정이 없으신가요?",
+    "disclaimer": {
+      "continue": "계속하면",
+      "terms": "이용 약관",
+      "and": "및",
+      "privacy": "개인정보",
+      ".": "에 동의합니다."
+    },
     "joinFumart": "Fü-Mart 회원 되기"
   }
   

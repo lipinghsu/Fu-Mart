@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import closeImage from './../../assets/Icons/closeImage.png';
-import fumartTextLogo from './../../assets/fumart-text-logo-bombarda.png';
+import fumartTextLogo from './../../assets/fm-bsts.png';
 import LanguageDropdown from '../Footer/LanguageDropdown';
 import './SideMenu.scss';
 
 const languageLabels = {
   en: 'English',
-  'zh-TW': '中文 (臺灣)',
+  'zh-TW': '繁體中文',
   jp: '日本語',
   kr: '한국어',
 };
@@ -89,7 +89,7 @@ const SideMenu = ({ isOpen, onClose, searchExpanded, isDarkMode, toggleDarkMode 
         </div>
         <div className='side-menu-footer'>
           {/* <div>
-             福罵集團
+             福碼集團
           </div> */}
           <a
             href='/'

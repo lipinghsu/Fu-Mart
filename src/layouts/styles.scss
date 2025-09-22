@@ -1,3 +1,10 @@
+.flex-wrapper-main-layout{
+    height: 100dvh;
+    .main-layout-wrap{
+        height: 100%;
+    }
+}
+
 
 
 .flex-wrapper-account-layout{
@@ -14,7 +21,7 @@
         display: flex;
         // padding: 0px;
         // margin-top: auto;
-        background-color: #f2f2f3;
+        background-color: transparent;
         justify-content: center;
         &.scrolled{
             box-shadow: none !important;
@@ -36,12 +43,18 @@
             }
         }
     }
+    .site-footer{
+        background-color: transparent;
+    }
     .main-account{
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         background-color: #f2f2f3;
+        @media (max-width: 520px) {
+            background-color: #f8f8fb;
+        }
     }
 }
 

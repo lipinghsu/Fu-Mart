@@ -29,10 +29,10 @@ const AboutUs = () => {
       <div className="about-card" ref={cardRef}>
 
 
-        <h1 className="about-title">關於福罵</h1>
+        <h1 className="about-title">關於福碼</h1>
 
         <p className="about-paragraph">
-          福罵（Fü-Mart） 是一個創立於 2025 年的線上便利商店，
+          福碼（Fü-Mart） 是一個創立於 2025 年的線上便利商店，
           創辦人為一位移民加州的臺裔華僑，在返臺期間厭倦了複雜的傳統購物方式以及被外商統治的街頭。
           目前販售的商品大多來自創辦人在亞洲與美洲的生活經驗；從童年記憶裡的零食、旅途中挖到的寶物，到單純有趣、值得收藏的日用品，每一樣商品都是生活故事的延伸。
           這個平臺未來的目標是成為一個能讓臺灣人可以快速交易、自由分享的媒介，讓大家把時間省下來去做真正熱愛的事情。
@@ -51,7 +51,7 @@ const AboutUs = () => {
         </p>
 
         <button className="join-button" onClick={() => navigate('/signup')}>
-          加入福罵
+          加入福碼
         </button>
         {/* some chat gpt bs */}
         

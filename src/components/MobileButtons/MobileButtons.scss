@@ -5,11 +5,6 @@
     height: 0;
   }
 
-  .mobile-search-bar {
-    padding: 0 16px;
-    margin-bottom: 12px;
-  }
-
   .cg-searchbar-container.mobile {
     position: fixed;
     bottom: 16px;
@@ -23,14 +18,14 @@
     align-items: center;
     cursor: pointer;
     transition: width 0.25s ease-out, padding 0.25s ease-out;
-
+    
     form {
       display: flex;
       align-items: center;
     }
 
     .cg-searchbar {
-      height: 48px;
+      height: 50px;
       border-radius: 28px;
       display: flex;
       align-items: center;
@@ -39,6 +34,9 @@
       /* small horizontal breathing room while still hugging content */
       // padding: 0 8px;
       gap: 8px;
+      background-color: #e2e2e0d8;
+      border: 1px solid #c8c8c8f1;
+      backdrop-filter: saturate(180%) blur(1.5px);
 
       &:hover{
         background-color: #ebebeb;
@@ -64,13 +62,13 @@
       .logo-wrap{
         /* remove auto push so container truly hugs text + logo */
         margin-left: auto;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         transform: none; /* was translate(-1px, 0px); */
         // background-color: pink;
         background-color: black;
 
-        flex: 0 0 36px; /* prevent shrinking */
+        flex: 0 0 40px; /* prevent shrinking */
 
         img{
           filter:invert(1);
@@ -79,7 +77,7 @@
 
       .cg-search-input {
         width: 100%;
-        padding-right: 4px;
+        padding-right: 5px;
       }
     }
   }
@@ -89,10 +87,10 @@
     // right: 16px;
     width: calc(100%);
     right: 0px;
-    bottom: 4px;
+    bottom: 0px;
     height: auto;
     border-radius: 12px;
-    padding: 12px 5px;
+    padding: 12px 8px;
     cursor: default;
     background-color: #727273f1;
 

@@ -7,7 +7,7 @@
 
   "store": "스토어입장",
   "welcome": "어서오세요",
-  "login": "계정로긴",
+  "login": "로그인",
   "signup": "회원가입",
   "logout": "로그아웃",
   "loggedOut": "로그아웃되었습니다.",
@@ -50,8 +50,8 @@
   "learnMore": "자세히 보기",
 
   "Search In-Store Products": "매장 상품 검색",
-  "Browse Treats From Asia": "아시아 간식 둘러보기",
-  "Search by Flavor or Origin": "맛으로 검색하기",
+  "Discover Treats From East Asia": "동아시아 간식 둘러보기",
+  "Browse by Brand or Origin": "브랜드 또는 원산지별로 둘러보기",
   "Uncover Hidden Gems": "숨겨진 보물 찾기",
   "Get Your Favorite Snacks": "좋아하는 간식 가져가기",
 

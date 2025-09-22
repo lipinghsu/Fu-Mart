@@ -1,0 +1,26 @@
+{
+  "priceTitleWithWindow": "가격 추세: {{n}}{{unit}}",
+  "priceTitle": "{{name}} 가격 기록",
+
+  "ytdShort": "연초이후",
+  "allShort": "전체",
+  "unit": { "days": "일" },
+  "range": {
+    "label": "기간",
+    "1M": "1개월",
+    "3M": "3개월",
+    "6M": "6개월",
+    "YTD": "연초이후",
+    "1Y": "1년",
+    "ALL": "전체"
+  },
+  "rangeLabel": {
+    "pastMonth": "지난 한 달",
+    "past3Months": "지난 세 달",
+    "past6Months": "지난 여섯 달",
+    "ytd": "올해부터 지금까지",
+    "pastYear": "지난 1년",
+    "allTime": "전체 기간"
+  },
+  "lastSold": "마지막 판매가"
+}

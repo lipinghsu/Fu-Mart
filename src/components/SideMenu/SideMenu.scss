@@ -106,7 +106,7 @@
       // margin-top: auto;
       // margin-bottom: 0;
       width: 172px;
-      filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg)
+      // filter: invert(88%) sepia(98%) saturate(7456%) hue-rotate(1deg)
       // width: 36px;
       // height: 36px;
       // border-radius: 18px;
@@ -241,16 +241,22 @@
       border-top: 1px solid #383838 !important; 
       a{
         color: #f2f2f3;
+        &:hover{
+          color: #e5341d !important;
+        }
       }
+
     }
     .side-menu-header {
+      background-color: #0b0b0c;
       border-bottom: 1px solid #383838;
+      // filter: hue-rotate(290deg);
 
       h2 { 
         color: #f2f2f3; 
         .side-menu-logo-wrap{
           img{
-            // filter: invert(1);
+            filter: c(1.1);
           }
         }
       }

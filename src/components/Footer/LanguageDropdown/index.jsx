@@ -25,8 +25,9 @@ const LanguageDropdown = ({ isOpen, setIsOpen, onSelect }) => {
   const languages = [
     { code: 'jp',   label: '日本語' },
     { code: 'kr',   label: '한국어' },
-    { code: 'zh-TW',label: '中文 (臺灣)' },
+    { code: 'zh-TW',label: '繁體中文' },
     { code: 'en',   label: 'English' },
+    
   ];
 
   return (

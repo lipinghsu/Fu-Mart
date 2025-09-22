@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
 
   const languageLabels = {
     en: 'English',
-    'zh-TW': '中文 (臺灣)',
+    'zh-TW': '繁體中文',
     jp: '日本語',
     kr: '한국어',
   };
@@ -41,8 +41,8 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
           </a>{' '}
           {' '}|{' '}
 
-          <Link to="/terms">{t('terms')}</Link> |{' '}
-          <Link to="/privacy">{t('privacy')}</Link> {' '}|{' '}
+          {/* <Link to="/terms">{t('terms')}</Link> |{' '} */}
+          {/* <Link to="/privacy">{t('privacy')}</Link> {' '}|{' '} */}
           {/* <a
             className="feedback-link"
             onClick={(e) => {
@@ -53,7 +53,7 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
             {t('feedback')}
           </a>{' '} */}
           
-          {/* <a
+          <a
             className="dark-mode-toggle"
             onClick={(e) => {
               e.preventDefault();
@@ -63,7 +63,7 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
             {isDarkMode ? t('dark') : t('light')}
           </a>
 
-            {' '}|{' '} */}
+            {' '}|{' '}
           
           <a
             className="lang-button"

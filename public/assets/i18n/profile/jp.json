@@ -1,0 +1,49 @@
+{
+  "Cancel": "キャンセル",
+  "Email": "メールアドレス",
+  "Password": "パスワード",
+  ".": "",
+  "Size": "サイズ",
+  "close": "閉じる",
+  "language": "言語",
+  "confirm": "確認",
+  "cancel": "キャンセル",
+  "light": "ライトモード",
+  "dark": "ダークモード",
+  "login": "ログイン",
+  "signup": "新規登録",
+  "aboutus": "私たちについて",
+
+  "storefront": "ストア",
+  "shop": "ショップ",
+  "likes": "いいね",
+  "products": "商品",
+  "sold": "販売数",
+  "joinedFull": "登録日 {{date}}",
+
+  "emptyLikesTitle": "いいね一覧は空です",
+  "emptyLikesDesc": "{{handle}} はまだ商品にいいねしていません。",
+
+  "inventoryEmptyTitle": "在庫は空です",
+  "inventoryEmptyDescWithHandle": "{{handle}} はまだ商品を投稿していません。",
+  "inventoryEmptyDescSeller": "この出品者はまだ商品を投稿していません。",
+
+  "buy": "購入する",
+  "saleTagQty": "セール：在庫 {{qty}}",
+  "discountOffFumart": "Fü-Mart {{pct}}%オフ",
+  "pctBelowFumart": "Fü-Mart より {{pct}}%お得",
+  "instockQty": "在庫 {{qty}}",
+  "available": "購入可",
+  "deal": "お買い得",
+  "viewBuy": "表示／購入",
+
+  "searchShop": "このショップを検索…",
+  "searchLikes": "いいねした商品を検索…",
+
+  "sortBy": "並び替え",
+  "sort.new": "新着",
+  "sort.price_asc": "価格：安い順",
+  "sort.price_desc": "価格：高い順",
+
+  "currency.USD": "USD"
+}

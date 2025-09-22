@@ -65,7 +65,10 @@
         "starsLabel": "{{value}} out of 5"
     },
     "moreFromBrand": "More from {{brand}}",
-    "moreFromBrandGeneric": "More from this brand"
+    "moreFromBrandGeneric": "More from this brand",
+    "Product Related Videos": "Product Related Videos",
 
+    "noBrandProductsTitle": "No other products from this brand",
+    "noBrandProductsMsg": "We couldn’t find other products from {{brand}}."
     
 }

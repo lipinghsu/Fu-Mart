@@ -109,7 +109,7 @@
 
   "soldOut": "売り切れ",
 
-  "notifyMe": "再入荷通知",
+  "notifyMe": "再入荷通知の設定",
   "viewAllProducts": "すべての商品を見る",
   "allCountProducts": "{{length}} 点の店内商品",
 
@@ -145,5 +145,8 @@
   "Pasta Sauce": "パスタソース",
   "Hair Care": "ヘアケア",
   "Herbal Candy": "ハーブキャンディー",
-  "Flour": "小麦粉"
+  "Flour": "小麦粉",
+  "Product Related Videos": "商品関連動画",
+  "noBrandProductsTitle": "このブランドの他の商品はありません",
+  "noBrandProductsMsg": "現在「{{brand}}」の他の商品は見つかりません。"
 }

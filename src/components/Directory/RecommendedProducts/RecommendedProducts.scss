@@ -3,20 +3,20 @@
   margin-top: 24px;
   border-radius: 12px;
   box-sizing: border-box;
-  padding: 8px 32px 0 32px;
+  padding: 8px 32px 32px 32px;
 
   @media (max-width: 870px) {
-    padding: 0 12px;
+    padding: 0 12px 24px 12px;
   }
 
   .rec-products-title {
     text-align: left;
     display: flex;
     align-items: center;
-    padding-bottom: 4px;
+    padding-bottom: 16px;
 
     @media (max-width: 870px) {
-      padding: 8px 0 0 8px;
+      padding: 8px 0 16px 8px;
     }
 
     div {
@@ -32,44 +32,82 @@
     }
   }
 
+  /* Wrapper for scroller and hover-only arrow images */
+  .rec-scroll-wrap {
+    position: relative;
+  }
+  .rec-scroll-wrap:hover .scroll-hint-wrap:not(.is-hidden) {
+  opacity: 1;
+  visibility: visible;
+}
+
   .rec-product-list {
+    /* Sizing vars (JS sets --slot-px and may change visible count) */
+    --cards-visible: 7;
+    --gap: 12px;
+    --slot: calc((100% - (var(--cards-visible) - 1) * var(--gap)) / var(--cards-visible));
+
+    position: relative;
     display: flex;
-    gap: 12px;
+    align-items: stretch;
+    gap: var(--gap);
+
+    /* Important: no inner padding (prevents peeking) */
+    padding: 0;
+
     overflow-x: auto;
-    padding: 16px;
-    padding-left: 0;
-    @media (max-width: 870px) {
-      padding: 16px 0;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    scrollbar-gutter: stable both-edges;
+
+    > * { flex-shrink: 0; }
+
+    /* Hover discoverability: thin scrollbar + grab cursor */
+    &:hover {
+      cursor: grab;
+      scrollbar-width: thin; /* Firefox */
     }
+    &:active { cursor: grabbing; }
 
+    /* WebKit scrollbar only visible on hover */
+    &::-webkit-scrollbar { height: 0; transition: height 0.15s ease; }
+    &:hover::-webkit-scrollbar { height: 6px; }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.28);
+      border-radius: 999px;
+    }
+    &::-webkit-scrollbar-track { background: transparent; }
 
-    &.horizontal-scroll {
-      /* hide scrollbar across browsers */
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    // default hide scroll bar
+    &.horizontal-scroll{
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;     /* Firefox */
+      &::-webkit-scrollbar { display: none; } /* Chrome, Safari */
     }
 
     .rec-product-item {
+      /* Use exact pixel slot if JS set it; else fallback calc */
+      flex: 0 0 var(--slot-px, var(--slot));
+      min-width: var(--slot-px, var(--slot));
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      box-sizing: border-box;
+
       .product-card {
+        width: 100% !important;     /* fill the slot */
         border-radius: 12px;
         background-color: #f8f8f8f8;
         transition: all 0.03s ease-out;
-        width: 240px !important;
 
         &:hover {
           box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.1);
-          background-color: #f0f2f6 !important;
+          background-color: #f0f4f8 !important;
         }
       }
 
       .product-card-skeleton {
-        display: flex;
-        flex-direction: column;
-        width: 256px;
+        width: 100%;
         height: 375px;
         border-radius: 12px;
         background-color: #f0f0f0;
@@ -79,12 +117,7 @@
         .skeleton-image {
           width: 100%;
           height: 260px;
-          background: linear-gradient(
-            90deg,
-            #e0e0e0 0%,
-            #f4f4f4 50%,
-            #e0e0e0 100%
-          );
+          background: linear-gradient(90deg, #e0e0e0 0%, #f4f4f4 50%, #e0e0e0 100%);
           background-size: 200% 100%;
           animation: shimmer 1.2s infinite ease-in-out;
         }
@@ -92,37 +125,102 @@
         .skeleton-text {
           margin: 0 16px;
           border-radius: 4px;
-          background: linear-gradient(
-            90deg,
-            #e0e0e0 0%,
-            #f4f4f4 50%,
-            #e0e0e0 100%
-          );
+          background: linear-gradient(90deg, #e0e0e0 0%, #f4f4f4 50%, #e0e0e0 100%);
           background-size: 200% 100%;
           animation: shimmer 1.2s infinite ease-in-out;
 
-          &.title {
-            height: 22.5px;
-            width: 60%;
-            margin-top: 18px;
-            margin-bottom: 4px;
-          }
-          &.sub-title {
-            height: 16px;
-            width: 80%;
-            margin-bottom: 15px;
-          }
-          &.price {
-            height: 16px;
-            width: 40%;
-          }
+          &.title { height: 22.5px; width: 60%; margin-top: 18px; margin-bottom: 4px; }
+          &.sub-title { height: 16px; width: 80%; margin-bottom: 15px; }
+          &.price { height: 16px; width: 40%; }
         }
       }
     }
   }
+
+  /* Hover-only arrow images (centered via a flex wrapper) */
+  .scroll-hint-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;                 /* tap target width; adjust as needed */
+    display: flex;
+    align-items: center;         /* vertical center for the img/button */
+    justify-content: center;     /* horizontal center within the wrap */
+    pointer-events: none;        /* wrapper is transparent to pointer */
+    opacity: 1;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+    z-index: 3;                  /* above the scroller */
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+
+    &.left  {
+      left: -24px;
+      @media (max-width: 520px) {
+        left: -12px;
+      }
+      .scroll-hint-button{
+        // background-color: red;
+        img { transform: translateX(-1px) scale(-1, 0.80); }
+      }
+      
+    }
+
+    &.right {
+      right: -18px;
+      @media (max-width: 520px) {
+        right: -12px;
+      }
+      .scroll-hint-button{
+        img { transform: translateX(1px) scale(1, 0.80); }
+      }
+      
+    }
+
+    &.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .scroll-hint-button {
+      pointer-events: auto;          /* make the button clickable */
+      background-color: #f2f2f3bb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 0;
+      padding: 4px;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+
+      &:hover { 
+        transform: translateY(-1px); 
+        .scroll-hint-img {
+          filter:invert(0);
+        }
+
+      }
+      &:active { transform: translateY(0); }
+
+      .scroll-hint-img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        // filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+        transition: transform 0.18s ease;
+        border-radius: 50%;
+        filter:invert(0.4);
+      }
+    }
+
+    /* mirror helper if you prefer to flip via class instead of inline transform */
+    .scroll-hint-img.mirror { transform: scaleX(-1); }
+  }
 }
 
-/* Dark mode overrides for LatestProducts */
+/* Dark mode tweaks for arrows + scrollbar */
 :root.dark-mode {
   .rec-products {
     background-color: #121213 !important;
@@ -131,16 +229,11 @@
       .product-card {
         background-color: #222223 !important;
         box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.23);
-
-        &:hover {
-          background-color: #010b37 !important;
-        }
+        &:hover { background-color: #010b37 !important; }
       }
-
       .product-card-skeleton {
         background-color: #111;
         box-shadow: 0 0.5px 2px rgba(255, 255, 255, 0.12);
-
         .skeleton-image,
         .skeleton-text {
           background: linear-gradient(
@@ -154,6 +247,29 @@
           background-size: 200% 100%;
           animation: shimmer 2.3s infinite ease-in-out;
         }
+      }
+    }
+
+    .rec-product-list {
+      &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.35); }
+    }
+
+    .scroll-hint-wrap .scroll-hint-img {
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)) brightness(1.05);
+    }
+    .scroll-hint-wrap{
+      .scroll-hint-button {
+        background-color: #323233;
+        &:hover{
+          background-color: #525253;
+          .scroll-hint-img {
+            filter:invert(1);
+          }
+        }
+        .scroll-hint-img {
+          filter:invert(0.6);
+        }
+
       }
     }
   }

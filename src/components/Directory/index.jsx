@@ -16,7 +16,8 @@ import LatestProducts from './LatestProducts';
 import RecommendedCategories from './RecommendedCategories';
 import RecommendedProducts from './RecommendedProducts';
 
-import topSectionImage from './../../assets/fu.png';
+// import topSectionImage from './../../assets/.png';
+import topSectionText from './../../assets/tpc-metal.png';
 
 import './Directory.scss';
 
@@ -88,13 +89,14 @@ const Directory = ({}) => {
         />
         <div className="cg-main">
           <div className="top-section">
-            <div className="top-section-img-wrap">
-              <img src={topSectionImage} alt="banner" />
+
+            <div className="top-section-text">
+              <img src={topSectionText} alt="banner" />
             </div>
           </div>
           {/* <LatestProducts products={latestProducts} /> */}
           <RecommendedProducts products={latestProducts} />
-          <RecommendedCategories />
+          {/* <RecommendedCategories /> */}
         </div>
         <Footer
           isDarkMode={isDarkMode}

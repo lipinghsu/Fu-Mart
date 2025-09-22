@@ -7,7 +7,7 @@
     flex: 0 0 auto; // prevent shrinking
     height: 32px;
     width: 32px;
-    border-radius: 20px;
+    border-radius: 16px;
     margin-left: 12px;
     background-color: rgba(217,45,23,255);
     display: flex;
@@ -27,7 +27,7 @@
     }
     &.mobile{
       // background-color: transparent;
-      padding: 4px;
+      padding: 2px;
       margin-right: 4px;
       img {
         width: 105%;
@@ -66,6 +66,7 @@
     &:hover{
       box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.33);
     }
+
   }
 
   .cg-search-input {
@@ -143,10 +144,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 16px;
+    // background-color: red;
     .cg-clear-btn {
       background-color: #0000000b;
       cursor: pointer;
-      margin-right: 16px;
+      
       height: 24px;
       width: 24px;
       border-radius: 50%;
@@ -160,8 +163,9 @@
 
       img {
         filter: brightness(0);
-        width: 70%;
-        height: 70%;
+        width: 100%;
+        height: 100%;
+        transform: scale(0.7);
         object-fit: contain;
         user-drag: none;
         -webkit-user-drag: none;
@@ -501,10 +505,11 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.25s ease-out;
+  
   &.active{
     background-color: white !important;
-    top:0;
-    height: 56px !important;
+    top: env(safe-area-inset-top);
+    height: 60px !important;
     z-index: 10000;
     
   }
@@ -517,11 +522,17 @@
     height: 48px;
     border-radius: 24px;
     padding: 0;
+    
     .logo-wrap{
+      // height: 40px !important;
+      // width: 42px !important;
+      border-radius: 20px;
+      margin-left: 2px !important;
       &.expanded{
         padding: 0;
         margin: 8px;
-        margin-right: 0;
+        transform: translateX(3px) !important;
+        // transform: none !important;
         img{
 
         }
@@ -544,13 +555,19 @@
       }
     }
     .cg-searchbar{
+      border: 1px solid #323233 !important;
       background-color: #424243 !important;
-      border: 1px solid #383838 ;
+      
+      @media (max-width: 520px) {
+        background-color: #424240c8 !important;
+        backdrop-filter: saturate(180%) blur(1px);
+        
+      }
       .text{
         color: #e2e2e3 !important;
       }
       &:hover{
-        background-color: #626263 !important;
+        background-color: #525253 !important;
         border: 1px solid #585858 ;
         .cg-search-input{
           // color: #f2f2f3 !important;

@@ -59,6 +59,7 @@
     .sort-control {
       position: relative;
       z-index: 2;
+      
 
       .sort-button {
         display: flex;
@@ -109,12 +110,14 @@
         pointer-events: none;
         transform: translateY(-8px);
         transition: max-height 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+        
 
         &.open {
           max-height: 300px;
           opacity: 1;
           pointer-events: auto;
           transform: translateY(0);
+          
         }
 
         .option {
@@ -240,6 +243,7 @@
       -ms-overflow-style: none;
 
       .category-tab-wrapper {
+        
         .subcategory-dropdown {
           width: 100dvw;
           left: 0;
@@ -283,21 +287,21 @@
 
       .category-tab {
         flex: 0 0 auto;
+        height: 36px;
         padding: 8px 16px;
-        border: 1px solid #ccc;
         border-radius: 999px;
-        background-color: #f8f8f8;
+        background-color: rgba(8, 8, 8, 0.06);
         font-size: 0.9rem;
         cursor: pointer;
         white-space: nowrap;
-        transition: all 0.08s ease;
-        height: 36px;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        transition: background-color 0.08s ease-out;
+        border:none;
 
-        &:hover {
-          background-color: #e2e2e3;
+        &:hover { 
+          background-color: #dbdbdc; 
         }
 
         &.active {
@@ -309,15 +313,18 @@
     }
 
     .sort-control {
+      z-index: 2;
       position: relative;
       width: fit-content;
-      z-index: 2;
       margin-left: 12px;
+      @media (max-width: 870px) {
+        margin-left: 4px;
+      }
 
       .sort-button {
         width: fit-content;
         padding: 8px 16px;
-        border: 1px solid #c2c2c3;
+        border: 1px solid #b2b2b3;
         border-radius: 24px;
         font-size: 0.9rem;
         background-color: #f8f8f8;
@@ -501,80 +508,129 @@ font-size: 1.3rem !important;
 
 }
 
-
+/* ========== Dark Mode Overrides ========== */
 :root.dark-mode {
-  .category-sort-wrapper{
-    border-top: 1px solid #424243;
-    border-bottom: 1px solid #424243;
+  .category-sort-wrapper {
+    border-top: 1px solid #222223;
+    border-bottom: 1px solid #222223;
+    background-color: #121213;
+    .sort-control {
+      
+      .sort-button{
+        border: 1px solid #828283 !important;
+      }
+      .sort-dropdown{
+        background-color: #222223 !important;
+        .option{
+          &:hover{ background-color: #323233 !important; }
+        }
+      }
+    }
+
+
+    .category-tabs{
+      .category-tab{
+        background-color: #383838 !important;
+        color: #d8d8d8;
+
+        &:hover{
+          background-color: #525253 !important;
+          color: #fff !important;
+        }
+
+        &.active{
+          color: #424243;
+          background-color: #f2f2f3 !important;
+          &:hover{
+            background-color: #fbfbfb !important;
+            color: #020203 !important;
+          }
+        }
+      }
+
+      .category-tab-wrapper .subcategory-dropdown {
+        background-color: #020203;
+        border-bottom: 1px solid #424243 !important;
+        .subcategory-item {
+          color: #d2d2d3 !important;
+          background-color: #020203;
+          transition: background-color 0.05s ease-out;
+
+          &:hover {
+            background-color: #010b3d;
+            color: #fff !important;
+          }
+        }
+      }
+    }
   }
-  
-  .subcategory-dropdown{
-    border-bottom: 1px solid #424243 !important;
-  }
+
   .search-result-page {
     background-color: #000;
     color: #f2f2f3;
 
     .product-card {
       background-color: #000;
-      // border: 1px solid #222;
-      // transition: background-color 0.2s;
 
-      &:hover {
-        background-color: #010b3d !important;
-      }
+      &:hover { background-color: #010b3d !important; }
 
       .product-info {
-        .product-name {
-          color: #f2f2f3;
-        }
-
-        .subtitle {
-          color: #aaa;
-        }
-
-        p {
-          color: #ddd;
-        }
-      }
-    }
-
-    .subcategory-item {
-      font-size: 1.4rem;
-      font-weight: 600;
-      padding: 12px 32px;
-      width: 100%;
-      cursor: pointer;
-      color: #d2d2d3 !important;
-      background-color: #020203;
-      opacity: 0;
-      animation: fadeInItem 0.3s ease-out forwards;
-      transition: background-color 0.05s ease-out;
-
-      &:hover {
-        background-color: #010b3d;
-        color: #fff !important;
+        .product-name { color: #f2f2f3; }
+        .subtitle    { color: #aaa; }
+        p            { color: #ddd; }
       }
     }
 
     .skeleton {
       background-color: #222;
 
-      .skeleton-image {
-        background-color: #333;
-      }
+      .skeleton-image { background-color: #333; }
 
       .skeleton-text {
         background-color: #444;
-
-        &.name { background-color: #555; }
+        &.name     { background-color: #555; }
         &.subtitle { background-color: #4d4d4d; }
-        &.price { background-color: #3d3d3d; }
+        &.price    { background-color: #3d3d3d; }
       }
     }
   }
-}
 
+  .no-results {
+    &.outline {
+      -webkit-text-stroke: 2px #ff6b6b;
+      -moz-text-stroke: 2px #ff6b6b;
+      text-stroke: 2px #ff6b6b;
+    }
+    &.subtitle { color: #fff !important; }
+  }
+  .pagination {
+    .page-nav{
+      background: #383838 !important;
+    }
+    .page-nav,
+    .page-num {
+      background: #121213;
+      color: #f2f2f3;
+      border-color: #3a3a3b;
+
+      &:hover {
+        background: #f2f2f3 !important;
+        color: #020203;
+      }
+    }
+
+    .page-num.active {
+      background: #f2f2f3 !important;
+      // border-color: #010b3d;
+      color: #020203;
+    }
+
+    .page-ellipsis {
+      color: #aaa;
+    }
+  }
+
+}
 
 .no-results-wrap {
   width: 100%;
@@ -720,35 +776,5 @@ font-size: 1.3rem !important;
 
   @media (max-width: 870px) {
     scroll-margin-top: 56px;
-  }
-}
-
-/* Dark mode for pagination */
-:root.dark-mode {
-  .pagination {
-    .page-nav{
-      background: #383838 !important;
-    }
-    .page-nav,
-    .page-num {
-      background: #121213;
-      color: #f2f2f3;
-      border-color: #3a3a3b;
-
-      &:hover {
-        background: #f2f2f3 !important;
-        color: #020203;
-      }
-    }
-
-    .page-num.active {
-      background: #f2f2f3 !important;
-      // border-color: #010b3d;
-      color: #020203;
-    }
-
-    .page-ellipsis {
-      color: #aaa;
-    }
   }
 }

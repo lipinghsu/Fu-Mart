@@ -2,13 +2,13 @@
   "loginTitle": "登入",
   "loginSubtitle": "登入收集福幣 佛祖立即保庇",
   "emailPlaceholder": "電子郵件",
-  "phonePlaceholder": "電話號碼",
+  "usernamePlaceholder": "帳號",
   "passwordPlaceholder": "密碼",
   "logIn": "登入",
-  "forgotPassword": "忘記密碼？",
+  "forgotPassword": "忘記了您的密碼？",
   "signUp": "註冊",
   "signupTitle": "註冊",
-  "signupSubtitle": "加入福罵 快樂無價",
+  "signupSubtitle": "加入福碼 快樂無價",
   "namePlaceholder": "姓名",
   "confirmPasswordPlaceholder": "確認密碼",
   "alreadyHaveAccount": "已經是會員了嗎？",
@@ -19,6 +19,13 @@
   "loggingIn": "登入中...",
   "signingUp": "註冊中...",
   "sending": "發送中...",
-  "dontHaveAnAccount": "福罵新夥伴？",
-  "joinFumart": "成為福罵會員"
+  "dontHaveAnAccount": "福碼新夥伴？",
+  "joinFumart": "成為福碼會員",
+  "disclaimer": {
+    "continue": "繼續即表示您同意",
+    "terms": "服務條款",
+    "and": "與",
+    "privacy": "隱私政策",
+    ".": "。"
+  }
 }

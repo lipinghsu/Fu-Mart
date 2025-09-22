@@ -13,7 +13,7 @@ const SignUp = () => {
   const { t } = useTranslation(['account', 'common']);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState(''); // <— was phone
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert(t('passwordMismatch'));
       return;
@@ -29,22 +30,27 @@ const SignUp = () => {
       alert(t('fillFields'));
       return;
     }
+    if (!username) {
+      alert(t('usernameRequired') || 'Username is required');
+      return;
+    }
+
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // set display name in Firebase Auth profile
+      // Set display name in Firebase Auth profile
       await updateProfile(user, { displayName: name });
 
       await setDoc(doc(firestore, 'users', user.uid), {
         uid: user.uid,
-        name: name,
-        email: email,
-        phone: phone, // <-- added line
-        password: password, // !!! storing raw password !!!
+        name,
+        username,           
+        email,
+        // Do NOT store raw passwords in Firestore
         createdAt: new Date(),
-        role: 'user'
+        role: 'user',
       });
 
       navigate('/');
@@ -66,27 +72,18 @@ const SignUp = () => {
 
   return (
     <div className="signup-page">
-      <Header 
-        comingSoonPage={true}
-        hideMobileButtons={true}
-        // subtitle={"By continuing, you agree to our Terms & Privacy"}
-      />
-      <div className="corner-decoration top-left">
-          <img src={cornerImg} alt="Corner" />
-      </div>
-      <div className="corner-decoration top-right">
-          <img src={cornerImg} alt="Corner" />
-      </div>
-      <div className="corner-decoration bottom-left">
-          <img src={cornerImg} alt="Corner" />
-      </div>
-      <div className="corner-decoration bottom-right">
-          <img src={cornerImg} alt="Corner" />
-      </div>
+      <Header comingSoonPage={true} hideMobileButtons={true} />
+      <div className="corner-decoration top-left"><img src={cornerImg} alt="Corner" /></div>
+      <div className="corner-decoration top-right"><img src={cornerImg} alt="Corner" /></div>
+      <div className="corner-decoration bottom-left"><img src={cornerImg} alt="Corner" /></div>
+      <div className="corner-decoration bottom-right"><img src={cornerImg} alt="Corner" /></div>
+
       <div className="signup-card">
         <div className="signup-title">{t('signupTitle')}</div>
         <p className="signup-subtitle">{t('signupSubtitle')}</p>
+
         <form onSubmit={handleSubmit}>
+          {/* 1) Name */}
           <input
             type="text"
             className="account-input first"
@@ -96,24 +93,30 @@ const SignUp = () => {
             required
             disabled={loading}
           />
-          <input
-            type="tel"
-            className="account-input mid A"
-            placeholder={t('phonePlaceholder') || 'Phone Number'}
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            disabled={loading}
-          />
+
+          {/* 2) Email (moved up) */}
           <input
             type="email"
-            className="account-input mid B"
+            className="account-input mid A"
             placeholder={t('emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={loading}
           />
-          
+
+          {/* 3) Username (new third field) */}
+          <input
+            type="text"
+            className="account-input mid B"
+            placeholder={t('usernamePlaceholder') || 'Username'}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={loading}
+            required
+          />
+
+          {/* 4) Password */}
           <input
             type="password"
             className="account-input mid C"
@@ -123,6 +126,8 @@ const SignUp = () => {
             required
             disabled={loading}
           />
+
+          {/* 5) Confirm Password */}
           <input
             type="password"
             className="account-input last"
@@ -132,13 +137,16 @@ const SignUp = () => {
             required
             disabled={loading}
           />
-          {/* <span className='terms-agreement-text'>
-            {t('By continuing, you agree to our Terms & Privacy')}
-          </span> */}
+          <div className='sing-up-disclaimer'>
+            <div className='disclaimer-wrap'>
+              {t('disclaimer.continue')} <a href='/terms'>{t('disclaimer.terms')}</a> {t('disclaimer.and')} <a href='/privacy'>{t('disclaimer.privacy')}</a>{t('disclaimer..')}
+            </div>
+          </div>
           <button type="submit" disabled={loading}>
             {loading ? <div className="spinner"></div> : t('joinFumart')}
           </button>
         </form>
+
         <div className="login-links">
           <div>{t('alreadyHaveAccount')}</div>
           <a href="/login"> {t('logIn')}</a>

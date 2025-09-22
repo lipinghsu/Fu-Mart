@@ -1,0 +1,49 @@
+{
+  "Cancel": "取消",
+  "Email": "電子郵件",
+  "Password": "密碼",
+  ".": "",
+  "Size": "尺寸",
+  "close": "關閉",
+  "language": "語言",
+  "confirm": "確認",
+  "cancel": "取消",
+  "light": "日間模式",
+  "dark": "夜間模式",
+  "login": "會員登入",
+  "signup": "註冊帳號",
+  "aboutus": "關於我們",
+
+  "storefront": "商店",
+  "shop": "商店",
+  "likes": "喜歡",
+  "products": "商品",
+  "sold": "已售出",
+  "joinedFull": "加入於 {{date}}",
+
+  "emptyLikesTitle": "沒有按讚的清單",
+  "emptyLikesDesc": "{{handle}} 還沒有按讚任何商品。",
+
+  "inventoryEmptyTitle": "目前沒有上架商品",
+  "inventoryEmptyDescWithHandle": "{{handle}} 還沒有上架任何商品。",
+  "inventoryEmptyDescSeller": "此賣家還沒有上架任何商品。",
+
+  "buy": "購買",
+  "saleTagQty": "特價：剩餘 {{qty}} 件",
+  "discountOffFumart": "Fü-Mart 折扣 {{pct}}%",
+  "pctBelowFumart": "比 Fü-Mart 低 {{pct}}%",
+  "instockQty": "現貨 {{qty}} 件",
+  "available": "可購買",
+  "deal": "優惠",
+  "viewBuy": "查看／購買",
+
+  "searchShop": "搜尋此商店…",
+  "searchLikes": "搜尋已按讚的商品…",
+
+  "sortBy": "排序依據",
+  "sort.new": "最新上架",
+  "sort.price_asc": "價格：由低到高",
+  "sort.price_desc": "價格：由高到低",
+
+  "currency.USD": "USD"
+}

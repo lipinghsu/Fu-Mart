@@ -15,7 +15,7 @@ import {
   limit
 } from 'firebase/firestore';
 
-import i18n from '../../i18n';
+
 import './SearchBar.scss';
 import closeImage from '../../assets/Icons/closeImage2.png';
 import searchIcon from '../../assets/Icons/arrowIcon4.png';
@@ -185,8 +185,8 @@ const SearchBar = ({ isExpanded, setIsExpanded }) => {
 
   const phrases = [
     t("Search In-Store Products"),
-    t("Browse Treats From Asia"),
-    t("Search by Flavor or Origin"),
+    t("Discover Treats From East Asia"),
+    t("Browse by Brand or Origin"),
     t("Uncover Hidden Gems"),
     t("Get Your Favorite Snacks")
   ];
@@ -301,9 +301,9 @@ useEffect(() => {
     fetchTopSearches();
   }, []);
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+  // useEffect(() => {
+  //   inputRef.current?.focus();
+  // }, []);
 
   const handleSearch = async (e, customTerm = null) => {
     if (e) e.preventDefault();

@@ -1,8 +1,9 @@
 .product-card {
   height: 100%;
+  width: 100%;
   background-color: #fff;
   border-radius: 16px;
-
+  
   box-shadow: none;
   transition: all 0.02s ease-out;
   display: flex;
@@ -12,9 +13,8 @@
 
   position: relative;
   &:hover {
-    background-color: #f0f2f6 !important;
+    background-color: #f0f4f8 !important;
     box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.12);
-    
     .add-to-bag-btn{
       // background: url('./../../assets/btn-background.png') center center / cover no-repeat;
       background-color: #e5341d;
@@ -102,6 +102,7 @@
       .text-soldout {
         font-weight: 700;
         letter-spacing: 0.2px;
+        
       }
     }
   }
@@ -159,34 +160,52 @@
   .product-info {
     padding: 16px 16px 12px 16px;
     text-align: left;
+    .product-name,
+    .subtitle {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      
+      // -webkit-box-orient: vertical;
+      // word-wrap: break-word;
+
+      /* inner span that we move */
+      .scroll-inner {
+        display: inline-block;      /* shrink-wrap to text width */
+        will-change: transform;
+        transform: translateX(0);
+      }
+    }
 
     .product-name {
       font-weight: 700;
       font-size: 1rem;
       line-height: 1.3;
+
+      // display: -webkit-box;
+      // -webkit-line-clamp: 1;
+
     }
 
     .subtitle {
-      font-size: 0.85rem;
+      // font-size: 0.85rem !important;
       color: #828283;
       margin: 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      max-height: 2.6em;
+      // display: -webkit-box;
+      // -webkit-line-clamp: 1;
+
     }
 
     p {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      // text-decoration: underline;
     }
   }
 
   .add-to-bag-btn {
     position: absolute;
-    bottom: 16px;
+    bottom: 17px;
     right: 16px;
     padding: 8px 16px;
     // color: #ecd444;

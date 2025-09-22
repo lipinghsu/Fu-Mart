@@ -323,7 +323,7 @@
 
 .corner-decoration.top-left {
     animation: cornerLeftIn 0.7s ease-out forwards;
-    top: 0;
+    top: -4px;
     left: 0;
     img{
         // transform: rotate(-90deg);
@@ -334,7 +334,7 @@
 
 .corner-decoration.top-right {
     animation: cornerRightIn 0.7s ease-out forwards;
-    top: 0;
+    top: -4px;
     right: 0;
     
     
@@ -342,7 +342,7 @@
 
 .corner-decoration.bottom-left {
     animation: cornerLeftUp 0.7s ease-out forwards;
-    bottom: 6px;
+    bottom: -4px;
     left: 0;
     img{
         transform: rotate(180deg);
@@ -351,7 +351,7 @@
 
 .corner-decoration.bottom-right {
     animation: cornerRightUp 0.7s ease-out forwards;
-    bottom: 6px;
+    bottom: -4px;
     right: 0;
     img{
         transform: scale(1, -1);

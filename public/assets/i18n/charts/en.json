@@ -1,0 +1,26 @@
+{
+  "priceTitleWithWindow": "Price Trend: {{n}} {{unit}}",
+  "priceTitle": "{{name}} Price History",
+
+  "ytdShort": "YTD",
+  "allShort": "ALL",
+  "unit": { "days": "days" },
+  "range": {
+    "label": "Range",
+    "1M": "1M",
+    "3M": "3M",
+    "6M": "6M",
+    "YTD": "YTD",
+    "1Y": "1Y",
+    "ALL": "ALL"
+  },
+  "rangeLabel": {
+    "pastMonth": "Past Month",
+    "past3Months": "Past 3 Months",
+    "past6Months": "Past 6 Months",
+    "ytd": "Year to Date",
+    "pastYear": "Past Year",
+    "allTime": "All Time"
+  },
+  "lastSold": "Last Sold"
+}

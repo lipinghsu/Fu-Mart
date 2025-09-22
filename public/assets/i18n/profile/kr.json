@@ -1,0 +1,49 @@
+{
+  "Cancel": "취소",
+  "Email": "이메일",
+  "Password": "비밀번호",
+  ".": "",
+  "Size": "사이즈",
+  "close": "닫기",
+  "language": "언어",
+  "confirm": "확인",
+  "cancel": "취소",
+  "light": "라이트 모드",
+  "dark": "다크 모드",
+  "login": "로그인",
+  "signup": "회원가입",
+  "aboutus": "회사 소개",
+
+  "storefront": "스토어",
+  "shop": "스토어",
+  "likes": "좋아요",
+  "products": "상품",
+  "sold": "판매",
+  "joinedFull": "가입일 {{date}}",
+
+  "emptyLikesTitle": "좋아요 목록이 비어 있습니다",
+  "emptyLikesDesc": "{{handle}}님은 아직 상품에 좋아요를 누르지 않았습니다.",
+
+  "inventoryEmptyTitle": "재고가 비어 있습니다",
+  "inventoryEmptyDescWithHandle": "{{handle}}님은 아직 상품을 게시하지 않았습니다.",
+  "inventoryEmptyDescSeller": "이 판매자는 아직 상품을 게시하지 않았습니다.",
+
+  "buy": "구매하기",
+  "saleTagQty": "세일: 재고 {{qty}}개",
+  "discountOffFumart": "Fü-Mart {{pct}}% 할인",
+  "pctBelowFumart": "Fü-Mart 대비 {{pct}}% 낮음",
+  "instockQty": "재고 {{qty}}개",
+  "available": "구매 가능",
+  "deal": "딜",
+  "viewBuy": "보기/구매",
+
+  "searchShop": "이 스토어에서 검색…",
+  "searchLikes": "좋아요한 상품 검색…",
+
+  "sortBy": "정렬 기준",
+  "sort.new": "신규 상품",
+  "sort.price_asc": "가격: 낮은 순",
+  "sort.price_desc": "가격: 높은 순",
+
+  "currency.USD": "USD"
+}

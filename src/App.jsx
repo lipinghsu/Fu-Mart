@@ -18,10 +18,12 @@ import Payment from './pages/Payment';
 import About from './pages/About';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
+import UserProfile from './pages/UserProfile'
 
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
 import CartSync from './components/CartSync';
+
 
 import './App.scss';
 import i18n from './i18n';
@@ -158,6 +160,15 @@ function App() {
           </MainLayout>
         }
       />
+
+      <Route
+        path="/profile/:username"
+        element={
+          <MainLayout>
+            <UserProfile />
+          </MainLayout>
+        }
+      />
       <Route
         path="/admin"
         element={
@@ -166,6 +177,7 @@ function App() {
           </MainLayout>
         }
       />
+      
       <Route
         path="/checkout"
         element={

@@ -1,0 +1,125 @@
+.thumbnail-row {
+  display: flex;
+  justify-content: left;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  scrollbar-width: none;
+  @media (max-width: 520px){
+    overflow-x: scroll;
+  }
+  
+  .thumbnail-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    
+    // background-color: red;
+    /* underline comes from the container’s ::after */
+    .thumbnail-container {
+      position: relative;
+      // overflow: hidden;
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      
+
+      /* underline */
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0;
+        bottom: -8px;               /* sits just below the image box */
+        height: 3px;
+        border-radius: 1.5px;
+        background-color: transparent;
+        transition: background-color .15s ease-out;
+      }
+    }
+
+    /* show light underline on hover */
+    &:hover .thumbnail-container::after {
+      background-color: #c2c2c3;
+    }
+
+    /* selected state = darker underline */
+    &.is-active .thumbnail-container::after {
+      background-color: #a2a2a3 !important;
+    }
+
+    /* remove old inline bar if still present in DOM (safety) */
+    .thumbnail-bar { display: none !important; }
+
+    /* hover-only delete button (only rendered in editing mode) */
+    .thumbnail-delete {
+      position: absolute;
+      top: -6px; right: -6px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 0;
+      background: #fff;
+      color: #a40000;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+      font-size: 16px; line-height: 1;
+      transition: transform .12s ease, background .12s ease, opacity .12s ease, box-shadow .12s ease;
+      opacity: 0; pointer-events: none;
+    }
+    &:hover .thumbnail-delete { opacity: 1; pointer-events: auto; }
+    .thumbnail-delete:hover {
+      transform: scale(1.06);
+      background: #ffecec;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.22);
+    }
+  }
+
+  img.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    user-drag: none; -webkit-user-drag: none;
+    -moz-user-select: none; -webkit-user-select: none; user-select: none;
+  }
+
+  .thumbnail-add-tile {
+    width: 60px; height: 60px;
+    border-radius: 8px;
+    border: 1.5px dashed #cfcfd1;
+    background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex: 0 0 auto;
+    transition: background .15s ease, border-color .15s ease, transform .12s ease;
+    .plus { font-size: 24px; line-height: 1; color: #6a6b6d; transform: translateY(-1px); }
+    &:hover { background: #f6f6f7; border-color: #bdbdbe; transform: translateY(-1px); }
+    &:active { transform: translateY(0); }
+  }
+
+  /* hide admin controls when not editing (hard guard) */
+  &:not(.editing) .thumbnail-delete,
+  &:not(.editing) .thumbnail-add-tile { display: none !important; }
+}
+
+/* skeletons unchanged ... */
+
+/* Dark mode tweaks */
+.dark-mode {
+  .thumbnail-row {
+    .thumbnail-wrapper.is-active .thumbnail-container::after { background-color: #d2d2d3 !important; }
+    .thumbnail-wrapper:hover .thumbnail-container::after { background-color: #a2a2a3; }
+    .thumbnail-add-tile {
+      border-color: #3a3a3b; background: #1a1a1a;
+      .plus { color: #cfcfd1; }
+      &:hover { background: #222; border-color: #555; }
+    }
+    .thumbnail-wrapper .thumbnail-delete {
+      background: #1a1a1a; color: #ffbdbd; box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .thumbnail-wrapper .thumbnail-delete:hover { background: #3a0f0f; }
+  }
+}

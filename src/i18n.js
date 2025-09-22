@@ -10,7 +10,9 @@ i18n
   .init({
     backend: {
       // Translation file path: e.g., assets/i18n/home/en.json
-      loadPath: 'assets/i18n/{{ns}}/{{lng}}.json',
+      // loadPath: 'assets/i18n/{{ns}}/{{lng}}.json',
+      loadPath: `${import.meta.env.BASE_URL}assets/i18n/{{ns}}/{{lng}}.json`
+      
     },
     fallbackLng: 'en',
     debug: true,

@@ -1,0 +1,26 @@
+{
+  "priceTitleWithWindow": "価格推移: {{n}}{{unit}}",
+  "priceTitle": "{{name}} の価格推移",
+
+  "ytdShort": "年初来",
+  "allShort": "全期間",
+  "unit": { "days": "日" },
+  "range": {
+    "label": "期間",
+    "1M": "1か月",
+    "3M": "3か月",
+    "6M": "6か月",
+    "YTD": "年初来",
+    "1Y": "1年",
+    "ALL": "全期間"
+  },
+  "rangeLabel": {
+    "pastMonth": "過去1か月",
+    "past3Months": "過去3か月",
+    "past6Months": "過去6か月",
+    "ytd": "年初来",
+    "pastYear": "過去1年",
+    "allTime": "全期間"
+  },
+  "lastSold": "最終取引価格"
+}

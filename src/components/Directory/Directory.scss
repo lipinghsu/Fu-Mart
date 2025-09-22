@@ -10,7 +10,9 @@
     justify-content: center;
     align-items: center;
 
-    .cg-header {}
+    .cg-header {
+
+    }
 
     .cg-main {
       box-sizing: border-box;
@@ -24,43 +26,87 @@
 
       .top-section {
         position: relative;
-        width: 100%;
-        height: 490px;
+        width: calc(100%);
+        height: 570px;
         min-height: 200px;
-        // max-height: 468px;
-        // margin-top: 6px;
         overflow: hidden;
         box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: rgb(0, 0, 0);
-        
-        // background: url('./../../assets/CrayonArt/top-section-bg-june5.jpg') bottom center / cover no-repeat;
-        background: url('./../../assets/CrayonArt/top-section-bg-june5.jpg') bottom center / cover no-repeat;
-        
-        // background-position: top center;
-        filter:brightness(1);
+        filter: brightness(1);
         
         background-size: 100% auto;
 
+        // background image goes into ::before
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: url('./../../assets/cksmh2.png') 50% top no-repeat;
+          background-position: calc(50% + 13px) top;
+          
+          background-size: auto; 
+          filter: grayscale(38%) contrast(105%) brightness(93%) sepia(0%) ;
+          z-index: 0;
+        }
+
+        @media (max-width: 520px) {
+          &::before {
+            background-size: auto 100%;
+            background-position: calc(50% + 6px) top !important;
+          }
+        }
+
+        .top-section-text {
+          position: absolute;
+          // right: clamp(10px, 3vw, 0px);
+          // bottom: clamp(12px, 3vw, 0px);
+          transform: none;              
+          z-index: 2;                   
+          pointer-events: none;
+          text-align: right;  
+          transform: translateX(18px);
+          img {
+            display: block;
+            height: 408px !important;
+            width: auto;
+            filter: invert(1) contrast(200%);
+            @media (max-width: 520px) {
+              
+              height: 220px !important;
+            }
+            // filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(87%) contrast(112%);
+          }
+
+          @media (max-width: 520px) {
+            transform: translateX(8px);
+          }
+
+          @media (max-width: 768px) {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+          }
+        }
+
         @media (max-width: 1840px) {
           background-size: 1840px auto;
-          
         }
 
         @media (max-width: 520px) {
           margin-top: 0;
           max-width: calc(100% - 24px);
-          // maxheight: 760px;
           height: calc(100dvh - 60px - 50px - 32px);
-          background-size: auto; 
-          
-          img{
-
+          background-size: auto;           
+          max-height: 570px;
+          &::before{
+            background-position: calc(50% + 13px) top;
             
           }
-          
         }
 
         .top-section-img-wrap {
@@ -73,15 +119,11 @@
           align-items: center;
           overflow: hidden;
           padding: 0 12px;
-          
           opacity: 0;
           animation: fadeIn 0.5s ease-out forwards;
-          // animation-delay: 0.2s; // optional slight delay
-          
 
           @media (max-width: 520px) {
             max-width: calc(100% - 24px);
-            // background-color: rgb(0, 0, 0);
           }
 
           &.slideshow {
@@ -117,19 +159,12 @@
             display: block;
             width: 100%;
             height: 100%;
-            
-            
-
-            // border-radius: 50%;
             animation: colorChange 0.5s ease-out forwards;
-            
-            // animation-delay: 0.2s; // optional slight delay
             display: none;
+
             @media (max-width: 520px) {
-              // display: flex;
               max-width: calc(66vw);
               max-height: calc(66vw);
-              // background-color: #fffffff8;
               filter: invert(1) !important;
             }
           }
@@ -145,14 +180,38 @@
 
     }
     .directory {
+      .cg-header {
+      }
 
       .cg-main {
         background-color: #121213 !important;
         .top-section {
+          background-color: #0b0b0b !important;
+          
+          &::before {
+            // do not change this bc this matches the background color when its outer wrap
+            filter: grayscale(25%) contrast(90%) brightness(76%) sepia(10%) hue-rotate(0deg);
+            
+            @media (max-width: 520px) {
+              // do not change this bc this matches the background color when its outer wrap
+              filter: grayscale(25%) contrast(86%) brightness(94%) sepia(10%) ;
+            }
+          }
+          .top-section-text{
+            
+            img{
+              filter: invert(1) !important;
+              
+              // 
+              @media (max-width: 520px) {
+                
+              }
+            }
+          }
           
           .top-section-img-wrap {
             img {
-              filter: invert(1) !important;
+              filter: invert(1)!important;
             }
           }
         }

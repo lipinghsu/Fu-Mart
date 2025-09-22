@@ -1,0 +1,49 @@
+{
+  "Cancel": "Cancel",
+  "Email": "Email",
+  "Password": "Password",
+  ".": "",
+  "Size": "Size",
+  "close": "Close",
+  "language": "Language",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "light": "Light Mode",
+  "dark": "Dark Mode",
+  "login": "Log In",
+  "signup": "Sign Up",
+  "aboutus": "About Us",
+
+  "storefront": "Storefront",
+  "shop": "Shop",
+  "likes": "Likes",
+  "products": "Products",
+  "sold": "Sold",
+  "joinedFull": "Joined {{date}}",
+
+  "emptyLikesTitle": "Empty likes list",
+  "emptyLikesDesc": "{{handle}} hasn’t liked any products yet.",
+
+  "inventoryEmptyTitle": "Inventory is empty",
+  "inventoryEmptyDescWithHandle": "{{handle}} hasn’t posted any products yet.",
+  "inventoryEmptyDescSeller": "This seller hasn’t posted any products yet.",
+
+  "buy": "Buy",
+  "saleTagQty": "SALE: {{qty}} in stock",
+  "discountOffFumart": "{{pct}}% off Fü-Mart",
+  "pctBelowFumart": "{{pct}}% below Fü-Mart",
+  "instockQty": "{{qty}} in stock",
+  "available": "Available",
+  "deal": "Deal",
+  "viewBuy": "View / Buy",
+
+  "searchShop": "Search this shop…",
+  "searchLikes": "Search liked items…",
+
+  "sortBy": "Sort by",
+  "sort.new": "New Arrivals",
+  "sort.price_asc": "Price: Low to High",
+  "sort.price_desc": "Price: High to Low",
+
+  "currency.USD": "USD"
+}

@@ -23,8 +23,8 @@
     "noDescription": "沒有提供商品描述",
     "buyNow": "立即購買",
     "customQuantity": "自訂數量（10 以上）",
-    "productDisclaimerPart1": "產品詳細資訊、包裝與顯示內容可能未必反映最新或最完整的資訊。請以實際產品為準，以獲取最準確的資料。",
-    "productDisclaimerPart2": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。欲了解更多詳情，請聯繫製造商或零售商。",
+    "productDisclaimerPart1": "商品詳細資訊、包裝與顯示的內容可能未必反映最新或最完整的商品資訊，最準確的資料請依商品實體為準。",
+    "productDisclaimerPart2": "注意：實際重量和價格可能因季節或其他因素而有所變化；所列價格僅供參考。如需取得更多詳情，請聯繫製造商或零售商。",
     "learnMore": "了解更多",
     "qualityGuaranteed": "品質保證",
     "qualityPromise": "每筆訂單都伴隨著 Fü-Mart 的品質承諾",
@@ -106,10 +106,10 @@
     "noResultsFound": "沒有找到任何相關商品",
     "tryAnotherSearch": "請嘗試再次搜尋",
 
-    "soldOut": "已售完",
+    "soldOut": "已售罄",
     "sale": "優惠中",
     "onSale": "特價中",
-    "notifyMe": "補貨通知",
+    "notifyMe": "設定補貨通知",
     "allCountProducts": "",
     "viewAllProducts": "查看所有商品",
     "allCountProducts": "{{length}} 個店內商品",
@@ -144,7 +144,10 @@
     "Pasta Sauce": "義大利麵醬",
     "Hair Care": "美髮護理",
     "Herbal Candy": "草本潤喉糖",
-    "Flour": "麵粉"
+    "Flour": "麵粉",
+    "Product Related Videos": "商品相關影片",
+    "noBrandProductsTitle": "此品牌目前沒有任何其他商品",
+    "noBrandProductsMsg": "目前找不到其他 {{brand}} 的商品。"
   }
 
   

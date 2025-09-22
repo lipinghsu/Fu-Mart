@@ -9,8 +9,6 @@ import { useTranslation } from 'react-i18next';
 import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
 import bagIcon from '../../assets/Icons/bagIcon-filled.png';
 
-
-
 import ShoppingBag from '../ShoppingBag';
 import SideMenu from '../SideMenu';
 import SearchBar from '../SearchBar';
@@ -19,7 +17,7 @@ import CurrencySwitcher from './CurrencySwitcher';
 
 import './Header.scss';
 
-const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false, isDarkMode, toggleDarkMode}) => {
+const Header = ({ subtitle, mainPageHeader = false, comingSoonPage = false ,hasSearchBar = false, hideMobileButtons  = false, isDarkMode, toggleDarkMode}) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => setShowDropdown(prev => !prev);
@@ -36,6 +34,16 @@ const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = fals
   const { t } = useTranslation('header');
   const [selectedCurrency, setSelectedCurrency] = useState(() => localStorage.getItem('preferredCurrency') || 'USD');
 
+  const [username, setUsername] = useState('');
+
+// helper
+  const toUsername = (src = '') =>
+    src
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '')         // remove spaces
+      .replace(/[^a-z0-9._-]/g, ''); // keep safe chars
 
   const totalItemCount = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
@@ -78,14 +86,31 @@ const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = fals
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
-        const userDoc = await getDoc(doc(firestore, 'users', user.uid));
-        if (userDoc.exists()) {
-          setUserRole(userDoc.data().role);
+        const snap = await getDoc(doc(firestore, 'users', user.uid));
+        if (snap.exists()) {
+          const data = snap.data();
+          setUserRole(data.role);
+          // prefer explicit username/handle from Firestore
+          const u =
+            data.username ??
+            data.handle ??
+            toUsername(user.displayName) ??
+            toUsername(user.email?.split('@')[0]);
+          setUsername(u || '');
+        } else {
+          // no user doc — fallback from auth
+          const u =
+            toUsername(user.displayName) ||
+            toUsername(user.email?.split('@')[0]);
+          setUsername(u || '');
         }
+      } else {
+        setUsername('');
       }
     });
     return () => unsubscribe();
   }, []);
+
 
   const handleLogout = async () => {
     try {
@@ -148,9 +173,20 @@ const Header = ({ title, subtitle, mainPageHeader = false, comingSoonPage = fals
 
                   {showDropdown && (
                     <div className="user-dropdown">
-                      <button className="user-dropdown-btn" onClick={() => navigate('/ComingSoon')}>
+                      <button
+                        className="user-dropdown-btn"
+                        onClick={() => {
+                          if (username) {
+                            setShowDropdown(false);
+                            navigate(`/${encodeURIComponent(username)}`);
+                          } else {
+                            // optional: take them to profile setup if no username yet
+                            navigate('/settings');
+                          }
+                        }}
+                      >
                         {/* {t('myShop') || 'My Shop'} */}
-                        @username
+                        {username ? `@${username}` : '@username'}
                       </button>
                       <button className="user-dropdown-btn sell-now" onClick={() => navigate('/admin')}>
                         {t('sellNow') || 'Sell Now'}

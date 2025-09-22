@@ -213,7 +213,7 @@
             }
 
             .signup-section-img-wrap {
-              width: 65%;
+              width: 60%;
               height: auto;
               display: flex;
               justify-content: center;
@@ -229,11 +229,12 @@
               
 
               @media (max-width: 870px) {
-                width: 65%;
-                max-width: 280px;
+                width: 60%;
+                max-width: 240px;
               }
               @media (max-width: 520px) {
-                max-width: 75vw;
+                // max-width: 75vw;
+                max-width: 240px;
               }
 
               img {
