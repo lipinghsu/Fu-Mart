@@ -1,0 +1,24 @@
+.translation-controls {
+  margin-top: 12px;
+  .translate-button {
+    background: none;
+    border: none;
+    color: #007bff; // Or your theme's link color
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    &:hover {
+      color: #0056b3;
+    }
+  }
+  .translating-indicator,
+  .translation-error {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  .translation-error {
+    color: #e5341d; // Your theme's error color
+    margin-left: 10px;
+  }
+}

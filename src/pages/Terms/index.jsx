@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import Header from './../../components/Header';
+import Footer from './../../components/Footer';
 import './Terms.scss'; 
 import '../../App.scss'; 
 
 const Terms = () => {
-    const { t } = useTranslation(['privacy', 'common']);
+    const { t } = useTranslation(['legal']);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -21,23 +22,21 @@ const Terms = () => {
     };
     return (
         <div className="cg-root">
-            <Header title={t('termsTitle')} subtitle={t('lastUpdated')} />
-
-
+            <Header subtitle={t('terms.lastUpdated')} />
             <div className="cg-main terms-content">
                 <div className="terms-wrap">
                     <section>
-                        <h2>1. <span>{t('terms.section1Title')}</span></h2>
+                        <h2><span>{t('terms.section1Title')}</span></h2>
                         <p>{t('terms.section1Text')}</p>
                     </section>
 
                     <section>
-                        <h2>2. <span>{t('terms.section2Title')}</span></h2>
+                        <h2><span>{t('terms.section2Title')}</span></h2>
                         <p>{t('terms.section2Text')}</p>
                     </section>
 
                     <section>
-                        <h2>3. <span>{t('terms.section3Title')}</span></h2>
+                        <h2><span>{t('terms.section3Title')}</span></h2>
                         <p>{t('terms.section3Intro')}</p>
                         <ul>
                             {getArray('terms.section3List').map((item, idx) => (
@@ -47,26 +46,27 @@ const Terms = () => {
                     </section>
 
                     <section>
-                        <h2>4. <span>{t('terms.section4Title')}</span></h2>
+                        <h2><span>{t('terms.section4Title')}</span></h2>
                         <p>{t('terms.section4Text')}</p>
                     </section>
 
                     <section>
-                        <h2>5. <span>{t('terms.section5Title')}</span></h2>
+                        <h2><span>{t('terms.section5Title')}</span></h2>
                         <p>{t('terms.section5Text')}</p>
                     </section>
 
                     <section>
-                        <h2>6. <span>{t('terms.section6Title')}</span></h2>
+                        <h2><span>{t('terms.section6Title')}</span></h2>
                         <p>{t('terms.section6Text')}</p>
                     </section>
 
                     <section>
-                        <h2>7. <span>{t('terms.section7Title')}</span></h2>
+                        <h2><span>{t('terms.section7Title')}</span></h2>
                         <p>{t('terms.section7Text')}</p>
                     </section>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

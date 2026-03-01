@@ -1,3 +1,4 @@
+
 // @keyframes langDropdownOpen {
 //   0% {
 //     transform: translateY(100%) scaleY(0);
@@ -128,8 +129,8 @@
     }
 
     &.active {
-      background-color: #02020310; // light green background
-      color: #28a739;              // green text
+      background-color: #02020312; // light green background
+      color: #28a739 !important;              // green text
       box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
     }
 

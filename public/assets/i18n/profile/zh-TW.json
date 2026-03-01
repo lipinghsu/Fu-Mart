@@ -21,8 +21,8 @@
   "sold": "已售出",
   "joinedFull": "加入於 {{date}}",
 
-  "emptyLikesTitle": "沒有按讚的清單",
-  "emptyLikesDesc": "{{handle}} 還沒有按讚任何商品。",
+  "emptyLikesTitle": "尚無按讚清單",
+  "emptyLikesDesc": "{{handle}} 還沒找到喜歡的商品。",
 
   "inventoryEmptyTitle": "目前沒有上架商品",
   "inventoryEmptyDescWithHandle": "{{handle}} 還沒有上架任何商品。",

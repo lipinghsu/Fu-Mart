@@ -8,6 +8,7 @@
 
 
 .flex-wrapper-account-layout{
+    
     height: 100dvh;
     max-height: 100dvh;
     display: flex;
@@ -16,6 +17,19 @@
     align-items: center;
     width: 100%;
     
+    &.legal{
+        .cg-header{
+            background-color: #222223;
+            .cg-header-left {
+                align-items: center;
+            }
+        }
+        .about-page{
+            .cg-header{
+                background-color: #fff;
+            }
+        }
+    }
     .cg-header{
         // height: 139px;
         display: flex;
@@ -51,9 +65,9 @@
         height: 100%;
         display: flex;
         justify-content: center;
-        background-color: #f2f2f3;
+        background-color: #f2f2f9;
         @media (max-width: 520px) {
-            background-color: #f8f8fb;
+            // background-color: #f8f8fb;
         }
     }
 }
@@ -61,6 +75,7 @@
 .dark-mode{
     .flex-wrapper-account-layout{
         .cg-header{
+            background-color: #020203 !important;
             &.scrolled{
                 box-shadow: none !important;
             }

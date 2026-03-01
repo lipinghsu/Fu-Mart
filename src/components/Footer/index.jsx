@@ -6,8 +6,10 @@ import i18n from '../../i18n';
 import FeedbackModal from '../FeedbackModal';
 import LanguageDropdown from './LanguageDropdown';
 import SignupSection from './SignupSection';
+// import { ThemeContext } from '../../context/ThemeContext';
 import titleDecoration from './../../assets/title-dec2.jpeg';
 import taipeiText from '../../assets/bsts.png';
+import SettingsModal from '../Header/SettingsModal'; 
 import './Footer.scss';
 
 const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
@@ -15,8 +17,14 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const { t } = useTranslation(['footer']);
   const location = useLocation();
+  
+    const [selectedCurrency, setSelectedCurrency] = useState(
+    () => localStorage.getItem('preferredCurrency') || 'USD'
+  );
+
   const languageLabels = {
     en: 'English',
     'zh-TW': '繁體中文',
@@ -83,42 +91,32 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
               }
             }}
           >
-            {location.pathname === '/storefront' ? t('welcome') : t('store')}
+            {location.pathname === '/storefront' ? t('welcome') : t('welcome')}
           </a>
           <div className="cg-disclaimer top">
             © 2025{' '}
             <a href="/" className="fu-mart-text">FÜ-MART</a> | {t('allRightsReserved')}
           </div>
           <div className="cg-disclaimer lang-selector-wrap">
-            <Link to="/terms">{t('terms')}</Link> |{' '}
+            <Link to="/about">{t('aboutus')}</Link> |{' '}{' '}
             <Link to="/privacy">{t('privacy')}</Link> |{' '}
+            <Link to="/terms">{t('terms')}</Link> |{' '}
             <a
               className="feedback-link"
               onClick={(e) => { e.preventDefault(); setIsFeedbackOpen(true); }}
             >
               {t('feedback')}
-            </a>{' '}|{' '}
-            <a
-              className="lang-button"
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
-                e.preventDefault();
-                setIsLanguageDropdownOpen(prev => !prev);
-              }}
-            >
-              {languageLabels[i18n.language] || 'Language'}
-            </a>{' '}|{' '}
+            </a>{' '}
+            |{' '}
             <a
               className="dark-mode-toggle"
-              onClick={(e) => { e.preventDefault(); toggleDarkMode(); }}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsSettingsOpen(true);
+              }}
             >
-              {isDarkMode ? t('dark') : t('light')}
+              {t('settings')}
             </a>
-            <LanguageDropdown
-              isOpen={isLanguageDropdownOpen}
-              setIsOpen={setIsLanguageDropdownOpen}
-              onSelect={handleLanguageChange}
-            />
           </div>
         </div>
 
@@ -155,6 +153,16 @@ const Footer = ({ isDarkMode, toggleDarkMode, showFull = false }) => {
         </div>
       </footer>
       <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        i18n={i18n}
+        handleLanguageChange={handleLanguageChange}
+        selectedCurrency={selectedCurrency}
+        setSelectedCurrency={setSelectedCurrency}
+      />
     </>
   );
 };

@@ -73,8 +73,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 32px;
-    border-bottom: 0.5px solid #d2d2d3;
-    background-color: #f2f2f3;
+    // border-bottom: 0.5px solid #d2d2d9;
+    background-color: #f2f2f9;
     transition: all 0.1s ease;
 
     @media (max-width: 870px) {
@@ -82,10 +82,6 @@
     }
     @media (max-width: 520px) {
       padding: 15px 18px;
-      .close-btn{
-        // background-color: red;
-        // padding: 10px 0px !important;
-      }
     }
 
     &.scrolled {
@@ -104,9 +100,9 @@
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.6px;
-      display: flex;             /* Align elements horizontally */
-      align-items: center;       /* Vertically align text and span */
-      gap: 4px;                  /* Space between title and item count */
+      display: flex;             
+      align-items: center;       
+      gap: 4px;                  
       .item-count{
         font-size: 1rem;
         font-weight: normal;
@@ -116,7 +112,7 @@
     }
 
     .close-btn {
-      background-color: none;
+      background-color: #fff;
       border: none;
       cursor: pointer;
       width: 68px;
@@ -126,7 +122,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
+      box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.18) !important;
 
       img {
         width: 20px;
@@ -152,6 +148,7 @@
     gap: 16px;
     overflow-y: auto;
     max-height: calc(100dvh - 200px);
+    background-color: #f2f2f9;
 
     &.empty {
       justify-content: center;
@@ -169,18 +166,18 @@
       text-align: center;
       color: #666;
     }
+
     .cart-item-wrapper {
       display: flex;
-      align-items: center;
-      
+      cursor: grab;
       position: relative;
+      align-items: center;
 
       .button-wrapper {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        // display: none;
 
         .remove-item-btn {
           opacity: 0;
@@ -194,15 +191,14 @@
           visibility 0.25s,
           width 0.15s ease-out,
           height 0.25s ease;
-          background-color: #f2f2f3;
+          background-color: #fff;
           border: none;
           border-radius: 18px;
           box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23);
           cursor: pointer;
-          
 
           img {
-            opacity: 0.7;
+            opacity: 0.75;
             transform: scale(0.7);
             width: 100%;
             height: 100%;
@@ -212,6 +208,7 @@
             background-color: #e5341d;
 
             img {
+              opacity: 1;
               filter: invert(1);
             }
           }
@@ -232,7 +229,6 @@
           height: 24px;
         }
       }
-cursor: pointer;
     }
 
     
@@ -240,9 +236,9 @@ cursor: pointer;
       flex: 1;
       display: flex;
       align-items: center;
-      background-color: #f8f8f8;
+      background-color: #fbfbfb;
       border-radius: 12px;
-      box-shadow: 0 1px 2px rgba(8, 8, 8, 0.17) !important;
+      box-shadow: 0 0.5px 2px rgba(8, 8, 8, 0.13) !important;
       overflow: hidden;
       height: 76px;
       padding: 12px 0 12px 12px;
@@ -251,8 +247,8 @@ cursor: pointer;
 
       &:hover {
         // transform: scale(1.01);
-        box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.20) !important;
-        background-color: #ffffff;
+        box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.15) !important;
+        background-color: #fff;
         // cursor: pointer;
       }
 
@@ -302,15 +298,19 @@ cursor: pointer;
           width: 25.5px;
           height: 25.5px;
           transition: all 0.02s ease;
+          // background-color: transparent;
+          // color:#000;
 
           &.btn {
-            background-color: #28a739;
-            color: #fff;
+            border: none;
+            background-color: transparent;
+            color: #000;
             font-size: 1rem;
             cursor: pointer;
 
             &:hover {
               background-color: #249433;
+              color: #fff;
             }
           }
         }
@@ -319,7 +319,7 @@ cursor: pointer;
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #323233;
+          background-color: #424243;
           color: #fff;
           font-size: 0.85rem;
           font-weight: 500;
@@ -330,8 +330,8 @@ cursor: pointer;
 
   .cart-drawer-footer {
     padding: 16px 24px;
-    border-top: 1px solid #ddd;
-    background-color: #e2e2e3 !important;
+    border-top: 1px solid #d2d2d9;
+    background-color: #e2e2e9 !important;
     margin-top: auto;
     min-height: 32px;
 
@@ -411,7 +411,8 @@ cursor: pointer;
   left: 0;
   width: 100%;
   height: 100dvh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color:rgba(8, 8, 8, 0.88);
+  backdrop-filter: saturate(180%) blur(0.5px);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out;
@@ -445,7 +446,7 @@ cursor: pointer;
     box-shadow: -1px 1px 2px rgba(23, 23, 23, 0.17) !important;
 
     .cart-drawer-header {
-      border-bottom: 1px solid #333;
+      // border-bottom: 1px solid #333;
       background-color: #121213;
 
       .shopping-bag-title {
@@ -478,6 +479,7 @@ cursor: pointer;
     }
 
     .cart-drawer-body {
+      background-color: transparent;
       &.empty p {
         color: #aaa;
       }
@@ -514,9 +516,14 @@ cursor: pointer;
         }
 
         .item-quantity-controls {
-          div {
-            background-color: #444;
-            color: #fff;
+          .bag-quantity-control{
+            // background-color: #f2f2f3;
+            // color:#000;
+            &.btn{
+              // background-color: transparent;
+              color:#fff;
+
+            }
           }
         }
       }

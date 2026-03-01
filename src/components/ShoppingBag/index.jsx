@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useCurrency } from '../../context/CurrencyContext';
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -27,7 +28,7 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
   const [targetItemId, setTargetItemId] = useState(null);
 
   const [isDraggingItem, setIsDraggingItem] = useState(false);
-
+  const { selectedCurrency, formatPrice } = useCurrency(); 
   // NEW: calculate total item count
   const totalItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -133,10 +134,10 @@ const ShoppingBag = ({ isCartOpen, setIsCartOpen }) => {
                   <div className="item-details">
                     <div className="item-name">{item.name}</div>
                     <div className="item-unit-price">
-                      {t('unitPrice')}: ${item.price.toFixed(2)}
+                      {t('unitPrice')}: {formatPrice(Number(item.price.toFixed(2)))}
                     </div>
                     <div className="item-total-price">
-                      {t('total')}: ${(item.price * item.quantity).toFixed(2)}
+                      {t('total')}: {formatPrice(Number(item.quantity * (item.price).toFixed(2)))}
                     </div>
                   </div>
                   <div className="item-quantity-controls">

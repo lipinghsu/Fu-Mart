@@ -3,22 +3,38 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import { getAnalytics } from 'firebase/analytics';
+import { getFunctions } from 'firebase/functions';
+import { getAnalytics, isSupported } from 'firebase/analytics'; 
 import { firebaseConfig } from './config';
 
 const app = initializeApp(firebaseConfig);
-getAnalytics(app);
 
+if (typeof window !== 'undefined') {
+  isSupported()
+    .then((supported) => {
+      if (supported) {
+        getAnalytics(app);
+      } else {
+        console.warn('Analytics not supported in this environment.');
+      }
+    })
+    .catch((err) => console.warn('Analytics init failed:', err));
+}
+
+// ✅ Initialize Firebase services (must pass `app`)
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
+export const functions = getFunctions(app);
 export const storage = getStorage(app);
 
-// Create or return Firestore user doc
+
+// ✅ Firestore: Create or return Firestore user doc
 export const handleUserProfile = async ({ userAuth, additionalData }) => {
   if (!userAuth) return null;
   const { uid, displayName, email } = userAuth;
   const userRef = doc(firestore, `users/${uid}`);
   const snapshot = await getDoc(userRef);
+
   if (!snapshot.exists()) {
     const timestamp = new Date();
     const userRoles = ['user'];
@@ -30,10 +46,11 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
       ...additionalData,
     });
   }
+
   return userRef;
 };
 
-// Returns a Promise that resolves once auth state is known
+// ✅ Returns a Promise that resolves once auth state is known
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
@@ -50,52 +67,49 @@ export const getCurrentUser = () => {
   });
 };
 
-
-// utils/removeBg.js
+// ✅ utils/removeBg.js (kept exactly as before)
 export async function removeBg(file, provider, keys) {
   switch (provider) {
-    case "clipdrop": {
+    case 'clipdrop': {
       const fd = new FormData();
-      fd.append("image_file", file);
-      const res = await fetch("https://clipdrop-api.co/remove-background/v1", {
-        method: "POST",
-        headers: { "x-api-key": keys.CLIPDROP_KEY },
-        body: fd
+      fd.append('image_file', file);
+      const res = await fetch('https://clipdrop-api.co/remove-background/v1', {
+        method: 'POST',
+        headers: { 'x-api-key': keys.CLIPDROP_KEY },
+        body: fd,
       });
-      if (!res.ok) throw new Error("ClipDrop failed");
+      if (!res.ok) throw new Error('ClipDrop failed');
       const blob = await res.blob();
-      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+      return new File([blob], `bgremoved-${file.name}`, { type: 'image/png' });
     }
 
-    case "photoroom": {
+    case 'photoroom': {
       const fd = new FormData();
-      fd.append("image_file", file);
-      // optional params: background_color, format, size, crop, etc.
-      const res = await fetch("https://api.photoroom.com/v1/backgrounds/remove", {
-        method: "POST",
-        headers: { "x-api-key": keys.PHOTOROOM_KEY },
-        body: fd
+      fd.append('image_file', file);
+      const res = await fetch('https://api.photoroom.com/v1/backgrounds/remove', {
+        method: 'POST',
+        headers: { 'x-api-key': keys.PHOTOROOM_KEY },
+        body: fd,
       });
-      if (!res.ok) throw new Error("Photoroom failed");
+      if (!res.ok) throw new Error('Photoroom failed');
       const blob = await res.blob();
-      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+      return new File([blob], `bgremoved-${file.name}`, { type: 'image/png' });
     }
 
-    case "cutoutpro": {
+    case 'cutoutpro': {
       const fd = new FormData();
-      fd.append("image_file", file);
-      // API also supports transparency, format, etc.
-      const res = await fetch("https://www.cutout.pro/api/v1/matting?mattingType=6", {
-        method: "POST",
-        headers: { "APIKEY": keys.CUTOUTPRO_KEY },
-        body: fd
+      fd.append('image_file', file);
+      const res = await fetch('https://www.cutout.pro/api/v1/matting?mattingType=6', {
+        method: 'POST',
+        headers: { APIKEY: keys.CUTOUTPRO_KEY },
+        body: fd,
       });
-      if (!res.ok) throw new Error("Cutout.pro failed");
+      if (!res.ok) throw new Error('Cutout.pro failed');
       const blob = await res.blob();
-      return new File([blob], `bgremoved-${file.name}`, { type: "image/png" });
+      return new File([blob], `bgremoved-${file.name}`, { type: 'image/png' });
     }
 
     default:
-      throw new Error("Unknown provider");
+      throw new Error('Unknown provider');
   }
 }

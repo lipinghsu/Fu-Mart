@@ -1,3 +1,4 @@
+// src/components/AdminPanel/AdminPanel.jsx
 import React, { useState, useEffect } from 'react';
 import { auth, storage, firestore, getCurrentUser, removeBg } from '../../firebase/utils';
 import {
@@ -5,12 +6,57 @@ import {
   addDoc,
   Timestamp,
   doc,
-  getDoc
+  getDoc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+  setDoc
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './AdminPanel.scss';
+
+/* ---------- Brand helpers: never update if brand already exists ---------- */
+// Diacritic-safe slug (may be empty for CJK/emoji etc.)
+const asciiSlug = (input = '') => {
+  const stripped = String(input)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return stripped || encodeURIComponent(input); // fallback for CJK
+};
+// Lowercased brand name for case-insensitive matching
+const nameLower = (s = '') => String(s).trim().toLowerCase();
+
+// Find an existing brand by asciiSlug OR case-insensitive name
+const findExistingBrandRef = async (brandName, firestore) => {
+  const slug = asciiSlug(brandName);
+  const lowered = nameLower(brandName);
+
+  if (slug) {
+    const q1 = query(collection(firestore, 'brands'), where('asciiSlug', '==', slug));
+    const s1 = await getDocs(q1);
+    if (!s1.empty) return s1.docs[0].ref;
+  }
+
+  const q2 = query(collection(firestore, 'brands'), where('brandNameLower', '==', lowered));
+  const s2 = await getDocs(q2);
+  if (!s2.empty) return s2.docs[0].ref;
+
+  // Fallback for old docs that may only have brandName
+  const q3 = query(collection(firestore, 'brands'), where('brandName', '==', brandName));
+  const s3 = await getDocs(q3);
+  if (!s3.empty) return s3.docs[0].ref;
+
+  return null;
+};
+
+
 
 const AdminPanel = () => {
   const [step, setStep] = useState(0);
@@ -19,8 +65,8 @@ const AdminPanel = () => {
   const [authorized, setAuthorized] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [processedImages, setProcessedImages] = useState([]);
-  const [removingBg, setRemovingBg] = useState(false);
-
+  const [removingBg, setRemovingBg] = useState(false);  
+  const [sellerUsername, setSellerUsername] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     brand: '',
@@ -47,10 +93,57 @@ const AdminPanel = () => {
     images: []
   });
 
+  const [options, setOptions] = useState({
+    brands: [],
+    categories: [],
+    subCategoriesByCategory: {}, 
+    origins: []
+  });
+
+useEffect(() => {
+  const fetchOptions = async () => {
+    try {
+      const brandSnap = await getDocs(collection(firestore, 'brands'));
+      const productSnap = await getDocs(collection(firestore, 'products'));
+
+      const brands = [...new Set(brandSnap.docs.map(d => d.data().brandName || d.data().brand))];
+      const categories = [...new Set(productSnap.docs.map(d => d.data().category).filter(Boolean))];
+
+      // 🔹 Build mapping: category → subcategories
+      const subCategoriesByCategory = {};
+      for (const docSnap of productSnap.docs) {
+        const data = docSnap.data();
+        if (data.category && data.subCategory) {
+          if (!subCategoriesByCategory[data.category]) {
+            subCategoriesByCategory[data.category] = new Set();
+          }
+          subCategoriesByCategory[data.category].add(data.subCategory);
+        }
+      }
+
+      // Convert sets to arrays
+      Object.keys(subCategoriesByCategory).forEach(cat => {
+        subCategoriesByCategory[cat] = [...subCategoriesByCategory[cat]];
+      });
+
+      const origins = [...new Set(productSnap.docs.map(d => d.data().origin).filter(Boolean))];
+
+      setOptions({
+        brands,
+        categories,
+        subCategoriesByCategory,
+        origins
+      });
+    } catch (err) {
+      console.error('Failed to fetch autofill options:', err);
+    }
+  };
+  fetchOptions();
+}, []);
+
   const handleRemoveBackgrounds = async () => {
-    // Replace these with import
-    // const API_KEY = 'hnrsWXz4Sm6cZV519fwJ98qF'; // gmail account 
-    const API_KEY = 'Hz4c9YVHEAL7QWKJRubqjdsj'; // hotmail account
+    // Replace with env var or your utils removeBg() if preferred
+    const API_KEY = 'Hz4c9YVHEAL7QWKJRubqjdsj';
     const newImages = [];
     setRemovingBg(true);
 
@@ -81,68 +174,42 @@ const AdminPanel = () => {
     setRemovingBg(false);
   };
 
-  // other background removal APIs
-
-  // const handleRemoveBackgrounds = async () => {
-  //   const PROVIDER = "clipdrop"; // "photoroom" | "cutoutpro"
-  //   const KEYS = {
-  //     CLIPDROP_KEY: process.env.REACT_APP_CLIPDROP_KEY,
-  //     PHOTOROOM_KEY: process.env.REACT_APP_PHOTOROOM_KEY,
-  //     CUTOUTPRO_KEY: process.env.REACT_APP_CUTOUTPRO_KEY
-  //   };
-
-  //   setRemovingBg(true);
-  //   try {
-  //     const processed = [];
-  //     for (const img of formData.images) {
-  //       const out = await removeBg(img, PROVIDER, KEYS);
-  //       processed.push(out);
-  //     }
-  //     setFormData(prev => ({ ...prev, images: processed }));
-  //   } catch (e) {
-  //     console.error(e);
-  //     alert("Background removal failed for one or more images.");
-  //   } finally {
-  //     setRemovingBg(false);
-  //   }
-  // };
-
-
-  // 1) On mount, wait for Auth → getCurrentUser() → then fetch userDoc → check userRole
+  // On mount: auth → fetch user doc → check admin → derive sellerUsername
   useEffect(() => {
     (async () => {
       try {
-        const userAuth = await getCurrentUser(); 
+        const userAuth = await getCurrentUser();
         if (!userAuth) {
-          // Not signed in at all
           navigate('/login');
           return;
         }
 
-        // Fetch this user’s Firestore document:
         const userDocRef = doc(firestore, 'users', userAuth.uid);
         const userSnap = await getDoc(userDocRef);
 
         if (!userSnap.exists()) {
-          // No user doc in Firestore (shouldn’t happen if you create one on signup)
           console.warn('No user document found for', userAuth.uid);
           navigate('/');
           return;
         }
 
         const userData = userSnap.data();
-        console.log(userData.userRole);
-        console.log(userData.userRole);
-        console.log(userData.userRole);
-        // If your user document has `userRole: "admin"`:
         if (userData.userRole !== 'admin') {
-          // Not an admin → redirect away
           navigate('/');
           return;
         }
 
-        // If it passed the check, allow them to see the panel:
         setAuthorized(true);
+
+        // Derive a username for sellBy (user doc → displayName → email local-part → uid)
+        const derivedUsername =
+          (userData.username && String(userData.username).trim()) ||
+          (userData.userName && String(userData.userName).trim()) ||
+          (userAuth.displayName && String(userAuth.displayName).trim()) ||
+          (userAuth.email ? userAuth.email.split('@')[0] : '') ||
+          userAuth.uid;
+
+        setSellerUsername(derivedUsername);
       } catch (err) {
         console.error('Error checking admin access:', err);
         navigate('/');
@@ -158,6 +225,7 @@ const AdminPanel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (
       !formData.name ||
       !formData.brand ||
@@ -174,63 +242,144 @@ const AdminPanel = () => {
       alert('Please select at least one image.');
       return;
     }
-    setUploading(true);
 
+    setUploading(true);
     try {
-      // 1. Upload each image to Storage → /products/…
+      // 1) Upload images
       const imageUrls = [];
       for (const img of formData.images) {
         const imgRef = ref(storage, `products/${Date.now()}_${img.name}`);
-        // console.log("About to upload", imgRef.fullPath);
         const snap = await uploadBytes(imgRef, img);
-        // console.log("Upload succeeded!", snap.ref.fullPath);
         const url = await getDownloadURL(snap.ref);
-        // console.log(url);
         imageUrls.push(url);
       }
-      // console.log(url)
 
-      // 2. Write a new document in Firestore under “products” collection
-      //    Use “stockQuantity” instead of the old “stockQuantity” field.
-await addDoc(collection(firestore, 'products'), {
-  name: formData.name,
-  brand: formData.brand,
-  subtitle: formData.subtitle,
-  description: formData.description,
-  price: parseFloat(formData.price),
-  category: formData.category,
-  subCategory: formData.subCategory,
-  stockQuantity: parseInt(formData.stockQuantity, 10),
-  sizeLabel: formData.sizeLabel || '',
-  sku: formData.sku || '',
-  tags: formData.tags
-    ? formData.tags.split(',').map((t) => t.trim()).filter((t) => t !== '')
-    : [],
-  weight: formData.weight || '',
-  dimensions: formData.dimensions || '',
-  priceDiscount: formData.priceDiscount
-    ? parseFloat(formData.priceDiscount)
-    : 0,
-  isOnSale: !!formData.isOnSale,
-  rating: formData.rating ? parseFloat(formData.rating) : 0,
-  reviewCount: formData.reviewCount
-    ? parseInt(formData.reviewCount, 10)
-    : 0,
-  expirationDate: formData.expirationDate
-    ? Timestamp.fromDate(new Date(formData.expirationDate))
-    : null,
-  origin: formData.origin || '',
-  ingredients: formData.ingredients
-    ? formData.ingredients.split(',').map((i) => i.trim()).filter((i) => i !== '')
-    : [],
-  instructions: formData.instructions || '',
-  mediaLink: formData.mediaLink || '',
-  images: imageUrls,
-  createdAt: Timestamp.now()
-});
+      // Parse numbers once
+      const qtyNum = parseInt(formData.stockQuantity, 10) || 0;
+      const priceNum = parseFloat(formData.price) || 0;
 
+      /* 2) Brand handling (create only if truly missing) */
+      try {
+        const brandName = String(formData.brand || '').trim();
+        if (brandName) {
+          const existingRef = await findExistingBrandRef(brandName, firestore);
+          console.log('Existing brand ref:', existingRef?.path || 'none found');
+          if (!existingRef) {
+            const now = Timestamp.now();
+            const slug = asciiSlug(brandName);
+            console.log('Brand name:', `"${brandName}"`);
+
+            // If slug is empty (e.g., "哥本优选"), use auto-ID
+            await addDoc(collection(firestore, 'brands'), {
+              brandName,
+              brandNameLower: brandName.toLowerCase(),
+              asciiSlug: slug || null,
+              imageUrl: imageUrls[0] || '',
+              origin: formData.origin || '',
+              website: '',
+              description: '',
+              createdAt: now,
+              updatedAt: now
+            });
+          }
+          // If exists: do nothing (no update)
+        }
+      } catch (brandErr) {
+        console.error('Brand check failed:', brandErr);
+        // non-blocking
+      }
+
+      // 3) Create product
+      const productRef = await addDoc(collection(firestore, 'products'), {
+        name: formData.name,
+        brand: formData.brand,
+        subtitle: formData.subtitle,
+        description: formData.description,
+        price: priceNum,
+        category: formData.category,
+        subCategory: formData.subCategory,
+        stockQuantity: qtyNum,
+        sizeLabel: formData.sizeLabel || '',
+        sku: formData.sku || '',
+        tags: formData.tags
+          ? formData.tags.split(',').map((t) => t.trim()).filter((t) => t !== '')
+          : [],
+        weight: formData.weight || '',
+        dimensions: formData.dimensions || '',
+        priceDiscount: formData.priceDiscount
+          ? parseFloat(formData.priceDiscount)
+          : 0,
+        isOnSale: !!formData.isOnSale,
+        rating: formData.rating ? parseFloat(formData.rating) : 0,
+        reviewCount: formData.reviewCount
+          ? parseInt(formData.reviewCount, 10)
+          : 0,
+        expirationDate: formData.expirationDate
+          ? Timestamp.fromDate(new Date(formData.expirationDate))
+          : null,
+        origin: formData.origin || '',
+        ingredients: formData.ingredients
+          ? formData.ingredients.split(',').map((i) => i.trim()).filter((i) => i !== '')
+          : [],
+        instructions: formData.instructions || '',
+        mediaLink: formData.mediaLink || '',
+        images: imageUrls,
+
+        // Init fields
+        priceHistory: [],                 // empty price history
+        sellBy: [sellerUsername],         // uploader as first seller
+
+        createdAt: Timestamp.now()
+      });
+
+      const productId = productRef.id;
+
+      // 4) Update users doc that matches the username: selling.<productId> = [qty, price]
+      try {
+        let updatedAny = false;
+
+        // Try by 'username'
+        const qByUsername = query(collection(firestore, 'users'), where('username', '==', sellerUsername));
+        const snapByUsername = await getDocs(qByUsername);
+        if (!snapByUsername.empty) {
+          await Promise.all(
+            snapByUsername.docs.map(d =>
+              updateDoc(d.ref, { [`selling.${productId}`]: [qtyNum, priceNum] })
+            )
+          );
+          updatedAny = true;
+        }
+
+        // If not found, try 'userName' (alternate field casing)
+        if (!updatedAny) {
+          const qByUserName = query(collection(firestore, 'users'), where('userName', '==', sellerUsername));
+          const snapByUserName = await getDocs(qByUserName);
+          if (!snapByUserName.empty) {
+            await Promise.all(
+              snapByUserName.docs.map(d =>
+                updateDoc(d.ref, { [`selling.${productId}`]: [qtyNum, priceNum] })
+              )
+            );
+            updatedAny = true;
+          }
+        }
+
+        // Fallback: write to the uploader's UID doc
+        if (!updatedAny) {
+          const uploader = await getCurrentUser();
+          if (uploader) {
+            await updateDoc(doc(firestore, 'users', uploader.uid), {
+              [`selling.${productId}`]: [qtyNum, priceNum]
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Failed to update user selling map:', err);
+        // non-blocking
+      }
 
       alert('Product uploaded!');
+
       // Reset form state and stepper
       setFormData({
         name: '',
@@ -254,6 +403,7 @@ await addDoc(collection(firestore, 'products'), {
         origin: '',
         ingredients: '',
         instructions: '',
+        mediaLink: '',
         images: []
       });
       setStep(0);
@@ -276,14 +426,22 @@ await addDoc(collection(firestore, 'products'), {
         required
         disabled={uploading}
       />
+
       <input
         type="text"
         placeholder="Brand Name"
+        list="brandOptions"
         value={formData.brand}
         onChange={(e) => handleChange('brand', e.target.value)}
         required
         disabled={uploading}
       />
+      <datalist id="brandOptions">
+        {options.brands.map((b, i) => (
+          <option key={i} value={b} />
+        ))}
+      </datalist>
+
       <input
         type="text"
         placeholder="Product Subtitle"
@@ -309,22 +467,43 @@ await addDoc(collection(firestore, 'products'), {
         required
         disabled={uploading}
       />
+
+      {/* CATEGORY INPUT */}
       <input
         type="text"
         placeholder="Category"
+        list="categoryOptions"
         value={formData.category}
-        onChange={(e) => handleChange('category', e.target.value)}
+        onChange={(e) => {
+          handleChange('category', e.target.value);
+          // Reset sub-category when category changes
+          handleChange('subCategory', '');
+        }}
         required
         disabled={uploading}
       />
+      <datalist id="categoryOptions">
+        {options.categories.map((c, i) => (
+          <option key={i} value={c} />
+        ))}
+      </datalist>
+
+      {/* SUB-CATEGORY INPUT */}
       <input
         type="text"
         placeholder="Sub-Category"
+        list="subCategoryOptions"
         value={formData.subCategory}
         onChange={(e) => handleChange('subCategory', e.target.value)}
         required
         disabled={uploading}
       />
+      <datalist id="subCategoryOptions">
+        {(options.subCategoriesByCategory[formData.category] || []).map((s, i) => (
+          <option key={i} value={s} />
+        ))}
+      </datalist>
+
       <textarea
         placeholder="Description"
         value={formData.description}
@@ -349,13 +528,21 @@ await addDoc(collection(firestore, 'products'), {
         onChange={(e) => handleChange('sku', e.target.value)}
         disabled={uploading}
       />
+
       <input
         type="text"
         placeholder="Origin"
+        list="originOptions"
         value={formData.origin}
         onChange={(e) => handleChange('origin', e.target.value)}
         disabled={uploading}
       />
+      <datalist id="originOptions">
+        {options.origins.map((o, i) => (
+          <option key={i} value={o} />
+        ))}
+      </datalist>
+      
       <input
         type="text"
         placeholder="Weight"
@@ -449,54 +636,54 @@ await addDoc(collection(firestore, 'products'), {
         accept="image/*"
         disabled={uploading}
       />
-      
+
       {formData.images.length > 0 && (
         <>
-      <div className="image-previews">
-        {formData.images.map((img, idx) => (
-          <div key={idx} className="image-preview">
-            <div className="image-wrapper">
-              <img src={URL.createObjectURL(img)} alt={`Preview ${idx}`} />
-            </div>
-            <div className="cancel-wrapper">
-              <button
-                type="button"
-                className="cancel-button"
-                onClick={() => {
-                  const newImages = formData.images.filter((_, i) => i !== idx);
-                  handleChange('images', newImages);
-                }}
-                disabled={uploading}
-              >
-                ✕
-              </button>
-            </div>
+          <div className="image-previews">
+            {formData.images.map((img, idx) => (
+              <div key={idx} className="image-preview">
+                <div className="image-wrapper">
+                  <img src={URL.createObjectURL(img)} alt={`Preview ${idx}`} />
+                </div>
+                <div className="cancel-wrapper">
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={() => {
+                      const newImages = formData.images.filter((_, i) => i !== idx);
+                      handleChange('images', newImages);
+                    }}
+                    disabled={uploading}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-            <button
-        type="button"
-        onClick={handleRemoveBackgrounds}
-        disabled={uploading || removingBg}
-        style={{
-          marginTop: '8px',
-          backgroundColor: '#e5341d',
-          color: '#fff',
-          padding: '14px',
-          borderRadius: '6px',
-          width: '100%',
-          fontWeight: 'bold',
-          fontSize: '1rem',
-          cursor: removingBg ? 'not-allowed' : 'pointer',
-          opacity: removingBg ? 0.6 : 1
-        }}
-      >
-        {removingBg ? 'Removing Backgrounds...' : 'Remove Backgrounds'}
-      </button>
+          <button
+            type="button"
+            onClick={handleRemoveBackgrounds}
+            disabled={uploading || removingBg}
+            style={{
+              marginTop: '8px',
+              backgroundColor: '#e5341d',
+              color: '#fff',
+              padding: '14px',
+              borderRadius: '6px',
+              width: '100%',
+              fontWeight: 'bold',
+              fontSize: '1rem',
+              cursor: removingBg ? 'not-allowed' : 'pointer',
+              opacity: removingBg ? 0.6 : 1
+            }}
+          >
+            {removingBg ? 'Removing Backgrounds...' : 'Remove Backgrounds'}
+          </button>
+        </>
+      )}
     </>
-    )}
-  </>
   ];
 
   return (
@@ -556,16 +743,10 @@ await addDoc(collection(firestore, 'products'), {
                 className="step-control-btn"
                 type="submit"
                 disabled={uploading}
-                onClick={(e) => {
-                  // Prevent default just in case
-                  e.preventDefault();
-                  handleSubmit(e);
-                }}
               >
                 {uploading ? 'Uploading...' : 'Upload Product'}
               </button>
             )}
-
           </div>
         </form>
       </div>

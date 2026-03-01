@@ -33,8 +33,6 @@
   "addToBag": "バッグに追加",
   "buyNow": "今すぐ買う",
   "customQuantity": "カスタム数量（10以上）",
-  "productDisclaimerPart1": "製品の詳細、パッケージ、表示情報は、最新または完全な情報を反映していない場合があります。正確な情報については実際の製品をご確認ください。",
-  "productDisclaimerPart2": "注意：実際の重量や価格は季節やその他の要因によって変動する場合があります。表示されている価格はあくまで参考値です。詳細についてはメーカーまたは販売店にお問い合わせください。",
   "learnMore": "詳細はこちら",
   "qualityGuaranteed": "品質保証",
   "qualityPromise": "すべてのご注文にFü-Martの品質の約束が付いています",
@@ -58,11 +56,29 @@
   "beverages": "飲み物",
   "Pasta & Noodles": "麺類",
   "Canned Goods": "缶詰",
-
+  "joinLuckyDraw": "初回購入で無料の神秘賞品がもらえる！",
   "viewFumartCategory": "Fü-Martの{{category}}を見る",
-  "searchFor": "“{{query}}” を検索..."
-
-
-
-
+  "searchFor": "“{{query}}” を検索...",
+  "slides": {
+    "fortunate": {
+      "heading": "福のはじまり",
+      "cta": "すべての商品を見る"
+    },
+    "taipei2025": {
+      "heading": "台北マーチコレクション",
+      "cta": "先行予約"
+    },
+    "classics": {
+      "heading": "阿嬤の戸棚",
+      "cta": "台湾クラシックを発見見"
+    },
+    "street": {
+      "heading": "台北ストリートシリーズ",
+      "cta": "限定販売"
+    },
+    "taste": {
+      "heading": "台湾の味わい",
+      "cta": "探索を始める"
+    }
+  }
 }

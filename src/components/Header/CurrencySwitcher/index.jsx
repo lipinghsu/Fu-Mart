@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useCurrency } from '../../../context/CurrencyContext';
+import { useTranslation } from 'react-i18next';
+import arrowIcon from '../../../assets/Icons/arrowIcon.png';
+import './CurrencySwitcher.scss';
 
-const CurrencySwitcher = ({ selectedCurrency, setSelectedCurrency, t }) => {
+const CurrencySwitcher = () => {
+  const { selectedCurrency, setSelectedCurrency } = useCurrency();
+  const { t } = useTranslation('header');
+
   const handleCurrencyChange = (e) => {
-    const value = e.target.value;
-    setSelectedCurrency(value);
-    localStorage.setItem('preferredCurrency', value);
+    setSelectedCurrency(e.target.value);
   };
 
   return (
     <div className="currency-switcher">
-      {/* <label htmlFor="currency-select" className="currency-label">
-        {t('currency') || 'Currency'}:
-      </label> */}
-      <select
-        id="currency-select"
-        value={selectedCurrency}
-        onChange={handleCurrencyChange}
-        className="currency-select"
-      >
-        
-        <option value="JPY">¥ JPY (円)</option>
-        <option value="KRW">₩ KRW (원)</option>
-        <option value="TWD">NT$ TWD(元)</option>
-        <option value="USD">$ USD (Dollar)</option>
-      </select>
+      <div className="select-wrapper">
+        <select
+          id="currency-select"
+          value={selectedCurrency}
+          onChange={handleCurrencyChange}
+          className="currency-select"
+        >
+          <option value="USD">$ USD ({t('currency.usd')})</option>
+          <option value="JPY">¥ JPY ({t('currency.jpy')})</option>
+          <option value="KRW">₩ KRW ({t('currency.krw')})</option>
+          <option value="TWD">NT$ TWD ({t('currency.twd')})</option>
+          
+        </select>
+        <img src={arrowIcon} alt="arrow" className="arrow-icon" />
+      </div>
     </div>
   );
 };

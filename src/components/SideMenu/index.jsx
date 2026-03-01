@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import closeImage from './../../assets/Icons/closeImage.png';
-import fumartTextLogo from './../../assets/fm-bsts.png';
+import fumartTextLogo from './../../assets/fumart-stamp4.png';
 import LanguageDropdown from '../Footer/LanguageDropdown';
 import './SideMenu.scss';
 
@@ -73,12 +73,18 @@ const SideMenu = ({ isOpen, onClose, searchExpanded, isDarkMode, toggleDarkMode 
             </span>
             
           </button>
+          <button className="side-menu-btn about-us" onClick={() => { navigate('/search?term=viewall'); onClose(); }}>
+            <span>
+              {t('shopAll')}
+            </span>
+          </button>
           <button className="side-menu-btn about-us" onClick={() => { navigate('/about'); onClose(); }}>
             <span>
               {t('aboutus')}
             </span>
             
           </button>
+
         </div>
 
         <div className="side-menu-bot">
@@ -89,7 +95,7 @@ const SideMenu = ({ isOpen, onClose, searchExpanded, isDarkMode, toggleDarkMode 
         </div>
         <div className='side-menu-footer'>
           {/* <div>
-             福碼集團
+             福亞集團
           </div> */}
           <a
             href='/'

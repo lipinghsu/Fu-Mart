@@ -19,6 +19,9 @@ import About from './pages/About';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
 import UserProfile from './pages/UserProfile'
+import Game from './pages/Game'
+import LineCallback from './pages/LineCallback';
+import KakaoCallback from './pages/KakaoCallback';
 
 import WithAdminAuth from './hoc/WithAdminAuth';
 import ComingSoon from './components/ComingSoon';
@@ -43,20 +46,51 @@ function App() {
   }
   
   useEffect(() => {
-    // Theme (dark mode)
-    const savedTheme = localStorage.getItem('preferredTheme');
-    const isDark = savedTheme === 'dark';
-    document.documentElement.classList.toggle('dark-mode', isDark);
+    /* ---------- 1. THEME: detect user system preference ---------- */
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // Update safe area / status bar color
+    // Use saved theme if exists, otherwise follow system
+    const savedTheme = localStorage.getItem('preferredTheme');
+    const isDark = savedTheme
+      ? savedTheme === 'dark'
+      : prefersDark; // fallback to system
+
+    document.documentElement.classList.toggle('dark-mode', isDark);
     updateThemeColor(isDark);
 
-    // Language
+    // Automatically listen for system changes (e.g. iOS / macOS theme switch)
+    const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    const themeListener = (e) => {
+      if (!localStorage.getItem('preferredTheme')) {
+        // only auto-update if user hasn't manually chosen a theme
+        document.documentElement.classList.toggle('dark-mode', e.matches);
+        updateThemeColor(e.matches);
+      }
+    };
+    themeMedia.addEventListener('change', themeListener);
+
+    /* ---------- 2. LANGUAGE: detect user system/browser language ---------- */
     const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang && i18n.language !== savedLang) {
-      i18n.changeLanguage(savedLang);
+    let langToUse = savedLang;
+
+    if (!savedLang) {
+      // try device/browser default
+      const browserLang = navigator.language || navigator.userLanguage;
+      // normalize code: "zh-TW", "ja", "ko", "en", etc.
+      if (browserLang.startsWith('zh')) langToUse = 'zh-TW';
+      else if (browserLang.startsWith('ja')) langToUse = 'jp';
+      else if (browserLang.startsWith('ko')) langToUse = 'kr';
+      else langToUse = 'en';
     }
+
+    if (i18n.language !== langToUse) {
+      i18n.changeLanguage(langToUse);
+    }
+
+    return () => themeMedia.removeEventListener('change', themeListener);
   }, [location]);
+
+  
 
   return (
     <>
@@ -78,6 +112,23 @@ function App() {
           </AccountLayout>
         }
       />
+      <Route 
+        path="/auth/line/callback" 
+        element={
+          <AccountLayout>
+            <LineCallback />
+          </AccountLayout>       
+        } 
+      />
+      <Route 
+        path="/auth/kakao/callback" 
+        element={
+          <AccountLayout>
+            <KakaoCallback />
+          </AccountLayout>       
+        } 
+      />
+
       <Route
         path="/signup"
         element={
@@ -174,6 +225,14 @@ function App() {
         element={
           <MainLayout>
             <Admin />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/punchgame"
+        element={
+          <MainLayout>
+            <Game />
           </MainLayout>
         }
       />

@@ -1,0 +1,176 @@
+.callback-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  width: 100%;
+  background-color: #f2f2f9;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+
+  .callback-content {
+    animation: floatUp 0.4s ease-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .logo-container {
+    animation: floatUp 0.4s ease-out;
+    margin-bottom: 16px; // Matches signup-page logo margin
+    cursor: pointer;
+    z-index: 10;
+    
+    img {
+      filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+      height: 32px;
+      width: auto;
+    }
+  }
+}
+
+.callback-card {
+  background-color: #fbfbfc;
+  padding: 24px; // Matches signup-card padding
+  border-radius: 16px;
+  box-shadow: 0px 0.5px 2px rgba(0, 0, 0, 0.12);
+  width: 468px; // Matches signup-card exactly
+  max-width: calc(100% - 24px);
+  text-align: center;
+  margin-bottom: 36px;
+
+  .callback-title {
+    margin-bottom: 4px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #121213;
+  }
+
+  .callback-subtitle {
+    font-size: 0.9rem;
+    color: #28A739;
+    margin-bottom: 16px;
+    margin-top: 0;
+  }
+
+  // Stacked Input Styling (Mirroring your signup code)
+  .callback-form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      padding: 10px;
+      height: 54px;
+      font-size: 0.95rem;
+      border: 1px solid #d2d2d9;
+      background-color: #f8f8fc;
+      color: #111;
+      transition: border-color 0.05s ease-out;
+      width: 100%;
+
+      &.first {
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 0;
+      }
+
+      &.last {
+        border-radius: 0 0 12px 12px;
+        margin-bottom: 16px;
+        transform: translateY(-1px);
+      }
+
+      &:focus {
+        border-color: #000;
+        background-color: #fff;
+        outline: none;
+        z-index: 10;
+      }
+    }
+  }
+}
+
+.primary-btn {
+  background-color: #323233; // Matches signup form button
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  height: 56px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(8, 8, 8, 0.23) !important;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover { background-color: #020203; }
+  &:disabled { opacity: 0.7; cursor: not-allowed; }
+}
+
+.secondary-btn {
+  margin-top: 12px;
+  background: transparent;
+  border: none;
+  color: #727273;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover { text-decoration: underline; color: #121213; }
+}
+
+.callback-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #f2f2f3;
+  border-top: 3px solid #28A739;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 20px auto;
+}
+
+/* ==================== Dark Mode ==================== */
+.dark-mode {
+  .callback-page { background-color: #0b0b0b; }
+  .callback-card {
+    background-color: #121213;
+    color: #f2f2f3;
+    box-shadow: 0.5px 0px 2px rgba(250, 250, 250, 0.13);
+
+    .callback-title { color: #f2f2f3; }
+    input {
+      background-color: #222;
+      color: #f2f2f3;
+      border: 1px solid #444;
+      &:focus { border-color: #28A739; background-color: #020203 !important; }
+    }
+    .primary-btn { background-color: #f2f2f3; color: #121213; &:hover { background-color: #fff; } }
+    .secondary-btn { color: #a2a2a3; &:hover { color: #f2f2f3; } }
+  }
+}
+
+/* ==================== Mobile ==================== */
+@media (max-width: 520px) {
+  .callback-card {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 18px;
+    width: 100%;
+    transform: translateY(0);
+  }
+  .dark-mode .callback-card { background-color: #0b0b0b !important; }
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

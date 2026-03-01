@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { firestore } from '../../../firebase/utils';
 import ProductCard from './../../ProductCard';
-import ProductModal from './../../Storefront/ProductModal';
+import ProductModal from './../../ProductModal';
 import './RecommendedProducts.scss';
 import { useTranslation } from 'react-i18next';
 import arrowIcon400 from '../../../assets/Icons/arrowIcon400.png';
@@ -56,11 +56,11 @@ const RecommendedProducts = () => {
     const w = el.getBoundingClientRect().width;
     // 7 visible by default on wide screens, then step down
     const count =
-      w >= 1680 ? 7 :
+      w >= 1680 ? 6 :
       w >= 1440 ? 6 :
-      w >= 1200 ? 5 :
+      w >= 1200 ? 4 :
       w >= 900  ? 4 :
-      w >= 640  ? 3 : 2;
+      w >= 640  ? 2 : 2;
 
     const totalGap = (count - 1) * GAP_PX;
     const raw = (w - totalGap) / count;
@@ -151,7 +151,8 @@ const RecommendedProducts = () => {
                     <div className="skeleton-text price" />
                   </div>
                 </div>
-              ))
+              )
+            )
             : visibleProducts.map(product => (
                 <div className="rec-product-item" key={product.id}>
                   <ProductCard
@@ -160,7 +161,9 @@ const RecommendedProducts = () => {
                     t={t}
                   />
                 </div>
-              ))}
+              )
+            )
+          }
         </div>
 
         {/* Scroll hints */}

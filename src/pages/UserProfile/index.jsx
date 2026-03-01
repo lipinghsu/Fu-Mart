@@ -68,7 +68,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
-      <Profile userId={userId} firestore={firestore} />
+      <Profile userId={userId} firestore={firestore}  />
     </div>
   );
 };

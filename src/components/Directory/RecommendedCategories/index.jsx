@@ -3,34 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './RecommendedCategories.scss';
 
-import poster1 from './../../../assets/CrayonArt/rec-cat-1.png';
-import poster2 from './../../../assets/CrayonArt/rec-cat-2.png';
-import poster3 from './../../../assets/CrayonArt/rec-cat-3.png';
-import poster7 from './../../../assets/CrayonArt/rec-cat-7.png';
-// 
 import titleDecoration from './../../../assets/title-dec.png';
 
 const categories = [
-  {
-    nameKey: 'beverages',
-    imageUrl: poster3,
-    filter: 'beverages'
-  },
-  {
-    nameKey: 'snacks',
-    imageUrl: poster1,
-    filter: 'snacks'
-  },    
-  {
-    nameKey: 'Pasta & Noodles',
-    imageUrl: poster2,
-    filter: 'Pasta & Noodles'
-  },    
-  {
-    nameKey: 'Canned Goods',
-    imageUrl: poster7,
-    filter: 'Canned Goods'
-  }
+  // {
+  //   nameKey: 'beverages',
+  //   imageUrl: poster3,
+  //   filter: 'beverages'
+  // },
+  // {
+  //   nameKey: 'snacks',
+  //   imageUrl: poster1,
+  //   filter: 'snacks'
+  // },    
+  // {
+  //   nameKey: 'Pasta & Noodles',
+  //   imageUrl: poster2,
+  //   filter: 'Pasta & Noodles'
+  // },    
+  // {
+  //   nameKey: 'Canned Goods',
+  //   imageUrl: poster7,
+  //   filter: 'Canned Goods'
+  // }
 ];
 
 const RecommendedCategories = () => {
@@ -142,4 +137,4 @@ useEffect(() => {
   );
 };
 
-export default RecommendedCategories;
+export default [RecommendedCategories];

@@ -34,8 +34,6 @@
   "noDescription": "상품 설명이 제공되지 않았습니다",
   "buyNow": "바로구매",
   "customQuantity": "사용자 지정 수량 (10개 이상)",
-  "productDisclaimerPart1": "제품 세부 정보, 포장 및 표시된 정보는 최신 또는 완전한 정보를 반영하지 않을 수 있습니다. 가장 정확한 정보는 실제 제품을 참조하십시오.",
-  "productDisclaimerPart2": "참고: 실제 중량과 가격은 계절 또는 기타 요인에 따라 달라질 수 있으며, 표시된 가격은 참고용 추정치입니다. 추가 정보는 제조업체 또는 판매자에게 문의하십시오.",
   "learnMore": "자세히 보기",
   "qualityGuaranteed": "품질 보장",
   "qualityPromise": "모든 주문에는 Fü-Mart의 품질 약속이 담겨 있습니다",
@@ -55,7 +53,7 @@
   "Uncover Hidden Gems": "숨겨진 보물 찾기",
   "Get Your Favorite Snacks": "좋아하는 간식 가져가기",
 
-  "recommendedProducts": "추천 상품",
+  "recommendedProducts": "추천상품",
   "latestProducts": "신상품",
   "featuredCategories": "카테고리 탐색",
   "snacks": "스낵",
@@ -67,5 +65,29 @@
   "searchFor": "“{{query}}” 검색...",
   
   "searchResultsFor": "“{{searchQuery}}”의 검색 결과: {{length}}건",
-  "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건"
+  "searchResultsFor_plural": "“{{searchQuery}}”의 검색 결과: {{length}}건",
+  "joinLuckyDraw": "첫 구매하면 무료 미스터리 선물을 받아요！",
+
+  "slides": {
+    "fortunate": {
+      "heading": "福의 시작",
+      "cta": "전체 상품 보기"
+    },
+    "taipei2025": {
+      "heading": "타이베이 머치 컬렉션",
+      "cta": "지금 선주문"
+    },
+    "classics": {
+      "heading": "阿嬤의 찬장",
+      "cta": "대만 감성을 만나보세요"
+    },
+    "street": {
+      "heading": "타이베이 스트릿 시리즈",
+      "cta": "한정 판매"
+    },
+    "taste": {
+      "heading": "대만의 맛",
+      "cta": "지금 탐험하기"
+    }
+  }
 }

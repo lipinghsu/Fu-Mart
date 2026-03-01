@@ -1,0 +1,262 @@
+/* Wrapper so hover/focus/touch pauses both image and dots */
+.image-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Image box */
+  .image-container {
+    position: relative;
+    width: calc(100dvh - 72px - 68px - 196px);
+    height: calc(100dvh - 72px - 68px - 196px);
+    min-height: calc(100dvh - 72px - 68px - 196px);
+    max-height: calc(100dvh - 72px - 68px - 196px);
+    border-radius: 18px;
+    // background-color: red;
+    overflow: hidden;
+    cursor: zoom-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px !important;
+    &.sold-out {
+      opacity: 0.40;
+    }
+
+    @media (max-width: 870px) {
+      height: 332px !important;
+      min-height: 332px;
+      max-height: 332px;
+    }
+
+    img.main-image {
+      // background-color: pink;
+      width: calc(100dvh - 72px - 68px - 280px);
+      height: calc(100dvh - 72px - 68px - 280px);
+      min-height: calc(100dvh - 72px - 68px - 280px);
+      max-height: calc(100dvh - 72px - 68px - 280px);
+      object-fit: contain;
+      user-drag: none;
+      -webkit-user-drag: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform;
+      transition: transform 0.25s ease;
+      &.sold-out{
+        opacity: 0.8;
+      }
+    }
+    &.zooming img.main-image {
+      cursor: zoom-out;
+      touch-action: none; /* prevent scroll conflict */
+    }
+
+    @media (max-width: 870px) {
+        cursor: default;
+        touch-action: pinch-zoom;
+
+    }
+  }
+}
+
+
+
+.sold-out-overlay { pointer-events: none; }
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.45s ease;
+}
+.slider-track.no-anim { transition: none; }
+.slide {
+  min-width: 100%;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ——— Dots BELOW the image ——— */
+.carousel-dots {
+  --inactive-width: 10px;
+  --active-width: 46px;
+  --bar-height: 6px;
+  --dot-diameter: 8px;
+  --radius: 999px;
+  --gap: 8px;
+
+  position: relative;   /* no absolute positioning */
+  left: auto;
+  bottom: auto;
+  transform: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+
+  margin-top: 4px;     /* spacing under image */
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: rgba(48, 48, 52, 0.12);
+  background-color: #f8f8fc;
+  // background-color: #b4e0d128;
+  backdrop-filter: saturate(180%) blur(0.5px);
+  
+@media (max-width: 870px) {
+    display: none;
+    // position: absolute;
+    // left: 0;
+    // top: 0px;
+    // transform: rotate(90deg) translate(-2px, 12.5px);
+  }
+}
+
+.product-modal.dark, .dark-mode {
+    .carousel-dots {
+        background: #202021;
+    }
+    // progress bar
+    .carousel-dots .dot .dot-bar {
+        background-color: #f2f2f9 !important;
+    }
+
+    // inactive dots
+    .carousel-dots .dot::before {
+        background-color: #828289 !important;
+        
+    }
+    .carousel-dots .dot:hover::before { 
+        // transform: translate(-50%, -50%) scale(1.08); 
+        background-color: #f2f2f9 !important;
+    }
+
+    .carousel-dots .dot .dot-track {
+        background-color: #828289 !important;
+
+    }
+}
+.carousel-dots .dot {
+  all: unset;
+  cursor: pointer;
+  position: relative;
+
+  height: var(--dot-diameter);
+  width: var(--inactive-width);
+  border-radius: var(--radius);
+  transition: width 180ms ease, opacity 120ms ease;
+  display: inline-block;
+
+  /* Rounded clipping so both ends of the fill stay perfectly round */
+  overflow: hidden;
+
+  /* Bigger tap target */
+  
+  &::after { content: ""; position: absolute; inset: -8px; }
+}
+
+/* Inactive: centered small circle */
+.carousel-dots .dot::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--dot-diameter);
+  height: var(--dot-diameter);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.72);
+  transition: transform 120ms ease, background-color 0.08s ease-out, opacity 120ms ease;
+  background-color: #e2e2e9;
+  // background-color: #b4e0d1;
+  
+}
+
+/* Avoid vertical shift on hover */
+.carousel-dots .dot:hover::before { 
+    // transform: translate(-50%, -50%) scale(1.08); 
+    background-color: #c2c2c9;
+    // background-color: #52bf84;
+    
+    
+}
+
+/* Active = expand horizontally only */
+.carousel-dots .dot.active { 
+  width: var(--active-width); 
+  
+}
+
+/* Hide the inactive dot when active; show track+bar children instead */
+.carousel-dots .dot.active::before { display: none; }
+
+/* Track behind the fill */
+.carousel-dots .dot .dot-track {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: var(--bar-height);
+  transform: translate(-50%, -50%);
+  border-radius: inherit;
+  background-color: #e2e2e9;
+  // background-color: #b4e0d1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  
+  
+}
+
+/* Fill bar; clipped by parent's rounded corners */
+.carousel-dots .dot .dot-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: var(--bar-height);
+  transform: translate(-50%, -50%) scaleX(0);
+  transform-origin: left center;
+  border-radius: inherit;
+  background-color: #c2c2c9;
+  // background-color: #52bf84;
+  pointer-events: none;
+  opacity: 0;
+  
+
+  /* One stable animation; only play-state toggles */
+  animation-name: imageCarouselBarFill;
+  animation-duration: var(--progressMs, 5000ms);
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  
+}
+
+/* Show track+bar when active */
+.carousel-dots .dot.active .dot-track,
+.carousel-dots .dot.active .dot-bar {
+  opacity: 1;
+  
+}
+
+/* Pause/resume without restarting (prevents jumps) */
+.carousel-dots .dot.active.is-paused .dot-bar { animation-play-state: paused; }
+.carousel-dots .dot.active.is-running .dot-bar { animation-play-state: running; }
+
+@keyframes imageCarouselBarFill {
+  from { transform: translate(-50%, -50%) scaleX(0); }
+  to   { transform: translate(-50%, -50%) scaleX(1); }
+}
+
+/* Mobile tweak */
+@media (max-width: 870px) {
+  .carousel-dots {
+    --active-width: 52px;
+    --bar-height: 7px;
+    --dot-diameter: 9px;
+  }
+}
+

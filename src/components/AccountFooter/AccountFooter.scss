@@ -10,14 +10,14 @@
   box-sizing: border-box;
   margin-top: auto;
   // margin-bottom: 24px;
-  background-color: #f2f2f3;
+  background-color: #f0f4f8;
   
   color: #020203;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   position: absolute;
   bottom: 0px;
   @media (max-width: 870px) {
-    bottom: -8px;
+    // bottom: -8px;
   }
 
 
@@ -63,10 +63,11 @@
 
       a {
         cursor: pointer;
-        color: #424243;
+        color: #626263;
 
         &:hover {
-          color: #e5341d;
+          text-decoration: underline;
+          color: #020203;
         }
       }
 
@@ -108,7 +109,7 @@
         a{
           color: #b2b2b3;
           &:hover {
-            color: #e5341d;
+            color: #f2f2f3;
           }
         }
       } 

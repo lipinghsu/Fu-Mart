@@ -8,14 +8,16 @@
     height: 32px;
     width: 32px;
     border-radius: 16px;
-    margin-left: 12px;
-    background-color: rgba(217,45,23,255);
+    margin-left: 10px;
+    // background-color: rgba(217,45,23,255);
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 
     img {
+      filter: invert(1);
       width: 90%;
       height: 90%;
       user-drag: none;
@@ -30,15 +32,15 @@
       padding: 2px;
       margin-right: 4px;
       img {
-        width: 105%;
-        height: 105%;
+        width: 100%;
+        height: 100%;
       } 
     }
     &.expanded{
       
         img{
-          width: 100%;
-          height: 100%;
+          width: 90%;
+          height: 90%;
         }
     }
   }
@@ -53,30 +55,32 @@
     align-items: center;
     
     // border: 2px solid #424243;
-    background-color: #f8f8f8;
+    background-color: #f8f8fc;
     animation: floatIn 0.6s ease-out;
     height: 52px;
     border-radius: 12px;
     // width: 560px;
-    box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.23);
+    box-shadow: 0.5px 1px 2px rgba(8, 8, 12, 0.23);
     border: 1px solid #f2f2f3;
     position: relative;
     overflow: hidden;
     z-index: 105;
     &:hover{
-      box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.33);
+      box-shadow: 0.5px 1px 2px rgba(8, 8, 12, 0.33);
     }
 
   }
 
   .cg-search-input {
+    flex: 1;
+    min-width: 0;
     font-family: inherit;
     padding: 12px 16px 12px 8px;
     border: none;
     color: #222223;
     background-color: transparent;
     font-size: 1rem;
-    width: calc(100% - 86px - 40px);
+    // width: calc(100% - 86px - 40px);
     margin-right: 8px;
     outline: none;
     border-radius: 0;
@@ -96,15 +100,20 @@
     justify-content: center;
     align-items: center;
     // background-color: pink;
-    width: 64px;
+    overflow: hidden;
+    width: 0px;
+    opacity: 0;
     height: 100%;
     // margin-right: 8px;
     // border-radius: 12px;
     // background-color: #424243;
     // box-shadow: 0.5px 1px 2px rgba(8, 8, 8, 0.23);
+    transition: width 0.05s ease-in-out, opacity 0.03s ease-in-out;
     
     cursor: pointer;
     &.active{
+      width: 64px;
+      opacity: 1;
       background-color: #0000000b;
       img{
         filter: invert(0);
@@ -208,7 +217,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: calc(100% + 2px);
+    width: calc(100%);
     background-color: #fff;
     // border: 1px solid #bbb;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -530,7 +539,7 @@
       margin-left: 2px !important;
       &.expanded{
         padding: 0;
-        margin: 8px;
+        margin: 4px;
         transform: translateX(3px) !important;
         // transform: none !important;
         img{
@@ -560,7 +569,7 @@
       
       @media (max-width: 520px) {
         background-color: #424240c8 !important;
-        backdrop-filter: saturate(180%) blur(1px);
+        backdrop-filter: saturate(180%) blur(0.5px);
         
       }
       .text{
@@ -673,7 +682,7 @@
       top: 100%;
       bottom: auto;
       transform: translate(0, -16px);
-      border-radius: 0 0 12px 12px;
+      border-radius: 0 0 24px 24px;
       padding-top: 20px;
       padding-bottom: 0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);

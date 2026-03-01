@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { firestore } from '../../firebase/utils';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,7 @@ import i18n from '../../i18n';
 import LanguageDropdown from './LanguageDropdown';
 import './AccountFooter.scss'
 
-const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
+const AccountFooter = ({ }) => {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const { t } = useTranslation(['footer']);
 
@@ -23,7 +23,25 @@ const AccountFooter = ({ isDarkMode, toggleDarkMode }) => {
     localStorage.setItem('preferredLanguage', lang);
     setIsLanguageDropdownOpen(false);
     window.location.reload();
+    
   };
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('preferredTheme');
+    return savedTheme === 'dark';
+  });
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    document.documentElement.classList.toggle('dark-mode', newMode);
+    localStorage.setItem('preferredTheme', newMode ? 'dark' : 'light');
+  };
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('preferredTheme');
+    const isDark = savedTheme === 'dark';
+    document.documentElement.classList.toggle('dark-mode', isDark);
+  }, []);
 
   return (
     <footer className="site-footer">

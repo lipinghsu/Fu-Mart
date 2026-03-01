@@ -9,8 +9,9 @@
     align-items: center;
     flex-direction: column;
     position: relative;
-    // background-color: red;
+    background-color: #f2f2f9;
     .cg-header{
+        background-color: #f2f2f9;
         margin-top: 12px;
         .cg-header-left{
             width: 100%;
@@ -59,7 +60,7 @@
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
         @media (max-width: 580px) {
-            font-size: 9.5vw;
+            font-size: clamp(38px, 9.5vw, 56px);
         }
     }
     .top-text{
@@ -265,6 +266,7 @@
     color: #f2f2f3;            // Light text by default
 
     .cg-header {
+        background-color: #000000;;
         color: #f2f2f3;
     }
 
@@ -323,7 +325,7 @@
 
 .corner-decoration.top-left {
     animation: cornerLeftIn 0.7s ease-out forwards;
-    top: -4px;
+    top: 0px;
     left: 0;
     img{
         // transform: rotate(-90deg);
@@ -334,15 +336,16 @@
 
 .corner-decoration.top-right {
     animation: cornerRightIn 0.7s ease-out forwards;
-    top: -4px;
+    top: 0px;
     right: 0;
     
     
 }
 
 .corner-decoration.bottom-left {
+    // background-color: red;
     animation: cornerLeftUp 0.7s ease-out forwards;
-    bottom: -4px;
+    bottom: 0px;
     left: 0;
     img{
         transform: rotate(180deg);
@@ -351,7 +354,7 @@
 
 .corner-decoration.bottom-right {
     animation: cornerRightUp 0.7s ease-out forwards;
-    bottom: -4px;
+    bottom: 0px;
     right: 0;
     img{
         transform: scale(1, -1);
@@ -389,7 +392,7 @@
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(-4px) scale(1);
     }
 }
 
@@ -401,6 +404,6 @@
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(-4px) scale(1);
     }
 }

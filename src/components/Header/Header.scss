@@ -8,19 +8,19 @@
 }
 
 @keyframes blinkCartContent {
-  0% { filter: invert(1); }
-  40% { filter: invert(1); }
-  60% { filter: none; }
-  80% { filter: invert(1); }
-  100% { filter: none; }
+  0% { color:white; }
+  40% { color:white;; }
+  60% { color:white; }
+  80% { color:white;; }
+  100% { color:white;}
 }
 
 /* DARK MODE BLINK- not working properly */ 
 @keyframes darkBlinkCartButton {
-  0% { background-color: #28A739; }
-  40% { background-color: #28A739; }
+  0% { background-color: #28A739 !important; }
+  40% { background-color: #28A739 !important; }
   60% { background-color: inherit; }
-  80% { background-color: #28A739; }
+  80% { background-color: #28A739 !important; }
   100% { background-color: inherit; }
 }
 
@@ -35,22 +35,33 @@
 
 // logo flicker
 @keyframes neonFlicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 64%, 67%, 89%, 100% {
-    opacity: 1;
-    // filter: brightness(1);
-  }
-  20%, 22%, 24%, 55%, 60%, 65%, 69%, 87% {
-    opacity: 0.95;
-    // filter: brightness(0.9);
-  }
-  26%, 27% {
-    opacity: 0.97;
-    // filter: brightness(1.2);
-  }
-  40%, 41%, 83% {
-    opacity: 0.93;
-    // filter: brightness(0.8);
-  }
+  0% { opacity: 1; }
+  3% { opacity: 0.92; }
+  6% { opacity: 1; }
+  7% { opacity: 0.96; }
+  8% { opacity: 1; }
+  9% { opacity: 0.94; }
+  10% { opacity: 1; }
+  
+  /* A slight dip like a voltage drop */
+  30% { opacity: 1; }
+  32% { opacity: 0.9; } 
+  34% { opacity: 1; }
+  
+  /* Stable burn */
+  40% { opacity: 1; }
+  
+  /* High frequency fluttering */
+  50% { opacity: 0.95; }
+  52% { opacity: 1; }
+  54% { opacity: 0.92; }
+  56% { opacity: 1; }
+  
+  /* Stable again */
+  80% { opacity: 1; }
+  82% { opacity: 0.93; }
+  // 88% { opacity: 0.92; }
+  100% { opacity: 1; }
 }
 
 .cg-header {
@@ -66,10 +77,15 @@
   top: 0;
   z-index: 100;
   background-color: #fff;
-  transition: all 0.15s ease-out;
+  transition: all 0.05s ease-out;
   width: 100%;
   max-width: 100vw;
   box-sizing: border-box;
+  box-sizing: border-box;
+  .lang-dropdown{
+    line-height: 1.7;
+    text-transform: uppercase;
+  }
 
   @media (max-width: 870px) {
     padding: 8px 16px 8px 16px;
@@ -88,7 +104,7 @@
     
 
     .cg-header-left .logo-container {
-      transition: all 0.25s ease-out;
+      transition: all 0.05s ease-out;
       // filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
     }
 
@@ -113,13 +129,13 @@
     }
 
     .logo-container {
-      width: 188px;
+      width: 170px;
       margin-right: 8px;
       opacity: 0.87;
       transform: translateY(-2px);
       animation: neonFlicker 3.8s infinite;
       @media (max-width: 520px) { 
-        width: 176px; 
+        width: 164px; 
         transform: none;
         margin:0;
       }
@@ -156,7 +172,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    padding: 0 20px 0 24px;
+    padding: 0 12px 0 24px;
     // background-color: red;
 
 
@@ -205,9 +221,21 @@
     height: fit-content;
 
     .header-auth-buttons {
-      gap: 4px;
+      gap: 6px;
       display: flex;
       align-items: center;
+
+      .header-btn{
+        cursor:pointer !important;
+
+        // background-color: red;
+        &.sign-up{
+          // border: 1px solid rgba(8, 8, 8, 0.48);
+          &:hover{
+            // border: 1px solid rgba(8, 8, 8, 0.00);
+          }
+        }
+      }
 
       &.hidden-mobile {
         display: none !important;
@@ -219,17 +247,18 @@
         flex-direction: row;
         align-items: center;
         padding: 10px 14px;
-        background-color: rgba(8, 8, 8, 0.08);
+        // background-color: rgba(8, 8, 8, 0.08);
+        background-color: #222223;
+        color:#f2f2f3;
         border-radius: 24px;
-        margin-left: 8px;
-        cursor: pointer;
+        // margin-left: 4px;
+        cursor: pointer !important;
         box-shadow: 0 0.5px 1px rgba(88, 88, 88, 0.2);
-        
 
         &.blinking {
-          animation: blinkCartButton 1s ease;
+          // animation: blinkCartButton 1s ease;
           .bag-count, .bag-img-wrap img {
-            animation: blinkCartContent 1s ease;
+            // animation: blinkCartContent 1s ease;
           }
         }
 
@@ -238,32 +267,36 @@
         }
 
         &:hover {
-          background-color: rgba(8, 8, 8, 0.12);
+          // background-color: rgba(8, 8, 8, 0.12);
+          background-color: #000;
           img { 
-            // filter: brightness(115%); 
+            // filter: invert(1); 
           }
           .bag-count{
-            color: #30c544 !important;
+            color: #fff;
           }
         }
 
         .bag-count {
+          
           font-weight: 500;
           padding-left: 6px;
-          transform: translateY(1px);
+          
           
           &.active{
             color: #28a739;
+            
             font-weight: bold;
           }
         }
 
         .bag-img-wrap {
+          
           width: 24px;
           height: 24px;
 
           img {
-            filter: invert(1);
+            // filter: invert(1);
             opacity: 0.93;
             width: 100%;
             height: 100%;
@@ -294,11 +327,14 @@
     .user-menu {
       display: flex;
       align-items: center;
+      
       .user-dropdown-wrapper {
         position: relative;
         display: inline-block;
         margin-right: 8px;
+        // background-color: #f2f2f3;
         // background-color: pink;
+        
         
 
         .user-name {
@@ -313,105 +349,6 @@
           }
         }
 
-        .user-dropdown {
-
-          position: absolute;
-          right: 0;
-          // margin-right: 0;
-          top: calc(100% + 16px);
-          background-color: #fff;
-          padding: 4px 8px 8px 8px;
-          border-radius: 0 0 8px 8px;
-          box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.12);
-              // box-shadow: 0px 1.5px 2px rgba(0, 0, 0, 0.13);
-          min-width: 198px;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          z-index: 0; // 確保不被其他元素蓋住
-          .user-dropdown-btn{
-            &.sell-now{
-              color: #28A739 !important;
-            }
-  
-            background-color: transparent;
-            box-shadow: none;
-            border:none;
-            height: 48px;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            // margin: auto 0;
-            // display: flex;
-            cursor: pointer;
-            text-align: left;
-            &.log-out:hover{
-              color: #e5341d;
-            }
-            &:hover{
-              background-color: #010b3d;
-              color:white;
-
-            }
-          }
-
-          .currency-switcher {
-            select {
-              -webkit-appearance: none;
-              -moz-appearance: none;
-              text-indent: 1px;
-              text-overflow: '';
-            }
-             .currency-select {
-              width: 100%;
-              height: 48px;
-              padding: 12px 12px;
-              font-size: 14px;
-              // margin-top: 4px;
-              background-color: #fff;
-              // color: #f2f2f3;
-              // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-              font-weight: 600;
-              // color:#30c544;
-              border: 1px solid #626263;
-              // border: none;
-              border-radius: 12px;
-              
-              cursor: pointer;
-              &:hover{
-                background-color: #010b3d;
-                color: #30c544;
-              }
-            }
-          }
-
-
-          .header-btn {
-            width: 100%;
-            text-align: left;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            
-
-            &:hover {
-              background-color: rgba(8, 8, 8, 0.05);
-            }
-          }
-        }
-      }
-
-      .dark-mode .user-dropdown {
-        background-color: #222;
-        border: 1px solid #444;
-        
-        .header-btn {
-          color: #f2f2f3;
-
-          &:hover {
-            background-color: #333;
-          }
-        }
       }
 
 
@@ -435,7 +372,7 @@
         padding: 10px 14px;
         background-color: rgba(8, 8, 8, 0.08);
         border-radius: 24px;
-        margin-left: 4px;
+        // margin-left: 4px;
         cursor: pointer;
         img{
           filter: invert(1); 
@@ -454,7 +391,7 @@
         &.blinking {
           animation: blinkCartButton 1s ease;
           .bag-count, .bag-img-wrap img {
-            animation: blinkCartContent 1s ease;
+            // animation: blinkCartContent 1s ease;
           }
         }
 
@@ -473,6 +410,7 @@
         .bag-count {
           font-weight: 500;
           padding-left: 6px;
+          font-size: 1rem !important;
         }
 
         .bag-img-wrap {
@@ -513,20 +451,64 @@
   color: #020203;
   border: none;
   font-weight: 700;
-  padding: 7px 12px;
-  height: 36px;
+  padding: 10px 14px 10px 12px;
+  // height: 36px;
   font-size: 0.95rem;
   // min-width: 84px;
   // text-transform: uppercase;
   // letter-spacing: -0.2px;
   width: fit-content;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 24px;
+  // background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+    .bag-img-wrap {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        // filter: invert(1);
+        opacity: 0.93;
+        width: 88%;
+        height: 88%;
+        user-drag: none;
+        -webkit-user-drag: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        pointer-events: none;
+      }
+    }
 
   &.log-in, &.log-out { font-weight: normal; }
 
-  &.sign-up, &.log-in, &.log-out {
-    &:hover { background-color: rgba(8, 8, 8, 0.08); }
+  &.sign-up, &.log-in, &.log-out{
+    background-color: #fff;
+    &:hover { 
+      // border-color: #c2c2c9 !important;
+      background-color: #f0f4f8 !important;
+      color:#020203;;
+      .bag-img-wrap img {
+        // filter: invert(1) !important;
+      }
+    }
+  }
+  &.header-lang-button {
+    background-color: #fff;
+    &:hover { 
+      background-color: #f6f8fa !important;
+      color:#020203;;
+      .bag-img-wrap img {
+        // filter: invert(1) !important;
+      }
+    }
   }
 
   @media (max-width: 520px) {
@@ -565,9 +547,28 @@
 
   .header-btn {
     color: #f2f2f3 !important; 
+    
+  
     // background-color: red !important;
-    &.sign-up, &.log-in, &.log-out {
-      &:hover { background-color: #383838 !important; }
+    &.sign-up{
+      
+      border: 1px solid #525253 !important;
+    }
+    &.sign-up, &.log-in, &.log-out, &.header-lang-button {
+      background-color: #000;
+      img{
+        // filter:invert(0) !important;
+      }
+      &:hover { 
+
+        background-color: #222223 !important; 
+        border-color: #525253 !important; ;
+        color:#f2f2f3 !important;
+        img{
+          filter:invert(1) !important;
+        }
+        
+      }
 
       @media (max-width: 520px) {
         color: #28a739 !important;
@@ -578,29 +579,53 @@
       }
     }
   }
+  .header-btn{
+  .bag-img-wrap:not(.logged-in) img {
+    filter: invert(1) !important;
+  }
+    &:hover{
+      .bag-img-wrap {
+        img{
+          filter:invert(1) !important;
+        }
+      }
+
+    }
+
+  }
 
   .header-auth-buttons .shopping-bag,
   .user-menu .shopping-bag {
-    background-color: #383838 !important;
-    box-shadow: 0 0.5px 1px rgba(250, 250, 250, 0.18) !important;
     
+    background-color: #e2e2e3 !important;
+    box-shadow: 0 0.5px 1px rgba(250, 250, 250, 0.18) !important;
     .bag-count{
-      color: #f2f2f3;
+      color: #000!important;
+      &.active{
+        color: #28a739 !important;
+        
+        font-weight: bold;
+      }
     }
+    
     &.blinking {
-      animation: darkBlinkCartButton 1.5s ease-in-out;
+      animation: darkBlinkCartButton 1.5s ease-in-out !important;
       .bag-count, .bag-img-wrap img {
-        animation: darkBlinkCartContent 1.5s ease-in-out;
+        animation: darkBlinkCartContent 1.5s ease-in-out !important;
       }
     }
 
     &:hover {
-      background-color: #f2f2f3 !important;
-      img { filter: invert(1) !important; }
+      background-color: #fff !important;
+      .bag-count{
+        // background-color: red !important;
+        // color: #020203 !important;
+      }
+      // background-color: #f2f2f3 !important;
     }
 
     img { 
-      filter: invert(0) !important;
+      filter: invert(1) !important;
     }
   }
 
@@ -612,15 +637,270 @@
   }
 }
 
-/* Default dark mode logo filter */
-.dark-mode .cg-header .cg-header-left .logo-container img {
-  // filter: invert(1);
-  filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+/* 讓未登入/已登入同容器的間距與排列一致 */
+.cg-header .cg-header-right .header-auth-buttons {
+  gap: 8px;
+  display: flex;
+  align-items: center;
+
+  /* 統一 sign-up 按鈕外觀（未登入是「Sign up」，已登入是「avatar + name」） */
+  .header-btn.sign-up {
+    border: 1px solid #b2b2b9;
+    padding: 8px 14px 8px 12px;
+    border-radius: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      // border-color: rgba(8, 7, 22, 0.52);
+      background-color: #222223;
+      // color: #f2f2f3;
+      img { filter: invert(0); }
+    }
+
+    .btn-label {
+      font-size: 0.95rem;
+      line-height: 1;
+      max-width: 140px;
+      // overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    /* 已登入狀態：頭像 */
+    &.user-trigger {
+      &:hover{
+        .bag-img-wrap.avatar{
+          img{
+            filter: none !important;
+          }
+        }
+      }
+      .bag-img-wrap.avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 9999px;
+        overflow: hidden;
+        margin-right: 4px;
+        // background: #e9e9ea;
+
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: none; /* 保留原色，不要反相 */
+          opacity: 1;
+        }
+      }
+
+      .user-label {
+        font-weight: 700;
+      }
+    }
+  }
+
+  /* 購物袋維持同樣式（你原本的深色膠囊風格），兩種狀態共用 */
+  .shopping-bag {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #222223;
+    color: #f2f2f3;
+    border-radius: 24px;
+    // margin-left: 2px;
+    cursor: pointer !important;
+    box-shadow: 0 0.5px 1px rgba(88, 88, 88, 0.2);
+
+    &:hover {
+      background-color: #000;
+      .bag-count { color: #fff; }
+    }
+
+    .bag-count {
+      font-weight: 500;
+      padding-left: 6px;
+      &.active { color: #28a739; font-weight: 800; }
+    }
+
+    .bag-img-wrap {
+      width: 24px; height: 24px;
+      img { opacity: .93; width: 100%; height: 100%; }
+    }
+  }
 }
 
-/* On scroll + dark mode: stylized red-toned filter */
-.dark-mode .cg-header.scrolled .cg-header-left .logo-container img {
-  // transition: all 0.3s ease-out;
-  // filter: invert(12%) sepia(98%) saturate(7456%) hue-rotate(1deg) brightness(95%) contrast(112%);
+
+.user-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+
+  .user-dropdown,
+  .hover-dropdown {
+    position: absolute;
+    top: calc(100% - 24px);
+    right: 0;
+    background-color: #fbfbfc;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-2px);
+    pointer-events: none;
+    transition: max-height 0s ease, opacity 0s ease, transform 0s ease-out;
+    z-index: -1;
+    padding-top: 24px;
+    
+    &.visible {
+      opacity: 1;
+      max-height: 400px;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  /* NOT LOGGED IN content */
+  .hover-dropdown {
+    .dropdown-section {
+      padding: 16px 8px 16px 8px;
+      text-align: center;
+      background-color: #fbfcfd;
+
+      .dropdown-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+        color: #333;
+
+        p {
+          margin: 0;
+        }
+
+        .link-text {
+          font-weight: 600;
+          cursor: pointer;
+          transition: color 0.05s ease;
+          color: #50ac69;
+          
+          &:hover {
+            text-decoration: underline;
+            color: #28a739;
+          }
+        }
+      }
+    }
+  }
+
+  /* LOGGED IN content */
+  .user-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    .user-dropdown-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #020203;
+      cursor: pointer;
+      transition: background-color 0.05s ease-out, color 0.05s ease-out;
+      text-align: left;
+
+      &:hover {
+        background-color: #f4f8fc;
+      }
+
+      &.sell-now {
+        font-weight: 700;
+        color: #28a739;
+        &:hover {
+          background-color: #eaf7ed;
+        }
+      }
+
+      &.log-out {
+        border-top: 1px solid #e2e2e9;
+        color: #e5341d;
+        &:hover {
+          background-color: #fbe8e8;
+        }
+      }
+    }
+  }
+
+  /* invisible hover bridge */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+  }
+
+  &:hover .hover-dropdown,
+  &:hover .user-dropdown {
+    opacity: 1;
+    max-height: 400px;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }
 
+/* ---- Dark Mode ---- */
+.dark-mode {
+  .user-dropdown-wrapper {
+    .hover-dropdown,
+    .user-dropdown {
+      background-color: #121213;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+      .dropdown-section {
+        background-color: #111;
+        color: #ccc;
+        .dropdown-text{
+          color: #f2f2f3;;
+        }
+
+        .link-text {
+          color: #50ac69;
+          &:hover {
+            color: #28a739;
+          }
+        }
+      }
+
+      .user-dropdown-btn {
+        color: #f2f2f3;
+        &:hover {
+          background-color: #222223;
+        }
+
+        &.sell-now {
+          color: #28a739;
+          &:hover {
+            background-color: #1a2a1a;
+          }
+        }
+
+        &.log-out {
+          border-top: 1px solid #333;
+          color: #e5341d;
+          &:hover {
+            background-color: #3a1c1c;
+          }
+        }
+      }
+    }
+  }
+}

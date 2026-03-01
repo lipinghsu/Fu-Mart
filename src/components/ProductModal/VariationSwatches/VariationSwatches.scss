@@ -1,0 +1,159 @@
+/* ==========================================================
+   Variation Swatches (Button Chips)
+   ========================================================== */
+
+.variation-group {
+    margin-top: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
+  .variation-label {
+    font-weight: bold;
+    line-height: 22px;
+    color: #020203;
+    margin-bottom: 4px;
+  }
+}
+
+/* ==========================================================
+   Swatches Grid Layout
+   ========================================================== */
+
+.variation-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* equal width */
+  gap: 12px;
+  width: 100%;
+}
+
+/* ==========================================================
+   Swatch Button Styles
+   ========================================================== */
+
+.swatch {
+  margin-top: 4px;
+  appearance: none;
+  border: none;
+  border-radius: 12px;
+  background-color: transparent;
+  color: rgb(115, 118, 127);
+  cursor: pointer;
+
+  height: 56px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  transition: background-color 0.08s ease-out;
+
+  &:hover {
+    background-color: #ebebeb !important;
+    color: #222223;
+  }
+
+  &.active {
+    color: #020203;
+    background-color: #f2f2f3;
+    backdrop-filter: saturate(180%) blur(0.5px);
+  }
+
+  /* Inner text animation wrapper */
+  span {
+    display: inline-block;
+    // animation: scrollText 6s linear infinite alternate;
+    padding: 0 4px;
+  }
+
+  /* Pause scrolling when hovered */
+  &:hover span {
+    animation-play-state: paused;
+  }
+}
+
+/* ==========================================================
+   Scroll Text Animation (marquee effect)
+   ========================================================== */
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-40%);
+  }
+}
+
+/* ==========================================================
+   Skeleton Loading Placeholder
+   ========================================================== */
+
+.swatch.skeleton-visible {
+  position: relative;
+  overflow: hidden;
+  color: transparent;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    #e5e5e6 25%,
+    #f2f2f3 37%,
+    #e5e5e6 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ==========================================================
+   Dark Mode Styles
+   ========================================================== */
+
+.dark-mode {
+  .variation-label {
+    color: #ebebeb;
+    strong {
+      color: #f2f2f3;
+    }
+  }
+
+  .swatch {
+    // background-color: #424243;
+    color: #a2a2a3;
+    box-shadow: none !important;
+
+    &:hover {
+        color: #f2f2f3;
+      background-color: #323233 !important;
+    }
+
+    &.active {
+      background-color: #222223;
+      color: #fff;
+      font-weight: 700;
+    }
+  }
+
+  .swatch.skeleton-visible {
+    background: linear-gradient(
+      90deg,
+      #3a3a3b 25%,
+      #4a4a4b 37%,
+      #3a3a3b 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+}

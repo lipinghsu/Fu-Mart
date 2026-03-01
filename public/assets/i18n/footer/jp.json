@@ -13,13 +13,15 @@
   "emailAria": "メールアドレス",
   "join": "登録",
   "joining": "登録中...",
-  "signupDisclaimer": "登録することで、Fü-Martのニュースと最新情報を受け取ることに同意したことになります",
+  "signupDisclaimer": "登録すると、Fü-Martの最新情報を受け取ることに同意したことになります。",
   "newsletterSuccess": "ニュースレターに登録されました。",
   "newsletterError": "エラーが発生しました。再度お試しください。",
   "enterValidEmail": "有効なメールアドレスを入力してください。",
   "light": "ライトモード",
   "dark": "ダークモード",
   "welcome": "ホワンイン グアンリン",
-  "store": "お店に入る"
+  "store": "お店に入る",
+  "aboutus": "会社情報",
+  "settings": "サイト設定"
   }
   

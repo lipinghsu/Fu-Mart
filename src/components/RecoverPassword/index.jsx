@@ -3,6 +3,7 @@ import fumartLogo from '../../assets/fumart-m-red-bg.png';
 import './RecoverPassword.scss';
 import Header from '../Header';
 import cornerImg from '../../assets/corner-image.jpg';
+import fumartTextLogo from '../../assets/fumart-text-logo-bombarda.png';
 import { auth } from '../../firebase/utils';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -42,10 +43,17 @@ const RecoverPassword = () => {
 
   return (
     <div className="login-page">
-      <Header 
+      {/* <Header 
         comingSoonPage={true}
         hideMobileButtons = {true}
-      />
+      /> */}
+      <div
+        className="logo-container"
+        onClick={() => navigate('/')}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src={fumartTextLogo} alt="Logo" />
+      </div>
       <div className="corner-decoration top-left">
           <img src={cornerImg} alt="Corner" />
       </div>
@@ -58,28 +66,30 @@ const RecoverPassword = () => {
       <div className="corner-decoration bottom-right">
           <img src={cornerImg} alt="Corner" />
       </div>
-      <div className="login-card">
-        <div className="login-title">{t('resetTitle')}</div>
-        <p className="login-subtitle">{t('resetSubtitle')}</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="account-input reset"
-            type="email"
-            placeholder={t('emailPlaceholder')}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={loading}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? <div className="spinner"></div> : t('sendReset')}
-          </button>
-        </form>
-        <div className="login-links">
-          <span>{t('rememberPassword')}</span>
-          <a href="/login"> {t('logIn')}</a>
+      <div className="login-content">
+          <div className="login-card">
+            <div className="login-title">{t('resetTitle')}</div>
+            <p className="login-subtitle">{t('resetSubtitle')}</p>
+            <form onSubmit={handleSubmit}>
+              <input
+                className="account-input reset"
+                type="email"
+                placeholder={t('emailPlaceholder')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+              <button type="submit" disabled={loading}>
+                {loading ? <div className="spinner"></div> : t('sendReset')}
+              </button>
+            </form>
+            <div className="login-links">
+              <span>{t('rememberPassword')}</span>
+              <a href="/login"> {t('logIn')}</a>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   );
 };

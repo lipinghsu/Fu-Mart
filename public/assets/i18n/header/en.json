@@ -10,7 +10,8 @@
     "ACCOUNT": "ACCOUNT",
     "LOG OUT": "LOG OUT",
     "login": "Log in",
-    "signup": "Sign up",
+    "signup": "Sign Up",
+    "account": "Account",
 
     "myShop": "My Shop",
     "sellNow": "Sell Now",
@@ -18,5 +19,30 @@
     "settings": "Settings",
     "help": "Help",
     "currency": "Currency",
-    "logout": "Logout"
+    "logout": "Logout",
+    "Settings": "Settings",
+    "newCustomer": "New here?",
+    "startHere": "Sign up",
+    
+    "settings": {
+        "title": "Settings",
+        "darkMode": "Dark Mode",
+        "lightMode": "Light Mode",
+        "language": "Language",
+        "currency": "Currency",
+        "close": "Close"
+    },
+    "language": {
+        "english": "English",
+        "chinese": "Traditional Chinese",
+        "japanese": "Japanese",
+        "korean": "Korean"
+    },
+    "currency": {
+        "jpy": "Japanese Yen",
+        "krw": "South Korean Won",
+        "twd": "New Taiwan Dollar",
+        "usd": "US Dollar"
+    }
 }
+

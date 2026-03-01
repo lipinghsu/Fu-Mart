@@ -13,6 +13,7 @@
     "LOG IN": "로그인",
     "login": "로그인",
     "signup": "회원가입",
+    "account": "계정",
     "logout": "로그아웃",
     
     "myShop": "내 상점",
@@ -20,6 +21,29 @@
     "purchases": "구매내역",
     "settings": "설정",
     "help": "도움말",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "Settings": "설정",
+    "newCustomer": "처음이세요?",
+    "startHere": "지금 가입",
+    "settings": {
+        "title": "설정",
+        "darkMode": "다크 모드",
+        "lightMode": "라이트 모드",
+        "language": "언어",
+        "currency": "통화",
+        "close": "닫기"
+    },
+    "language": {
+        "english": "영어",
+        "chinese": "번체 중국어",
+        "japanese": "일본어",
+        "korean": "한국어"
+    },
+    "currency": {
+        "jpy": "일본 엔",
+        "krw": "대한민국 원",
+        "twd": "신 대만 달러",
+        "usd": "미국 달러"
+    }
 
 }

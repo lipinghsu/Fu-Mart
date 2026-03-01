@@ -6,7 +6,7 @@ import './styles.scss';
 const AccountLayout = props =>{
     const [showSignupDropdown, setShowSignupDropdown] = useState(false);
     return(
-        <div className='flex-wrapper-account-layout'>
+        <div className='flex-wrapper-account-layout legal'>
             {/* <Header {...props} */}
                     {/* showSignupDropdown={showSignupDropdown}  */}
                     {/* setShowSignupDropdown={setShowSignupDropdown} /> */}

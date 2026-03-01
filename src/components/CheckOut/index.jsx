@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {
+  FieldValue,
+  writeBatch,
+  doc,
+  getDoc,
+  updateDoc
+} from 'firebase/firestore';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   Elements,
@@ -11,16 +18,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { auth, firestore } from '../../firebase/utils';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { FieldValue, writeBatch, doc, getDoc } from 'firebase/firestore';
 import { clearCart as clearCartAction } from '../../redux/cartSlice';
 import './CheckOut.scss';
 import logoImage from '../../assets/fu-red-bg.png';
 
 const stripePromise = loadStripe('your-stripe-public-key');
-
-const VALID_COUPONS = {
-  SAVE10: 0.1
-};
 
 const CheckOut = () => {
   const { t } = useTranslation(['checkout']);
@@ -58,6 +60,16 @@ const CheckOut = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const gameItem = cart.find((item) => item.fromGame && item.couponCode);
+  if (gameItem) {
+    setCoupon(gameItem.couponCode);
+    setTimeout(() => handleApplyCoupon(), 500);
+  }
+}, []);
+
+  
   const LIGHT_CARD_STYLE = {
     style: {
       base: {
@@ -109,21 +121,61 @@ const CheckOut = () => {
     setTaxRate(stateProvince === 'CA' ? 0.08 : 0.05);
   }, [stateProvince]);
 
-  const handleApplyCoupon = () => {
-    const code = coupon.trim().toUpperCase();
-    if (VALID_COUPONS[code]) {
-      setDiscount(VALID_COUPONS[code]);
-      setMessage(
-        t('couponApplied', {
-          code,
-          percent: (VALID_COUPONS[code] * 100).toFixed(0)
-        })
-      );
-    } else {
+const handleApplyCoupon = async () => {
+  const code = coupon.trim();
+  if (!code) {
+    setMessage(t('invalidCoupon') || 'Please enter a coupon code.');
+    return;
+  }
+
+  try {
+    const couponRef = doc(firestore, 'coupons', code);
+    const snap = await getDoc(couponRef);
+
+    if (!snap.exists()) {
       setDiscount(0);
-      setMessage(t('invalidCoupon'));
+      setMessage('❌ 優惠碼無效或不存在');
+      return;
     }
-  };
+
+    const data = snap.data();
+    const now = new Date();
+
+    // ✅ 1. Check usage and expiration
+    if (data.isUsed) {
+      setDiscount(0);
+      setMessage('⚠️ 此優惠碼已被使用');
+      return;
+    }
+
+    if (data.expiresAt && new Date(data.expiresAt) < now) {
+      setDiscount(0);
+      setMessage('⌛ 此優惠碼已過期');
+      return;
+    }
+
+    // ✅ 2. Check if the gift product is in the cart
+    const matchedItem = cartItems.find((item) => item.id === data.productId);
+    if (!matchedItem) {
+      setDiscount(0);
+      setMessage('⚠️ 此優惠碼僅適用於指定商品');
+      return;
+    }
+
+    // ✅ 3. Apply discount equal to the gift’s price
+    const discountAmount = Math.min(data.amount, matchedItem.price * matchedItem.quantity);
+    setDiscount(discountAmount / subtotal);
+    setMessage(`✅ 優惠碼已套用：折抵 $${discountAmount.toFixed(2)}（限 ${data.productName}）`);
+
+    // store code for later marking
+    setCoupon(data.code);
+  } catch (err) {
+    console.error('Error checking coupon:', err);
+    setMessage('無法驗證優惠碼，請稍後再試');
+  }
+};
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -176,6 +228,19 @@ const CheckOut = () => {
       });
       await batch.commit();
       console.log('🟢 Stock quantities updated.');
+      if (coupon) {
+        try {
+          const couponRef = doc(firestore, 'coupons', coupon);
+          await updateDoc(couponRef, {
+            isUsed: true,
+            usedBy: currentUser?.uid || 'guest',
+            usedAt: new Date().toISOString(),
+          });
+          console.log(`🟢 Coupon ${coupon} marked as used.`);
+        } catch (couponErr) {
+          console.error('Error marking coupon as used:', couponErr);
+        }
+      }
 
       dispatch(clearCartAction());
       navigate('/order-confirmation');
@@ -400,7 +465,7 @@ const CheckOut = () => {
               <button
                 type="submit"
                 className="confirm-checkout-btn"
-                disabled={!currentUser}
+                disabled={!currentUser || discount > 0}
               >
                 {t('confirmPurchase')}
               </button>
@@ -506,3 +571,4 @@ const CheckOutWithStripe = () => (
 );
 
 export default CheckOutWithStripe;
+

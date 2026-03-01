@@ -1,7 +1,7 @@
 .browse-title-wrap {
   background-color: #020203;
   position: relative;
-  margin: 0 auto 40px;
+  margin: 0 auto 0px;
   width: 100%;
   font-size: 1.6rem;
   font-weight: bold;
@@ -15,20 +15,22 @@
     font-weight: inherit;
     color: #f2f2f3;
     margin: 0 auto;
-    .view-all-link{
+
+    .view-all-link {
       margin-left: auto;
       font-size: 1rem;
       font-weight: 400;
       color: #ebebeb;
-      &:hover{
+      &:hover {
         color: #fff;
-        cursor:pointer;
+        cursor: pointer;
         text-decoration: underline;
       }
       @media (max-width: 520px) {
         display: none;
       }
     }
+
     @media (max-width: 520px) {
       font-size: 1.4rem;
       padding: 12px 16px;
@@ -38,120 +40,75 @@
 
     .custom-dropdown {
       position: relative;
-      cursor: pointer;
-      border-bottom: none;
+      display: flex;
+      align-items: center;
+      // Use gap for spacing instead of margin
+      gap: 16px;
+      transition: gap 0.35s ease-out;
+      @media (max-width: 520px) {
+      }
 
-      .selected {
-        color: inherit;
-        position: relative;
-        display: inline-block;
-        color:#f2f2f3;
-
-
-        // Add redline using ::after
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: -4.5px; // place the line just below the text
-          left: 0;
-          width: 100%;
-          height: 2.5px;
-          background-color: #e5341d; // red accent color
-          border-radius: 4px; // rounded edges
-        }
-        &:hover{
-          &::after{
-            background-color: #e5341d !important;
-          }
+      // When the container is hovered, expand the gap and reveal items
+      &:hover {
+        gap: 16px;
+        .dropdown-item:not(.active) {
+          max-width: 150px;
+          opacity: 1;
         }
       }
     }
   }
 
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid #727273;
-    // border-top: 1px solid #fff;
-    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    // flex-direction: column;
-    z-index: 50;
-    overflow: scroll;
-    animation: dropdownFadeIn 0.15s ease-out both;
+  .dropdown-item {
+    cursor: pointer;
+    // Removed margin-left from transition
+    transition: max-width 0.35s ease-out, opacity 0.3s ease-out, color 0.08s ease;
+    white-space: nowrap;
 
-    .dropdown-item {
+    .item-text {
       position: relative;
-      font-size: 1.4rem;
-      font-weight: 600;
-      padding: 12px 32px;
-      cursor: pointer;
-      color: #727273;
-      background-color: transparent;
-      border-left: 1px solid #a2a2a3;
-      transition: all 0.02s ease-out;
-      width: 100%;
-      @media (max-width: 520px) {
-       font-size: 1.2rem !important; 
-       padding: 8px 16px;
-      }
-
-
-      &:first-child {
-        border-left: none !important;
-      }
-
-      &:hover {
-        background-color: #010b37;
-        color: #f2f2f3;
-        // color: #020203 !important;
-        &.active{
-          color: #f2f2f3;
-          // .item-text::after {
-          //   background-color: red;
-          // }
-        }
-        .item-text::after {
-          background-color: #e5341d;
-        }
-      }
-
-      .item-text {
-        position: relative;
-        display: inline-block;
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: -4px; // right below text baseline
-          left: 0;
-          width: 100%; // exactly matches text width
-          height: 2.5px;
-          background-color: transparent;
-          border-radius: 4px;
-          transition: background-color 0.2s ease;
-        }
-      }
-
-      &.active {
-        font-weight: 700;
-        color: inherit;
-
-        // .item-text::after {
-        //   background-color: #b2b2b3;
-        // }
+      display: inline-block;
+      font-weight: bold;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -4.5px;
+        left: 0;
+        width: 100%;
+        height: 2.5px;
+        background-color: transparent;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
       }
     }
 
+    &.active {
+      font-weight: 700;
+      color: #f2f2f3;
+      .item-text::after {
+        background-color: #e5341d;
+      }
+    }
+
+    &:not(.active) {
+      // max-width: 0;
+      // opacity: 0;
+      // overflow: hidden;
+      color: #a2a2a3;
+      font-weight: 400;
+      // margin-left is no longer needed here
+      &:hover {
+        color: #f2f2f3;
+        .item-text::after {
+          // background-color: #e5341d;
+        }
+      }
+    }
   }
 
   @media (max-width: 520px) {
     font-size: 1.5rem;
     text-align: center;
-
     .browse-title {
       flex-wrap: wrap;
       gap: 4px;
@@ -161,75 +118,20 @@
 
 :root.dark-mode {
   .browse-title-wrap {
-    background-color: #1c1c1d; // slightly softer than pure black for less strain
-
+    background-color: #1e1e1f;
     .browse-title {
       color: #f8f8f9;
-
-      .custom-dropdown {
-        border-bottom: none;
-
-        .selected {
-          color: #f8f8f9;
-
-          &::after {
-            background-color: #828283; // same redline in dark mode
-          }
-        }
-      }
     }
-
-    .dropdown-menu {
-      background-color: #1f1f20; // slightly lighter than background for separation
-      border-bottom: 1px solid #121213 !important;
-      border-top: 1px solid #121213;
-      // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-
-      .dropdown-item {
-        // background-color: transparent;
-        color: #d2d2d3 !important;
-        border-left: 1px solid #121213;
-        background-color: #2b2b2c; // subtle highlight on hover
-
+    .dropdown-item {
+      &.active {
+        color: #f8f8f9;
+      }
+      &:not(.active) {
+        color: #c8c8c8;
         &:hover {
-          background-color: #010b37; // subtle highlight on hover
-          color: #fff !important;
-          .item-text::after {
-            background-color: #e5341d;
-          }
-        }
-
-        &.active {
-          font-weight: 700;
-          color: inherit;
-
-          &::after {
-            background-color: #ff4d4f;
-          }
+          color: #fff;
         }
       }
     }
-  }
-}
-
-@keyframes dropdownFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
-
-@keyframes fadeInItem {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
   }
 }

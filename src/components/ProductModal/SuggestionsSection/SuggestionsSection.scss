@@ -1,0 +1,192 @@
+
+/* local shimmer */
+@keyframes ss-shimmer {
+  0%   { background-position: -400% 0; }
+  100% { background-position: 400% 0; }
+}
+.product-modal{
+    .suggestions{
+        padding: 0 16px;
+        @media (max-width: 870px) {
+            padding: 0;
+        }
+    }
+}
+
+/* Wrap all known class variants so ProductDetail + ProductModal look identical */
+.suggestions-section,
+.pd-suggestions-container,
+.suggestions,
+.suggestions.styled-suggestions,
+.suggestions.brand-suggestions {
+  display: block;
+  margin-top: 32px;
+  /* IMPORTANT: do NOT clip the scroller in ProductDetail */
+  overflow: visible;
+  max-width: 100%;
+
+  &.brand-suggestions { margin-top: 32px; }
+
+  /* Titles */
+  .suggestion-title,
+  .pd-suggestion-header {
+    text-align: left;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0;
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.4rem;
+      line-height: 1.75rem;
+      font-weight: 700;
+      color: #222223;
+    }
+
+    .suggestion-view-all {
+      font-weight: 600;
+      color: #727273;
+      background: none;
+      border: none;
+      margin: 0 0 16px; 
+      padding: 1px 12px;
+      font-size: 0.9rem;
+      border-radius: 10px;
+      cursor: pointer;
+      line-height: 1;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      
+      &:hover {
+        color:#222223;
+        text-decoration: underline;
+        // font-weight: 800;
+      }
+    }
+  }
+
+  /* Horizontal scroller */
+  .suggested-items,
+  .pd-suggestion-list,
+  .pd-scroll-horizontal {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 0 0 8px 0;
+    max-width: 100%;
+
+    /* hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar { display: none; }
+
+    /* Card slots (uniform width across app) */
+    .suggested-item,
+    .pd-suggestion-item,
+    .suggested-item.skeleton,
+    .pd-suggestion-item-skel {
+      flex: 0 0 auto;
+      /* keep the same size as your ProductDetail styles */
+      width: clamp(200px, 26vw, 252px);
+      min-height: 320px;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+
+    /* Skeletons */
+    .suggested-item.skeleton,
+    .pd-suggestion-item-skel {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e6e6e6 50%, #f0f0f0 75%);
+      background-size: 400% 100%;
+      animation: ss-shimmer 2.3s infinite;
+
+      .skeleton-box,
+      .pd-skeleton-box {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+      }
+    }
+
+    /* Product cards (reset any old fixed widths like 240px) */
+    .suggested-item .product-card,
+    .pd-suggestion-item .product-card {
+      width: 100% !important;
+      max-width: 100%;
+      // background-color: #f8f8fa;
+      // transition: background-color .2s ease;
+
+      &:hover { background-color: #173b7a18; }
+    }
+
+    /* Empty states */
+    .noSuggestions-wrapper {
+      background-color: #f2f2f3;
+      width: 100%;
+      min-height: 283px;
+      border-radius: 12px;
+      color: #020203;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      .no-suggestions-title {
+        margin-bottom: 8px;
+        // font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+
+    .brand-empty {
+      .no-suggestions-title { 
+        font-weight: 500; 
+      }
+      .no-suggestions-sub {
+        margin-top: 4px;
+        font-size: 0.9rem;
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+/* Dark mode (works under .dark-mode, .product-modal.dark, .pd-modal-card.dark) */
+.dark-mode,
+.product-modal.dark,
+.pd-modal-card.dark {
+  .suggestions-section,
+  .pd-suggestions-container,
+  .suggestions,
+  .suggestions.styled-suggestions,
+  .suggestions.brand-suggestions {
+    .pd-suggestion-header h2,
+    .suggestion-title h2 { color: #f2f2f3; }
+    .suggestion-title .suggestion-view-all {
+      color:#b2b2b3;
+      &:hover {
+        color:#f2f2f3;
+      }
+    }
+
+    .suggested-items .product-card,
+    .pd-suggestion-list .product-card,
+    .pd-scroll-horizontal .product-card {
+      background-color: transparent !important;
+      &:hover { 
+        background-color: #222223 !important; 
+      }
+      &.pressed{        
+        background-color: #1e1e1f !important;
+      }
+    }
+
+    .noSuggestions-wrapper {
+      background-color: #222223 !important;
+      color: #fff !important;
+    }
+  }
+}

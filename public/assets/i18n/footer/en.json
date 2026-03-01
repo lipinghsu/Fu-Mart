@@ -11,12 +11,15 @@
 "emailAria": "Email Address",
 "join": "JOIN",
 "joining": "Joining...",
-"signupDisclaimer": "By connecting, you agree to receive news and updates from Fü-Mart.",
+"signupDisclaimer": "By connecting, you agree to receive updates from Fü-Mart.",
 "newsletterSuccess": "You've been added to our newsletter list.",
 "newsletterError": "An error occurred. Please try again.",
 "enterValidEmail": "Please enter a valid email.",
 "light": "Light Mode",
 "dark": "Dark Mode",
 "welcome": "HUAN YING GUANG LIN",
-"store": "Enter Store"
+"store": "Enter Store",
+"aboutus": "ABOUT",
+"settings": "Settings"
+
 }

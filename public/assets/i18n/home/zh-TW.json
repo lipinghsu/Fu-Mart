@@ -38,8 +38,8 @@
   "welcome": "歡迎光臨",
 
   "signupTitle": "Fü-Mart的目標",
-  "signupDesc": "連你阿嬤想要買的 福碼都想要便宜賣",
-  "signupDesc2": "如果連阿嬤都不會買，那麽福瑪特就不會賣",
+  "signupDesc": "連你阿嬤想要買的 Fü-Mart都想要便宜賣",
+  "signupDesc2": "如果連阿嬤都不會買，那麽Fü-Mart就不會賣",
   "signupNow": "立即註冊",
   "learnMore": "了解更多",
 
@@ -57,9 +57,33 @@
   "Pasta & Noodles": "麵食",
   "Canned Goods": "罐頭食品",
   
-  "viewFumartCategory": "查看福碼{{category}}",
+  "viewFumartCategory": "查看Fü-Mart{{category}}",
   "searchFor": "搜尋 “{{query}}”...",
 
   "searchResultsFor": "{{length}} 件搜尋結果：「{{searchQuery}}」",
-  "searchResultsFor_plural": "{{length}} 件搜尋結果：「{{searchQuery}}」"
+  "searchResultsFor_plural": "{{length}} 件搜尋結果：「{{searchQuery}}」",
+  "joinLuckyDraw": "註冊後首次消費即可獲得免費神秘好禮！",
+
+  "slides": {
+    "fortunate": {
+      "heading": "福的開始",
+      "cta": "查看全部商品"
+    },
+    "taipei2025": {
+      "heading": "台北主題周邊商品",
+      "cta": "搶先預購"
+    },
+    "classics": {
+      "heading": "阿嬤的櫥櫃",
+      "cta": "解鎖台味生活"
+    },
+    "street": {
+      "heading": "台北街頭系列",
+      "cta": "限定販售"
+    },
+    "taste": {
+      "heading": "台灣的味道",
+      "cta": "開始探索"
+    }
+  }
 }

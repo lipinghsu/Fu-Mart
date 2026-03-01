@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 16px !important;
   
   box-shadow: none;
   transition: all 0.02s ease-out;
@@ -10,18 +10,26 @@
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-
+  
   position: relative;
+  
   &:hover {
-    background-color: #f0f4f8 !important;
+    background-color: #f6f8fa !important;
     box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.12);
-    .add-to-bag-btn{
-      // background: url('./../../assets/btn-background.png') center center / cover no-repeat;
+
+    /* show the button smoothly on hover */
+    .add-to-bag-btn {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
       background-color: #e5341d;
-      color: #f2f2f3  !important;
+      color: #f2f2f3 !important;
     }
   }
-
+  &.pressed{
+    background-color: #f0f4f8 !important;
+    scale: 0.995;
+  }
 
   .sale-badge {
     position: absolute;
@@ -44,7 +52,9 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
-
+    letter-spacing: 0.3px;
+    // margin-top: 11px;
+    
     .current.isOnSale {
       // font-weight: 800;
       // font-size: 1rem;
@@ -57,6 +67,7 @@
       color: #bababa;
       // color: #e5341d;
       text-decoration: line-through;
+      
     }
 
     .percent {
@@ -70,15 +81,20 @@
   }
 
   &.sold-out {
+    
     .sale-badge { display: none; } // hide sale when sold out
   }
 
   &.sold-out {
+    
     // cursor: default;
 
     .product-image {
       filter: grayscale(0.35) brightness(0.92);
       opacity: 0.5;
+      &.active { // Ensure the active sold-out image is still visible
+        opacity: 0.5 !important; 
+      }
     }
 
     .product-info{
@@ -88,6 +104,7 @@
     } 
 
     .add-to-bag-btn {
+      
       background-color: #9b9c9d !important;
       color: #ffffff !important;
       // width: 96px; // keep width stable
@@ -136,23 +153,60 @@
     color: #ffffff;
   }
 
+    
+  /* --- UPDATED IMAGE STYLES --- */
   .product-image-wrap {
+    position: relative;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto 0;
-    transform: scale(0.93) !important;
+    width: 100%;
+    aspect-ratio: 1 / 1; // ✅ keeps height stable no matter what
+    // background-color: #fff;
+
+    // fallback if aspect-ratio not supported
+    @supports not (aspect-ratio: 1 / 1) {
+      height: 320px;
+    }
+
+    picture {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     .product-image {
-      padding: 12px 12px 6px 12px;
-      width: 100%;
-      max-height: 300px;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
-      user-drag: none;
-      -webkit-user-drag: none;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
+      opacity: 0;
+      transition: opacity 0.35s ease-in-out;
+      pointer-events: none;
+      transform: scale(0.93);
+    }
+
+    .product-image.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    // multiple images stacked smoothly
+    &.has-multiple {
+      .product-image {
+        position: absolute;
+        inset: 0;
+      }
+    }
+    .sold-out-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
       pointer-events: none;
     }
   }
@@ -208,9 +262,8 @@
     bottom: 17px;
     right: 16px;
     padding: 8px 16px;
-    // color: #ecd444;
-    color:#f2f2f3;
-    background-color:#323233;
+    color: #f2f2f3;
+    // background-color: #323233;
     border: none;
     border-radius: 18px;
     font-size: 0.9rem;
@@ -218,37 +271,64 @@
     cursor: pointer;
     overflow: hidden;
     white-space: nowrap;
-    width: 56px;
     height: 36px;
-    
-    transition: width 0.3s ease, background-color 0.1s ease-out;
+    transition: width 180ms ease, background-color 0.1s ease-out, box-shadow 0.18s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    // background: url('./../../assets/btn-background.png') center center / cover no-repeat;
-    
-    .spinner {
-      width: 16px;
-      height: 16px;
-      border: 2.5px solid #f2f2f3;
-      border-top: 2.5px solid transparent;
-      border-radius: 50%;
-      animation: spin 0.6s cubic-bezier(0.65, 0.05, 0.36, 1) infinite, pulse 1.2s ease-in-out infinite;
-      box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    width 180ms ease,
+    background-color 0.1s ease-out,
+    box-shadow 0.18s ease;
+
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+
+    .spinner-wrap {
+      position: absolute;
+      inset: 0;              
+      background: #e5341d;  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: inherit;
+      z-index: 1;  
+      background: #e5341d;
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2.5px solid #f2f2f3;
+        border-top: 2.5px solid transparent;
+        border-radius: 50%;
+        animation: spin 0.6s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+      }
+
     }
 
     .text-added {
-      // color: green;
       font-weight: bold;
-      color: #28A739 !important;
-      background-color: #fff;
+      background-color: #28A739 !important;
+      color: #fff;
+
+      position: absolute; 
+      inset: 0;           
+      display: flex;      
+      justify-content: center;
+      align-items: center;  
+ 
     }
 
-    &:hover {
-      width: 104px;
-      
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.29);
-    }
+    &:hover { width: 104px; }
 
     .text-default,
     .text-hover,
@@ -281,6 +361,23 @@
     &:hover .text-hover {
       opacity: 1;
     }
+  }
+  .btn-measurer {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: 600;
+    inset: -9999px auto auto -9999px;
+  }
+  .btn-measure-text { display: inline-block; padding: 0; margin: 0; }
+
+  .btn-measure-spinner {
+    display: inline-block;
+    width: 16px;   /* same as .spinner width */
+    height: 16px;
   }
 
 }
@@ -342,8 +439,8 @@
       }
     }
     .add-to-bag-btn {
-      background-color: #e2e2e3;
-      color: #121213;
+      // background-color: #e2e2e3;
+      // color: #121213;
     }
 
     &:hover {
@@ -368,6 +465,7 @@
         color: #e5e5e5;
       }
     }
+
   }
 }
 

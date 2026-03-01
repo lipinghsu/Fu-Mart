@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './JoinUsModal.scss';
-import modalImage from '../../../assets/dragons-taipei101-view.png';
-import fumartLogo2 from '../../../assets/fumart-text-logo-bombarda2.png';
+import modalImage from '../../../assets/Images/dragons-taipei101-view.png';
+import fumartLogo2 from '../../../assets/fumart-text-logo-bombarda.png';
 import closeImage from '../../../assets/Icons/closeImage.png';
 
 import { useTranslation } from 'react-i18next';
@@ -46,7 +46,7 @@ const JoinUsModal = ({ onClose, children }) => {
 
   const handleClose = () => {
     const now = Date.now();
-    localStorage.setItem('joinUsLastShown', now.toString()); // ✅ Set timestamp only on close
+    localStorage.setItem('joinUsLastShown', now.toString());
     setIsClosing(true);
     setTimeout(() => {
       onClose();

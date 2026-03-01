@@ -1,0 +1,33 @@
+{
+  "hero": {
+    "title": "About Us"
+  },
+  "preface": {
+    "title": "Redefining Taipei’s Shopping Experience",
+    "p1": "The goal of Fü-Mart is to reorganize Taipei’s products and services into one single connected system, a digital vending machine for the city. By presenting the best local goods as works of art, we aim to make discovering refined products and exceptional services simple for everyone.",
+    "p2": "We strive to perfect the details of everyday life, turning the ordinary into a sensory experience and a way of learning. Our mission is to make Taipei’s shopping experience more distinctive and efficient."
+  },
+  "founder": {
+    "title": "Founder’s Story",
+    "p1": "Born and raised in '90s Taipei, Li-Ping moved to California alone during high school to live with his older brother. His first job was as a cashier at the Asian-American supermarket 99 Ranch Market.",
+    "p2": "During that time, he learned English by listening to rap music and immersed himself in subcultures he was unable to fully understand before, gradually learning to see the world from new perspectives.",
+    "p3": "He later completed a degree in Computer Engineering at Cal Poly."
+  },
+  "ethos": {
+    "title": "Aesthetic Roots",
+    "p1": "Li-Ping’s grandparents were Waishengren who migrated to Taiwan after World War II. He grew up in a home filled with bamboo furniture and ink paintings stamped with red seals. The shine of his grandmother’s green jade bangle became his first glimpse of Chinese culture.",
+    "p2": "These everyday scenes nurtured his understanding of Chinese aesthetics and shaped Fü-Mart’s design philosophy of preserving tradition while pursuing sustainable innovation.",
+    "p3": "This unique aesthetic philosophy, inherited from East Asian culture, has become the spiritual source of our creativity and continuity."
+  },
+  "vision": {
+    "title": "Our Vision",
+    "p1": "Carrying this cultural heritage and belief forward, we seek to redefine everyday life in Taipei through our own Taiwanese perspective, where convenience is not merely a process, but an expression of taste and cultural continuity.",
+    "p2": "Fü-Mart’s first goal is to build a new-generation platform where people in Taipei can freely share and easily trade, allowing everyone to discover products that feel meaningful and unique.",
+    "p3": "At the same time, we aim to promote and produce high-quality local products, allowing Taipei’s beauty to gradually reach the world."
+  },
+  "join": {
+    "title": "Taipei Convenience Reimagined",
+    "subtitle": "If Taiwan’s grocery game had an MVP, we’d be the supermarket Fei Yu-ching.",
+    "button": "Join Fü-Mart"
+  }
+}

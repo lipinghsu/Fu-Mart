@@ -1,22 +1,22 @@
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebase/utils";
 
+// Handles password reset requests via Firebase Auth
 export const handleResetPasswordAPI = (email) => {
-    const config = {
-        //url of the page that we send ot the user 
-        url:'http://localhost:3000/login'
-    }
+  const config = {
+    url: "http://localhost:5173/login", 
+  };
 
-    return new Promise((resolve, reject) => {
-        const auth = getAuth();
-        sendPasswordResetEmail(auth, email, config)
-        .then(() => {
-            resolve();
-            // redirect to a new page -> verify user is not a robot here
-        })
-        .catch((err) => {
-            const error = ['No account found with that email. Please try again.'];
-            reject(error);
-        });
-
-    });
-}
+  return new Promise((resolve, reject) => {
+    sendPasswordResetEmail(auth, email, config)
+      .then(() => {
+        resolve();
+      })
+      .catch(() => {
+        const error = [
+          "No account found with that email. Please try again.",
+        ];
+        reject(error);
+      });
+  });
+};
